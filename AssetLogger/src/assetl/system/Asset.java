@@ -14,7 +14,6 @@ public class Asset
    protected String mType;
    protected String mDescription;
 
-
    /**
     * Constructs an asset with only the identifier and a type.
     *

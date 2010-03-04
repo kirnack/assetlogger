@@ -21,6 +21,22 @@ public class Person
    protected String mEmail;
    protected String mPhoneNumber;
 
+   public Person(String pID)
+   {
+      this(pID,"","","","","");
+   }
+
+   public Person(String pID, String pFirstName, String pMiddleName,
+           String pLastName, String pEmail, String pPhoneNumber)
+   {
+      this.mID = pID;
+      this.mFirstName = pFirstName;
+      this.mMiddleName = pMiddleName;
+      this.mLastName = pLastName;
+      this.mEmail = pEmail;
+      this.mPhoneNumber = pPhoneNumber;
+   }
+
    /**
     * Returns the phone number of the Person.
     *

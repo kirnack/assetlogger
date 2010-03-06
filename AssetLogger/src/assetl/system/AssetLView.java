@@ -15,5 +15,5 @@ package assetl.system;
  */
 public interface AssetLView
 {
-
+    
 }

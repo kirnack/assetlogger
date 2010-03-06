@@ -15,11 +15,15 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import assetl.system.AssetLView;
 
 /**
  * The application's main frame.
  */
-public class AssetLoggerView extends FrameView {
+public class AssetLoggerView 
+        extends FrameView
+        implements AssetLView
+{
 
     public AssetLoggerView(SingleFrameApplication app) {
         super(app);

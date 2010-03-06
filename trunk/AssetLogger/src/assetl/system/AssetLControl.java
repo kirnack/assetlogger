@@ -14,5 +14,8 @@ package assetl.system;
  */
 public interface AssetLControl
 {
-
+    void schedule();
+    void checkout(Request pRequest);
+    void checkin(Request pRequest);
+    void cancel(Request pRequest);
 }

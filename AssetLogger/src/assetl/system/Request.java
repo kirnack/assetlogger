@@ -15,7 +15,7 @@ public class Request
    protected Date mRequestMade;
    protected String mRequstType;
    protected Person mRequestor;
-   protected Boolean mActive;
+   protected boolean mActive;
    protected Collection<Checkout> mCheckouts;
 
    /**
@@ -23,7 +23,8 @@ public class Request
     *
     * @return the value of mCheckouts
     */
-   public Collection<Checkout> getMCheckouts() {
+   public Collection<Checkout> getCheckouts()
+   {
       return mCheckouts;
    }
 
@@ -32,8 +33,9 @@ public class Request
     *
     * @param mCheckouts new value of mCheckouts
     */
-   public void setMCheckouts(Collection<Checkout> mCheckouts) {
-      this.mCheckouts = mCheckouts;
+   public void setCheckouts(Collection<Checkout> pCheckouts)
+   {
+      this.mCheckouts = pCheckouts;
    }
 
    /**
@@ -41,7 +43,8 @@ public class Request
     *
     * @return the value of mActive
     */
-   public Boolean getMActive() {
+   public boolean isActive()
+   {
       return mActive;
    }
 
@@ -50,8 +53,8 @@ public class Request
     *
     * @param mActive new value of mActive
     */
-   public void setMActive(Boolean mActive) {
-      this.mActive = mActive;
+   public void setActive(boolean pActive) {
+      this.mActive = pActive;
    }
 
    /**
@@ -59,7 +62,8 @@ public class Request
     *
     * @return the value of mRequestor
     */
-   public Person getMRequestor() {
+   public Person getRequestor()
+   {
       return mRequestor;
    }
 
@@ -68,8 +72,9 @@ public class Request
     *
     * @param mRequestor new value of mRequestor
     */
-   public void setMRequestor(Person mRequestor) {
-      this.mRequestor = mRequestor;
+   public void setRequestor(Person pRequestor)
+   {
+      this.mRequestor = pRequestor;
    }
 
    /**
@@ -77,7 +82,8 @@ public class Request
     *
     * @return the value of mRequstType
     */
-   public String getMRequstType() {
+   public String getRequstType()
+   {
       return mRequstType;
    }
 
@@ -86,8 +92,9 @@ public class Request
     *
     * @param mRequstType new value of mRequstType
     */
-   public void setMRequstType(String mRequstType) {
-      this.mRequstType = mRequstType;
+   public void setRequstType(String pRequstType)
+   {
+      this.mRequstType = pRequstType;
    }
 
    /**
@@ -95,7 +102,8 @@ public class Request
     *
     * @return the value of mRequestMade
     */
-   public Date getMRequestMade() {
+   public Date getRequestMade()
+   {
       return mRequestMade;
    }
 
@@ -104,8 +112,9 @@ public class Request
     *
     * @param mRequestMade new value of mRequestMade
     */
-   public void setMRequestMade(Date mRequestMade) {
-      this.mRequestMade = mRequestMade;
+   public void setRequestMade(Date pRequestMade)
+   {
+      this.mRequestMade = pRequestMade;
    }
 
    /**
@@ -113,7 +122,8 @@ public class Request
     *
     * @return the value of mID
     */
-   public String getMID() {
+   public String getID()
+   {
       return mID;
    }
 
@@ -122,8 +132,9 @@ public class Request
     *
     * @param mID new value of mID
     */
-   public void setMID(String mID) {
-      this.mID = mID;
+   public void setID(String pID)
+   {
+      this.mID = pID;
    }
 
 }

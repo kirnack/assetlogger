@@ -21,13 +21,35 @@ public class Checkout
    protected Date mRequestedEndDate;
    protected Date mPickedupDate;
    protected Date mReturnedDate;
+   protected boolean mActive;
+
+   /**
+    * Returns if the checkout is still active. Meaning that the asset has/will
+    * be picked up and has not been returned yet.
+    *
+    * @return the value of mActive
+    */
+   public boolean isActive()
+   {
+      return mActive;
+   }
+
+   /**
+    * Set the active state for the
+    *
+    * @param mActive new value of mActive
+    */
+   public void setActive(boolean pActive)
+   {
+      this.mActive = pActive;
+   }
 
    /**
     * Get the value of mReturnedDate
     *
     * @return the value of mReturnedDate
     */
-   public Date getMReturnedDate()
+   public Date getReturnedDate()
    {
       return mReturnedDate;
    }
@@ -37,9 +59,9 @@ public class Checkout
     *
     * @param mReturnedDate new value of mReturnedDate
     */
-   public void setMReturnedDate(Date mReturnedDate)
+   public void setReturnedDate(Date pReturnedDate)
    {
-      this.mReturnedDate = mReturnedDate;
+      this.mReturnedDate = pReturnedDate;
    }
 
    /**
@@ -47,7 +69,7 @@ public class Checkout
     *
     * @return the value of mPickedupDate
     */
-   public Date getMPickedupDate()
+   public Date getPickedupDate()
    {
       return mPickedupDate;
    }
@@ -57,9 +79,9 @@ public class Checkout
     *
     * @param mPickedupDate new value of mPickedupDate
     */
-   public void setMPickedupDate(Date mPickedupDate)
+   public void setPickedupDate(Date pPickedupDate)
    {
-      this.mPickedupDate = mPickedupDate;
+      this.mPickedupDate = pPickedupDate;
    }
 
    /**
@@ -67,7 +89,8 @@ public class Checkout
     *
     * @return the value of mRequestedEndDate
     */
-   public Date getMRequestedEndDate() {
+   public Date getRequestedEndDate()
+   {
       return mRequestedEndDate;
    }
 
@@ -76,8 +99,9 @@ public class Checkout
     *
     * @param mRequestedEndDate new value of mRequestedEndDate
     */
-   public void setMRequestedEndDate(Date mRequestedEndDate) {
-      this.mRequestedEndDate = mRequestedEndDate;
+   public void setRequestedEndDate(Date pRequestedEndDate)
+   {
+      this.mRequestedEndDate = pRequestedEndDate;
    }
 
    /**
@@ -85,7 +109,8 @@ public class Checkout
     *
     * @return the value of mRequestedStartDate
     */
-   public Date getMRequestedStartDate() {
+   public Date getRequestedStartDate()
+   {
       return mRequestedStartDate;
    }
 
@@ -94,8 +119,9 @@ public class Checkout
     *
     * @param mRequestedStartDate new value of mRequestedStartDate
     */
-   public void setMRequestedStartDate(Date mRequestedStartDate) {
-      this.mRequestedStartDate = mRequestedStartDate;
+   public void setRequestedStartDate(Date pRequestedStartDate)
+   {
+      this.mRequestedStartDate = pRequestedStartDate;
    }
 
    /**
@@ -103,7 +129,8 @@ public class Checkout
     *
     * @return the value of mRecipient
     */
-   public Person getMRecipient() {
+   public Person getRecipient()
+   {
       return mRecipient;
    }
 
@@ -112,8 +139,9 @@ public class Checkout
     *
     * @param mRecipient new value of mRecipient
     */
-   public void setMRecipient(Person mRecipient) {
-      this.mRecipient = mRecipient;
+   public void setRecipient(Person pRecipient)
+   {
+      this.mRecipient = pRecipient;
    }
 
    /**
@@ -121,7 +149,8 @@ public class Checkout
     *
     * @return the value of mAsset
     */
-   public Asset getMAsset() {
+   public Asset getAsset()
+   {
       return mAsset;
    }
 
@@ -130,8 +159,9 @@ public class Checkout
     *
     * @param mAsset new value of mAsset
     */
-   public void setMAsset(Asset mAsset) {
-      this.mAsset = mAsset;
+   public void setAsset(Asset pAsset)
+   {
+      this.mAsset = pAsset;
    }
 
    /**
@@ -139,7 +169,8 @@ public class Checkout
     *
     * @return the value of mID
     */
-   public String getMID() {
+   public String getID()
+   {
       return mID;
    }
 
@@ -148,7 +179,8 @@ public class Checkout
     *
     * @param mID new value of mID
     */
-   public void setMID(String mID) {
-      this.mID = mID;
+   public void setID(String pID)
+   {
+      this.mID = pID;
    }
 }

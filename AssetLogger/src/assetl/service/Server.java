@@ -21,9 +21,39 @@ import assetl.system.User;
 public class Server 
         implements AssetLModel
 {
+    /**
+     * Variable to hold a singleton of Server
+     */
+    private static final AssetLModel INSTANCE;
+
+    /**
+     * Initialize a Server instance
+     */
+    static
+    {
+        INSTANCE = new Server();
+    }
     //
     // TODO: actually implement these functions
     //
+    
+    /**
+     * Constructor is deliberately private to create a singleton
+     */
+    private Server()
+    {
+        
+    }
+
+    /**
+     * Returns the Server instance
+     *
+     * @return The singleton instance of Server
+     */
+    public static AssetLModel getInstance()
+    {
+        return INSTANCE;
+    }
 
     public Person getPerson(String pID)
     {

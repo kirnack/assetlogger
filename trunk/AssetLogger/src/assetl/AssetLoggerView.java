@@ -23,6 +23,8 @@ import assetl.system.AssetLControl;
 import assetl.system.Person;
 import assetl.system.Asset;
 
+import assetl.service.DatabaseControl;
+
 /**
  * The application's main frame.
  */
@@ -119,6 +121,7 @@ public class AssetLoggerView
 
         mainPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -136,19 +139,29 @@ public class AssetLoggerView
         jButton1.setText(resourceMap.getString("testBtn.text")); // NOI18N
         jButton1.setName("testBtn"); // NOI18N
 
+        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
+
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(mainPanelLayout.createSequentialGroup()
-                .add(147, 147, 147)
-                .add(jButton1)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(mainPanelLayout.createSequentialGroup()
+                        .add(147, 147, 147)
+                        .add(jButton1))
+                    .add(mainPanelLayout.createSequentialGroup()
+                        .add(118, 118, 118)
+                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(mainPanelLayout.createSequentialGroup()
-                .add(116, 116, 116)
+                .add(78, 78, 78)
+                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(jButton1)
                 .addContainerGap(115, Short.MAX_VALUE))
         );
@@ -218,6 +231,7 @@ public class AssetLoggerView
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
@@ -246,11 +260,18 @@ public class AssetLoggerView
         {
             System.err.println("test");
             Person tempGuy = new Person("I-num");
+            tempGuy.setFirstName("Devin");
             Asset tempLaptop = new Asset("barcode", "Mac");
             Date tempStart = new Date();
             Date tempEnd = new Date();
 
             mControl.schedule(tempGuy, tempLaptop, tempStart, tempEnd);
+            
+            DatabaseControl temp = (DatabaseControl) mControl;
+
+            Person modelGuy = temp.getPerson(tempGuy.getID());
+
+            jTextField1.setText(modelGuy.getFirstName());
         }
     }
 }

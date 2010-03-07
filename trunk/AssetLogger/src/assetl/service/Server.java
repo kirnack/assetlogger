@@ -21,6 +21,7 @@ import assetl.system.User;
 public class Server 
         implements AssetLModel
 {
+    private Person test;
     /**
      * Variable to hold a singleton of Server
      */
@@ -57,11 +58,12 @@ public class Server
 
     public Person getPerson(String pID)
     {
-        return new Person("");
+        return test;
     }
 
     public void setPerson(Person pPerson)
     {
+        test = pPerson;
     }
 
     public Asset getAsset(String pID)

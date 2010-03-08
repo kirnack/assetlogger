@@ -13,6 +13,7 @@ public class Request
 
    protected String mID;
    protected Date mRequestMade;
+   protected Date mRequestedPickup;
    protected String mRequstType;
    protected Person mRequestor;
    protected boolean mActive;
@@ -31,7 +32,7 @@ public class Request
    /**
     * Set the value of mCheckouts
     *
-    * @param mCheckouts new value of mCheckouts
+    * @param pCheckouts new value of mCheckouts
     */
    public void setCheckouts(Collection<Checkout> pCheckouts)
    {
@@ -51,7 +52,7 @@ public class Request
    /**
     * Set the value of mActive
     *
-    * @param mActive new value of mActive
+    * @param pActive new value of mActive
     */
    public void setActive(boolean pActive) {
       this.mActive = pActive;
@@ -60,7 +61,7 @@ public class Request
    /**
     * Get the value of mRequestor
     *
-    * @return the value of mRequestor
+    * @return the value of pRequestor
     */
    public Person getRequestor()
    {
@@ -70,7 +71,7 @@ public class Request
    /**
     * Set the value of mRequestor
     *
-    * @param mRequestor new value of mRequestor
+    * @param pRequestor new value of mRequestor
     */
    public void setRequestor(Person pRequestor)
    {
@@ -90,7 +91,7 @@ public class Request
    /**
     * Set the value of mRequstType
     *
-    * @param mRequstType new value of mRequstType
+    * @param pRequstType new value of mRequstType
     */
    public void setRequstType(String pRequstType)
    {
@@ -110,7 +111,7 @@ public class Request
    /**
     * Set the value of mRequestMade
     *
-    * @param mRequestMade new value of mRequestMade
+    * @param pRequestMade new value of mRequestMade
     */
    public void setRequestMade(Date pRequestMade)
    {
@@ -130,7 +131,7 @@ public class Request
    /**
     * Set the value of mID
     *
-    * @param mID new value of mID
+    * @param pID new value of mID
     */
    public void setID(String pID)
    {

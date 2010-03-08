@@ -20,6 +20,8 @@ public class DatabaseControl
         implements AssetLControl
 {
     private AssetLModel mModel;
+    private String mUserID;
+    private boolean mAdmin;
 
     /**
      * Constructor uses a singleton instance of the model Server.
@@ -30,6 +32,9 @@ public class DatabaseControl
     public DatabaseControl()
     {
         mModel = Server.getInstance();
+        //The default admin
+        mUserID = "Doctor";
+        mAdmin = mModel.isAdmin(mUserID);
     }
 
     public void schedule(Person pPerson, Asset pAsset, Date pStart, Date pEnd)
@@ -47,7 +52,7 @@ public class DatabaseControl
 
         mModel.setPerson(pPerson);
         mModel.setAsset(pAsset);
-        mModel.setRequest(testRequest);
+        mModel.setRequest(testRequest, mUserID);
     }
 
     public void checkout(Request pRequest)

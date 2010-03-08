@@ -22,10 +22,13 @@ public interface AssetLModel
     Asset getAsset(String pID);
     void setAsset(Asset pAsset);
     Request getRequest(String pID);
-    void setRequest(Request pRequest);
+    void setRequest(Request pRequest, String pUserID);
     Boolean isAdmin(String pID);
     User getUser(String pID);
     Boolean checkPwd(String pID, String pPwd);
     Collection<Asset> getAvailAsset(Date pStart, Date pEnd);
     Collection<Asset> getAssets(Person pPerson);
+    int getNumRequests();
+    int getNumCheckouts();
+    int getNumLogs();
 }

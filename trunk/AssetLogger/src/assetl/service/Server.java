@@ -5,14 +5,22 @@
 
 package assetl.service;
 
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.Date;
 import assetl.system.AssetLModel;
 import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.Request;
 import assetl.system.User;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Timestamp;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -21,6 +29,18 @@ import assetl.system.User;
 public class Server 
         implements AssetLModel
 {
+
+   public int getNumCheckouts() {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   public int getNumLogs() {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   public int getNumRequests() {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
     private Person test;
     /**
      * Variable to hold a singleton of Server
@@ -81,7 +101,7 @@ public class Server
         return new Request();
     }
 
-    public void setRequest(Request pRequest)
+    public void setRequest(Request pRequest, String pUserID)
     {
 
     }

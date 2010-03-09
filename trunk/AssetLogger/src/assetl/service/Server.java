@@ -10,13 +10,16 @@ import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.Request;
 import assetl.system.User;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +32,9 @@ import java.util.Date;
 public class Server 
         implements AssetLModel
 {
+    private File mFile;
+    private Connection mConn;
+    private Statement mStat;
 
    public int getNumCheckouts() {
       throw new UnsupportedOperationException("Not supported yet.");
@@ -63,7 +69,81 @@ public class Server
      */
     private Server()
     {
-        
+
+        try
+        {
+            mFile = new File ("LaptopChecker.aldb");
+            if (!mFile.exists() || !mFile.isFile())
+            {
+                System.err.println("Making Database");
+                createDB();
+            }
+            else
+            {
+                Class.forName("org.sqlite.JDBC");
+                mConn = DriverManager.getConnection("jdbc:sqlite:"
+                    + mFile.getName());
+                mStat = mConn.createStatement();
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.exit(-1);
+        }
+    }
+
+    /**
+     * Creates the needed Database for the Asset Logger to store information
+     * in.
+     * @throws Exception
+     */
+    private void createDB()
+    {
+        try
+        {
+            loadDatabaseDriver("org.sqlite.JDBC");
+            mConn = DriverManager.getConnection("jdbc:sqlite:"
+                                                + mFile.getName());
+            mStat = mConn.createStatement();
+            File name = new File ((ClassLoader.getSystemResource(
+             Server.class.getPackage().getName().replace(".","/") + "/test.sql")
+                   .toString()).replace("file:", ""));
+            System.err.println(name);
+            BufferedReader in = new BufferedReader(new FileReader(name));
+            String str;
+            while ((str = in.readLine()) != null)
+            {
+                mStat.execute(str);
+            }
+            in.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (FileNotFoundException e)
+        {
+
+        }
+        catch (IOException e)
+        {
+
+        }
+    }
+
+    private void loadDatabaseDriver(String driverName)
+    {
+        try
+        {
+            Class.forName(driverName);
+
+        }
+        catch (ClassNotFoundException ex)
+        {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     /**

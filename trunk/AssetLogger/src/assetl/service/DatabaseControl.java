@@ -30,7 +30,6 @@ public class DatabaseControl
      * Constructor uses a singleton instance of the model Server.
      * It takes the view as a parameter
      * 
-     * @param pView The view tied to this controller
      */
     public DatabaseControl()
     {
@@ -140,6 +139,17 @@ public class DatabaseControl
     }
 
 
+    /**
+     *
+     * @param pPerson
+     * @param pAsset
+     * @param pStrtMon
+     * @param pStrtDay
+     * @param pStrtYear
+     * @param pEndMon
+     * @param pEndDay
+     * @param pEndYear
+     */
     public void schedule(String pPerson, String pAsset,
                   String pStrtMon, String pStrtDay, String pStrtYear,
                   String pEndMon, String pEndDay, String pEndYear)
@@ -152,6 +162,14 @@ public class DatabaseControl
         mModel.setRequest(mCurrRequest, mUserID);
     }
 
+    /**
+     *
+     * @param pPerson
+     * @param pAsset
+     * @param pEndMon
+     * @param pEndDay
+     * @param pEndYear
+     */
     public void checkout(String pPerson, String pAsset, String pEndMon,
                          String pEndDay, String pEndYear)
     {
@@ -166,16 +184,31 @@ public class DatabaseControl
         mModel.setRequest(mCurrRequest, mUserID);
     }
 
+    /**
+     * 
+     * @param pPerson
+     * @param pAsset
+     */
     public void checkin(String pPerson, String pAsset)
     {
 
     }
 
+    /**
+     *
+     * @param pPerson
+     * @param pAsset
+     */
     public void cancel(String pPerson, String pAsset)
     {
 
     }
 
+    /**
+     *
+     * @param pID
+     * @return
+     */
     public String getPersonFirst(String pID)
     {
         return mModel.getPerson(pID).getFirstName();

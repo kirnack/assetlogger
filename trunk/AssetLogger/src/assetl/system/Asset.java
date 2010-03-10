@@ -7,11 +7,29 @@ package assetl.system;
  */
 public class Asset
 {
-   protected String mID;
+    /**
+     *
+     */
+    protected String mID;
+   /**
+    *
+    */
    protected String mMake;
+   /**
+    * 
+    */
    protected String mModel;
+   /**
+    *
+    */
    protected String mSerialNum;
+   /**
+    *
+    */
    protected String mType;
+   /**
+    *
+    */
    protected String mDescription;
 
    /**

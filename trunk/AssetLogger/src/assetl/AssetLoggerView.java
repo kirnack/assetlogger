@@ -34,6 +34,11 @@ public class AssetLoggerView
 {
     private AssetLControl mControl;
 
+    /**
+     * 
+     * @param app
+     * @param pControl
+     */
     public AssetLoggerView(SingleFrameApplication app, AssetLControl pControl)
     {
         super(app);
@@ -99,6 +104,9 @@ public class AssetLoggerView
         });
     }
 
+    /**
+     *
+     */
     @Action
     public void showAboutBox() {
         if (aboutBox == null) {

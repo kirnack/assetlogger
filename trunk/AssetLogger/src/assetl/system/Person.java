@@ -14,18 +14,49 @@ package assetl.system;
  */
 public class Person
 {
-   protected String mID;
-   protected String mFirstName;
-   protected String mMiddleName;
+    /**
+     *
+     */
+    protected String mID;
+    /**
+     *
+     */
+    protected String mFirstName;
+    /**
+     * 
+     */
+    protected String mMiddleName;
+   /**
+    *
+    */
    protected String mLastName;
+   /**
+    *
+    */
    protected String mEmail;
+   /**
+    *
+    */
    protected String mPhoneNumber;
 
+   /**
+    *
+    * @param pID
+    */
    public Person(String pID)
    {
       this(pID,"","","","","");
    }
 
+   /**
+    *
+    * @param pID
+    * @param pFirstName
+    * @param pMiddleName
+    * @param pLastName
+    * @param pEmail
+    * @param pPhoneNumber
+    */
    public Person(String pID, String pFirstName, String pMiddleName,
            String pLastName, String pEmail, String pPhoneNumber)
    {

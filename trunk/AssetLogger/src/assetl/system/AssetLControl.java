@@ -14,11 +14,40 @@ package assetl.system;
  */
 public interface AssetLControl
 {
+    /**
+     *
+     * @param pPerson
+     * @param pAsset
+     * @param pStrtMon
+     * @param pStrtDay
+     * @param pStrtYear
+     * @param pEndMon
+     * @param pEndDay
+     * @param pEndYear
+     */
     void schedule(String pPerson, String pAsset,
                   String pStrtMon, String pStrtDay, String pStrtYear,
                   String pEndMon, String pEndDay, String pEndYear);
+    /**
+     *
+     * @param pPerson
+     * @param pAsset
+     * @param pEndMon
+     * @param pEndDay
+     * @param pEndYear
+     */
     void checkout(String pPerson, String pAsset,
                   String pEndMon, String pEndDay, String pEndYear);
+    /**
+     *
+     * @param pPerson
+     * @param pAsset
+     */
     void checkin(String pPerson, String pAsset);
+    /**
+     * 
+     * @param pPerson
+     * @param pAsset
+     */
     void cancel(String pPerson, String pAsset);
 }

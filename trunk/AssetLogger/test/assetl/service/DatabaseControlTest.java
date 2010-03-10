@@ -18,22 +18,39 @@ import static org.junit.Assert.*;
  */
 public class DatabaseControlTest {
 
+    /**
+     *
+     */
     public DatabaseControlTest() {
     }
 
-   @BeforeClass
+    /**
+     *
+     * @throws Exception
+     */
+    @BeforeClass
    public static void setUpClass() throws Exception {
    }
 
-   @AfterClass
+    /**
+     *
+     * @throws Exception
+     */
+    @AfterClass
    public static void tearDownClass() throws Exception {
    }
 
-    @Before
+   /**
+    *
+    */
+   @Before
     public void setUp() {
     }
 
-    @After
+   /**
+    * 
+    */
+   @After
     public void tearDown() {
     }
 

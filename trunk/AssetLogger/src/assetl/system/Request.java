@@ -12,12 +12,33 @@ import java.util.ArrayList;
 public class Request
 {
 
-   protected String mID;
+    /**
+     * 
+     */
+    protected String mID;
+   /**
+    *
+    */
    protected Date mRequestMade;
+   /**
+    *
+    */
    protected Date mRequestedPickup;
+   /**
+    *
+    */
    protected String mRequstType;
+   /**
+    *
+    */
    protected Person mRequestor;
+   /**
+    *
+    */
    protected boolean mActive;
+   /**
+    *
+    */
    protected Collection<Checkout> mCheckouts;
 
    /**
@@ -33,7 +54,7 @@ public class Request
     * @param pID The unique identifier of a Request
     * @param pRequestMade The Date the request was made
     * @param pRequestedPickup The Date they want to pick the Asset up
-    * @param pRequestType The request type (i.e. checkout vs. rent)
+    * @param pRequstType
     * @param pRequestor The Person requesting the asset
     */
    public Request(String pID, Date pRequestMade, Date pRequestedPickup,

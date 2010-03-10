@@ -6,14 +6,25 @@ package assetl;
 
 import org.jdesktop.application.Action;
 
+/**
+ *
+ * @author brogers3
+ */
 public class AssetLoggerAboutBox extends javax.swing.JDialog {
 
+    /**
+     *
+     * @param parent
+     */
     public AssetLoggerAboutBox(java.awt.Frame parent) {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);
     }
 
+    /**
+     *
+     */
     @Action public void closeAboutBox() {
         dispose();
     }

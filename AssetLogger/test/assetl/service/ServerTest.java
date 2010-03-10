@@ -22,24 +22,31 @@ import static org.junit.Assert.*;
  *
  * @author brogers3
  */
-public class ServerTest {
+public class ServerTest
+{
 
-    public ServerTest() {
+    public ServerTest()
+    {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception {
+    public static void setUpClass() throws Exception
+    {
+       System.err.println("Setup");
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {
+    public static void tearDownClass() throws Exception
+    {
+       System.err.println("Down");
     }
 
     /**
      * Test of getNumCheckouts method, of class Server.
      */
     @Test
-    public void testGetNumCheckouts() {
+    public void testGetNumCheckouts()
+    {
         System.out.println("getNumCheckouts");
         Server instance = Server.getInstance();
         int expResult = 0;
@@ -51,7 +58,8 @@ public class ServerTest {
      * Test of getNumLogs method, of class Server.
      */
     @Test
-    public void testGetNumLogs() {
+    public void testGetNumLogs()
+    {
         System.out.println("getNumLogs");
         Server instance = Server.getInstance();
         int expResult = 0;
@@ -63,7 +71,8 @@ public class ServerTest {
      * Test of getNumRequests method, of class Server.
      */
     @Test
-    public void testGetNumRequests() {
+    public void testGetNumRequests()
+    {
         System.out.println("getNumRequests");
         Server instance = Server.getInstance();
         int expResult = 0;
@@ -75,7 +84,8 @@ public class ServerTest {
      * Test of getInstance method, of class Server.
      */
     @Test
-    public void testGetInstance() {
+    public void testGetInstance()
+    {
         System.out.println("getInstance");
         AssetLModel expResult = Server.getInstance();
         AssetLModel result = Server.getInstance();
@@ -86,7 +96,8 @@ public class ServerTest {
      * Test of getPerson method, of class Server.
      */
     @Test
-    public void testGetPerson() {
+    public void testGetPerson()
+    {
         System.out.println("getPerson");
         String pID = "";
         Server instance = Server.getInstance();
@@ -101,7 +112,8 @@ public class ServerTest {
      * Test of setPerson method, of class Server.
      */
     @Test
-    public void testSetPerson() {
+    public void testSetPerson()
+    {
         System.out.println("setPerson");
         Person pPerson = null;
         Server instance = Server.getInstance();
@@ -114,7 +126,8 @@ public class ServerTest {
      * Test of getAsset method, of class Server.
      */
     @Test
-    public void testGetAsset() {
+    public void testGetAsset()
+    {
         System.out.println("getAsset");
         String pID = "";
         Server instance = Server.getInstance();
@@ -129,7 +142,8 @@ public class ServerTest {
      * Test of setAsset method, of class Server.
      */
     @Test
-    public void testSetAsset() {
+    public void testSetAsset()
+    {
         System.out.println("setAsset");
         Asset pAsset = null;
         Server instance = Server.getInstance();
@@ -142,7 +156,8 @@ public class ServerTest {
      * Test of getRequest method, of class Server.
      */
     @Test
-    public void testGetRequest() {
+    public void testGetRequest()
+    {
         System.out.println("getRequest");
         String pID = "";
         Server instance = Server.getInstance();
@@ -157,7 +172,8 @@ public class ServerTest {
      * Test of setRequest method, of class Server.
      */
     @Test
-    public void testSetRequest() {
+    public void testSetRequest()
+    {
         System.out.println("setRequest");
         Request pRequest = null;
         String pUserID = "";
@@ -171,13 +187,14 @@ public class ServerTest {
      * Test of getUsers method, of class Server.
      */
     @Test
-    public void testGetUsers() {
+    public void testGetUsers()
+    {
         System.out.println("getUsers");
         Server instance = Server.getInstance();
-        Collection expResult = new ArrayList<User>();
+        Collection<User> expResult = new ArrayList<User>();
         expResult.add(new User("Doctor"));
         expResult.add(new User("user"));
-        Collection result = instance.getUsers();
+        Collection<User> result = instance.getUsers();
         assertEquals(expResult, result);
     }
 
@@ -185,7 +202,8 @@ public class ServerTest {
      * Test of isAdmin method, of class Server.
      */
     @Test
-    public void testIsAdmin() {
+    public void testIsAdmin()
+    {
         System.out.println("isAdmin");
         Server instance = Server.getInstance();
         String pID = "brogers3";
@@ -204,7 +222,8 @@ public class ServerTest {
      * Test of getUser method, of class Server.
      */
     @Test
-    public void testGetUser() {
+    public void testGetUser()
+    {
         System.out.println("getUser");
         String pID = "brogers3";
         Server instance = Server.getInstance();
@@ -221,7 +240,8 @@ public class ServerTest {
      * Test of checkPwd method, of class Server.
      */
     @Test
-    public void testCheckPwd() {
+    public void testCheckPwd()
+    {
         System.out.println("checkPwd");
         Server instance = Server.getInstance();
         System.out.println("No user exists");
@@ -246,7 +266,8 @@ public class ServerTest {
      * Test of getAvailAsset method, of class Server.
      */
     @Test
-    public void testGetAvailAsset() {
+    public void testGetAvailAsset()
+    {
         System.out.println("getAvailAsset");
         Date pStart = null;
         Date pEnd = null;
@@ -262,12 +283,13 @@ public class ServerTest {
      * Test of getAssets method, of class Server.
      */
     @Test
-    public void testGetAssets() {
+    public void testGetAssets()
+    {
         System.out.println("getAssets");
         Server instance = Server.getInstance();
         Person pPerson = null;
-        Collection expResult = null;
-        Collection result = instance.getAssets(pPerson);
+        Collection<Asset> expResult = null;
+        Collection<Asset> result = instance.getAssets(pPerson);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

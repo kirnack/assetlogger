@@ -15,9 +15,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -36,22 +38,48 @@ public class Server
     private Connection mConn;
     private Statement mStat;
 
-   public int getNumCheckouts() {
-      throw new UnsupportedOperationException("Not supported yet.");
+   public int getNumCheckouts()
+   {
+      int numCheckouts = 0;
+      try
+      {
+        ResultSet rs = mStat.executeQuery("select count(*) from checkouts;");
+         numCheckouts = rs.getInt(1);
+      }
+      catch (SQLException e)
+      {
+          e.printStackTrace(System.err);
+      }
+      return numCheckouts;
    }
 
-   public int getNumLogs() {
-      throw new UnsupportedOperationException("Not supported yet.");
+   public int getNumLogs()
+   {
+      int numLogs = 0;
+
+      try
+      {
+        ResultSet rs = mStat.executeQuery("select count(*) from CheckoutLog;");
+         numLogs = rs.getInt(1);
+         rs.close();
+      }
+      catch (SQLException e)
+      {
+          e.printStackTrace(System.err);
+      }
+
+      return numLogs;
    }
 
-   public int getNumRequests() {
-      throw new UnsupportedOperationException("Not supported yet.");
+   public int getNumRequests()
+   {
+      return 0;
    }
     private Person test;
     /**
      * Variable to hold a singleton of Server
      */
-    private static final AssetLModel INSTANCE;
+    private static final Server INSTANCE;
 
     /**
      * Initialize a Server instance
@@ -69,10 +97,10 @@ public class Server
      */
     private Server()
     {
-
+        mFile = new File ("LaptopChecker.aldb");
         try
         {
-            mFile = new File ("LaptopChecker.aldb");
+            
             if (!mFile.exists() || !mFile.isFile())
             {
                 System.err.println("Making Database");
@@ -106,9 +134,11 @@ public class Server
             mConn = DriverManager.getConnection("jdbc:sqlite:"
                                                 + mFile.getName());
             mStat = mConn.createStatement();
-            File name = new File ((ClassLoader.getSystemResource(
-             Server.class.getPackage().getName().replace(".","/") + "/test.sql")
-                   .toString()).replace("file:", ""));
+            URL setupSQL = ClassLoader.getSystemResource(
+             Server.class.getPackage().getName().replace(".","/") +
+                 "/AssetLoggerSetup.sql");
+            System.err.println(setupSQL);
+            File name = new File (setupSQL.toString().replace("file:", ""));
             System.err.println(name);
             BufferedReader in = new BufferedReader(new FileReader(name));
             String str;
@@ -151,7 +181,7 @@ public class Server
      *
      * @return The singleton instance of Server
      */
-    public static AssetLModel getInstance()
+    public static Server getInstance()
     {
         return INSTANCE;
     }
@@ -186,19 +216,75 @@ public class Server
 
     }
 
-    public Boolean isAdmin(String pID)
+    public Collection<User> getUsers()
     {
-        return true;
+        Collection<User> users = new ArrayList<User>();
+        try
+        {
+            ResultSet rs = mStat.executeQuery("select * from users;");
+            while (rs.next())
+            {
+                Boolean admin =rs.getBoolean("isAdmin");
+                boolean primAdmin = admin.booleanValue();
+                users.add(new User(rs.getString("UserID"),
+                        rs.getString("Password"),
+                        primAdmin));
+            }
+            rs.close();
+        }
+        catch (Exception e)
+        {
+            System.err.println(e);
+        }
+        return users;
+    }
+
+    public boolean isAdmin(String pID)
+    {
+        try
+        {
+            return getUser(pID).isAdmin();
+        }
+        catch (NullPointerException e)
+        {
+            return false;
+        }
     }
 
     public User getUser(String pID)
     {
-        return new User();
+        User user = null;
+        try
+        {
+            ResultSet rs = mStat.executeQuery("select * from users where" +
+                                              " UserID='" + pID + "';");
+            if (rs.next())
+            {
+                Boolean admin =rs.getBoolean("isAdmin");
+                boolean primAdmin = admin.booleanValue();
+                user = new User(rs.getString("UserID"), rs.getString("Password")
+                        , primAdmin);
+            }
+            rs.close();
+        }
+        catch (Exception e)
+        {
+            System.err.println(e);
+        }
+        return user;
     }
 
-    public Boolean checkPwd(String pID, String pPwd)
+    public boolean checkPwd(String pID, String pPwd)
     {
-        return true;
+        try
+        {
+            return ((pPwd != null) &&
+                    pPwd.equals(getUser(pID).getPassword()));
+        }
+        catch (NullPointerException e)
+        {
+            return false;
+        }
     }
 
     public Collection<Asset> getAvailAsset(Date pStart, Date pEnd)

@@ -56,11 +56,29 @@ public class DatabaseControl
                 Integer.parseInt(pPickMon), Integer.parseInt(pPickDay));
         Person requestor = new Person(pPerson);
 
+        // TODO: remove this next line of test code
+        requestor.setFirstName("Devin Doman");
 
-        // Make the request object
-        mCurrRequest = new Request("0", new Date(), pickup,
-                                   "Checkout", requestor);
-        mModel.setPerson(requestor);
+
+        //
+        // TODO: find a request by its requestor and pickup date
+        // and see if it already exists
+        // (rather than just checking the last request made)
+        //
+
+        //
+        // If the pickup dates are the same for the same person
+        // there is no reason to make a new request
+        //
+
+        if (mCurrRequest == null || requestor != mCurrRequest.getRequestor() ||
+                pickup != mCurrRequest.getRequestedPickup())
+        {
+            // Make the request object, stamp it with today's date
+            mCurrRequest = new Request("0", new Date(), pickup,
+                                       "Checkout", requestor);
+            mModel.setPerson(requestor);
+        }
     }
 
     /**
@@ -75,12 +93,14 @@ public class DatabaseControl
      * @param pEndMon
      * @param pEndDay
      * @param pEndYear
+     * @param pPickedUp Whether or not they picked it up yet
      * @return
      */
     private boolean makeCheckout(String pPerson, String pAsset,
                                  String pStrtMon,String pStrtDay,
                                  String pStrtYear, String pEndMon,
-                                 String pEndDay, String pEndYear)
+                                 String pEndDay, String pEndYear,
+                                 boolean pPickedUp)
     {
         if (mCurrRequest == null)
         {
@@ -102,6 +122,17 @@ public class DatabaseControl
             // Make the checkout and add it to the current request
             Checkout currChkOut = new Checkout("0", currAsset, recipient,
                                                start, end);
+
+            //
+            // TODO: make sure the checkout isn't already in the collection
+            //
+
+            if (pPickedUp)
+            {
+                //stamp picked up date with today's date
+                currChkOut.setPickedupDate(new Date());
+            }
+            
             mModel.setAsset(currAsset);
             mCurrRequest.addCheckout(currChkOut);
             return true;
@@ -114,30 +145,33 @@ public class DatabaseControl
                   String pEndMon, String pEndDay, String pEndYear)
     {
         //make a new request and add a checkout to it
-        makeRequest(pPerson, pEndMon, pEndDay, pEndYear);
+        makeRequest(pPerson, pStrtMon, pStrtDay, pStrtYear);
         makeCheckout(pPerson, pAsset, pStrtMon, pStrtDay, pStrtYear,
-                     pEndMon, pEndDay, pEndYear);
+                     pEndMon, pEndDay, pEndYear, false);
 
         mModel.setRequest(mCurrRequest, mUserID);
     }
 
-    public void checkout(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
-                  String pEndMon, String pEndDay, String pEndYear)
+    public void checkout(String pPerson, String pAsset, String pEndMon,
+                         String pEndDay, String pEndYear)
+    {
+        //make today the start date for the checkout
+        Date today = new Date();
+        String srtMon = "" + (today.getMonth() + 1);
+        String srtDay = "" + today.getDate();
+        String srtYear = "" + today.getYear();
+        makeRequest(pPerson, srtMon, srtDay, srtYear);
+        makeCheckout(pPerson, pAsset, srtMon, srtDay, srtYear,
+                     pEndMon, pEndDay, pEndYear, true);
+        mModel.setRequest(mCurrRequest, mUserID);
+    }
+
+    public void checkin(String pPerson, String pAsset)
     {
 
     }
 
-    public void checkin(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
-                  String pEndMon, String pEndDay, String pEndYear)
-    {
-
-    }
-
-    public void cancel(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
-                  String pEndMon, String pEndDay, String pEndYear)
+    public void cancel(String pPerson, String pAsset)
     {
 
     }

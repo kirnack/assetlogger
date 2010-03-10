@@ -158,6 +158,26 @@ public class Request
    }
 
    /**
+    * Get the value of mRequestedPickup
+    *
+    * @return the value of mRequestedPickup
+    */
+   public Date getRequestedPickup()
+   {
+       return mRequestedPickup;
+   }
+
+   /**
+    * Set the value of mRequestedPickup
+    *
+    * @param pRequestedPickup The requested pickup date
+    */
+   public void setRequestedPickup(Date pRequestedPickup)
+   {
+       mRequestedPickup = pRequestedPickup;
+   }
+
+   /**
     * Get the value of mID
     *
     * @return the value of mID

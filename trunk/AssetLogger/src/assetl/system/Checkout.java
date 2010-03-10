@@ -23,6 +23,30 @@ public class Checkout
    protected Date mReturnedDate;
    protected boolean mActive;
 
+   public Checkout()
+   {
+   }
+
+   /**
+    * Contructor for Checkout object
+    *
+    * @param pID The unique identifier of a checkout
+    * @param pAsset The asset to checkout
+    * @param pRecipient The recipient of the asset
+    * @param pRequestedStartDate The requested start date
+    * @param pRequestedEndDate The requested end date
+    */
+   public Checkout(String pID, Asset pAsset, Person pRecipient, 
+                   Date pRequestedStartDate, Date pRequestedEndDate)
+   {
+       mID = pID;
+       mAsset = pAsset;
+       mRecipient = pRecipient;
+       mRequestedStartDate = pRequestedStartDate;
+       mRequestedStartDate = pRequestedEndDate;
+       mActive = true;
+   }
+
    /**
     * Returns if the checkout is still active. Meaning that the asset has/will
     * be picked up and has not been returned yet.

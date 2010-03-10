@@ -38,7 +38,11 @@ public class Server
     private Connection mConn;
     private Statement mStat;
 
-   public int getNumCheckouts()
+    /**
+     *
+     * @return
+     */
+    public int getNumCheckouts()
    {
       int numCheckouts = 0;
       try
@@ -53,7 +57,11 @@ public class Server
       return numCheckouts;
    }
 
-   public int getNumLogs()
+    /**
+     *
+     * @return
+     */
+    public int getNumLogs()
    {
       int numLogs = 0;
 
@@ -71,6 +79,10 @@ public class Server
       return numLogs;
    }
 
+   /**
+    *
+    * @return
+    */
    public int getNumRequests()
    {
       return 0;
@@ -97,7 +109,9 @@ public class Server
      */
     private Server()
     {
-        mFile = new File ("LaptopChecker.aldb");
+        mFile = new File (System.getProperty(
+            "dbfilename", "LaptopChecker") + "." +
+            System.getProperty("dbfileext", "aldb"));
         try
         {
             
@@ -108,7 +122,7 @@ public class Server
             }
             else
             {
-                Class.forName("org.sqlite.JDBC");
+                loadDatabaseDriver("org.sqlite.JDBC");
                 mConn = DriverManager.getConnection("jdbc:sqlite:"
                     + mFile.getName());
                 mStat = mConn.createStatement();
@@ -186,6 +200,11 @@ public class Server
         return INSTANCE;
     }
 
+    /**
+     * 
+     * @param pID
+     * @return
+     */
     public Person getPerson(String pID)
     {
         // TODO: return a person based on their id
@@ -193,6 +212,10 @@ public class Server
         return test;
     }
 
+    /**
+     *
+     * @param pPerson
+     */
     public void setPerson(Person pPerson)
     {
         // TODO: set a person
@@ -200,26 +223,49 @@ public class Server
         test = pPerson;
     }
 
+    /**
+     *
+     * @param pID
+     * @return
+     */
     public Asset getAsset(String pID)
     {
         return new Asset("", "");
     }
 
+    /**
+     *
+     * @param pAsset
+     */
     public void setAsset(Asset pAsset)
     {
 
     }
 
+    /**
+     *
+     * @param pID
+     * @return
+     */
     public Request getRequest(String pID)
     {
         return new Request();
     }
 
+    /**
+     *
+     * @param pRequest
+     * @param pUserID
+     */
     public void setRequest(Request pRequest, String pUserID)
     {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Collection<User> getUsers()
     {
         Collection<User> users = new ArrayList<User>();
@@ -243,6 +289,11 @@ public class Server
         return users;
     }
 
+    /**
+     *
+     * @param pID
+     * @return
+     */
     public boolean isAdmin(String pID)
     {
         try
@@ -255,6 +306,11 @@ public class Server
         }
     }
 
+    /**
+     *
+     * @param pID
+     * @return
+     */
     public User getUser(String pID)
     {
         User user = null;
@@ -278,6 +334,12 @@ public class Server
         return user;
     }
 
+    /**
+     *
+     * @param pID
+     * @param pPwd
+     * @return
+     */
     public boolean checkPwd(String pID, String pPwd)
     {
         try
@@ -291,11 +353,22 @@ public class Server
         }
     }
 
+    /**
+     *
+     * @param pStart
+     * @param pEnd
+     * @return
+     */
     public Collection<Asset> getAvailAsset(Date pStart, Date pEnd)
     {
         return new ArrayList<Asset>();
     }
 
+    /**
+     *
+     * @param pPerson
+     * @return
+     */
     public Collection<Asset> getAssets(Person pPerson)
     {
         return new ArrayList<Asset>();

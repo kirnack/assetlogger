@@ -14,15 +14,42 @@ import java.util.Date;
  */
 public class Checkout
 {
-   protected String mID;
-   protected Asset mAsset;
+    /**
+     *
+     */
+    protected String mID;
+    /**
+     *
+     */
+    protected Asset mAsset;
+   /**
+    *
+    */
    protected Person mRecipient;
+   /**
+    *
+    */
    protected Date mRequestedStartDate;
+   /**
+    *
+    */
    protected Date mRequestedEndDate;
+   /**
+    *
+    */
    protected Date mPickedupDate;
+   /**
+    *
+    */
    protected Date mReturnedDate;
+   /**
+    *
+    */
    protected boolean mActive;
 
+   /**
+    *
+    */
    public Checkout()
    {
    }
@@ -61,7 +88,7 @@ public class Checkout
    /**
     * Set the active state for the
     *
-    * @param mActive new value of mActive
+    * @param pActive
     */
    public void setActive(boolean pActive)
    {
@@ -81,7 +108,7 @@ public class Checkout
    /**
     * Set the value of mReturnedDate
     *
-    * @param mReturnedDate new value of mReturnedDate
+    * @param pReturnedDate
     */
    public void setReturnedDate(Date pReturnedDate)
    {
@@ -101,7 +128,7 @@ public class Checkout
    /**
     * Set the value of mPickedupDate
     *
-    * @param mPickedupDate new value of mPickedupDate
+    * @param pPickedupDate
     */
    public void setPickedupDate(Date pPickedupDate)
    {
@@ -121,7 +148,7 @@ public class Checkout
    /**
     * Set the value of mRequestedEndDate
     *
-    * @param mRequestedEndDate new value of mRequestedEndDate
+    * @param pRequestedEndDate
     */
    public void setRequestedEndDate(Date pRequestedEndDate)
    {
@@ -141,7 +168,7 @@ public class Checkout
    /**
     * Set the value of mRequestedStartDate
     *
-    * @param mRequestedStartDate new value of mRequestedStartDate
+    * @param pRequestedStartDate
     */
    public void setRequestedStartDate(Date pRequestedStartDate)
    {
@@ -161,7 +188,7 @@ public class Checkout
    /**
     * Set the value of mRecipient
     *
-    * @param mRecipient new value of mRecipient
+    * @param pRecipient
     */
    public void setRecipient(Person pRecipient)
    {
@@ -181,7 +208,7 @@ public class Checkout
    /**
     * Set the value of mAsset
     *
-    * @param mAsset new value of mAsset
+    * @param pAsset
     */
    public void setAsset(Asset pAsset)
    {
@@ -201,7 +228,7 @@ public class Checkout
    /**
     * Set the value of mID
     *
-    * @param mID new value of mID
+    * @param pID
     */
    public void setID(String pID)
    {

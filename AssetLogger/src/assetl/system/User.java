@@ -6,8 +6,8 @@
 package assetl.system;
 
 /**
- *
- * @author 
+ * 
+ * @author Bryon Rogers3
  */
 public class User
 {
@@ -16,16 +16,29 @@ public class User
     private String mPassword;
     private boolean mAdmin;
 
+    /**
+     *
+     */
     public User()
     {
         this("", "", false);
     }
 
+    /**
+     *
+     * @param pID
+     */
     public User(String pID)
     {
         this(pID, "", false);
     }
 
+    /**
+     *
+     * @param pID
+     * @param pPassword
+     * @param pAdmin
+     */
     public User(String pID, String pPassword, boolean pAdmin)
     {
         mID = pID;
@@ -33,31 +46,55 @@ public class User
         mAdmin = pAdmin;
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean isAdmin()
     {
         return mAdmin;
     }
 
+    /**
+     *
+     * @param pAdmin
+     */
     public void setAdmin(boolean pAdmin)
     {
         this.mAdmin = pAdmin;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getID()
     {
         return mID;
     }
 
+    /**
+     *
+     * @param pID
+     */
     public void setID(String pID)
     {
         this.mID = pID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword()
     {
         return mPassword;
     }
 
+    /**
+     *
+     * @param pPassword
+     */
     public void setPassword(String pPassword)
     {
         this.mPassword = pPassword;

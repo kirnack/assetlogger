@@ -258,20 +258,15 @@ public class AssetLoggerView
     {
         public void actionPerformed(ActionEvent ev)
         {
-            System.err.println("test");
-            Person tempGuy = new Person("I-num");
-            tempGuy.setFirstName("Devin");
-            Asset tempLaptop = new Asset("barcode", "Mac");
-            Date tempStart = new Date();
-            Date tempEnd = new Date();
+            String iNumber = "14";
+            mControl.schedule(iNumber, "123", "12", "14", "2011",
+                              "12", "15", "2011");
+            System.err.println("testing");
 
-            mControl.schedule(tempGuy, tempLaptop, tempStart, tempEnd);
-            
             DatabaseControl temp = (DatabaseControl) mControl;
+            String modelGuyName = temp.getPersonFirst(iNumber);
 
-            Person modelGuy = temp.getPerson(tempGuy.getID());
-
-            jTextField1.setText(modelGuy.getFirstName());
+            jTextField1.setText(modelGuyName);
         }
     }
 }

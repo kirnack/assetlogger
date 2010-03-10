@@ -188,11 +188,15 @@ public class Server
 
     public Person getPerson(String pID)
     {
+        // TODO: return a person based on their id
+
         return test;
     }
 
     public void setPerson(Person pPerson)
     {
+        // TODO: set a person
+        
         test = pPerson;
     }
 

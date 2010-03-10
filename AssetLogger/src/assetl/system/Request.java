@@ -2,6 +2,7 @@ package assetl.system;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * A class to represent a request from a person to borrow assets.
@@ -20,6 +21,34 @@ public class Request
    protected Collection<Checkout> mCheckouts;
 
    /**
+    * Default Constructor
+    */
+   public Request()
+   {
+   }
+
+   /**
+    * Constructor for a Request object
+    *
+    * @param pID The unique identifier of a Request
+    * @param pRequestMade The Date the request was made
+    * @param pRequestedPickup The Date they want to pick the Asset up
+    * @param pRequestType The request type (i.e. checkout vs. rent)
+    * @param pRequestor The Person requesting the asset
+    */
+   public Request(String pID, Date pRequestMade, Date pRequestedPickup,
+                  String pRequstType, Person pRequestor)
+   {
+       mID = pID;
+       mRequestMade = pRequestMade;
+       mRequestedPickup = pRequestedPickup;
+       mRequstType = pRequstType;
+       mRequestor = pRequestor;
+       mActive = true;
+       mCheckouts = new ArrayList<Checkout>();
+   }
+
+   /**
     * Get the value of mCheckouts
     *
     * @return the value of mCheckouts
@@ -36,7 +65,17 @@ public class Request
     */
    public void setCheckouts(Collection<Checkout> pCheckouts)
    {
-      this.mCheckouts = pCheckouts;
+      mCheckouts = pCheckouts;
+   }
+
+   /**
+    * Allows for a Checkout to be added to the collection in this request
+    *
+    * @param pCheckout The checkout to add
+    */
+   public void addCheckout(Checkout pCheckout)
+   {
+       mCheckouts.add(pCheckout);
    }
 
    /**
@@ -55,7 +94,7 @@ public class Request
     * @param pActive new value of mActive
     */
    public void setActive(boolean pActive) {
-      this.mActive = pActive;
+      mActive = pActive;
    }
 
    /**
@@ -75,7 +114,7 @@ public class Request
     */
    public void setRequestor(Person pRequestor)
    {
-      this.mRequestor = pRequestor;
+      mRequestor = pRequestor;
    }
 
    /**
@@ -95,7 +134,7 @@ public class Request
     */
    public void setRequstType(String pRequstType)
    {
-      this.mRequstType = pRequstType;
+      mRequstType = pRequstType;
    }
 
    /**
@@ -115,7 +154,7 @@ public class Request
     */
    public void setRequestMade(Date pRequestMade)
    {
-      this.mRequestMade = pRequestMade;
+      mRequestMade = pRequestMade;
    }
 
    /**
@@ -135,7 +174,6 @@ public class Request
     */
    public void setID(String pID)
    {
-      this.mID = pID;
+      mID = pID;
    }
-
 }

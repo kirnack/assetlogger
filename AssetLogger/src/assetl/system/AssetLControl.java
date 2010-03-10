@@ -5,8 +5,6 @@
 
 package assetl.system;
 
-import java.util.Date;
-
 /**
  * Provides a common interface for the controller module in the 
  * Model-View-Controller structure. Defines AssetLogger behavior,
@@ -16,8 +14,16 @@ import java.util.Date;
  */
 public interface AssetLControl
 {
-    void schedule(Person pPerson, Asset pAsset, Date pStart, Date pEnd);
-    void checkout(Request pRequest);
-    void checkin(Request pRequest);
-    void cancel(Request pRequest);
+    void schedule(String pPerson, String pAsset,
+                  String pStrtMon, String pStrtDay, String pStrtYear,
+                  String pEndMon, String pEndDay, String pEndYear);
+    void checkout(String pPerson, String pAsset,
+                  String pStrtMon, String pStrtDay, String pStrtYear,
+                  String pEndMon, String pEndDay, String pEndYear);
+    void checkin(String pPerson, String pAsset,
+                  String pStrtMon, String pStrtDay, String pStrtYear,
+                  String pEndMon, String pEndDay, String pEndYear);
+    void cancel(String pPerson, String pAsset,
+                  String pStrtMon, String pStrtDay, String pStrtYear,
+                  String pEndMon, String pEndDay, String pEndYear);
 }

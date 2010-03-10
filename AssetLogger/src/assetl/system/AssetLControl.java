@@ -18,12 +18,7 @@ public interface AssetLControl
                   String pStrtMon, String pStrtDay, String pStrtYear,
                   String pEndMon, String pEndDay, String pEndYear);
     void checkout(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
                   String pEndMon, String pEndDay, String pEndYear);
-    void checkin(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
-                  String pEndMon, String pEndDay, String pEndYear);
-    void cancel(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
-                  String pEndMon, String pEndDay, String pEndYear);
+    void checkin(String pPerson, String pAsset);
+    void cancel(String pPerson, String pAsset);
 }

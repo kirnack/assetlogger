@@ -28,6 +28,9 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
+ * A singleton Server that will take assets, people, and request classes
+ * and add or midify the database to reflect the changes to the objects, based
+ * on the objects passed as parameters.
  *
  * @author Bryon Rogers
  */
@@ -39,8 +42,9 @@ public class Server
     private Statement mStat;
 
     /**
-     *
-     * @return
+     * Returns the number of checkouts in the database so when a new checkout is
+     * made the appropriate ID can be given.
+     * @return The number of checkouts in the database.
      */
     public int getNumCheckouts()
    {
@@ -58,8 +62,9 @@ public class Server
    }
 
     /**
-     *
-     * @return
+     * Returns the number of logs that are in the database.  This can be
+     * used to create the appropriate log ID when a log is created.
+     * @return The number of logs in the database.
      */
     public int getNumLogs()
    {
@@ -80,14 +85,15 @@ public class Server
    }
 
    /**
-    *
-    * @return
+    * Returns the number of requests that are in the database.  This can be
+    * used to create the appropriate request ID when a log is created.
+    * @return The number of request in the database.
     */
    public int getNumRequests()
    {
       return 0;
    }
-    private Person test;
+
     /**
      * Variable to hold a singleton of Server
      */
@@ -105,7 +111,9 @@ public class Server
     //
     
     /**
-     * Constructor is deliberately private to create a singleton
+     * Constructor is deliberately private to create a singleton.
+     * It will create a connection to the database, if the database does not
+     * exist are
      */
     private Server()
     {

@@ -217,7 +217,7 @@ public class Server
     {
         // TODO: return a person based on their id
 
-        return test;
+        return new Person("");
     }
 
     /**
@@ -228,7 +228,6 @@ public class Server
     {
         // TODO: set a person
         
-        test = pPerson;
     }
 
     /**

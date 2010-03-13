@@ -256,6 +256,15 @@ public class AssetLoggerView
 
     private JDialog aboutBox;
 
+    public void showView()
+    {
+        getApplication().show(this);
+    }
+
+    public void hideView()
+    {
+        getApplication().hide(this);
+    }
 
     //
     // TODO: Replace this test code with code that is actually useful

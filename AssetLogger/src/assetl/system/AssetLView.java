@@ -15,5 +15,13 @@ package assetl.system;
  */
 public interface AssetLView
 {
-    
+    /**
+     * Allows the controller to show the view
+     */
+    public void showView();
+
+    /**
+     * Allows the controller to hide the view
+     */
+    public void hideView();
 }

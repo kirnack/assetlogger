@@ -44,7 +44,7 @@ public class ServerTest
     {
        System.setProperty("dbfilename", "Testing");
        System.setProperty("dbfileext", "taldb");
-       //System.setProperty("cleanUpTest", "false");
+//       System.setProperty("cleanUpTest", "false");
     }
 
     /**
@@ -54,7 +54,7 @@ public class ServerTest
     @AfterClass
     public static void tearDownClass() throws Exception
     {
-       if ("true".equals(System.getProperty("cleanUpTest", "true")));
+       if ("true".equals(System.getProperty("cleanUpTest", "true")))
        {
           new File(System.getProperty("dbfilename") + "." +
                    System.getProperty("dbfileext")).delete();
@@ -166,17 +166,19 @@ public class ServerTest
     public void testSetPerson()
     {
         System.out.println("setPerson");
+        System.out.println("\tNeff");
         Person pPerson = new Person("42", "Rick", "M", "Neff",
                                     "abc@def.com", "424-242-4242");
         Server instance = Server.getInstance();
         instance.setPerson(pPerson);
+        System.out.println("\tBryon");
         pPerson = new Person("kirnack", "Bryon", "T", "Rogers",
                                     "kirnack.bryon@gmail.com", "");
         instance.setPerson(pPerson);
+        System.out.println("\tNew Bryon");
         pPerson = new Person("kirnack", "Bryon", "T", "Rogers",
                                     "kirnack.bryon@gmail.com", "100");
         instance.setPerson(pPerson);
-
     }
     
     /**
@@ -186,11 +188,30 @@ public class ServerTest
     public void testGetPerson()
     {
         System.out.println("getPerson");
-        String pID = "";
         Server instance = Server.getInstance();
+        System.out.println("\tNo person with that ID");
+        String pID = "noble";
         Person expResult = null;
         Person result = instance.getPerson(pID);
         assertEquals(expResult, result);
+        System.out.println("\tPerson exists");
+        pID = "kirnack";
+        expResult = new Person ("kirnack", "Bryon", "T", "Rogers",
+                                    "kirnack.bryon@gmail.com", "100");
+        result = instance.getPerson(pID);
+        assertEquals(expResult, result);
+}
+
+    /**
+     * Test of setAsset method, of class Server.
+     */
+    @Test
+    public void testSetAsset()
+    {
+        System.out.println("setAsset");
+        Asset pAsset = null;
+        Server instance = Server.getInstance();
+        instance.setAsset(pAsset);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -212,20 +233,6 @@ public class ServerTest
     }
 
     /**
-     * Test of setAsset method, of class Server.
-     */
-    @Test
-    public void testSetAsset()
-    {
-        System.out.println("setAsset");
-        Asset pAsset = null;
-        Server instance = Server.getInstance();
-        instance.setAsset(pAsset);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getAssets method, of class Server.
      */
     @Test
@@ -240,24 +247,6 @@ public class ServerTest
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of getAvailAsset method, of class Server.
-     */
-    @Test
-    public void testGetAvailAsset()
-    {
-        System.out.println("getAvailAsset");
-        Date pStart = null;
-        Date pEnd = null;
-        Server instance = Server.getInstance();
-        Collection expResult = null;
-        Collection result = instance.getAvailAsset(pStart, pEnd);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 
     /**
      * Test of setRequest method, of class Server.
@@ -285,6 +274,23 @@ public class ServerTest
         Server instance = Server.getInstance();
         Request expResult = null;
         Request result = instance.getRequest(pID);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+        /**
+     * Test of getAvailAsset method, of class Server.
+     */
+    @Test
+    public void testGetAvailAsset()
+    {
+        System.out.println("getAvailAsset");
+        Date pStart = null;
+        Date pEnd = null;
+        Server instance = Server.getInstance();
+        Collection expResult = null;
+        Collection result = instance.getAvailAsset(pStart, pEnd);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

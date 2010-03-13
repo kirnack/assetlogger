@@ -3,6 +3,9 @@ package assetl.service;
 import org.jdesktop.application.SingleFrameApplication;
 
 import java.util.Date;
+
+import assetl.AssetLoggerApp;
+
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
@@ -26,7 +29,7 @@ import assetl.system.Checkout;
  * @author Devin Doman
  */
 public class DatabaseControl 
-        implements AssetLControl
+        implements AssetLControl, Runnable
 {
     private AssetLModel mModel;
     private AssetLView mView;
@@ -36,8 +39,8 @@ public class DatabaseControl
     private Request mCurrRequest;
 
     /**
-     * Placeholder for an ideal Constructor not needing to rely on passing
-     * the netbeans generated main app object.
+     * Default Contructor for the controller. Gets the model and creates
+     * the view.
      *
      */
     public DatabaseControl()
@@ -48,27 +51,16 @@ public class DatabaseControl
         mUserID = "Doctor";
         mAdmin = mModel.isAdmin(mUserID);
 
-        //generate the view
-        //mView = new AssetLoggerView(this);
-    }
+        /*
+         Commented out by Devin Doman 3/13/10 replaced by code following.
+         Delete after 2 weeks if still not applicable. Uses the handwritten
+         view instead of netbeans generated.
+         
+         mView = new AssetView(this);
+        */
 
-    /**
-     * Constructor uses a singleton instance of the model Server.
-     * It then generates and displays the view.
-     *
-     * @param pApp The netbeans generated main application object needed
-     * to start a netbeans generated gui
-     */
-    public DatabaseControl(SingleFrameApplication pApp)
-    {
-        mModel = Server.getInstance();
-        //The default admin
-        mUserID = "Doctor";
-        mAdmin = mModel.isAdmin(mUserID);
-
-        //generate the view
-        mView = new AssetLoggerView(pApp, this);
-        pApp.show((AssetLoggerView) mView);
+        //Use the netbeans generated gui
+        mView = new AssetLoggerView(AssetLoggerApp.getApplication(), this);
     }
 
     /**
@@ -217,5 +209,10 @@ public class DatabaseControl
     public Person getPerson(String pID)
     {
         return mModel.getPerson(pID);
+    }
+
+    public void run()
+    {
+        mView.showView();
     }
 }

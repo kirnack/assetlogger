@@ -22,7 +22,8 @@ public class AssetLoggerApp
      */
     @Override protected void startup()
     {
-        new DatabaseControl(this);
+        new DatabaseControl().run();
+        //new DatabaseControl(this);
     }
 
     /**

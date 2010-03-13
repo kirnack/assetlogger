@@ -29,6 +29,7 @@ import java.util.Date;
  * on the objects passed as parameters.
  *
  * @author Bryon Rogers
+ * @see <a href=""> Database design </a>
  */
 public class Server
         implements AssetLModel

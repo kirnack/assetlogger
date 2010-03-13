@@ -267,14 +267,17 @@ public class AssetLoggerView
         public void actionPerformed(ActionEvent ev)
         {
             String iNumber = "14";
-            mControl.schedule(iNumber, "123", "12", "14", "2011",
-                              "12", "15", "2011");
+            Person teacher = new Person(iNumber);
+            Asset laptop = new Asset("12", "PC");
+
+            mControl.schedule(teacher, laptop, new Date(), new Date());
+           
             System.err.println("testing");
 
             DatabaseControl temp = (DatabaseControl) mControl;
-            String modelGuyName = temp.getPersonFirst(iNumber);
+            Person modelGuy = temp.getPerson(iNumber);
 
-            jTextField1.setText(modelGuyName);
+            jTextField1.setText(modelGuy.getFirstName());
         }
     }
 }

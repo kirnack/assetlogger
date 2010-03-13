@@ -5,6 +5,8 @@
 
 package assetl.system;
 
+import java.util.Date;
+
 /**
  * Provides a common interface for the controller module in the 
  * Model-View-Controller structure. Defines AssetLogger behavior,
@@ -15,39 +17,38 @@ package assetl.system;
 public interface AssetLControl
 {
     /**
+     * Takes the objects passed from the view and schedules an asset
+     * to the person for the indicated time
      *
-     * @param pPerson
-     * @param pAsset
-     * @param pStrtMon
-     * @param pStrtDay
-     * @param pStrtYear
-     * @param pEndMon
-     * @param pEndDay
-     * @param pEndYear
+     * @param pPerson The person scheduling the asset
+     * @param pAsset The asset to schedule
+     * @param pStart The date to pick up the asset
+     * @param pEnd The date to return the asset
      */
-    void schedule(String pPerson, String pAsset,
-                  String pStrtMon, String pStrtDay, String pStrtYear,
-                  String pEndMon, String pEndDay, String pEndYear);
+    void schedule(Person pPerson, Asset pAsset, Date pStart, Date pEnd);
+
     /**
+     * Takes the objects passed from the view and checks out an asset
+     * to the person until the date indicated.
      *
-     * @param pPerson
-     * @param pAsset
-     * @param pEndMon
-     * @param pEndDay
-     * @param pEndYear
+     * @param pPerson The person checking out the asset
+     * @param pAsset The asset to check out
+     * @param pEnd The date to return the asset
      */
-    void checkout(String pPerson, String pAsset,
-                  String pEndMon, String pEndDay, String pEndYear);
+    void checkout(Person pPerson, Asset pAsset, Date pEnd);
+
     /**
+     * Checks the given asset back in.
      *
-     * @param pPerson
-     * @param pAsset
+     * @param pAsset The asset to check back in
      */
-    void checkin(String pPerson, String pAsset);
+    void checkin(Asset pAsset);
+
     /**
-     * 
-     * @param pPerson
-     * @param pAsset
+     * Cancels a request for the asset indicated to the person indicated.
+     *
+     * @param pPerson The person to cancel the request for
+     * @param pAsset The asset to cancel
      */
-    void cancel(String pPerson, String pAsset);
+    void cancel(Person pPerson, Asset pAsset);
 }

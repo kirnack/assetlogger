@@ -7,19 +7,22 @@ package assetl;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
+import assetl.system.AssetLControl;
 import assetl.service.DatabaseControl;
 
 /**
  * The main class of the application.
  */
-public class AssetLoggerApp extends SingleFrameApplication {
+public class AssetLoggerApp 
+        extends SingleFrameApplication
+{
 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup()
     {
-        show(new AssetLoggerView(this, new DatabaseControl()));
+        new DatabaseControl(this);
     }
 
     /**

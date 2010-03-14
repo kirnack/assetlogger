@@ -1,7 +1,8 @@
 package assetl.system;
 
 /**
- *
+ * Provides an inteface for any object that wishes to observer the model
+ * 
  * @author Devin Doman
  */
 public interface ModelObserver

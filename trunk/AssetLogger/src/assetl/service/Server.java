@@ -241,49 +241,56 @@ public class Server
      */
     public void setPerson(Person pPerson)
     {
-       //System.err.println("Retreivinng " + pPerson.getFirstName());
-       //Retrieves data from database to see if the person needs to be added,
-       //and also to check to see if there is an actual need to update te data.
-       Person temp = getPerson(pPerson.getID());
-       PreparedStatement prep = null;
+        //System.err.println("Retreivinng " + pPerson.getFirstName());
+       
+        //
+        // Retrieves data from database to see if the person needs
+        // to be added, and also to check to see if there is an actual
+        // need to update the data
+        //
+        
+        Person temp = getPerson(pPerson.getID());
+        PreparedStatement prep = null;
 
-       try
-       {
+        try
+        {
+            if (temp == null)
+            {
+                //System.err.println("Adding " + pPerson.getFirstName());
+                prep = mConn.prepareStatement(
+                        "insert into Requestors values (?, ?, ?, ?, ?, ?);");
+            }
+            else if (!(temp.getFirstName().equals(pPerson.getFirstName())) ||
+                     !(temp.getMiddleName().equals(pPerson.getMiddleName())) ||
+                     !(temp.getLastName().equals(pPerson.getLastName())) ||
+                     !(temp.getEmail().equals(pPerson.getEmail())) ||
+                     !(temp.getPhoneNumber().equals(pPerson.getPhoneNumber())))
+            {
+                //System.err.println("Updating " + pPerson.getFirstName());
+                prep = mConn.prepareStatement(
+                       "update Requestors set RequestorID = ?, FirstName= ?, " +
+                       "MI = ?, LastName =?, Phone = ?, Email = ?" +
+                       " where RequestorID ='" + pPerson.getID() + "';" );
+            }
 
-         if (temp == null)
-         {
-            //System.err.println("Adding " + pPerson.getFirstName());
-            prep = mConn.prepareStatement(
-                     "insert into Requestors values (?, ?, ?, ?, ?, ?);");
-         }
-         else if (!(temp.getFirstName().equals(pPerson.getFirstName())) ||
-                  !(temp.getMiddleName().equals(pPerson.getMiddleName())) ||
-                  !(temp.getLastName().equals(pPerson.getLastName())) ||
-                  !(temp.getEmail().equals(pPerson.getEmail())) ||
-                  !(temp.getPhoneNumber().equals(pPerson.getPhoneNumber())))
-         {
-            //System.err.println("Updating " + pPerson.getFirstName());
-            prep = mConn.prepareStatement(
-                     "update Requestors set RequestorID = ?, FirstName= ?, " +
-                     "MI = ?, LastName =?, Phone = ?, Email = ?" +
-                     " where RequestorID ='" + pPerson.getID() + "';" );
-         }
+            if (prep != null)
+            {
+                prep.setString(1, pPerson.getID());
+                prep.setString(2, pPerson.getFirstName());
+                prep.setString(3, pPerson.getMiddleName());
+                prep.setString(4, pPerson.getLastName());
+                prep.setString(5, pPerson.getPhoneNumber());
+                prep.setString(6, pPerson.getEmail());
+                prep.execute();
 
-         if (prep != null)
-         {
-            prep.setString(1, pPerson.getID());
-            prep.setString(2, pPerson.getFirstName());
-            prep.setString(3, pPerson.getMiddleName());
-            prep.setString(4, pPerson.getLastName());
-            prep.setString(5, pPerson.getPhoneNumber());
-            prep.setString(6, pPerson.getEmail());
-            prep.execute();
-         }
-       }
-       catch(SQLException e)
-       {
+                //a change has been made to the database, notify observers
+                notifyObservers();
+            }
+        }
+        catch(SQLException e)
+        {
             e.printStackTrace(System.err);
-       }
+        }
     }
 
     /**
@@ -363,6 +370,9 @@ public class Server
             prep.setString(5, pAsset.getType());
             prep.setString(6, pAsset.getDescription());
             prep.execute();
+
+            //a change has been made to the database, notify observers
+            notifyObservers();
          }
        }
        catch(SQLException e)
@@ -429,7 +439,8 @@ public class Server
      */
     public void setRequest(Request pRequest, String pUserID)
     {
-
+        //a change has been made to the database, notify observers
+        notifyObservers();
     }
 
     /**

@@ -1,17 +1,13 @@
 package assetl.service;
 
-import org.jdesktop.application.SingleFrameApplication;
-
 import java.util.Date;
 
+import assetl.AssetLoggerView;
 import assetl.AssetLoggerApp;
-
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
 import assetl.system.ModelObserver;
-import assetl.AssetLoggerView;
-
 import assetl.system.Request;
 import assetl.system.Person;
 import assetl.system.Asset;
@@ -63,7 +59,9 @@ public class DatabaseControl
      */
     public DatabaseControl()
     {
+        //get the model and register this controller as a listener
         mModel = Server.getInstance();
+        mModel.registerObserver(this);
         
         //The default admin
         mUserID = "Doctor";
@@ -89,10 +87,6 @@ public class DatabaseControl
      */
     private void makeRequest(Person pRequestor, Date pPickup)
     {
-        // TODO: remove this next line of test code
-        pRequestor.setFirstName("Devo");
-
-
         //
         // TODO: find a request by its requestor and pickup date
         // and see if it already exists
@@ -227,6 +221,8 @@ public class DatabaseControl
      */
     public void updateData()
     {
+        //tell the view to update its display
+        mView.updateData();
     }
 
     /**

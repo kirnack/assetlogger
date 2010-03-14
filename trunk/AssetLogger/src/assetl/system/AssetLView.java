@@ -13,10 +13,15 @@ public interface AssetLView
     /**
      * Allows the controller to show the view
      */
-    public void showView();
+    void showView();
 
     /**
      * Allows the controller to hide the view
      */
-    public void hideView();
+    void hideView();
+
+    /**
+     * Allows the controller to update the data displayed in the view
+     */
+    void updateData();
 }

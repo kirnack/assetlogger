@@ -50,4 +50,12 @@ public class AssetView
     {
         setVisible(false);
     }
+
+    /**
+     * Updates the views display of the model
+     */
+    public void updateData()
+    {
+
+    }
 }

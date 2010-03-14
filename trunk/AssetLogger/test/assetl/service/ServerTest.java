@@ -209,18 +209,18 @@ public class ServerTest
     public void testSetAsset()
     {
         System.out.println("setAsset");
-        System.out.println("/tnew Dell laptop");
+        System.out.println("\tnew Dell laptop");
         Asset pAsset = new Asset("42", "Dell", "Inspiron 1525", "12345",
                 "Laptop", "A dell laptop");
         Server instance = Server.getInstance();
         instance.setAsset(pAsset);
 
-        System.out.println("/tnew Mac laptop");
+        System.out.println("\tnew Mac laptop");
         pAsset = new Asset("12", "Apple", "MacBook", "54321",
                 "Laptop", "A mac laptop");
         instance.setAsset(pAsset);
 
-        System.out.println("/tchanged Dell laptop model and serial number");
+        System.out.println("\tchanged Dell laptop model and serial number");
         pAsset = new Asset("42", "Dell", "Inspiron 1545", "67890",
                 "Laptop", "A dell laptop");
         instance.setAsset(pAsset);
@@ -233,14 +233,14 @@ public class ServerTest
     public void testGetAsset()
     {
         System.out.println("getAsset");
-        System.out.println("/tNo Asset with that id");
+        System.out.println("\tNo Asset with that id");
         String pID = "tryMe";
         Server instance = Server.getInstance();
         Asset expResult = null;
         Asset result = instance.getAsset(pID);
         assertEquals(expResult, result);
 
-        System.out.println("/tAsset exists");
+        System.out.println("\tAsset exists");
         pID = "42";
         expResult = new Asset("42", "Dell", "Inspiron 1545", "67890",
                 "Laptop", "A dell laptop");
@@ -248,20 +248,6 @@ public class ServerTest
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getAssets method, of class Server.
-     */
-    @Test
-    public void testGetAssets()
-    {
-        System.out.println("getAssets");
-        Server instance = Server.getInstance();
-        Person pPerson = instance.getPerson("kirnack");
-        Collection<Asset> expResult = null;
-        expResult.add(instance.getAsset("42"));
-        Collection<Asset> result = instance.getAssets(pPerson);
-        assertEquals(expResult, result);
-    }
 
     /**
      * Test of setRequest method, of class Server.
@@ -350,4 +336,19 @@ public class ServerTest
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of getAssets method, of class Server.
+     */
+    @Test
+    public void testGetAssets()
+    {
+        System.out.println("getAssets");
+        Server instance = Server.getInstance();
+        Person pPerson = instance.getPerson("kirnack");
+        Collection<Asset> expResult = new ArrayList<Asset>();
+        expResult.add(new Asset("42", "Dell", "Inspiron 1545", "67890",
+                "Laptop", "A dell laptop"));
+        Collection<Asset> result = instance.getAssets(pPerson);
+        assertEquals(expResult, result);
+    }
 }

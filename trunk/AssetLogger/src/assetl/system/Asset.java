@@ -17,6 +17,28 @@ public class Asset
     */
    protected String mMake;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Asset other = (Asset) obj;
+        if ((this.mID == null) ? (other.mID != null) : !this.mID.equals(other.mID)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + (this.mID != null ? this.mID.hashCode() : 0);
+        return hash;
+    }
+
    /**
     * The asset's model
     */

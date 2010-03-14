@@ -9,6 +9,7 @@ import assetl.AssetLoggerApp;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
+import assetl.system.ModelObserver;
 import assetl.AssetLoggerView;
 
 import assetl.system.Request;
@@ -29,7 +30,7 @@ import assetl.system.Checkout;
  * @author Devin Doman
  */
 public class DatabaseControl 
-        implements AssetLControl, Runnable
+        implements AssetLControl, ModelObserver, Runnable
 {
     private AssetLModel mModel;
     private AssetLView mView;
@@ -196,6 +197,32 @@ public class DatabaseControl
      * @param pAsset The asset to cancel a request for
      */
     public void cancel(Person pPerson, Asset pAsset)
+    {
+
+    }
+
+    /**
+     * This method is called by the model to indicate
+     * there has been a state change in the model.
+     * The controller will reflect these changes in
+     * the view. The controller then makes a pull
+     * on the data it might want to care about.
+     */
+    public void updateData()
+    {
+    }
+
+    /**
+     * This method is called by the model to indicate
+     * there has been a state change in the model.
+     * The controller will reflect the changes in the view.
+     * The model pushes all data that may have been changed.
+     *
+     * @param pPerson The Person object that may have changed
+     * @param pAsset The Asset object that may have changed
+     * @param pRequest The Request object that may have changed
+     */
+    public void updateData(Person pPerson, Asset pAsset, Request pRequest)
     {
 
     }

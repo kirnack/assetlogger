@@ -1,6 +1,7 @@
 package assetl.service;
 
 import assetl.system.AssetLModel;
+import assetl.system.ModelObserver;
 import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.Checkout;
@@ -51,57 +52,9 @@ public class Server
     private Statement mStat;
 
     /**
-     * Returns the number of checkouts in the database so when a new checkout is
-     * made the appropriate ID can be given.
-     * @return The number of checkouts in the database.
+     * A collection of interested listeners for change in model state
      */
-    public int getNumCheckouts()
-   {
-      int numCheckouts = 0;
-      try
-      {
-        ResultSet rs = mStat.executeQuery("select count(*) from checkouts;");
-         numCheckouts = rs.getInt(1);
-      }
-      catch (SQLException e)
-      {
-          e.printStackTrace(System.err);
-      }
-      return numCheckouts;
-   }
-
-    /**
-     * Returns the number of logs that are in the database.  This can be
-     * used to create the appropriate log ID when a log is created.
-     * @return The number of logs in the database.
-     */
-    public int getNumLogs()
-   {
-      int numLogs = 0;
-
-      try
-      {
-        ResultSet rs = mStat.executeQuery("select count(*) from CheckoutLog;");
-         numLogs = rs.getInt(1);
-         rs.close();
-      }
-      catch (SQLException e)
-      {
-          e.printStackTrace(System.err);
-      }
-
-      return numLogs;
-   }
-
-   /**
-    * Returns the number of requests that are in the database.  This can be
-    * used to create the appropriate request ID when a log is created.
-    * @return The number of request in the database.
-    */
-   public int getNumRequests()
-   {
-      return 0;
-   }
+    Collection<ModelObserver> mObservers;
 
     /**
      * Variable to hold a singleton of Server
@@ -126,6 +79,7 @@ public class Server
      */
     private Server()
     {
+        mObservers = new ArrayList();
         mFile = new File (System.getProperty(
             "dbfilename", "LaptopChecker") + "." +
             System.getProperty("dbfileext", "aldb"));
@@ -149,6 +103,35 @@ public class Server
         {
             System.out.println(e);
             System.exit(-1);
+        }
+    }
+
+    /**
+     * Register any interested listeners in the model
+     *
+     * @param pObserver An object that wants to listen for state change
+     */
+    public void registerObserver(ModelObserver pObserver)
+    {
+        mObservers.add(pObserver);
+    }
+
+    /**
+     * Notifies all observers in the collection that a state change
+     * has been made. Call this method whenever the state of the
+     * model has been changed.
+     */
+    private void notifyObservers()
+    {
+        for(ModelObserver observe : mObservers)
+        {
+            //since the collection already has an instance of the model
+            //it can simply be notified and a pull made
+            observe.updateData();
+
+            //or we can send all data in a push which the controller must
+            //then send to the view
+            //observe.updateData(new Person(), new Asset(), new Request());
         }
     }
 
@@ -569,4 +552,57 @@ public class Server
     {
         return new ArrayList<Asset>();
     }
+
+    /**
+     * Returns the number of checkouts in the database so when a new checkout is
+     * made the appropriate ID can be given.
+     * @return The number of checkouts in the database.
+     */
+    public int getNumCheckouts()
+   {
+      int numCheckouts = 0;
+      try
+      {
+        ResultSet rs = mStat.executeQuery("select count(*) from checkouts;");
+         numCheckouts = rs.getInt(1);
+      }
+      catch (SQLException e)
+      {
+          e.printStackTrace(System.err);
+      }
+      return numCheckouts;
+   }
+
+    /**
+     * Returns the number of logs that are in the database.  This can be
+     * used to create the appropriate log ID when a log is created.
+     * @return The number of logs in the database.
+     */
+    public int getNumLogs()
+   {
+      int numLogs = 0;
+
+      try
+      {
+        ResultSet rs = mStat.executeQuery("select count(*) from CheckoutLog;");
+         numLogs = rs.getInt(1);
+         rs.close();
+      }
+      catch (SQLException e)
+      {
+          e.printStackTrace(System.err);
+      }
+
+      return numLogs;
+   }
+
+   /**
+    * Returns the number of requests that are in the database.  This can be
+    * used to create the appropriate request ID when a log is created.
+    * @return The number of request in the database.
+    */
+   public int getNumRequests()
+   {
+      return 0;
+   }
 }

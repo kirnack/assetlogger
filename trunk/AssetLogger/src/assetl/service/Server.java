@@ -317,9 +317,9 @@ public class Server
     }
 
     /**
-     * Makes changes to the database based on the asset passed to it.
+     * Sets asset information in the database
      *
-     * @param pAsset The asset to base the changes of the database on.
+     * @param pAsset The asset to set
      */
     public void setAsset(Asset pAsset)
     {

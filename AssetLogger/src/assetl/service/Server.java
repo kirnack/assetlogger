@@ -3,6 +3,7 @@ package assetl.service;
 import assetl.system.AssetLModel;
 import assetl.system.Person;
 import assetl.system.Asset;
+import assetl.system.Checkout;
 import assetl.system.Request;
 import assetl.system.User;
 import java.io.BufferedReader;
@@ -313,7 +314,27 @@ public class Server
      */
     public Asset getAsset(String pID)
     {
-        return new Asset("", "");
+        Asset asset = null;
+        try
+        {
+           ResultSet rs = mStat.executeQuery("select * from asset where" +
+                                            " AssetID='" + pID + "';");
+           if (rs.next())
+           {
+              asset = new Asset (rs.getString("AssetID"),
+                           rs.getString("Make"),  rs.getString("Model"),
+                           rs.getString("SerialNumber"),
+                           rs.getString("AssetType"),
+                           rs.getString("Description"));
+           }
+           rs.close();
+        }
+        catch (Exception e)
+        {
+           System.err.println(e);
+        }
+
+        return asset;
     }
 
     /**
@@ -323,7 +344,50 @@ public class Server
      */
     public void setAsset(Asset pAsset)
     {
+       System.err.println("Retreivinng " + pAsset.getID());
+       //Retrieves data from database to see if the person needs to be added,
+       //and also to check to see if there is an actual need to update te data.
+       Asset temp = getAsset(pAsset.getID());
+       PreparedStatement prep = null;
 
+       try
+       {
+
+         if (temp == null)
+         {
+            System.err.println("Adding " + pAsset.getID());
+            prep = mConn.prepareStatement(
+                     "insert into Assets values (?, ?, ?, ?, ?, ?);");
+         }
+         else if (!(temp.getMake().equals(pAsset.getMake())) ||
+                  !(temp.getModel().equals(pAsset.getModel())) ||
+                  !(temp.getSerialNum().equals(pAsset.getSerialNum())) ||
+                  !(temp.getType().equals(pAsset.getType())) ||
+                  !(temp.getDescription().equals(pAsset.getDescription())))
+         {
+            System.err.println("Updating " + pAsset.getID());
+            prep = mConn.prepareStatement(
+                     "update Assets set AssetID = ?, Make = ?, " +
+                     "Model = ?, SerialNumber =?, AssetType = ?, " +
+                     "Description = ? where AssetID ='" + pAsset.getID() +
+                     "';" );
+         }
+
+         if (prep != null)
+         {
+            prep.setString(1, pAsset.getID());
+            prep.setString(2, pAsset.getMake());
+            prep.setString(3, pAsset.getModel());
+            prep.setString(4, pAsset.getSerialNum());
+            prep.setString(5, pAsset.getType());
+            prep.setString(6, pAsset.getDescription());
+            prep.execute();
+         }
+       }
+       catch(SQLException e)
+       {
+            e.printStackTrace(System.err);
+       }
     }
 
     /**
@@ -336,7 +400,44 @@ public class Server
      */
     public Request getRequest(String pID)
     {
-        return new Request();
+        Request request = null;
+        try
+        {
+           ResultSet requestSet = mStat.executeQuery(
+                 "select * from Requests where" + " RequestID='" + pID + "';");
+           if (requestSet.next())
+           {
+              request = new Request (requestSet.getString("RequestID"),
+                           requestSet.getDate("RequestedMadeDate"),
+                           requestSet.getDate("RequestedPickupDate"),
+                           requestSet.getString("RequestedType"),
+                           getPerson(requestSet.getString("RequestorID")));
+           }
+           requestSet.close();
+
+           if (request != null)
+           {
+               ResultSet cs = mStat.executeQuery(
+                 "select * from Checkouts where" + " RequestID='" + pID + "';");
+               while (cs.next())
+               {
+                   request.addCheckout(new Checkout (cs.getString("CheckoutID"),
+                           getAsset(cs.getString("AssetID")),
+                           getPerson(cs.getString("RecipeantID")),
+                           cs.getDate("RequestedStartDate"),
+                           cs.getDate("RequestedEndDate"),
+                           cs.getDate("PickupDate"),
+                           cs.getDate("ReturnDate")));
+               }
+               cs.close();
+           }
+        }
+        catch (Exception e)
+        {
+           System.err.println(e);
+        }
+
+        return request;
     }
 
     /**

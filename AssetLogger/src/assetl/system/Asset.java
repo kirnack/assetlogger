@@ -8,27 +8,32 @@ package assetl.system;
 public class Asset
 {
     /**
-     *
+     * The asset's ID
      */
     protected String mID;
+
    /**
-    *
+    * The assest's make
     */
    protected String mMake;
+
    /**
-    * 
+    * The asset's model
     */
    protected String mModel;
+
    /**
-    *
+    * The asset's serial number
     */
    protected String mSerialNum;
+
    /**
-    *
+    * The asset's type
     */
    protected String mType;
+
    /**
-    *
+    * The asset's description
     */
    protected String mDescription;
 
@@ -171,7 +176,7 @@ public class Asset
     *
     * @return The identifier of the asset.
     */
-   public String getMID() {
+   public String getID() {
       return mID;
    }
 
@@ -180,7 +185,7 @@ public class Asset
     *
     * @param pID The new identifier of the asset.
     */
-   public void setMID(String pID) {
+   public void setID(String pID) {
       this.mID = pID;
    }
 }

@@ -66,11 +66,30 @@ public class Checkout
    public Checkout(String pID, Asset pAsset, Person pRecipient, 
                    Date pRequestedStartDate, Date pRequestedEndDate)
    {
+       this(pID, pAsset, pRecipient, pRequestedStartDate, pRequestedEndDate,
+            null, null);
+   }
+
+   /**
+    * Contructor for Checkout object
+    *
+    * @param pID The unique identifier of a checkout
+    * @param pAsset The asset to checkout
+    * @param pRecipient The recipient of the asset
+    * @param pRequestedStartDate The requested start date
+    * @param pRequestedEndDate The requested end date
+    */
+   public Checkout(String pID, Asset pAsset, Person pRecipient,
+                   Date pRequestedStartDate, Date pRequestedEndDate,
+                   Date pPickedupDate, Date pReturnedDate)
+   {
        mID = pID;
        mAsset = pAsset;
        mRecipient = pRecipient;
        mRequestedStartDate = pRequestedStartDate;
        mRequestedStartDate = pRequestedEndDate;
+       mPickedupDate = pPickedupDate;
+       mReturnedDate = pReturnedDate;
        mActive = true;
    }
 

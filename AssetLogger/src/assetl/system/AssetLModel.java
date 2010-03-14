@@ -111,4 +111,6 @@ public interface AssetLModel
      * @return
      */
     int getNumLogs();
+
+    void registerObserver(ModelObserver pObserver);
 }

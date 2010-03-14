@@ -53,6 +53,7 @@ public class AssetLoggerView
 
         //add event listeners
         scheduleBtn.addActionListener(new ScheduleListener());
+        checkoutBtn.addActionListener(new CheckoutListener());
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -153,6 +154,7 @@ public class AssetLoggerView
         scheduleBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dumpData = new javax.swing.JTextArea();
+        checkoutBtn = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -228,6 +230,9 @@ public class AssetLoggerView
         dumpData.setName("dumpData"); // NOI18N
         jScrollPane1.setViewportView(dumpData);
 
+        checkoutBtn.setText(resourceMap.getString("checkoutBtn.text")); // NOI18N
+        checkoutBtn.setName("checkoutBtn"); // NOI18N
+
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -239,7 +244,8 @@ public class AssetLoggerView
                     .add(jLabel2)
                     .add(jLabel3)
                     .add(jLabel4)
-                    .add(jLabel5))
+                    .add(jLabel5)
+                    .add(checkoutBtn))
                 .add(26, 26, 26)
                 .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(mainPanelLayout.createSequentialGroup()
@@ -301,7 +307,9 @@ public class AssetLoggerView
                     .add(endYearTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(endDayTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(31, 31, 31)
-                .add(scheduleBtn)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(scheduleBtn)
+                    .add(checkoutBtn))
                 .addContainerGap(66, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
@@ -373,6 +381,7 @@ public class AssetLoggerView
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton checkoutBtn;
     private javax.swing.JTextArea dumpData;
     private javax.swing.JTextField endDayTxtFld;
     private javax.swing.JTextField endMonTxtFld;
@@ -408,6 +417,26 @@ public class AssetLoggerView
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
+    
+    /**
+     * The current person
+     */
+    Person mPerson;
+
+    /**
+     * The current laptop
+     */
+    Asset mLaptop;
+
+    /**
+     * The desired start date
+     */
+    Date mStart;
+
+    /**
+     * The desired end date
+     */
+    Date mEnd;
 
     public void showView()
     {
@@ -425,7 +454,32 @@ public class AssetLoggerView
     //
 
     /**
-     * Listens for when the user pushe the schedule button. It generates
+     * Gets the data from the text fields and makes objects that can
+     * be sent to the controller.
+     */
+    private void grabData()
+    {
+        //get the person data
+        mPerson = new Person(iNumberTextFld.getText());
+        mPerson.setFirstName(firstNameTextFld.getText());
+
+        //get the laptop data
+        mLaptop = new Asset(laptopNumTextFld.getText(), "PC");
+
+        //make a local calander and set the start and end dates
+        Calendar cal = Calendar.getInstance();
+        cal.set(Integer.parseInt(startYearTxtFld.getText()),
+                Integer.parseInt(startMonTxtFld.getText()) + 1,
+                Integer.parseInt(startDayTxtFld.getText()));
+        mStart = cal.getTime();
+        cal.set(Integer.parseInt(endYearTxtFld.getText()),
+                Integer.parseInt(endMonTxtFld.getText()) + 1,
+                Integer.parseInt(endDayTxtFld.getText()));
+        mEnd = cal.getTime();
+    }
+
+    /**
+     * Listens for when the user pushed the schedule button. It generates
      * Person, Asset, and Date objects and sends them to the controller
      * to actually schedule a laptop.
      */
@@ -439,26 +493,30 @@ public class AssetLoggerView
          */
         public void actionPerformed(ActionEvent ev)
         {
-            //get the teacher data
-            Person teacher = new Person(iNumberTextFld.getText());
-            teacher.setFirstName(firstNameTextFld.getText());
+            grabData();
+            mControl.schedule(mPerson, mLaptop, mStart, mEnd);
+            System.err.println("User pushed schedule button");
+        }
+    }
 
-            //get the laptop data
-            Asset laptop = new Asset(laptopNumTextFld.getText(), "PC");
-
-            Calendar cal = Calendar.getInstance();
-            cal.set(Integer.parseInt(startYearTxtFld.getText()),
-                    Integer.parseInt(startMonTxtFld.getText()) + 1,
-                    Integer.parseInt(startDayTxtFld.getText()));
-            Date start = cal.getTime();
-            cal.set(Integer.parseInt(endYearTxtFld.getText()),
-                    Integer.parseInt(endMonTxtFld.getText()) + 1,
-                    Integer.parseInt(endDayTxtFld.getText()));
-            Date end = cal.getTime();
-
-            mControl.schedule(teacher, laptop, start, end);
-
-            System.err.println("This is also a test");
+    /**
+     * Listens for when the user pushed the checkout button. It generates
+     * Person, Asset, and Date objects and sends them to the controller
+     * to checkout the laptop.
+     */
+    class CheckoutListener
+            implements ActionListener
+    {
+        /**
+         * Invoked when the user pushes the checkout button
+         *
+         * @param ev The event causing this action
+         */
+        public void actionPerformed(ActionEvent ev)
+        {
+            grabData();
+            mControl.checkout(mPerson, mLaptop, mEnd);
+            System.err.println("User pushed checkout button");
         }
     }
  
@@ -469,7 +527,7 @@ public class AssetLoggerView
     public void updateData()
     {
         DatabaseControl myControl = (DatabaseControl) mControl;
-        dumpData.append("Schedule performed.\n The teacher is:" +
+        dumpData.append("Model update.\n The teacher is:" +
                 myControl.getPerson(iNumberTextFld.getText()).getFirstName() + "\n");
     }
 }

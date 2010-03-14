@@ -18,6 +18,7 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkoutBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -96,7 +97,10 @@
                       <Component id="endDayTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="scheduleBtn" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="scheduleBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkoutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="66" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -235,6 +239,12 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="checkoutBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="checkoutBtn.text"/>
+            <Property name="name" type="java.lang.String" value="checkoutBtn" noResource="true"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JMenuBar" name="menuBar">

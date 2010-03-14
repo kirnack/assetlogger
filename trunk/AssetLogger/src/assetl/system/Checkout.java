@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package assetl.system;
 
 import java.util.Date;
@@ -15,40 +10,47 @@ import java.util.Date;
 public class Checkout
 {
     /**
-     *
+     * The unique identification of a checkout object
      */
     protected String mID;
+
     /**
-     *
+     * The asset that needs checkout
      */
     protected Asset mAsset;
+
    /**
-    *
+    * The person receiving the asset
     */
    protected Person mRecipient;
+
    /**
-    *
+    * The date to start reserving an asset for the person
     */
    protected Date mRequestedStartDate;
+
    /**
-    *
+    * The date the person will return the asset
     */
    protected Date mRequestedEndDate;
+
    /**
-    *
+    * The date the asset was actually picked up
     */
    protected Date mPickedupDate;
+
    /**
-    *
+    * The date the asset was actually returned
     */
    protected Date mReturnedDate;
+
    /**
-    *
+    * Indicates whether the data in this object is valid
     */
    protected boolean mActive;
 
    /**
-    *
+    * Default Constructor for Checkout object.
     */
    public Checkout()
    {

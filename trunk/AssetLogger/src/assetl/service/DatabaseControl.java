@@ -32,17 +32,34 @@ import assetl.system.Checkout;
 public class DatabaseControl 
         implements AssetLControl, ModelObserver, Runnable
 {
+    /**
+     * The Model
+     */
     private AssetLModel mModel;
+
+    /**
+     * The View
+     */
     private AssetLView mView;
+
+    /**
+     * The id of the user
+     */
     private String mUserID;
+
+    /**
+     * True if the user is an admin
+     */
     private boolean mAdmin;
 
+    /**
+     * The current request being handled
+     */
     private Request mCurrRequest;
 
     /**
      * Default Contructor for the controller. Gets the model and creates
      * the view.
-     *
      */
     public DatabaseControl()
     {
@@ -238,6 +255,9 @@ public class DatabaseControl
         return mModel.getPerson(pID);
     }
 
+    /**
+     * Starts the controller.
+     */
     public void run()
     {
         mView.showView();

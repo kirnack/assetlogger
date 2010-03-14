@@ -5,6 +5,7 @@
 package assetl;
 
 import java.util.Date;
+import java.util.Calendar;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -35,9 +36,11 @@ public class AssetLoggerView
     private AssetLControl mControl;
 
     /**
-     * 
-     * @param app
-     * @param pControl
+     * Constructor for NetBeans generated gui. Takes the starting application
+     * and controller as parameters.
+     *
+     * @param app The main application using the gui
+     * @param pControl The controller for this view
      */
     public AssetLoggerView(SingleFrameApplication app, AssetLControl pControl)
     {
@@ -45,9 +48,11 @@ public class AssetLoggerView
 
         initComponents();
 
+        //set the controller
         mControl = pControl;
 
-        jButton1.addActionListener(new TestListener());
+        //add event listeners
+        scheduleBtn.addActionListener(new ScheduleListener());
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -128,8 +133,26 @@ public class AssetLoggerView
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        iNumberTextFld = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        firstNameTextFld = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        laptopNumTextFld = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        startMonTxtFld = new javax.swing.JTextField();
+        startDayTxtFld = new javax.swing.JTextField();
+        startYearTxtFld = new javax.swing.JTextField();
+        endMonTxtFld = new javax.swing.JTextField();
+        endDayTxtFld = new javax.swing.JTextField();
+        endYearTxtFld = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        scheduleBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        dumpData = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -144,34 +167,146 @@ public class AssetLoggerView
         mainPanel.setName("mainPanel"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(assetl.AssetLoggerApp.class).getContext().getResourceMap(AssetLoggerView.class);
-        jButton1.setText(resourceMap.getString("testBtn.text")); // NOI18N
-        jButton1.setName("testBtn"); // NOI18N
+        iNumberTextFld.setText(resourceMap.getString("iNumberTextFld.text")); // NOI18N
+        iNumberTextFld.setName("iNumberTextFld"); // NOI18N
 
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
-        jTextField1.setName("jTextField1"); // NOI18N
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        firstNameTextFld.setText(resourceMap.getString("firstNameTextFld.text")); // NOI18N
+        firstNameTextFld.setName("firstNameTextFld"); // NOI18N
+
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+
+        laptopNumTextFld.setText(resourceMap.getString("laptopNumTextFld.text")); // NOI18N
+        laptopNumTextFld.setName("laptopNumTextFld"); // NOI18N
+
+        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setName("jLabel3"); // NOI18N
+
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        startMonTxtFld.setText(resourceMap.getString("startMonTxtFld.text")); // NOI18N
+        startMonTxtFld.setName("startMonTxtFld"); // NOI18N
+
+        startDayTxtFld.setText(resourceMap.getString("startDayTxtFld.text")); // NOI18N
+        startDayTxtFld.setName("startDayTxtFld"); // NOI18N
+
+        startYearTxtFld.setText(resourceMap.getString("startYearTxtFld.text")); // NOI18N
+        startYearTxtFld.setName("startYearTxtFld"); // NOI18N
+
+        endMonTxtFld.setText(resourceMap.getString("endMonTxtFld.text")); // NOI18N
+        endMonTxtFld.setName("endMonTxtFld"); // NOI18N
+
+        endDayTxtFld.setText(resourceMap.getString("endDayTxtFld.text")); // NOI18N
+        endDayTxtFld.setName("endDayTxtFld"); // NOI18N
+
+        endYearTxtFld.setText(resourceMap.getString("endYearTxtFld.text")); // NOI18N
+        endYearTxtFld.setName("endYearTxtFld"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
+        jLabel7.setName("jLabel7"); // NOI18N
+
+        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
+        jLabel8.setName("jLabel8"); // NOI18N
+
+        scheduleBtn.setText(resourceMap.getString("scheduleBtn.text")); // NOI18N
+        scheduleBtn.setName("scheduleBtn"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        dumpData.setColumns(20);
+        dumpData.setRows(5);
+        dumpData.setName("dumpData"); // NOI18N
+        jScrollPane1.setViewportView(dumpData);
 
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(mainPanelLayout.createSequentialGroup()
+                .add(39, 39, 39)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel1)
+                    .add(jLabel2)
+                    .add(jLabel3)
+                    .add(jLabel4)
+                    .add(jLabel5))
+                .add(26, 26, 26)
                 .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(mainPanelLayout.createSequentialGroup()
-                        .add(147, 147, 147)
-                        .add(jButton1))
-                    .add(mainPanelLayout.createSequentialGroup()
-                        .add(118, 118, 118)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(160, Short.MAX_VALUE))
+                        .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(endMonTxtFld)
+                            .add(startMonTxtFld)
+                            .add(jLabel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(18, 18, 18)
+                        .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(mainPanelLayout.createSequentialGroup()
+                                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, startDayTxtFld, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel7)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, endDayTxtFld))
+                                .add(18, 18, 18)
+                                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel8)
+                                    .add(endYearTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(startYearTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(scheduleBtn)))
+                    .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, firstNameTextFld)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, iNumberTextFld, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                    .add(laptopNumTextFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(80, 80, 80)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 270, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(30, 30, 30))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(mainPanelLayout.createSequentialGroup()
-                .add(78, 78, 78)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jButton1)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .add(29, 29, 29)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(iNumberTextFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel1))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(firstNameTextFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2))
+                .add(30, 30, 30)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(laptopNumTextFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(21, 21, 21)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel6)
+                    .add(jLabel7)
+                    .add(jLabel8))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(startMonTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(startDayTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(startYearTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(37, 37, 37)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(endMonTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(endYearTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(endDayTxtFld, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(31, 31, 31)
+                .add(scheduleBtn)
+                .addContainerGap(66, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 293, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(46, 46, 46))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -210,11 +345,11 @@ public class AssetLoggerView
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(statusPanelSeparator, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(statusPanelSeparator, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
             .add(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(statusMessageLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 230, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 476, Short.MAX_VALUE)
                 .add(progressBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(statusAnimationLabel)
@@ -238,11 +373,29 @@ public class AssetLoggerView
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea dumpData;
+    private javax.swing.JTextField endDayTxtFld;
+    private javax.swing.JTextField endMonTxtFld;
+    private javax.swing.JTextField endYearTxtFld;
+    private javax.swing.JTextField firstNameTextFld;
+    private javax.swing.JTextField iNumberTextFld;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField laptopNumTextFld;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JButton scheduleBtn;
+    private javax.swing.JTextField startDayTxtFld;
+    private javax.swing.JTextField startMonTxtFld;
+    private javax.swing.JTextField startYearTxtFld;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
@@ -266,27 +419,57 @@ public class AssetLoggerView
         getApplication().hide(this);
     }
 
+
     //
     // TODO: Replace this test code with code that is actually useful
     //
 
-    class TestListener
+    /**
+     * Listens for when the user pushe the schedule button. It generates
+     * Person, Asset, and Date objects and sends them to the controller
+     * to actually schedule a laptop.
+     */
+    class ScheduleListener
             implements ActionListener
     {
+        /**
+         * Invoked when the user pushes the schedule button
+         * 
+         * @param ev The event causing this action
+         */
         public void actionPerformed(ActionEvent ev)
         {
-            String iNumber = "14";
-            Person teacher = new Person(iNumber);
-            Asset laptop = new Asset("12", "PC");
+            //get the teacher data
+            Person teacher = new Person(iNumberTextFld.getText());
+            teacher.setFirstName(firstNameTextFld.getText());
 
-            mControl.schedule(teacher, laptop, new Date(), new Date());
-           
-            System.err.println("testing");
+            //get the laptop data
+            Asset laptop = new Asset(laptopNumTextFld.getText(), "PC");
 
-            DatabaseControl temp = (DatabaseControl) mControl;
-            Person modelGuy = temp.getPerson(iNumber);
+            Calendar cal = Calendar.getInstance();
+            cal.set(Integer.parseInt(startYearTxtFld.getText()),
+                    Integer.parseInt(startMonTxtFld.getText()) + 1,
+                    Integer.parseInt(startDayTxtFld.getText()));
+            Date start = cal.getTime();
+            cal.set(Integer.parseInt(endYearTxtFld.getText()),
+                    Integer.parseInt(endMonTxtFld.getText()) + 1,
+                    Integer.parseInt(endDayTxtFld.getText()));
+            Date end = cal.getTime();
 
-            jTextField1.setText(modelGuy.getFirstName());
+            mControl.schedule(teacher, laptop, start, end);
+
+            System.err.println("This is also a test");
         }
+    }
+ 
+    /**
+     * Updates the view's display of the model. This function will be
+     * called every time the model's state changes.
+     */
+    public void updateData()
+    {
+        DatabaseControl myControl = (DatabaseControl) mControl;
+        dumpData.append("Schedule performed.\n The teacher is:" +
+                myControl.getPerson(iNumberTextFld.getText()).getFirstName() + "\n");
     }
 }

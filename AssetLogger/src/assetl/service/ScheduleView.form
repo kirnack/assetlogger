@@ -1,33 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="jMenuBar1" noResource="true"/>
-      </Properties>
-      <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
-          <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="jMenu1.text"/>
-            <Property name="name" type="java.lang.String" value="jMenu1" noResource="true"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
-          <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="jMenu2.text"/>
-            <Property name="name" type="java.lang.String" value="jMenu2" noResource="true"/>
-          </Properties>
-        </Menu>
-      </SubComponents>
-    </Menu>
-  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <AuxValues>
@@ -107,7 +85,7 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="317" max="-2" attributes="0"/>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace pref="51" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -146,7 +124,7 @@
               </Group>
               <EmptySpace pref="49" max="32767" attributes="0"/>
               <Component id="scheduleBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

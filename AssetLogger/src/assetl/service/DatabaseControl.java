@@ -70,7 +70,7 @@ public class DatabaseControl
          Delete after 2 weeks if still not applicable. Uses the handwritten
          view instead of netbeans generated.
          
-         mView = new AssetView(this);
+         mView = new HandwrittenView(this);
         */
 
         //Use a netbeans generated gui
@@ -216,13 +216,49 @@ public class DatabaseControl
     /**
      * Allows the controller to change which view is currently being used
      *
-     * @param pView The iew to change to
+     * @param pView The view to change to
      */
     public void changeView(AssetLView pView)
     {
-        mView.hideView();
+        mView.closeView();
         mView = pView;
         mView.showView();
+    }
+
+    /**
+     * Picks a view that has checkout ability and enables that functionality
+     */
+    public void changeCheckout()
+    {
+        changeView(new ScheduleView(this));
+        mView.enableCheckout();
+    }
+
+    /**
+     * Picks a view that has checkin ability and enables that functionality
+     */
+    public void changeCheckin()
+    {
+        changeView(new CheckInView(this));
+        mView.enableCheckin();
+    }
+
+    /**
+     * Picks a view that has schedule ability and enables that functionality
+     */
+    public void changeSchedule()
+    {
+        changeView(new ScheduleView(this));
+        mView.enableSchedule();
+    }
+
+    /**
+     * Picks a view that has cancel ability and enables that functionality
+     */
+    public void changeCancel()
+    {
+        changeView(new ScheduleView(this));
+        mView.enableCancel();
     }
 
     /**

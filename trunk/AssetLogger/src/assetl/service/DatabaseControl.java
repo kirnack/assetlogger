@@ -2,8 +2,6 @@ package assetl.service;
 
 import java.util.Date;
 
-import assetl.AssetLoggerView;
-import assetl.AssetLoggerApp;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
@@ -75,8 +73,8 @@ public class DatabaseControl
          mView = new AssetView(this);
         */
 
-        //Use the netbeans generated gui
-        mView = new AssetLoggerView(AssetLoggerApp.getApplication(), this);
+        //Use a netbeans generated gui
+        mView = new ScheduleView(this);
     }
 
     /**

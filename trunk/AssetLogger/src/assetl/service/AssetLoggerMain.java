@@ -9,6 +9,12 @@ package assetl.service;
  */
 public class AssetLoggerMain
 {
+    /**
+     * The main method for this application.
+     * Starts a new instance of a Controller thread.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args)
     {
         new Thread(new DatabaseControl()).start();

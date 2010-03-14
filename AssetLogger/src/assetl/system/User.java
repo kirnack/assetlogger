@@ -1,23 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package assetl.system;
 
 /**
+ * Represents the user of the view.
  * 
  * @author Bryon Rogers3
  */
 public class User
 {
-
+    /**
+     * The unique identifier of the user
+     */
     private String mID;
+
+    /**
+     * The user's password
+     */
     private String mPassword;
+
+    /**
+     * Indicates if the user is an admin
+     */
     private boolean mAdmin;
 
     /**
-     *
+     * Default Constructor.
      */
     public User()
     {
@@ -25,8 +31,9 @@ public class User
     }
 
     /**
+     * Constructor with an id as a parameter.
      *
-     * @param pID
+     * @param pID The id of the user
      */
     public User(String pID)
     {
@@ -34,10 +41,11 @@ public class User
     }
 
     /**
+     * Constructor with all parameters.
      *
-     * @param pID
-     * @param pPassword
-     * @param pAdmin
+     * @param pID The id of the user
+     * @param pPassword The user's password
+     * @param pAdmin True if the user is an admin
      */
     public User(String pID, String pPassword, boolean pAdmin)
     {
@@ -47,8 +55,9 @@ public class User
     }
 
     /**
-     * 
-     * @return
+     * Returns true if the user is an admin.
+     *
+     * @return true if the user is an admin
      */
     public boolean isAdmin()
     {
@@ -56,17 +65,19 @@ public class User
     }
 
     /**
+     * Sets whether the user is an admin or not.
      *
-     * @param pAdmin
+     * @param pAdmin The admin status to set
      */
     public void setAdmin(boolean pAdmin)
     {
-        this.mAdmin = pAdmin;
+        mAdmin = pAdmin;
     }
 
     /**
+     * Gets the id of this user.
      *
-     * @return
+     * @return The user id.
      */
     public String getID()
     {
@@ -74,8 +85,9 @@ public class User
     }
 
     /**
+     * Sets the id of this user.
      *
-     * @param pID
+     * @param pID The id to set.
      */
     public void setID(String pID)
     {
@@ -83,8 +95,9 @@ public class User
     }
 
     /**
+     * Gets this user's password.
      *
-     * @return
+     * @return The password of this user.
      */
     public String getPassword()
     {
@@ -92,14 +105,21 @@ public class User
     }
 
     /**
+     * Sets this user's password.
      *
-     * @param pPassword
+     * @param pPassword This user's password.
      */
     public void setPassword(String pPassword)
     {
         this.mPassword = pPassword;
     }
 
+    /**
+     * Users are considered equal if they have the same id.
+     *
+     * @param obj The object to compare to
+     * @return True if the objects are equal
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -119,6 +139,11 @@ public class User
         return true;
     }
 
+    /**
+     * Overriden hashCode() method for a User.
+     *
+     * @return The unique hash code for this user.
+     */
     @Override
     public int hashCode()
     {
@@ -127,6 +152,11 @@ public class User
         return hash;
     }
 
+    /**
+     * Converts the User object to a string.
+     *
+     * @return A string representing a user
+     */
     @Override
     public String toString()
     {

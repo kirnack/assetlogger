@@ -13,31 +13,37 @@ public class Request
 {
 
     /**
-     * 
+     * The unique identifier for the request
      */
     protected String mID;
+
    /**
-    *
+    * The date the request was made
     */
    protected Date mRequestMade;
+
    /**
-    *
+    * The date the person requests to pick up the asset
     */
    protected Date mRequestedPickup;
+
    /**
-    *
+    * The type asset they would like to request
     */
    protected String mRequstType;
+
    /**
-    *
+    * The person requesting an asset
     */
    protected Person mRequestor;
+
    /**
-    *
+    * Indicates whether the request data is valid
     */
    protected boolean mActive;
+
    /**
-    *
+    * The checkouts to that have been requested
     */
    protected Collection<Checkout> mCheckouts;
 

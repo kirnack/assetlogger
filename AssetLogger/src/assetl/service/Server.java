@@ -69,9 +69,6 @@ public class Server
     {
         INSTANCE = new Server();
     }
-    //
-    // TODO: actually implement these functions
-    //
 
     /**
      * Constructor is deliberately private to create a singleton.

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package assetl.system;
 
 /**
@@ -15,33 +10,39 @@ package assetl.system;
 public class Person
 {
     /**
-     *
+     * The unique identifier for a person
      */
     protected String mID;
+
     /**
-     *
+     * The person's first name
      */
     protected String mFirstName;
+
     /**
-     * 
+     * The person's middle name
      */
     protected String mMiddleName;
+
    /**
-    *
+    * The person's last name
     */
    protected String mLastName;
+
    /**
-    *
+    * The person's email
     */
    protected String mEmail;
+
    /**
-    *
+    * The person's phone number
     */
    protected String mPhoneNumber;
 
    /**
+    * Constructor for Person with the person's id as a parameter.
     *
-    * @param pID
+    * @param pID The unique identifier for this person
     */
    public Person(String pID)
    {
@@ -49,13 +50,14 @@ public class Person
    }
 
    /**
+    * Constructor for Person with all parameters.
     *
-    * @param pID
-    * @param pFirstName
-    * @param pMiddleName
-    * @param pLastName
-    * @param pEmail
-    * @param pPhoneNumber
+    * @param pID The unique identifier for this person
+    * @param pFirstName The peron's first name
+    * @param pMiddleName The person's middle name
+    * @param pLastName The person's last name
+    * @param pEmail The person's email
+    * @param pPhoneNumber The person's phone number
     */
    public Person(String pID, String pFirstName, String pMiddleName,
            String pLastName, String pEmail, String pPhoneNumber)
@@ -214,6 +216,11 @@ public class Person
       return true;
    }
 
+   /**
+    * Overriden hashCode method for Person.
+    *
+    * @return The unique hash code for this Person
+    */
    @Override
    public int hashCode()
    {

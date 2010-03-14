@@ -300,7 +300,7 @@ public class Server
         Asset asset = null;
         try
         {
-           ResultSet rs = mStat.executeQuery("select * from asset where" +
+           ResultSet rs = mStat.executeQuery("select * from assets where" +
                                             " AssetID='" + pID + "';");
            if (rs.next())
            {

@@ -6,13 +6,11 @@
 
 package assetl.service;
 
-import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 
-import assetl.system.AssetLView;
+import assetl.system.AssetView;
 import assetl.system.AssetLControl;
 import assetl.system.Person;
 import assetl.system.Asset;
@@ -23,42 +21,20 @@ import assetl.system.Asset;
  * @author Devin Doman
  */
 public class ScheduleView
-        extends JFrame
-        implements AssetLView
+        extends AssetView
 {
     /**
-     * The Controller
+     * Creates a user interface taking a controller
+     * as a parameter.
+     *
+     * @param pControl The controller for this view
      */
-    AssetLControl mControl;
-
-    /**
-     * The current person
-     */
-    Person mPerson;
-
-    /**
-     * The current laptop
-     */
-    Asset mLaptop;
-
-    /**
-     * The desired start date
-     */
-    Date mStart;
-
-    /**
-     * The desired end date
-     */
-    Date mEnd;
-
-    /** Creates new form ScheduleView */
     public ScheduleView(AssetLControl pControl)
     {
-        super("Scheduler");
-        mControl = pControl;
+        super(pControl, "Scheduler");
 
         initComponents();
-
+        
         //add action listeners
         scheduleBtn.addActionListener(new ScheduleListener());
     }
@@ -92,9 +68,6 @@ public class ScheduleView
         endDayTxtFld = new javax.swing.JTextField();
         endYearTxtFld = new javax.swing.JTextField();
         scheduleBtn = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
@@ -161,18 +134,6 @@ public class ScheduleView
         scheduleBtn.setText(resourceMap.getString("scheduleBtn.text")); // NOI18N
         scheduleBtn.setName("scheduleBtn"); // NOI18N
 
-        jMenuBar1.setName("jMenuBar1"); // NOI18N
-
-        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText(resourceMap.getString("jMenu2.text")); // NOI18N
-        jMenu2.setName("jMenu2"); // NOI18N
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,7 +185,7 @@ public class ScheduleView
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,7 +218,7 @@ public class ScheduleView
                     .addComponent(endYearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(scheduleBtn)
-                .addGap(41, 41, 41))
+                .addGap(62, 62, 62))
         );
 
         pack();
@@ -279,9 +240,6 @@ public class ScheduleView
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField laptopNumTxtFld;
     private javax.swing.JButton scheduleBtn;
@@ -289,22 +247,6 @@ public class ScheduleView
     private javax.swing.JTextField srtMonTxtFld;
     private javax.swing.JTextField srtYearTxtFld;
     // End of variables declaration//GEN-END:variables
-
-    /**
-     * Allow the Controller to show the View
-     */
-    public void showView()
-    {
-        setVisible(true);
-    }
-
-    /**
-     * Allow the Controller to hide the View
-     */
-    public void hideView()
-    {
-        setVisible(false);
-    }
 
     /**
      * Updates the view's display of the model. This function will be
@@ -316,6 +258,38 @@ public class ScheduleView
         dumpData.append("Model update.\n The teacher is:" +
                 myControl.getPerson(iNumTxtFld.getText()).getFirstName() +
                 "\n");
+    }
+
+    /**
+     * Give controller access to modify the current view to enable checkouts
+     */
+    public void enableCheckout()
+    {
+
+    }
+
+    /**
+     * This view has no checkin ability, let controller change view
+     */
+    public void enableCheckin()
+    {   
+        switchCheckin();
+    }
+
+    /**
+     * Lets the controller enable checkout function in view if applicable
+     */
+    public void enableSchedule()
+    {
+
+    }
+
+    /**
+     * Lets the controller enable checkout function in view if applicable
+     */
+    public void enableCancel()
+    {
+        
     }
 
     /**

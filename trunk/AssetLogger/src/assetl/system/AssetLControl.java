@@ -46,4 +46,24 @@ public interface AssetLControl
      * @param pAsset The asset to cancel
      */
     void cancel(Person pPerson, Asset pAsset);
+
+    /**
+     * Changes the view to interface with checkout functionality
+     */
+    void changeCheckout();
+
+    /**
+     * Changes the view to interface with checkin functionality
+     */
+    void changeCheckin();
+
+    /**
+     * Changes the view to interface with schedule functionality
+     */
+    void changeSchedule();
+
+    /**
+     * Changes the view to interface with cancel functionality
+     */
+    void changeCancel();
 }

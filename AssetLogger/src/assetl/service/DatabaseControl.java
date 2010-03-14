@@ -167,6 +167,9 @@ public class DatabaseControl
         makeRequest(pPerson, pStart);
         makeCheckout(pPerson, pAsset, pStart, pEnd, false);
         mModel.setRequest(mCurrRequest, mUserID);
+        
+        //TODO: remove the following line of test code for view changing
+        //changeView(new AssetView(this));
     }
 
     /**
@@ -208,6 +211,18 @@ public class DatabaseControl
     public void cancel(Person pPerson, Asset pAsset)
     {
 
+    }
+
+    /**
+     * Allows the controller to change which view is currently being used
+     *
+     * @param pView The iew to change to
+     */
+    public void changeView(AssetLView pView)
+    {
+        mView.hideView();
+        mView = pView;
+        mView.showView();
     }
 
     /**

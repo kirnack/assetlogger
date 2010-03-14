@@ -209,11 +209,21 @@ public class ServerTest
     public void testSetAsset()
     {
         System.out.println("setAsset");
-        Asset pAsset = null;
+        System.out.println("/tnew Dell laptop");
+        Asset pAsset = new Asset("42", "Dell", "Inspiron 1525", "12345",
+                "Laptop", "A dell laptop");
         Server instance = Server.getInstance();
         instance.setAsset(pAsset);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        System.out.println("/tnew Mac laptop");
+        pAsset = new Asset("12", "Apple", "MacBook", "54321",
+                "Laptop", "A mac laptop");
+        instance.setAsset(pAsset);
+
+        System.out.println("/tchanged Dell laptop model and serial number");
+        pAsset = new Asset("42", "Dell", "Inspiron 1545", "67890",
+                "Laptop", "A dell laptop");
+        instance.setAsset(pAsset);
     }
 
     /**
@@ -223,13 +233,19 @@ public class ServerTest
     public void testGetAsset()
     {
         System.out.println("getAsset");
-        String pID = "";
+        System.out.println("/tNo Asset with that id");
+        String pID = "tryMe";
         Server instance = Server.getInstance();
         Asset expResult = null;
         Asset result = instance.getAsset(pID);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        System.out.println("/tAsset exists");
+        pID = "42";
+        expResult = new Asset("42", "Dell", "Inspiron 1545", "67890",
+                "Laptop", "A dell laptop");
+        result = instance.getAsset(pID);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -240,12 +256,11 @@ public class ServerTest
     {
         System.out.println("getAssets");
         Server instance = Server.getInstance();
-        Person pPerson = null;
+        Person pPerson = instance.getPerson("kirnack");
         Collection<Asset> expResult = null;
+        expResult.add(instance.getAsset("42"));
         Collection<Asset> result = instance.getAssets(pPerson);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

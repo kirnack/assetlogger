@@ -28,7 +28,8 @@ import java.util.Date;
 /**
  * A singleton Server that will take assets, people, and request classes
  * and add or modify the database to reflect the changes to the objects, based
- * on the objects passed as parameters.
+ * on the objects passed as parameters. Sends notfications of state changes
+ * to any interested listeners using the Observer pattern.
  *
  * @author Bryon Rogers
  * @see <a href=""> Database design </a>
@@ -543,14 +544,25 @@ public class Server
     }
 
     /**
-     * Returns a collection of assets that the passed person has ever borrowed.
+     * Returns a collection of all the assets this person has borrowed
      *
-     * @param pPerson The person whom to base the collection on.
-     * @return A collection of assets that the pPerson has ever borrowed.
+     * @param pPerson The person to get an asset history for
+     * @return The assets this person borrowed
      */
     public Collection<Asset> getAssets(Person pPerson)
     {
         return new ArrayList<Asset>();
+    }
+
+    /**
+     * Returns a collection of people who have borrowed the asset.
+     *
+     * @param pAsset The asset to get a borrow history for
+     * @return The Person collection of those who borrowed the asset
+     */
+    public Collection<Person> getBorrowers(Asset pAsset)
+    {
+        return new ArrayList<Person>();
     }
 
     /**

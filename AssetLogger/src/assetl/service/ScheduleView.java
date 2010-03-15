@@ -31,12 +31,8 @@ public class ScheduleView
      */
     public ScheduleView(AssetLControl pControl)
     {
-        super(pControl, "Scheduler");
-
+        super(pControl);
         initComponents();
-        
-        //add action listeners
-        scheduleBtn.addActionListener(new ScheduleListener());
     }
 
     /** This method is called from within the constructor to
@@ -268,6 +264,14 @@ public class ScheduleView
     public void enableCheckout()
     {
         // TODO: modify view components for a checkout
+        setTitle("Check Out");
+        scheduleBtn.setText("Check Out");
+
+        //remove all previous action listeners
+        removeButtonListeners(scheduleBtn);
+
+        //add a checkout action listener
+        scheduleBtn.addActionListener(new CheckoutListener());
     }
 
     /**
@@ -278,6 +282,14 @@ public class ScheduleView
     public void enableSchedule()
     {
         // TODO: modify view components for a schedule
+        setTitle("Schedule");
+        scheduleBtn.setText("Schedule");
+        
+        //remove all previous action listeners
+        removeButtonListeners(scheduleBtn);
+        
+        //add a scheduling action listener
+        scheduleBtn.addActionListener(new ScheduleListener());
     }
 
     /**
@@ -345,5 +357,14 @@ public class ScheduleView
             mControl.checkout(mPerson, mLaptop, mEnd);
             System.err.println("User pushed checkout button");
         }
+    }
+
+    /**
+     * Entry point for this view's thread
+     */
+    public void run()
+    {
+        //default to schedule ability
+        enableSchedule();
     }
 }

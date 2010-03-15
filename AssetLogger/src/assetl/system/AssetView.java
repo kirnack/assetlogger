@@ -10,6 +10,7 @@ import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
+import javax.swing.AbstractButton;
 
 
 /**
@@ -20,7 +21,7 @@ import javax.swing.JFrame;
  */
 public abstract class AssetView
         extends JFrame
-        implements AssetLView
+        implements AssetLView, Runnable
 {
 
     /**
@@ -191,6 +192,7 @@ public abstract class AssetView
      */
     public void showView()
     {
+        run();
         setVisible(true);
     }
 
@@ -281,4 +283,23 @@ public abstract class AssetView
     {
         throw new UnsupportedOperationException("This view can't cancel");
     }
+
+    /**
+     * Removes all event listeners from a button
+     *
+     * @param pButton The button to remove listeners from
+     */
+    public void removeButtonListeners(AbstractButton pButton)
+    {
+        //
+        // Get all listeners and then remove each one
+        //
+
+        ActionListener[] actions = pButton.getActionListeners();
+
+        for (ActionListener listen : actions)
+        {
+            pButton.removeActionListener(listen);
+        }
+   }
 }

@@ -38,33 +38,18 @@ public class HandwrittenView
     }
 
     /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    public void enableCheckout()
-    {
-
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    public void enableCheckin()
-    {
-
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    public void enableSchedule()
-    {
-
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
+     * Enables cancel ability for this view
+     *
+    @Override
     public void enableCancel()
+    {
+        //canceling is enabled
+    }*/
+
+    /**
+     * The entry point for this view
+     */
+    public void run()
     {
 
     }

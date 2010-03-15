@@ -100,4 +100,12 @@ public class CheckInView
     {
         //Deliberately left empty, view is set to checkin by default
     }
+
+    /**
+     * The entry point for this view
+     */
+    public void run()
+    {
+
+    }
 }

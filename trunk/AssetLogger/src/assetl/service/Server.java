@@ -60,14 +60,14 @@ public class Server
     /**
      * Variable to hold a singleton of Server
      */
-    private static final Server INSTANCE;
+    private static final Server cInstance;
 
     /**
      * Initialize a Server instance
      */
     static
     {
-        INSTANCE = new Server();
+        cInstance = new Server();
     }
 
     /**
@@ -200,7 +200,7 @@ public class Server
      */
     public static Server getInstance()
     {
-        return INSTANCE;
+        return cInstance;
     }
 
     /**

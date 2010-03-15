@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 
 /**
  * An abstract class containing a JMenu
- * to switch between view functionality.
+ * common to all view subclasses
  *
  * @author Devin Doman
  */
@@ -47,17 +47,6 @@ public abstract class AssetView
      * The desired end date
      */
     protected Date mEnd;
-
-    /**
-     * Constructor that takes the form title as a parameter
-     *
-     * @param pTitle The title to give the view
-     */
-    public AssetView(String pTitle)
-    {
-        super(pTitle);
-        initComponents();
-    }
 
     /**
      * Constructor that takes the view's controller as a parameter
@@ -197,7 +186,7 @@ public abstract class AssetView
     private javax.swing.JMenu viewMenu;
     // End of variables declaration//GEN-END:variables
 
-        /**
+    /**
      * Allow the Controller to show the View
      */
     public void showView()
@@ -251,5 +240,45 @@ public abstract class AssetView
     public void switchCancel()
     {
         mControl.changeCancel();
+    }
+
+    /**
+     * The default behavior is to throw an exception.
+     * If a view has the ability to checkout it must override this method.
+     */
+    public void enableCheckout()
+            throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException("This view can't checkout");
+    }
+
+    /**
+     * The default behavior is to throw an exception.
+     * If a view has the ability to checkin it must override this method.
+     */
+    public void enableCheckin()
+            throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException("This view can't checkin");
+    }
+
+    /**
+     * The default behavior is to throw an exception.
+     * If a view has the ability to schedule it must override this method.
+     */
+    public void enableSchedule()
+            throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException("This view can't schedule");
+    }
+
+    /**
+     * The default behavior is to throw an exception.
+     * If a view has the ability to cancel it must override this method.
+     */
+    public void enableCancel()
+            throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException("This view can't cancel");
     }
 }

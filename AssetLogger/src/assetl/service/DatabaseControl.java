@@ -220,9 +220,13 @@ public class DatabaseControl
      */
     public void changeView(AssetLView pView)
     {
-        mView.closeView();
-        mView = pView;
-        mView.showView();
+        //if the views are not the same type change the view
+        if (!pView.getClass().equals(mView.getClass()))
+        {
+            mView.closeView();
+            mView = pView;
+            mView.showView();
+        }
     }
 
     /**
@@ -230,8 +234,18 @@ public class DatabaseControl
      */
     public void changeCheckout()
     {
+        AssetLView currView = mView;
         changeView(new ScheduleView(this));
-        mView.enableCheckout();
+
+        try
+        {
+            mView.enableCheckout();
+        }
+        catch(UnsupportedOperationException e)
+        {
+            //change back to original view if operation is not supported
+            changeView(currView);
+        }
     }
 
     /**
@@ -239,8 +253,18 @@ public class DatabaseControl
      */
     public void changeCheckin()
     {
+        AssetLView currView = mView;
         changeView(new CheckInView(this));
-        mView.enableCheckin();
+        
+        try
+        {
+            mView.enableCheckin();
+        }
+        catch(UnsupportedOperationException e)
+        {
+            //change back to original view if operation is not supported
+            changeView(currView);
+        }
     }
 
     /**
@@ -248,8 +272,18 @@ public class DatabaseControl
      */
     public void changeSchedule()
     {
+        AssetLView currView = mView;
         changeView(new ScheduleView(this));
-        mView.enableSchedule();
+        
+        try
+        {
+            mView.enableSchedule();
+        }
+        catch(UnsupportedOperationException e)
+        {
+            //change back to original view if operation is not supported
+            changeView(currView);
+        }
     }
 
     /**
@@ -257,8 +291,18 @@ public class DatabaseControl
      */
     public void changeCancel()
     {
-        changeView(new ScheduleView(this));
-        mView.enableCancel();
+        AssetLView currView = mView;
+        changeView(new HandwrittenView(this));
+        
+        try
+        {
+            mView.enableCancel();
+        }
+        catch(UnsupportedOperationException e)
+        {
+            //change back to original view if operation is not supported
+            changeView(currView);
+        }
     }
 
     /**

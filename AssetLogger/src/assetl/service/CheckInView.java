@@ -39,17 +39,38 @@ public class CheckInView
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ckInTxtFld = new javax.swing.JTextField();
+        ckInBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        ckInTxtFld.setName("ckInTxtFld"); // NOI18N
+
+        ckInBtn.setText("Check In");
+        ckInBtn.setName("ckInBtn"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(ckInTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(ckInBtn)))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(ckInTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(ckInBtn)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         pack();
@@ -57,6 +78,8 @@ public class CheckInView
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ckInBtn;
+    private javax.swing.JTextField ckInTxtFld;
     // End of variables declaration//GEN-END:variables
 
 
@@ -66,37 +89,15 @@ public class CheckInView
      */
     public void updateData()
     {
+        // TODO: get from the model the status of the checkin for the asset
     }
 
     /**
-     * This view has no checkout ability, let controller change the view
+     * Enables checkin ability for this view.
      */
-    public void enableCheckout()
-    {
-        switchCheckout();
-    }
-
-    /**
-     * Give controller access to modify the current view to enable checkins
-     */
+    @Override
     public void enableCheckin()
     {
-        //Do nothing checkin ability is already enabled
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    public void enableSchedule()
-    {
-        switchSchedule();
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    public void enableCancel()
-    {
-        switchCancel();
+        //Deliberately left empty, view is set to checkin by default
     }
 }

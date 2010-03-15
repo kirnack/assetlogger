@@ -57,7 +57,7 @@ public interface AssetLModel
      * @param pUserID The user id to register with the request
      */
     void setRequest(Request pRequest, String pUserID);
-
+    
     /**
      * Returns true if the person with the id given is an admin
      *

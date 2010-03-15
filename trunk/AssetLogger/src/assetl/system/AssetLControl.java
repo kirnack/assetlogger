@@ -66,4 +66,25 @@ public interface AssetLControl
      * Changes the view to interface with cancel functionality
      */
     void changeCancel();
+
+    //
+    // The following methods allow the controller to server as Mediator
+    // between the View and Model
+    //
+
+    /**
+     * Returns the Person represented by the ID given.
+     *
+     * @param pID The unique identification number for this person
+     * @return The Person identified
+     */
+    Person getPerson(String pID);
+
+    /**
+     * Returns the Asset represented by the ID given
+     *
+     * @param pID The unique identification number for this asset
+     * @return The Asset identified
+     */
+    Asset getAsset(String pID);
 }

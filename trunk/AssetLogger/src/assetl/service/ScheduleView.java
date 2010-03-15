@@ -52,7 +52,7 @@ public class ScheduleView
         jLabel2 = new javax.swing.JLabel();
         laptopNumTxtFld = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        srtLabel = new javax.swing.JLabel();
         srtMonTxtFld = new javax.swing.JTextField();
         srtDayTxtFld = new javax.swing.JTextField();
         srtYearTxtFld = new javax.swing.JTextField();
@@ -94,8 +94,8 @@ public class ScheduleView
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
-        jLabel4.setName("jLabel4"); // NOI18N
+        srtLabel.setText(resourceMap.getString("srtLabel.text")); // NOI18N
+        srtLabel.setName("srtLabel"); // NOI18N
 
         srtMonTxtFld.setText(resourceMap.getString("srtMonTxtFld.text")); // NOI18N
         srtMonTxtFld.setName("srtMonTxtFld"); // NOI18N
@@ -150,15 +150,14 @@ public class ScheduleView
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(srtLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(laptopNumTxtFld))
                                 .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(endMonTxtFld, 0, 0, Short.MAX_VALUE)
-                                        .addComponent(srtMonTxtFld, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(endMonTxtFld)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(srtMonTxtFld, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -202,16 +201,16 @@ public class ScheduleView
                     .addComponent(jLabel6))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(srtLabel)
                     .addComponent(srtMonTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(srtDayTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(srtYearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(endMonTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endDayTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(endYearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(endYearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endMonTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(scheduleBtn)
                 .addGap(62, 62, 62))
@@ -231,7 +230,6 @@ public class ScheduleView
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -240,6 +238,7 @@ public class ScheduleView
     private javax.swing.JTextField laptopNumTxtFld;
     private javax.swing.JButton scheduleBtn;
     private javax.swing.JTextField srtDayTxtFld;
+    private javax.swing.JLabel srtLabel;
     private javax.swing.JTextField srtMonTxtFld;
     private javax.swing.JTextField srtYearTxtFld;
     // End of variables declaration//GEN-END:variables
@@ -250,9 +249,8 @@ public class ScheduleView
      */
     public void updateData()
     {
-        DatabaseControl myControl = (DatabaseControl) mControl;
         dumpData.append("Model update.\n The teacher is:" +
-                myControl.getPerson(iNumTxtFld.getText()).getFirstName() +
+                mControl.getPerson(iNumTxtFld.getText()).getFirstName() +
                 "\n");
     }
 
@@ -266,6 +264,8 @@ public class ScheduleView
         // TODO: modify view components for a checkout
         setTitle("Check Out");
         scheduleBtn.setText("Check Out");
+        //hide the start date fields
+        setStart(false);
 
         //remove all previous action listeners
         removeButtonListeners(scheduleBtn);
@@ -284,6 +284,8 @@ public class ScheduleView
         // TODO: modify view components for a schedule
         setTitle("Schedule");
         scheduleBtn.setText("Schedule");
+        //show the start date fields
+        setStart(true);
         
         //remove all previous action listeners
         removeButtonListeners(scheduleBtn);
@@ -315,6 +317,29 @@ public class ScheduleView
                 Integer.parseInt(endMonTxtFld.getText()) + 1,
                 Integer.parseInt(endDayTxtFld.getText()));
         mEnd = cal.getTime();
+    }
+
+    /**
+     * Prepopulates the fields with the data currently held
+     * in the member variables or with those in the model.
+     */
+    @Override
+    public void populateFields()
+    {
+        // TODO: add code to prepopulate the fields when functionality changes
+    }
+
+    /**
+     * Shows or hides the start date fields.
+     *
+     * @param pShow If true start date fields are shown
+     */
+    public void setStart(boolean pShow)
+    {
+        srtLabel.setVisible(pShow);
+        srtYearTxtFld.setVisible(pShow);
+        srtMonTxtFld.setVisible(pShow);
+        srtDayTxtFld.setVisible(pShow);
     }
 
     /**

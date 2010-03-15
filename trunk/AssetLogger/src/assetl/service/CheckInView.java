@@ -6,6 +6,10 @@
 
 package assetl.service;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import assetl.system.Asset;
 import assetl.system.AssetView;
 import assetl.system.AssetLControl;
 
@@ -44,6 +48,7 @@ public class CheckInView
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        ckInTxtFld.setText("42");
         ckInTxtFld.setName("ckInTxtFld"); // NOI18N
 
         ckInBtn.setText("Check In");
@@ -98,7 +103,18 @@ public class CheckInView
     @Override
     public void enableCheckin()
     {
-        //Deliberately left empty, view is set to checkin by default
+        ckInBtn.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ev)
+            {
+                System.err.println("The user pushed the check in button");
+                //get the laptop data
+                mLaptop = mControl.getAsset(ckInTxtFld.getText());
+
+                //tell the controller to check it in
+                mControl.checkin(mLaptop);
+            }
+        });
     }
 
     /**

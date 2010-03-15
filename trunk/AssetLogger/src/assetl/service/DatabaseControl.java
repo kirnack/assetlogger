@@ -198,7 +198,7 @@ public class DatabaseControl
      */
     public void checkin(Asset pAsset)
     {
-
+        //mModel.getCheckout(pAsset);
     }
 
     /**
@@ -342,6 +342,17 @@ public class DatabaseControl
     public Person getPerson(String pID)
     {
         return mModel.getPerson(pID);
+    }
+
+    /**
+     * Returns the Asset represented by the ID given
+     *
+     * @param pID The unique identification number for this asset
+     * @return The Asset identified
+     */
+    public Asset getAsset(String pID)
+    {
+        return mModel.getAsset(pID);
     }
 
     /**

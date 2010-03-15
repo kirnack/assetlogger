@@ -69,4 +69,10 @@ public interface AssetLView
      * Lets the controller enable checkout function in view if applicable
      */
     void enableCancel();
+
+    /**
+     * Prepopulates the fields with the data currently held
+     * in the member variables or with those in the model.
+     */
+    void populateFields();
 }

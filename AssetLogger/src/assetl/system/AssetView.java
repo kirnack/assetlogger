@@ -285,6 +285,17 @@ public abstract class AssetView
     }
 
     /**
+     * Prepopulates the fields with the data currently held
+     * in the member variables or with those in the model.
+     * To enable this subclasses must override.
+     */
+    public void populateFields()
+            throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException("Prepopulate not supported");
+    }
+
+    /**
      * Removes all event listeners from a button
      *
      * @param pButton The button to remove listeners from

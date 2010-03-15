@@ -261,35 +261,23 @@ public class ScheduleView
     }
 
     /**
-     * Give controller access to modify the current view to enable checkouts
+     * Enables checkout ability for this view.
+     * Gives controller access to modify the current view to enable checkouts.
      */
+    @Override
     public void enableCheckout()
     {
-
+        // TODO: modify view components for a checkout
     }
 
     /**
-     * This view has no checkin ability, let controller change view
+     * Enables schedule ability for this view.
+     * Gives controller access to modify the current view to enable schedule.
      */
-    public void enableCheckin()
-    {   
-        switchCheckin();
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
+    @Override
     public void enableSchedule()
     {
-
-    }
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    public void enableCancel()
-    {
-        
+        // TODO: modify view components for a schedule
     }
 
     /**

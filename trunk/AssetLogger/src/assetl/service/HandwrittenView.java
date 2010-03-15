@@ -1,8 +1,6 @@
 package assetl.service;
 
-import javax.swing.JFrame;
-
-import assetl.system.AssetLView;
+import assetl.system.AssetView;
 import assetl.system.AssetLControl;
 
 /**
@@ -11,11 +9,8 @@ import assetl.system.AssetLControl;
  * @author Gordon Hale
  */
 public class HandwrittenView
-        extends JFrame
-        implements AssetLView
+        extends AssetView
 {
-    AssetLControl mControl;
-
     /**
      * Constructor for the user interface
      *
@@ -23,8 +18,7 @@ public class HandwrittenView
      */
     public HandwrittenView(AssetLControl pControl)
     {
-        super("Asset Logger");
-        mControl = pControl;
+        super(pControl);
         initConponents();
     }
 
@@ -36,65 +30,9 @@ public class HandwrittenView
     }
 
     /**
-     * Shows this, the JFrame
-     */
-    public void showView()
-    {
-        setVisible(true);
-    }
-
-    /**
-     * Hides the JFrame
-     */
-    public void hideView()
-    {
-        setVisible(false);
-    }
-
-    /**
-     * Allow the Controller to close the View
-     */
-    public void closeView()
-    {
-        dispose();
-    }
-
-    /**
      * Updates the views display of the model
      */
     public void updateData()
-    {
-
-    }
-
-    /**
-     * Delagates to the controller a switch to checkout functionality
-     */
-    public void switchCheckout()
-    {
-
-    }
-
-    /**
-     * Delagates to the controller a switch to checkin functionality
-     */
-    public void switchCheckin()
-    {
-
-    }
-
-    /**
-     * Delagates to the controller a switch to schedule functionality
-     */
-    public void switchSchedule()
-    {
-
-    }
-
-    /**
-     * Delagates to the controller a switch to cancel functionality
-     */
-    public void switchCancel()
     {
 
     }

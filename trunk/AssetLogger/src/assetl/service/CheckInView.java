@@ -111,6 +111,8 @@ public class CheckInView
                 //get the laptop data
                 mLaptop = mControl.getAsset(ckInTxtFld.getText());
 
+                System.err.println("Check in Laptop: " + mLaptop.getID() + " " + mLaptop.getType());
+
                 //tell the controller to check it in
                 mControl.checkin(mLaptop);
             }

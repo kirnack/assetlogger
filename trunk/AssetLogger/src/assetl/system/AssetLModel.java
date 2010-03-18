@@ -57,6 +57,22 @@ public interface AssetLModel
      * @param pUserID The user id to register with the request
      */
     void setRequest(Request pRequest, String pUserID);
+
+    /**
+     * Gets the Checkout object that has no returned date set
+     * for the Asset given.
+     *
+     * @param pAsset The asset that needs to be returned
+     * @return The Checkout object for this asset
+     */
+    Checkout getCheckout(Asset pAsset);
+
+    /**
+     * Sets a Checkout
+     *
+     * @param pCheckout The checkout to set
+     */
+    void setCheckout(Checkout pCheckout);
     
     /**
      * Returns true if the person with the id given is an admin
@@ -92,13 +108,6 @@ public interface AssetLModel
      */
     Collection<Asset> getAvailAsset(Date pStart, Date pEnd);
 
-    /**
-     * Returns a collection of all the assets this person has borrowed.
-     *
-     * @param pPerson The person to get an asset history for
-     * @return The assets this person has borrowed
-     */
-    Collection<Asset> getAssets(Person pPerson);
     
     /**
      * Returns a collection of people who have borrowed the asset.
@@ -107,6 +116,24 @@ public interface AssetLModel
      * @return The people who have borrowed this asset
      */
     Collection<Person> getBorrowers(Asset pAsset);
+
+    /**
+     * Gets the outstanding requests based on a Person. The oustanding requests
+     * will not have a picked up date set yet for its checkout collection and
+     * will not be past the requested pick up date.
+     *
+     * @param pPerson The person to get the requests for
+     * @return The outstanding requests
+     */
+    Collection<Request> getRequests(Person pPerson);
+
+     /**
+     * Returns a collection of all the assets this person has borrowed.
+     *
+     * @param pPerson The person to get an asset history for
+     * @return The assets this person has borrowed
+     */
+    Collection<Asset> getAssets(Person pPerson);
 
     /**
      * The number of requests made in the database

@@ -444,6 +444,30 @@ public class Server
     }
 
     /**
+     * Gets the Checkout object that has no returned date set
+     * for the Asset given.
+     *
+     * @param pAsset The asset that needs to be returned
+     * @return The Checkout object for this asset
+     */
+    public Checkout getCheckout(Asset pAsset)
+    {
+        //TODO: actually implement and test this method
+
+        return new Checkout();
+    }
+
+    /**
+     * Sets a Checkout
+     *
+     * @param pCheckout The checkout to set
+     */
+    public void setCheckout(Checkout pCheckout)
+    {
+        //TODO: actually implement and test this method
+    }
+
+    /**
      * Creates a collection of all users.
      *
      * @return A collection of all users.
@@ -552,25 +576,38 @@ public class Server
     }
 
     /**
-     * Returns a collection of all the assets this person has borrowed
-     *
-     * @param pPerson The person to get an asset history for
-     * @return The assets this person borrowed
-     */
-    public Collection<Asset> getAssets(Person pPerson)
-    {
-        return new ArrayList<Asset>();
-    }
-
-    /**
      * Returns a collection of people who have borrowed the asset.
      *
      * @param pAsset The asset to get a borrow history for
-     * @return The Person collection of those who borrowed the asset
+     * @return The people who have borrowed this asset
      */
     public Collection<Person> getBorrowers(Asset pAsset)
     {
         return new ArrayList<Person>();
+    }
+
+    /**
+     * Gets the outstanding requests based on a Person. The oustanding requests
+     * will not have a picked up date set yet for its checkout collection and
+     * will not be past the requested pick up date.
+     *
+     * @param pPerson The person to get the requests for
+     * @return The outstanding requests
+     */
+    public Collection<Request> getRequests(Person pPerson)
+    {
+        return new ArrayList<Request>();
+    }
+
+     /**
+     * Returns a collection of all the assets this person has borrowed.
+     *
+     * @param pPerson The person to get an asset history for
+     * @return The assets this person has borrowed
+     */
+    public Collection<Asset> getAssets(Person pPerson)
+    {
+        return new ArrayList<Asset>();
     }
 
     /**

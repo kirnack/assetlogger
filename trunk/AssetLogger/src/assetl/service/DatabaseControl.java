@@ -1,6 +1,7 @@
 package assetl.service;
 
 import java.util.Date;
+import java.util.Collection;
 
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
@@ -198,19 +199,40 @@ public class DatabaseControl
      */
     public void checkin(Asset pAsset)
     {
-        //mModel.getCheckout(pAsset);
+        //
+        // Get the checkout and set the returned date to today's date
+        //
+
+        Checkout outstanding = mModel.getCheckout(pAsset);
+        outstanding.setReturnedDate(new Date());
+        mModel.setCheckout(outstanding);
     }
 
     /**
-     * Retrieves the outstanding Request object for this asset and cancels
-     * the request.
-     * 
-     * @param pPerson
-     * @param pAsset The asset to cancel a request for
+     * Sets the request to invalid, canceling all assets in the checkout
+     * collection.
+     *
+     * @param pRequest The request to cancel
      */
-    public void cancel(Person pPerson, Asset pAsset)
+    public void cancel(Request pRequest)
     {
+        pRequest.setActive(false);
+        mModel.setRequest(pRequest, mUserID);
+    }
 
+    /**
+     * Sets the checkout to invalid, canceling a single asset.
+     *
+     * @param pCheckout The checkout to cancel
+     */
+    public void cancel(Checkout pCheckout)
+    {
+        //make sure we don't cancel a checkout if they've picked it up already
+        if (pCheckout.getPickedupDate() != null)
+        {
+            pCheckout.setActive(false);
+            mModel.setCheckout(pCheckout);
+        }
     }
 
     /**
@@ -353,6 +375,19 @@ public class DatabaseControl
     public Asset getAsset(String pID)
     {
         return mModel.getAsset(pID);
+    }
+
+    /**
+     * Gets from the model the outstanding requests based on a Person.
+     * The oustanding requests will not have a picked up date set yet for
+     * its checkout collection and will not be past the requested pick up date.
+     *
+     * @param pPerson The person to get the requests for
+     * @return The outstanding requests
+     */
+    public Collection<Request> getRequests(Person pPerson)
+    {
+        return mModel.getRequests(pPerson);
     }
 
     /**

@@ -40,12 +40,19 @@ public interface AssetLControl
     void checkin(Asset pAsset);
 
     /**
-     * Cancels a request for the asset indicated to the person indicated.
+     * Sets the request to invalid, canceling all assets in the checkout
+     * collection.
      *
-     * @param pPerson The person to cancel the request for
-     * @param pAsset The asset to cancel
+     * @param pRequest The request to cancel
      */
-    void cancel(Person pPerson, Asset pAsset);
+    void cancel(Request pRequest);
+
+    /**
+     * Sets the checkout to invalid, canceling a single asset.
+     *
+     * @param pCheckout The checkout to cancel
+     */
+    void cancel(Checkout pCheckout);
 
     /**
      * Changes the view to interface with checkout functionality

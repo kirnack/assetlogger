@@ -13,7 +13,7 @@ public class Asset
     protected String mID;
 
    /**
-    * The assest's make
+    * The asset's make
     */
    protected String mMake;
 
@@ -38,6 +38,11 @@ public class Asset
    protected String mDescription;
 
    /**
+    * Tells if the asset is in for matienance
+    */
+   protected boolean mMaintenance;
+
+   /**
     * Constructs an asset with only the identifier and a type.
     *
     * @param pID The identifier
@@ -45,7 +50,7 @@ public class Asset
     */
    public Asset(String pID, String pType)
    {
-      this(pID,"","","",pType,"");
+      this(pID,"","","",pType,"", false);
    }
 
    /**
@@ -61,12 +66,30 @@ public class Asset
    public Asset(String pID, String pMake, String pModel, String pSerialNum,
                 String pType, String pDescription)
    {
+      this(pID, pMake, pModel, pSerialNum, pType, pDescription, false);
+   }
+
+   /**
+    * Constructs an asset with all fields.
+    *
+    * @param pID The identifier
+    * @param pMake The make
+    * @param pModel The model
+    * @param pSerialNum The serial number
+    * @param pType The type
+    * @param pDescription The description
+    * @param pMaintenance  If the assets is out for maintenance
+    */
+   public Asset(String pID, String pMake, String pModel, String pSerialNum,
+                String pType, String pDescription, boolean pMaintenance)
+   {
       this.mID = pID;
       this.mMake = pMake;
       this.mModel = pModel;
       this.mSerialNum = pSerialNum;
       this.mType = pType;
       this.mDescription = pDescription;
+      this.mMaintenance = pMaintenance;
    }
 
    /**
@@ -212,7 +235,7 @@ public class Asset
     }
 
    /**
-    * Overriden hashCode method for this object.
+    * Overridden hashCode method for this object.
     *
     * @return The unique hash code for this object
     */
@@ -223,4 +246,24 @@ public class Asset
         hash = 13 * hash + (this.mID != null ? this.mID.hashCode() : 0);
         return hash;
     }
+
+   /**
+    * Sets the maintenance flag of the asset.
+    *
+    * @param pMaintenance The new maintenance status
+    */
+   void setMaintenance(boolean pMaintenance)
+   {
+      this.mMaintenance = pMaintenance;
+   }
+
+   /**
+    * Returns the maintenance flag of the asset.
+    * 
+    * @return Returns true if the asset is in for maintenance.
+    */
+   boolean isInMaintenance()
+   {
+      return mMaintenance;
+   }
 }

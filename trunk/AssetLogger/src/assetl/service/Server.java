@@ -7,11 +7,13 @@ import assetl.system.Asset;
 import assetl.system.Checkout;
 import assetl.system.Request;
 import assetl.system.User;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.net.URL;
 
 import java.sql.Connection;
@@ -19,6 +21,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Statement;
 
 import java.util.ArrayList;
@@ -77,7 +80,7 @@ public class Server
      */
     private Server()
     {
-        mObservers = new ArrayList();
+        mObservers = new ArrayList<ModelObserver>();
         mFile = new File (System.getProperty(
             "dbfilename", "LaptopChecker") + "." +
             System.getProperty("dbfileext", "aldb"));
@@ -86,7 +89,7 @@ public class Server
 
             if (!mFile.exists() || !mFile.isFile())
             {
-                System.err.println("Making Database");
+                //System.err.println("Making Database");
                 createDB();
             }
             else
@@ -149,9 +152,9 @@ public class Server
             URL setupSQL = ClassLoader.getSystemResource(
              Server.class.getPackage().getName().replace(".","/") +
                  "/AssetLoggerSetup.sql");
-            System.err.println(setupSQL);
+            //System.err.println(setupSQL);
             File name = new File (setupSQL.toString().replace("file:", ""));
-            System.err.println(name);
+            //System.err.println(name);
             BufferedReader in = new BufferedReader(new FileReader(name));
             String str;
             while ((str = in.readLine()) != null)
@@ -248,12 +251,10 @@ public class Server
         // to be added, and also to check to see if there is an actual
         // need to update the data
         //
-        
-        Person temp = getPerson(pPerson.getID());
-        PreparedStatement prep = null;
-
         try
         {
+            Person temp = getPerson(pPerson.getID());
+            PreparedStatement prep = null;
             if (temp == null)
             {
                 //System.err.println("Adding " + pPerson.getFirstName());
@@ -333,14 +334,14 @@ public class Server
     public void setAsset(Asset pAsset)
     {
        System.err.println("Retreivinng " + pAsset.getID());
-       //Retrieves data from database to see if the person needs to be added,
-       //and also to check to see if there is an actual need to update te data.
-       Asset temp = getAsset(pAsset.getID());
-       PreparedStatement prep = null;
+       
 
        try
        {
-
+        //Retrieves data from database to see if the person needs to be added,
+        //and also to check to see if there is an actual need to update te data.
+         Asset temp = getAsset(pAsset.getID());
+         PreparedStatement prep = null;
          if (temp == null)
          {
             System.err.println("Adding " + pAsset.getID());
@@ -408,19 +409,7 @@ public class Server
 
            if (request != null)
            {
-               ResultSet cs = mStat.executeQuery(
-                 "select * from Checkouts where" + " RequestID='" + pID + "';");
-               while (cs.next())
-               {
-                   request.addCheckout(new Checkout (cs.getString("CheckoutID"),
-                           getAsset(cs.getString("AssetID")),
-                           getPerson(cs.getString("RecipeantID")),
-                           cs.getDate("RequestedStartDate"),
-                           cs.getDate("RequestedEndDate"),
-                           cs.getDate("PickupDate"),
-                           cs.getDate("ReturnDate")));
-               }
-               cs.close();
+               request.setCheckouts(getCheckouts(request));
            }
         }
         catch (Exception e)
@@ -432,6 +421,148 @@ public class Server
     }
 
     /**
+     * Creates a collection of checkouts that are owned by the passed request.
+     * 
+     * @param pRequest The request which owns all the returned checkouts.
+     * @return A collection of checkouts that are part of the passed request.
+     */
+    public Collection<Checkout> getCheckouts(Request pRequest)
+    {
+       Collection<Checkout> checkouts = new ArrayList<Checkout>();
+
+       try
+       {
+          ResultSet cs = mStat.executeQuery(
+                 "select * from Checkouts where" + " RequestID='" +
+                 pRequest.getID() + "';");
+               while (cs.next())
+               {
+                   checkouts.add(new Checkout (cs.getString("CheckoutID"),
+                           cs.getString("RequestID"),
+                           getAsset(cs.getString("AssetID")),
+                           getPerson(cs.getString("RecipeantID")),
+                           cs.getDate("RequestedStartDate"),
+                           cs.getDate("RequestedEndDate"),
+                           cs.getDate("PickupDate"),
+                           cs.getDate("ReturnDate")));
+               }
+               cs.close();
+       }
+       catch (Exception e)
+       {
+          System.err.println(e);
+       }
+       return checkouts;
+    }
+
+    /**
+     * Creates a Checkout with the ID that is passed, based on the data in the
+     * database.
+     *
+     * @param pID The ID of the checkout to create a checkout of.
+     * @return The checkout with the passed ID.
+     */
+    public Checkout getCheckout(String pID)
+    {
+        Checkout checkout = null;
+        try
+        {
+           ResultSet rs = mStat.executeQuery("select * from Checkouts where" +
+                                             " CheckoutID='" + pID + "';");
+           if (rs.next())
+           {
+              checkout = new Checkout (rs.getString("CheckoutID"),
+                                       rs.getString("RequestID"),
+                                       getAsset(rs.getString("AssetID")),
+                                       getPerson(rs.getString("RecipeantID")),
+                                       rs.getDate("RequestedStartDate"),
+                                       rs.getDate("RequestedEndDate"),
+                                       rs.getDate("PickedupDate"),
+                                       rs.getDate("ReturnedDate"));
+           }
+           rs.close();
+        }
+        catch (Exception e)
+        {
+           System.err.println(e);
+        }
+
+        return checkout;
+    }
+
+    /**
+     * Takes the passed Checkout object and makes corresponding changes to
+     * the database based on that object
+     *
+     * @param pCheckout The checkout to make changes based on.
+     * @param pUserID The user who made the change.
+     */
+    public void setCheckout(Checkout pCheckout, String pUserID)
+    {
+       try
+       {
+         System.err.println("Retreivinng " + pCheckout.getID());
+       //Retrieves data from database to see if the person needs to be added,
+       //and also to check to see if there is an actual need to update te data.
+         Checkout temp = getCheckout(pCheckout.getID());
+         PreparedStatement prepReq = null;
+         if (temp == null)
+         {
+            System.err.println("Adding " + pCheckout.getID());
+            prepReq = mConn.prepareStatement(
+                     "insert into Checkouts values (?, ?, ?, ?, ?, ?, ?, ?, '" +
+                     pUserID + "');");
+         }
+         else if (!temp.getAsset().equals(pCheckout.getAsset()) ||
+                  !temp.getPickedupDate().equals(pCheckout.getPickedupDate()) ||
+                  !temp.getRecipient().equals(pCheckout.getRecipient()) ||
+                  !temp.getRequestedEndDate().equals(
+                                          pCheckout.getRequestedEndDate()) ||
+                  !temp.getRequestedStartDate().equals(
+                                          pCheckout.getRequestedStartDate()) ||
+                  !temp.getReturnedDate().equals(pCheckout.getReturnedDate()))
+         {
+            System.err.println("Updating " + pCheckout.getID());
+            prepReq = mConn.prepareStatement(
+                     "update Checkouts set CheckoutID = ?, RequestID = ?,"
+                     + " RecipeantID = ?, AssetID = ?,"+
+                     " RequestedStartDate = ?, RequestedEndDate = ?," +
+                     " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
+                     + pUserID + "' where RequestID ='" +
+                     pCheckout.getID() + "';" );
+         }
+
+         if (prepReq != null)
+         {
+            prepReq.setString(1, pCheckout.getID());
+            prepReq.setString(2, pCheckout.getRequestID());
+            prepReq.setString(3, pCheckout.getRecipient().getID());
+            prepReq.setString(4, pCheckout.getAsset().getID());
+            prepReq.setTimestamp(5,
+                    new Timestamp(pCheckout.getRequestedStartDate().getTime()));
+            prepReq.setTimestamp(6,
+                    new Timestamp(pCheckout.getRequestedEndDate().getTime()));
+            prepReq.setTimestamp(7,
+                    new Timestamp(pCheckout.getPickedupDate().getTime()));
+            prepReq.setTimestamp(8,
+                    new Timestamp(pCheckout.getReturnedDate().getTime()));
+            prepReq.execute();
+         }
+
+        //a change has been made to the database, notify observers
+        notifyObservers();
+       }
+       catch(SQLException e)
+       {
+            e.printStackTrace(System.err);
+       }
+       catch(NullPointerException e)
+       {
+       }
+
+    }
+
+    /**
      * Makes changes to the database based on the request that was passed in.
      *
      * @param pRequest The request to make changes to in the database.
@@ -439,9 +570,64 @@ public class Server
      */
     public void setRequest(Request pRequest, String pUserID)
     {
+       try
+       {
+          //System.err.println("Retreivinng " + pRequest.getID());
+         //Retrieves data from database to see if the person needs to be added,
+         //and also to check to see if there is an actual need to update te data.
+         Request temp = getRequest(pRequest.getID());
+         PreparedStatement prepReq = null;
+
+         if (temp == null)
+         {
+            System.err.println("Adding " + pRequest.getID());
+            prepReq = mConn.prepareStatement(
+                     "insert into Requests values (?, ?, ?, ?, ?, '" +
+                     pUserID + "');");
+         }
+         else if (!pRequest.getRequestMade().equals(temp.getRequestMade()) ||
+                  !pRequest.getRequestedPickup().equals(
+                      temp.getRequestedPickup()) ||
+                  !pRequest.getRequestor().equals(temp.getRequestor()) ||
+                  pRequest.getRequstType().equals(temp.getRequstType()))
+         {
+            System.err.println("Updating " + pRequest.getID());
+            prepReq = mConn.prepareStatement(
+                     "update Requests set RequestID = ?, RequestedMadeDate = ?,"
+                     + " RequestedPickupDate = ?, RequestedType = ?,"+
+                     " RequestorID = ?, UserID ='" + pUserID +
+                     "' where RequestID ='" + pRequest.getID() + "';" );
+         }
+
+         if (prepReq != null)
+         {
+            prepReq.setString(1, pRequest.getID());
+            prepReq.setTimestamp(2,
+                    new Timestamp(pRequest.getRequestMade().getTime()));
+            prepReq.setTimestamp(3,
+                    new Timestamp(pRequest.getRequestedPickup().getTime()));
+            prepReq.setString(4, pRequest.getRequstType());
+            prepReq.setString(5, pRequest.getRequestor().getID());
+            prepReq.execute();
+         }
+
+         for(Checkout checkout : pRequest.getCheckouts())
+         {
+            setCheckout(checkout, pUserID);
+         }
+
         //a change has been made to the database, notify observers
         notifyObservers();
-    }
+       }
+       catch(SQLException e)
+       {
+            e.printStackTrace(System.err);
+       }
+       catch(NullPointerException e)
+       {
+
+       }
+   }
 
     /**
      * Gets the Checkout object that has no returned date set

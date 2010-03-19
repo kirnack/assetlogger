@@ -247,6 +247,7 @@ public abstract class AssetView
     /**
      * The default behavior is to throw an exception.
      * If a view has the ability to checkout it must override this method.
+     * @throws UnsupportedOperationException 
      */
     public void enableCheckout()
             throws UnsupportedOperationException
@@ -257,6 +258,7 @@ public abstract class AssetView
     /**
      * The default behavior is to throw an exception.
      * If a view has the ability to checkin it must override this method.
+     * @throws UnsupportedOperationException
      */
     public void enableCheckin()
             throws UnsupportedOperationException
@@ -267,6 +269,7 @@ public abstract class AssetView
     /**
      * The default behavior is to throw an exception.
      * If a view has the ability to schedule it must override this method.
+     * @throws UnsupportedOperationException
      */
     public void enableSchedule()
             throws UnsupportedOperationException
@@ -277,6 +280,7 @@ public abstract class AssetView
     /**
      * The default behavior is to throw an exception.
      * If a view has the ability to cancel it must override this method.
+     * @throws UnsupportedOperationException
      */
     public void enableCancel()
             throws UnsupportedOperationException
@@ -288,6 +292,7 @@ public abstract class AssetView
      * Prepopulates the fields with the data currently held
      * in the member variables or with those in the model.
      * To enable this subclasses must override.
+     * @throws UnsupportedOperationException
      */
     public void populateFields()
             throws UnsupportedOperationException

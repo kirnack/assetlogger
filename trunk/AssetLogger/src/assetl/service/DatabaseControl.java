@@ -84,7 +84,7 @@ public class DatabaseControl
      * @param pRequestor The person making the request
      * @param pPickup The date the asset will be picked up
      */
-    private void makeRequest(Person pRequestor, Date pPickup)
+    private void makeRequest(Person pRequestor, Date pPickup, String pType)
     {
         //
         // TODO: find a request by its requestor and pickup date
@@ -102,7 +102,7 @@ public class DatabaseControl
         {
             // Make the request object, stamp it with today's date
             mCurrRequest = new Request("0", new Date(), pPickup,
-                                       "Checkout", pRequestor);
+                                        pType, pRequestor);
             mModel.setPerson(pRequestor);
         }
     }
@@ -130,7 +130,7 @@ public class DatabaseControl
         else
         {
             // Make the checkout and add it to the current request
-            Checkout currChkOut = new Checkout("0", pAsset, pRecipient,
+            Checkout currChkOut = new Checkout("0", "",pAsset, pRecipient,
                                                pStart, pEnd);
 
             //
@@ -165,7 +165,7 @@ public class DatabaseControl
     public void schedule(Person pPerson, Asset pAsset, Date pStart, Date pEnd)
     {
         //make a new request and add a checkout to it
-        makeRequest(pPerson, pStart);
+        makeRequest(pPerson, pStart, pAsset.getType());
         makeCheckout(pPerson, pAsset, pStart, pEnd, false);
         mModel.setRequest(mCurrRequest, mUserID);
         
@@ -186,7 +186,7 @@ public class DatabaseControl
     {
         //make today the start date for the checkout
         Date today = new Date();
-        makeRequest(pPerson, today);
+        makeRequest(pPerson, today, pAsset.getType());
         makeCheckout(pPerson, pAsset, today, pEnd, true);
         mModel.setRequest(mCurrRequest, mUserID);
     }

@@ -17,6 +17,7 @@ public class AssetLoggerMain
      */
     public static void main(String[] args)
     {
+        System.setProperty("dbfilename", "TestingGUI");
         new Thread(new DatabaseControl()).start();
     }
 }

@@ -7,6 +7,7 @@ package assetl.service;
 
 import assetl.system.Asset;
 import assetl.system.AssetLModel;
+import assetl.system.Checkout;
 import assetl.system.Person;
 import assetl.system.Request;
 import assetl.system.User;
@@ -256,9 +257,17 @@ public class ServerTest
     public void testSetRequest()
     {
         System.out.println("setRequest");
-        Request pRequest = null;
-        String pUserID = "";
         Server instance = Server.getInstance();
+        Person person = instance.getPerson("42");
+        Request pRequest = new Request("1", new Date(0), new Date(7),
+                  "Laptop", person);
+        pRequest.addCheckout(new Checkout("1", "1",
+                instance.getAsset("42"), instance.getPerson("kirnack"),
+                new Date(0), new Date(9)));
+        pRequest.addCheckout(new Checkout("1", "1",
+                instance.getAsset("12"), instance.getPerson("kirnack"),
+                new Date(0), new Date(9)));
+        String pUserID = "Doctor";
         instance.setRequest(pRequest, pUserID);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

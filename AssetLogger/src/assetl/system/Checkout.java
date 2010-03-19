@@ -15,6 +15,11 @@ public class Checkout
     protected String mID;
 
     /**
+     * The ID of the request that owns this checkout.
+     */
+    protected String mRequestID;
+
+    /**
      * The asset that needs checkout
      */
     protected Asset mAsset;
@@ -60,36 +65,42 @@ public class Checkout
     * Contructor for Checkout object
     *
     * @param pID The unique identifier of a checkout
+    * @param pRequestID The ID of the request that owns this checkout.
     * @param pAsset The asset to checkout
     * @param pRecipient The recipient of the asset
     * @param pRequestedStartDate The requested start date
     * @param pRequestedEndDate The requested end date
     */
-   public Checkout(String pID, Asset pAsset, Person pRecipient, 
+   public Checkout(String pID, String pRequestID, Asset pAsset, Person pRecipient,
                    Date pRequestedStartDate, Date pRequestedEndDate)
    {
-       this(pID, pAsset, pRecipient, pRequestedStartDate, pRequestedEndDate,
-            null, null);
+       this(pID, pRequestID, pAsset, pRecipient, pRequestedStartDate,
+            pRequestedEndDate, null, null);
    }
 
    /**
     * Contructor for Checkout object
     *
     * @param pID The unique identifier of a checkout
+    * @param pRequestID The ID of the request that owns this checkout.
     * @param pAsset The asset to checkout
     * @param pRecipient The recipient of the asset
     * @param pRequestedStartDate The requested start date
     * @param pRequestedEndDate The requested end date
+    * @param pPickedupDate
+    * @param pReturnedDate
     */
-   public Checkout(String pID, Asset pAsset, Person pRecipient,
-                   Date pRequestedStartDate, Date pRequestedEndDate,
-                   Date pPickedupDate, Date pReturnedDate)
+   public Checkout(String pID, String pRequestID, Asset pAsset,
+                   Person pRecipient, Date pRequestedStartDate,
+                   Date pRequestedEndDate, Date pPickedupDate,
+                   Date pReturnedDate)
    {
        mID = pID;
        mAsset = pAsset;
        mRecipient = pRecipient;
        mRequestedStartDate = pRequestedStartDate;
        mRequestedStartDate = pRequestedEndDate;
+       mRequestID = pRequestID;
        mPickedupDate = pPickedupDate;
        mReturnedDate = pReturnedDate;
        mActive = true;
@@ -255,4 +266,25 @@ public class Checkout
    {
       this.mID = pID;
    }
+
+   /**
+    * Returns the ID of the request that owns this checkout.
+    *
+    * @return The owning request ID.
+    */
+   public String getRequestID()
+   {
+      return mRequestID;
+   }
+
+   /**
+    * Sets the ID of the owning request for this checkout.
+    *
+    * @param pRequestID
+    */
+   public void setRequestID(String pRequestID)
+   {
+      this.mRequestID = pRequestID;
+   }
+
 }

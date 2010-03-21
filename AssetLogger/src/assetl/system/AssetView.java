@@ -6,7 +6,6 @@
 
 package assetl.system;
 
-import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -30,24 +29,19 @@ public abstract class AssetView
     protected AssetLControl mControl;
 
     /**
-     * The current person
+     * The data packet that can be sent to the controller
      */
-    protected Person mPerson;
+    protected DataPacket mPacket;
 
     /**
-     * The current laptop
+     * In place for dynamic class loading. Assumes the controller
+     * will immediately be set by the controller that dynamically loaded
+     * the view
      */
-    protected Asset mLaptop;
-
-    /**
-     * The desired start date
-     */
-    protected Date mStart;
-
-    /**
-     * The desired end date
-     */
-    protected Date mEnd;
+    public AssetView()
+    {
+        this(null, "Asset Logger");
+    }
 
     /**
      * Constructor that takes the view's controller as a parameter
@@ -70,6 +64,7 @@ public abstract class AssetView
         super(pTitle);
         initComponents();
         mControl = pControl;
+        mPacket = new DBPacket();
 
         //
         // add action listeners to the menu items
@@ -79,7 +74,7 @@ public abstract class AssetView
         {
             public void actionPerformed(ActionEvent ev)
             {
-                switchCheckout();
+                switchFunction("Checkout");
             }
         });
 
@@ -87,7 +82,7 @@ public abstract class AssetView
         {
            public void actionPerformed(ActionEvent ev)
            {
-               switchCheckin();
+               switchFunction("Checkin");
            }
         });
 
@@ -95,7 +90,7 @@ public abstract class AssetView
         {
             public void actionPerformed(ActionEvent ev)
             {
-                switchSchedule();
+                switchFunction("Schedule");
             }
         });
 
@@ -103,7 +98,7 @@ public abstract class AssetView
         {
             public void actionPerformed(ActionEvent ev)
             {
-                switchCancel();
+               switchFunction("Cancel");
             }
         });
     }
@@ -188,6 +183,14 @@ public abstract class AssetView
     // End of variables declaration//GEN-END:variables
 
     /**
+     * Allows the controller to set the controller for the view
+     */
+    public void setControl(AssetLControl pControl)
+    {
+        mControl = pControl;
+    }
+
+    /**
      * Allow the Controller to show the View
      */
     public void showView()
@@ -213,82 +216,6 @@ public abstract class AssetView
     }
 
     /**
-     * Delagates to the controller a switch to checkout functionality
-     */
-    public void switchCheckout()
-    {
-        mControl.changeCheckout();
-    }
-
-    /**
-     * Delagates to the controller a switch to checkin functionality
-     */
-    public void switchCheckin()
-    {
-        mControl.changeCheckin();
-    }
-
-    /**
-     * Delagates to the controller a switch to schedule functionality
-     */
-    public void switchSchedule()
-    {
-        mControl.changeSchedule();
-    }
-
-    /**
-     * Delagates to the controller a switch to cancel functionality
-     */
-    public void switchCancel()
-    {
-        mControl.changeCancel();
-    }
-
-    /**
-     * The default behavior is to throw an exception.
-     * If a view has the ability to checkout it must override this method.
-     * @throws UnsupportedOperationException 
-     */
-    public void enableCheckout()
-            throws UnsupportedOperationException
-    {
-        throw new UnsupportedOperationException("This view can't checkout");
-    }
-
-    /**
-     * The default behavior is to throw an exception.
-     * If a view has the ability to checkin it must override this method.
-     * @throws UnsupportedOperationException
-     */
-    public void enableCheckin()
-            throws UnsupportedOperationException
-    {
-        throw new UnsupportedOperationException("This view can't checkin");
-    }
-
-    /**
-     * The default behavior is to throw an exception.
-     * If a view has the ability to schedule it must override this method.
-     * @throws UnsupportedOperationException
-     */
-    public void enableSchedule()
-            throws UnsupportedOperationException
-    {
-        throw new UnsupportedOperationException("This view can't schedule");
-    }
-
-    /**
-     * The default behavior is to throw an exception.
-     * If a view has the ability to cancel it must override this method.
-     * @throws UnsupportedOperationException
-     */
-    public void enableCancel()
-            throws UnsupportedOperationException
-    {
-        throw new UnsupportedOperationException("This view can't cancel");
-    }
-
-    /**
      * Prepopulates the fields with the data currently held
      * in the member variables or with those in the model.
      * To enable this subclasses must override.
@@ -299,6 +226,20 @@ public abstract class AssetView
     {
         throw new UnsupportedOperationException("Prepopulate not supported");
     }
+
+    /**
+     * Allows the controller to switch to a view that has the functionality
+     * provided
+     */
+    public void switchFunction(String pFunction)
+    {
+        mControl.setFunction(pFunction);
+    }
+
+    /**
+     * Enables functionality passed in for this view.
+     */
+    public abstract void enable(String pFunction);
 
     /**
      * Removes all event listeners from a button

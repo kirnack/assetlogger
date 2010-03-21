@@ -255,10 +255,30 @@ public class ScheduleView
     }
 
     /**
+     * Enables functionality passed in for this view.
+     */
+    public void enable(String pFunction)
+    {
+        if ("Checkout".equals(pFunction))
+        {
+            enableCheckout();
+        }
+        else if ("Schedule".equals(pFunction))
+        {
+            enableSchedule();
+        }
+        else
+        {
+            // this function is not supported in this view
+            System.err.println(pFunction + "is not supported");
+            //throw new UnsupportedOperationException();
+        }
+    }
+
+    /**
      * Enables checkout ability for this view.
      * Gives controller access to modify the current view to enable checkouts.
      */
-    @Override
     public void enableCheckout()
     {
         // TODO: modify view components for a checkout
@@ -278,7 +298,6 @@ public class ScheduleView
      * Enables schedule ability for this view.
      * Gives controller access to modify the current view to enable schedule.
      */
-    @Override
     public void enableSchedule()
     {
         // TODO: modify view components for a schedule
@@ -298,25 +317,25 @@ public class ScheduleView
      * Gets the data from the text fields and makes objects that can
      * be sent to the controller.
      */
-    private void grabData()
+    public void grabDataPacket()
     {
         //get the person data
-        mPerson = new Person(iNumTxtFld.getText());
-        mPerson.setFirstName(firstNameTxtFld.getText());
+        //mPerson = new Person(iNumTxtFld.getText());
+        //mPerson.setFirstName(firstNameTxtFld.getText());
 
         //get the laptop data
-        mLaptop = new Asset(laptopNumTxtFld.getText(), "PC");
+        //mLaptop = new Asset(laptopNumTxtFld.getText(), "PC");
 
         //make a local calander and set the start and end dates
         Calendar cal = Calendar.getInstance();
         cal.set(Integer.parseInt(srtYearTxtFld.getText()),
                 Integer.parseInt(srtMonTxtFld.getText()) + 1,
                 Integer.parseInt(srtDayTxtFld.getText()));
-        mStart = cal.getTime();
+        //mStart = cal.getTime();
         cal.set(Integer.parseInt(endYearTxtFld.getText()),
                 Integer.parseInt(endMonTxtFld.getText()) + 1,
                 Integer.parseInt(endDayTxtFld.getText()));
-        mEnd = cal.getTime();
+        //mEnd = cal.getTime();
     }
 
     /**
@@ -357,8 +376,8 @@ public class ScheduleView
          */
         public void actionPerformed(ActionEvent ev)
         {
-            grabData();
-            mControl.schedule(mPerson, mLaptop, mStart, mEnd);
+            //grabData();
+           // mControl.schedule(mPerson, mLaptop, mStart, mEnd);
             System.err.println("User pushed schedule button");
         }
     }
@@ -378,8 +397,8 @@ public class ScheduleView
          */
         public void actionPerformed(ActionEvent ev)
         {
-            grabData();
-            mControl.checkout(mPerson, mLaptop, mEnd);
+           // grabData();
+            //mControl.checkout(mPerson, mLaptop, mEnd);
             System.err.println("User pushed checkout button");
         }
     }

@@ -12,67 +12,26 @@ import java.util.Date;
 public interface AssetLControl
 {
     /**
-     * Takes the objects passed from the view and schedules an asset
-     * to the person for the indicated time
+     * Change the function for the controller to perform for the view
+     * 
+     * @param pFunction The name of the function to set
+     */
+    void setFunction(String pFunction);
+    
+    /**
+     * Performs the function the controller is currently set to.
+     * 
+     * @param pPacket The data packet needed for the function to perform
+     */
+    void doFunction(DataPacket pPacket);
+
+    /**
+     * Performs the function indicated by the string passed in.
      *
-     * @param pPerson The person scheduling the asset
-     * @param pAsset The asset to schedule
-     * @param pStart The date to pick up the asset
-     * @param pEnd The date to return the asset
+     * @param pFunction The function to perform
+     * @param pPacket The data packet needed for the function to perform
      */
-    void schedule(Person pPerson, Asset pAsset, Date pStart, Date pEnd);
-
-    /**
-     * Takes the objects passed from the view and checks out an asset
-     * to the person until the date indicated.
-     *
-     * @param pPerson The person checking out the asset
-     * @param pAsset The asset to check out
-     * @param pEnd The date to return the asset
-     */
-    void checkout(Person pPerson, Asset pAsset, Date pEnd);
-
-    /**
-     * Checks the given asset back in.
-     *
-     * @param pAsset The asset to check back in
-     */
-    void checkin(Asset pAsset);
-
-    /**
-     * Sets the request to invalid, canceling all assets in the checkout
-     * collection.
-     *
-     * @param pRequest The request to cancel
-     */
-    void cancel(Request pRequest);
-
-    /**
-     * Sets the checkout to invalid, canceling a single asset.
-     *
-     * @param pCheckout The checkout to cancel
-     */
-    void cancel(Checkout pCheckout);
-
-    /**
-     * Changes the view to interface with checkout functionality
-     */
-    void changeCheckout();
-
-    /**
-     * Changes the view to interface with checkin functionality
-     */
-    void changeCheckin();
-
-    /**
-     * Changes the view to interface with schedule functionality
-     */
-    void changeSchedule();
-
-    /**
-     * Changes the view to interface with cancel functionality
-     */
-    void changeCancel();
+    void doFunction(String pFunction, DataPacket pPacket);
 
     //
     // The following methods allow the controller to server as Mediator

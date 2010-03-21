@@ -38,6 +38,23 @@ public class HandwrittenView
     }
 
     /**
+     * Grabs all pertainent data from the fields and sets them in
+     * a DataPacket object
+     */
+    public void grabDataPacket()
+    {
+        
+    }
+
+    /**
+     * Enables functionality passed in for this view.
+     */
+    public void enable(String pFunction)
+    {
+
+    }
+
+    /**
      * Enables cancel ability for this view
      *
     @Override

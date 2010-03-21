@@ -11,6 +11,11 @@ package assetl.system;
 public interface AssetLView
 {
     /**
+     * Allows the controller to set the controller for the view
+     */
+    void setControl(AssetLControl pControl);
+
+    /**
      * Allows the controller to show the view
      */
     void showView();
@@ -31,44 +36,21 @@ public interface AssetLView
     void updateData();
 
     /**
-     * Delagates to the controller a switch to checkout functionality
+     * Allows the controller to switch to a view that has the functionality
+     * provided
      */
-    void switchCheckout();
+    void switchFunction(String pFunction);
 
     /**
-     * Delagates to the controller a switch to checkin functionality
+     * Enables functionality passed in for this view.
      */
-    void switchCheckin();
+    void enable(String pFunction);
 
     /**
-     * Delagates to the controller a switch to schedule functionality
+     * Grabs all pertainent data from the fields and sets them in
+     * a DataPacket object
      */
-    void switchSchedule();
-
-    /**
-     * Delagates to the controller a switch to cancel functionality
-     */
-    void switchCancel();
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    void enableCheckout();
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    void enableCheckin();
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    void enableSchedule();
-
-    /**
-     * Lets the controller enable checkout function in view if applicable
-     */
-    void enableCancel();
+    void grabDataPacket();
 
     /**
      * Prepopulates the fields with the data currently held

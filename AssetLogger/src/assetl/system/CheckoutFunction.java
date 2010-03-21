@@ -3,7 +3,9 @@ package assetl.system;
 import java.util.Date;
 
 /**
- *
+ * Peforms all the same functions as a schedule except that the pickup
+ * and start date is today.
+ * 
  * @author Devin Doman
  */
 public class CheckoutFunction 

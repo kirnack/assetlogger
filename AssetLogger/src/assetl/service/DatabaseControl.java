@@ -123,8 +123,8 @@ public class DatabaseControl
             String functionObj = pFunction + "Function";
             mFunction = (Function) loadObj(functionObj);
 
-            //set the model and the data for the function to work with
-            mFunction.setModel(mModel);
+            //set the model, data, and controller for the function to work with
+            mFunction.setModules(this, mModel);
             mFunction.setPacket(mPacket);
             
             mView.enable(pFunction);
@@ -168,6 +168,7 @@ public class DatabaseControl
      */
     public void doFunction(DataPacket pPacket)
     {
+        mView.grabDataPacket();
         mFunction.setPacket(pPacket);
         mFunction.performFunction();
     }

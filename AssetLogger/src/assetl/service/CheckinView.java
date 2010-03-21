@@ -103,7 +103,8 @@ public class CheckinView
      */
     public void grabDataPacket()
     {
-
+        //get the laptop data
+        mData.setAsset(mControl.getAsset(ckInTxtFld.getText()));
     }
 
     /**
@@ -111,18 +112,17 @@ public class CheckinView
      */
     public void enable(String pFunction)
     {
+        //enable the function for mCkInBtn
+        enable(pFunction, ckInBtn);
+
         ckInBtn.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent ev)
             {
-                System.err.println("The user pushed the check in button");
-                //get the laptop data
-                //mLaptop = mControl.getAsset(ckInTxtFld.getText());
-
-                //System.err.println("Check in Laptop: " + mLaptop.getID() + " " + mLaptop.getType());
-
-                //tell the controller to check it in
-                //mControl.checkin(mLaptop);
+                grabDataPacket();
+                System.err.println("Check in Laptop: " + 
+                                   mData.getAsset().getID() + " " +
+                                   mData.getAsset().getType());
             }
         });
     }

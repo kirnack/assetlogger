@@ -2,29 +2,29 @@ package assetl.system;
 
 import java.util.Date;
 
+
 /**
  * Schedules an asset
  *
  * @author Devin Doman
  */
 public class ScheduleFunction
-        extends Function
+        extends DBFunction
 {
-    /**
-     * This function assumes a DBPacket
-     */
-    DBPacket mData;
 
     /**
-     * Default Constructor
+     * Sets the DataPacket for this function
+     *
+     * @param pPacket The DataPacket sent from the view
      */
-    public ScheduleFunction()
+    @Override
+    public void setPacket(DataPacket pPacket)
     {
-        // converts to a DBPacket
-        mData = (DBPacket) mPacket;
-        
-        // resets the request data
-//        mData.setRequest(null);
+        super.setPacket(pPacket);
+
+        //resets the request and checkout data
+        mData.setRequest(null);
+        mData.setCheckout(null);
     }
 
     /**
@@ -119,7 +119,7 @@ public class ScheduleFunction
         mModel.setRequest(mData.getRequest(), mData.getUserID());
 
         //TODO: remove the following line of test code for view changing
-        //changeView(new AssetView(this));
+        //mDBControl.changeView(new assetl.service.HandwrittenView(mControl));
 
     }
 }

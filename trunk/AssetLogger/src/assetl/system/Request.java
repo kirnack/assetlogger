@@ -4,47 +4,61 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * A class to represent a request from a person to borrow assets.
  *
  * @author Bryon Rogers
  */
+@XmlRootElement(name = "request")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Request
 {
 
     /**
      * The unique identifier for the request
      */
+    @XmlElement(name = "id")
     protected String mID;
 
    /**
     * The date the request was made
     */
+   @XmlElement(name = "made")
    protected Date mRequestMade;
 
    /**
     * The date the person requests to pick up the asset
     */
+   @XmlElement(name = "reqpickeupdate")
    protected Date mRequestedPickup;
 
    /**
     * The type asset they would like to request
     */
+   @XmlElement(name = "reqtype")
    protected String mRequstType;
 
    /**
     * The person requesting an asset
     */
+   @XmlElement(name = "requestor")
    protected Person mRequestor;
 
    /**
     * Indicates whether the request data is valid
     */
+   @XmlElement(name = "isactive")
    protected boolean mActive;
 
    /**
     * The checkouts to that have been requested
     */
+   @XmlElement(name = "checkout")
    protected Collection<Checkout> mCheckouts;
 
    /**
@@ -66,13 +80,28 @@ public class Request
    public Request(String pID, Date pRequestMade, Date pRequestedPickup,
                   String pRequstType, Person pRequestor)
    {
+       this(pID, pRequestMade, pRequestedPickup, pRequstType, pRequestor, new ArrayList<Checkout>());
+   }
+
+   /**
+    * Constructor for a Request object
+    *
+    * @param pID The unique identifier of a Request
+    * @param pRequestMade The Date the request was made
+    * @param pRequestedPickup The Date they want to pick the Asset up
+    * @param pRequstType
+    * @param pRequestor The Person requesting the asset
+    */
+   public Request(String pID, Date pRequestMade, Date pRequestedPickup,
+                  String pRequstType, Person pRequestor, Collection<Checkout> pCheckouts)
+   {
        mID = pID;
        mRequestMade = pRequestMade;
        mRequestedPickup = pRequestedPickup;
        mRequstType = pRequstType;
        mRequestor = pRequestor;
        mActive = true;
-       mCheckouts = new ArrayList<Checkout>();
+       mCheckouts = pCheckouts;
    }
 
    /**

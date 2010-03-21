@@ -1,5 +1,10 @@
 package assetl.system;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * This class is used to represent individuals whom will request/pick-up
  * assets.  It will contain their contact information and a unique
@@ -7,42 +12,60 @@ package assetl.system;
  *
  * @author Bryon Rogers
  */
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person
 {
     /**
      * The unique identifier for a person
      */
+    @XmlElement(name = "id")
     protected String mID;
 
     /**
      * The person's first name
      */
+    @XmlElement(name = "firstname")
     protected String mFirstName;
 
     /**
      * The person's middle name
      */
+    @XmlElement(name = "middlename")
     protected String mMiddleName;
 
    /**
     * The person's last name
     */
+    @XmlElement(name = "lastname")
    protected String mLastName;
 
    /**
     * The person's email
     */
+    @XmlElement(name = "email")
    protected String mEmail;
 
    /**
     * The person's phone number
     */
+    @XmlElement(name = "phonenumber")
    protected String mPhoneNumber;
 
    /**
     * Constructor for Person with the person's id as a parameter.
     *
     * @param pID The unique identifier for this person
+    */
+   public Person()
+   {
+      this("Do","Not","Use","Person","Non","Existant");
+   }
+
+
+   /**
+    *
+    * @param pID
     */
    public Person(String pID)
    {

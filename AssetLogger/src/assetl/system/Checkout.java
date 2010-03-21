@@ -1,5 +1,10 @@
 package assetl.system;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+
 import java.util.Date;
 
 /**
@@ -7,16 +12,20 @@ import java.util.Date;
  *
  * @author Bryon Rogers
  */
+@XmlRootElement(name = "checkout")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Checkout
 {
     /**
      * The unique identification of a checkout object
      */
+    @XmlElement(name = "id")
     protected String mID;
 
     /**
      * The ID of the request that owns this checkout.
      */
+    @XmlElement(name = "asset")
     protected String mRequestID;
 
     /**
@@ -27,31 +36,37 @@ public class Checkout
    /**
     * The person receiving the asset
     */
+   @XmlElement(name = "receiver")
    protected Person mRecipient;
 
    /**
     * The date to start reserving an asset for the person
     */
+   @XmlElement(name = "requestedstart")
    protected Date mRequestedStartDate;
 
    /**
     * The date the person will return the asset
     */
+   @XmlElement(name = "requestedend")
    protected Date mRequestedEndDate;
 
    /**
     * The date the asset was actually picked up
     */
+   @XmlElement(name = "pickedupon")
    protected Date mPickedupDate;
 
    /**
     * The date the asset was actually returned
     */
+   @XmlElement(name = "returnedon")
    protected Date mReturnedDate;
 
    /**
     * Indicates whether the data in this object is valid
     */
+   @XmlElement(name = "isactive")
    protected boolean mActive;
 
    /**

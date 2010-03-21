@@ -1,46 +1,70 @@
 package assetl.system;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * A representation of an asset.
  *
  * @author Bryon Rogers
  */
+@XmlRootElement(name = "asset")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Asset
 {
     /**
      * The asset's ID
      */
+    @XmlElement(name = "id")
     protected String mID;
 
    /**
     * The asset's make
     */
+   @XmlElement(name = "make")
    protected String mMake;
 
    /**
     * The asset's model
     */
+   @XmlElement(name = "model")
    protected String mModel;
 
    /**
     * The asset's serial number
     */
+   @XmlElement(name = "serialnum")
    protected String mSerialNum;
 
    /**
     * The asset's type
     */
+   @XmlElement(name = "type")
    protected String mType;
 
    /**
     * The asset's description
     */
+   @XmlElement(name = "descrip")
    protected String mDescription;
 
    /**
     * Tells if the asset is in for matienance
     */
    protected boolean mMaintenance;
+
+   /**
+    * Constructs an asset with only the identifier and a type.
+    *
+    * @param pID The identifier
+    * @param pType The type
+    */
+   public Asset()
+   {
+      this("","","","","","");
+   }
 
    /**
     * Constructs an asset with only the identifier and a type.

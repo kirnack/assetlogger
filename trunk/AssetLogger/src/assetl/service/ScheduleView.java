@@ -255,62 +255,16 @@ public class ScheduleView
     }
 
     /**
-     * Enables functionality passed in for this view.
+     * Enables functionality passed in for this view. Gives controller
+     * ability to modify this view based on the function being performed
      */
     public void enable(String pFunction)
     {
-        if ("Checkout".equals(pFunction))
-        {
-            enableCheckout();
-        }
-        else if ("Schedule".equals(pFunction))
-        {
-            enableSchedule();
-        }
-        else
-        {
-            // this function is not supported in this view
-            System.err.println(pFunction + "is not supported");
-            //throw new UnsupportedOperationException();
-        }
-    }
+        // TODO: make sure the function passed in is supported in this view
+        // and make the labels of the button and title pretty
 
-    /**
-     * Enables checkout ability for this view.
-     * Gives controller access to modify the current view to enable checkouts.
-     */
-    public void enableCheckout()
-    {
-        // TODO: modify view components for a checkout
-        setTitle("Check Out");
-        scheduleBtn.setText("Check Out");
-        //hide the start date fields
-        setStart(false);
-
-        //remove all previous action listeners
-        removeButtonListeners(scheduleBtn);
-
-        //add a checkout action listener
-        scheduleBtn.addActionListener(new CheckoutListener());
-    }
-
-    /**
-     * Enables schedule ability for this view.
-     * Gives controller access to modify the current view to enable schedule.
-     */
-    public void enableSchedule()
-    {
-        // TODO: modify view components for a schedule
-        setTitle("Schedule");
-        scheduleBtn.setText("Schedule");
-        //show the start date fields
-        setStart(true);
-        
-        //remove all previous action listeners
-        removeButtonListeners(scheduleBtn);
-        
-        //add a scheduling action listener
-        scheduleBtn.addActionListener(new ScheduleListener());
+        enable(pFunction, scheduleBtn);
+        setStart("Schedule".equals(pFunction));
     }
 
     /**
@@ -320,22 +274,22 @@ public class ScheduleView
     public void grabDataPacket()
     {
         //get the person data
-        //mPerson = new Person(iNumTxtFld.getText());
-        //mPerson.setFirstName(firstNameTxtFld.getText());
+        mData.setPerson(new Person(iNumTxtFld.getText()));
+        mData.getPerson().setFirstName(firstNameTxtFld.getText());
 
         //get the laptop data
-        //mLaptop = new Asset(laptopNumTxtFld.getText(), "PC");
+        mData.setAsset(new Asset(laptopNumTxtFld.getText(), "PC"));
 
         //make a local calander and set the start and end dates
         Calendar cal = Calendar.getInstance();
         cal.set(Integer.parseInt(srtYearTxtFld.getText()),
                 Integer.parseInt(srtMonTxtFld.getText()) + 1,
                 Integer.parseInt(srtDayTxtFld.getText()));
-        //mStart = cal.getTime();
+        mData.setStart(cal.getTime());
         cal.set(Integer.parseInt(endYearTxtFld.getText()),
                 Integer.parseInt(endMonTxtFld.getText()) + 1,
                 Integer.parseInt(endDayTxtFld.getText()));
-        //mEnd = cal.getTime();
+        mData.setEnd(cal.getTime());
     }
 
     /**
@@ -362,53 +316,11 @@ public class ScheduleView
     }
 
     /**
-     * Listens for when the user pushed the schedule button. It generates
-     * Person, Asset, and Date objects and sends them to the controller
-     * to actually schedule a laptop.
-     */
-    class ScheduleListener
-            implements ActionListener
-    {
-        /**
-         * Invoked when the user pushes the schedule button
-         *
-         * @param ev The event causing this action
-         */
-        public void actionPerformed(ActionEvent ev)
-        {
-            //grabData();
-           // mControl.schedule(mPerson, mLaptop, mStart, mEnd);
-            System.err.println("User pushed schedule button");
-        }
-    }
-
-    /**
-     * Listens for when the user pushed the checkout button. It generates
-     * Person, Asset, and Date objects and sends them to the controller
-     * to checkout the laptop.
-     */
-    class CheckoutListener
-            implements ActionListener
-    {
-        /**
-         * Invoked when the user pushes the checkout button
-         *
-         * @param ev The event causing this action
-         */
-        public void actionPerformed(ActionEvent ev)
-        {
-           // grabData();
-            //mControl.checkout(mPerson, mLaptop, mEnd);
-            System.err.println("User pushed checkout button");
-        }
-    }
-
-    /**
      * Entry point for this view's thread
      */
     public void run()
     {
         //default to schedule ability
-        enableSchedule();
+        enable("Schedule");
     }
 }

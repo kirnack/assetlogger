@@ -8,30 +8,21 @@ import java.util.Date;
  * @author Devin Doman
  */
 public class CheckinFunction 
-        extends Function
+        extends DBFunction
 {
-        /**
-     * Retrieves the outstanding Checkout object for this asset and sets
-     * today's date as the returned date.
-     * 
-     * @param pAsset The asset being returned
+    /**
+     * Checks in an asset: Retrieves the outstanding Checkout object for this
+     * asset and sets today's date as the returned date.
      */
-    public void checkin(Asset pAsset)
+    public void performFunction()
     {
         //
         // Get the checkout and set the returned date to today's date
         //
 
-        Checkout outstanding = mModel.getCheckout(pAsset);
+        System.err.println("This check in was totally performed");
+        Checkout outstanding = mModel.getCheckout(mData.getAsset());
         outstanding.setReturnedDate(new Date());
         mModel.setCheckout(outstanding);
-    }
-
-    /**
-     * Checks in an asset
-     */
-    public void performFunction()
-    {
-
     }
 }

@@ -34,6 +34,11 @@ public abstract class AssetView
     protected DataPacket mPacket;
 
     /**
+     * The database packet of data
+     */
+    protected DBPacket mData;
+
+    /**
      * In place for dynamic class loading. Assumes the controller
      * will immediately be set by the controller that dynamically loaded
      * the view
@@ -64,7 +69,10 @@ public abstract class AssetView
         super(pTitle);
         initComponents();
         mControl = pControl;
-        mPacket = new DBPacket();
+
+        //Set a DBPacket
+        mData = new DBPacket();
+        mPacket = mData;
 
         //
         // add action listeners to the menu items
@@ -242,6 +250,27 @@ public abstract class AssetView
     public abstract void enable(String pFunction);
 
     /**
+     * Enables functionality on the AbstractButton passed in
+     *
+     * @param pFunction The function to enable
+     * @param pItem The component to give functionality to
+     */
+    public void enable(String pFunction, AbstractButton pItem)
+    {
+        // TODO: make sure the function passed in is supported in this view
+        // and make the labels of the button and title pretty
+
+        setTitle(pFunction);
+        pItem.setText(pFunction);
+
+        //remove all previous action listeners
+        removeButtonListeners(pItem);
+
+        //add a function action listener
+        pItem.addActionListener(new FunctionListener(pFunction));
+    }
+
+    /**
      * Removes all event listeners from a button
      *
      * @param pButton The button to remove listeners from
@@ -259,4 +288,42 @@ public abstract class AssetView
             pButton.removeActionListener(listen);
         }
    }
+
+    /**
+     * Listens for when the user pushed the button with the given function.
+     * It then sends a DataPacket to the controller and delegates to the
+     * controller perform the specified function.
+     */
+    public class FunctionListener
+            implements ActionListener
+    {
+        /**
+         * The function this button is to perform
+         */
+        String mFunction;
+
+        /**
+         * Sets the function for this button
+         *
+         * @param pFunction The function to set the button with
+         */
+        public FunctionListener(String pFunction)
+        {
+            mFunction = pFunction;
+        }
+
+        /**
+         * Has controller change the functionality to perform, sends
+         * the controller a DataPacket, then delegates to the controller
+         * to perform the function.
+         *
+         * @param ev
+         */
+        public void actionPerformed(ActionEvent ev)
+        {
+            mControl.setFunction(mFunction);
+            mControl.doFunction(mPacket);
+            System.err.println("User pushed the " + mFunction + " button");
+        }
+    }
 }

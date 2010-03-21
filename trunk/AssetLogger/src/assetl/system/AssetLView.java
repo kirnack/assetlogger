@@ -1,5 +1,7 @@
 package assetl.system;
 
+import javax.swing.AbstractButton;
+
 /**
  * Provides a common interface for the view module in the
  * Model-View-Controller structure. Provides user-interface,
@@ -38,13 +40,25 @@ public interface AssetLView
     /**
      * Allows the controller to switch to a view that has the functionality
      * provided
+     *
+     * @param pFunction The function to switch to
      */
     void switchFunction(String pFunction);
 
     /**
      * Enables functionality passed in for this view.
+     *
+     * @param pFunction The function to enable
      */
     void enable(String pFunction);
+
+    /**
+     * Enables functionality on the AbstractButton passed in
+     *
+     * @param pFunction The function to enable
+     * @param pItem The component to give functionality to
+     */
+    void enable(String pFunction, AbstractButton pItem);
 
     /**
      * Grabs all pertainent data from the fields and sets them in

@@ -61,6 +61,14 @@ public interface AssetLView
     void enable(String pFunction, AbstractButton pItem);
 
     /**
+     * Enables a component to listen for a request in functionality change.
+     *
+     * @param pFunction The function to switch for
+     * @param pItem The component to add a listener for
+     */
+    void enableSwitch(String pFunction, AbstractButton pItem);
+
+    /**
      * Grabs all pertainent data from the fields and sets them in
      * a DataPacket object
      */

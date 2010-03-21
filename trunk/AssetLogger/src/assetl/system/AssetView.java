@@ -77,38 +77,11 @@ public abstract class AssetView
         //
         // add action listeners to the menu items
         //
-        
-        ckOutMenuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent ev)
-            {
-                switchFunction("Checkout");
-            }
-        });
 
-        ckInMenuItem.addActionListener(new ActionListener()
-        {
-           public void actionPerformed(ActionEvent ev)
-           {
-               switchFunction("Checkin");
-           }
-        });
-
-        scheduleMenuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent ev)
-            {
-                switchFunction("Schedule");
-            }
-        });
-
-        cancelMenuItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent ev)
-            {
-               switchFunction("Cancel");
-            }
-        });
+        enableSwitch("Checkout", ckOutMenuItem);
+        enableSwitch("Checkin", ckInMenuItem);
+        enableSwitch("Schedule", scheduleMenuItem);
+        enableSwitch("Cancel", cancelMenuItem);
     }
 
     /** This method is called from within the constructor to
@@ -264,10 +237,25 @@ public abstract class AssetView
         pItem.setText(pFunction);
 
         //remove all previous action listeners
-        removeButtonListeners(pItem);
+        removeActionListeners(pItem);
 
         //add a function action listener
         pItem.addActionListener(new FunctionListener(pFunction));
+    }
+
+    /**
+     * Enables a component to listen for a request in functionality change.
+     *
+     * @param pFunction The function to switch for
+     * @param pItem The component to add a listener for
+     */
+    public void enableSwitch(String pFunction, AbstractButton pItem)
+    {
+        //remove all previous action listeners
+        removeActionListeners(pItem);
+
+        //add a function action listener
+        pItem.addActionListener(new SwitchListener(pFunction));
     }
 
     /**
@@ -275,7 +263,7 @@ public abstract class AssetView
      *
      * @param pButton The button to remove listeners from
      */
-    public void removeButtonListeners(AbstractButton pButton)
+    public void removeActionListeners(AbstractButton pButton)
     {
         //
         // Get all listeners and then remove each one
@@ -288,6 +276,39 @@ public abstract class AssetView
             pButton.removeActionListener(listen);
         }
    }
+
+    /**
+     * Listens for when the user needs to change the functionality of the view
+     */
+    public class SwitchListener
+            implements ActionListener
+    {
+        /**
+         * The function for the controller to switch to
+         */
+        String mFunction;
+        
+        /**
+         * Sets the function to switch to
+         * 
+         * @param pFunction The function to switch to
+         */
+        public SwitchListener(String pFunction)
+        {
+            mFunction = pFunction;
+        }
+        
+        /**
+         * Has the controller modify or switch to a view 
+         * with the functionality given.
+         * 
+         * @param ev The causing action
+         */
+        public void actionPerformed(ActionEvent ev)
+        {
+            switchFunction(mFunction);
+        }
+    }
 
     /**
      * Listens for when the user pushed the button with the given function.
@@ -317,7 +338,7 @@ public abstract class AssetView
          * the controller a DataPacket, then delegates to the controller
          * to perform the function.
          *
-         * @param ev
+         * @param ev The causing action
          */
         public void actionPerformed(ActionEvent ev)
         {

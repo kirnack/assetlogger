@@ -283,9 +283,11 @@ public class DatabaseControl
      * @param pPerson The person to get the requests for
      * @return The outstanding requests
      */
-    public Collection<Request> getRequests(Person pPerson)
+    public Collection<Request> getOutstandingRequests(Person pPerson)
     {
-        return mModel.getRequests(pPerson);
+        // TODO: Have controller filter results to give to the view
+
+        return mModel.getActiveRequests(pPerson);
     }
 
     /**

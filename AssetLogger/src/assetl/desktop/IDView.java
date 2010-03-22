@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * idView.java
  *
  * Created on Mar 21, 2010, 6:53:41 PM
@@ -11,10 +6,11 @@
 
 package assetl.desktop;
 
+import javax.swing.ButtonGroup;
 import assetl.system.AssetLControl;
 
 /**
- * Prompts for I-number or Laptop number
+ * Prompts for I-number or Laptop number (if they are an admin)
  *
  * @author Devin Doman
  */
@@ -36,6 +32,14 @@ public class IDView
     {
         super(pControl);
         initComponents();
+        mGroup = new ButtonGroup();
+        mGroup.add(mScheduleRadio);
+        mGroup.add(mCheckInRadio);
+
+        // add SwitchListeners
+
+        enableSwitch("LoginSchedule", mScheduleRadio);
+        enableSwitch("LoginCheckin", mCheckInRadio);
     }
 
     /** This method is called from within the constructor to
@@ -47,17 +51,62 @@ public class IDView
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mTxtFld = new javax.swing.JTextField();
+        mScheduleRadio = new javax.swing.JRadioButton();
+        mCheckInRadio = new javax.swing.JRadioButton();
+        mBtn = new javax.swing.JButton();
+        mLabel = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mTxtFld.setName("mTxtFld"); // NOI18N
+
+        mScheduleRadio.setText("Schedule");
+        mScheduleRadio.setName("mScheduleRadio"); // NOI18N
+
+        mCheckInRadio.setText("Check In");
+        mCheckInRadio.setName("mCheckInRadio"); // NOI18N
+
+        mBtn.setText("Execute");
+        mBtn.setName("mBtn"); // NOI18N
+
+        mLabel.setText("Enter");
+        mLabel.setName("mLabel"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mScheduleRadio)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mCheckInRadio)
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mBtn)
+                            .addComponent(mLabel))))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(mLabel)
+                        .addGap(31, 31, 31)
+                        .addComponent(mTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(mBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(mScheduleRadio)
+                        .addGap(18, 18, 18)
+                        .addComponent(mCheckInRadio)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -66,15 +115,22 @@ public class IDView
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton mBtn;
+    private javax.swing.JRadioButton mCheckInRadio;
+    private javax.swing.JLabel mLabel;
+    private javax.swing.JRadioButton mScheduleRadio;
+    private javax.swing.JTextField mTxtFld;
     // End of variables declaration//GEN-END:variables
 
+    private ButtonGroup mGroup;
     /**
      * Gets the necessary data from the text fields to perform
      * this views functions
      */
     public void grabDataPacket()
     {
-
+        mData.setAsset(mControl.getAsset(mTxtFld.getText()));
+        mData.setPerson(mControl.getPerson(mTxtFld.getText()));
     }
 
     /**
@@ -98,6 +154,6 @@ public class IDView
      */
     public void run()
     {
-        
+        mScheduleRadio.setSelected(true);
     }
 }

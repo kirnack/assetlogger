@@ -118,14 +118,12 @@ public interface AssetLModel
     Collection<Person> getBorrowers(Asset pAsset);
 
     /**
-     * Gets the outstanding requests based on a Person. The oustanding requests
-     * will not have a picked up date set yet for its checkout collection and
-     * will not be past the requested pick up date.
+     * Gets the active requests based on a Person.
      *
      * @param pPerson The person to get the requests for
-     * @return The outstanding requests
+     * @return The active requests
      */
-    Collection<Request> getRequests(Person pPerson);
+    Collection<Request> getActiveRequests(Person pPerson);
 
      /**
      * Returns a collection of all the assets this person has borrowed.

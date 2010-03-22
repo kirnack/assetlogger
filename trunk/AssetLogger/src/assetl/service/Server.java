@@ -773,14 +773,12 @@ public class Server
     }
 
     /**
-     * Gets the outstanding requests based on a Person. The oustanding requests
-     * will not have a picked up date set yet for its checkout collection and
-     * will not be past the requested pick up date.
+     * Gets the active requests based on a Person.
      *
      * @param pPerson The person to get the requests for
-     * @return The outstanding requests
+     * @return The active requests
      */
-    public Collection<Request> getRequests(Person pPerson)
+    public Collection<Request> getActiveRequests(Person pPerson)
     {
         return new ArrayList<Request>();
     }

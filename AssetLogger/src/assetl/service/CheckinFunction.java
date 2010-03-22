@@ -1,5 +1,7 @@
-package assetl.system;
+package assetl.service;
 
+import assetl.service.DBFunction;
+import assetl.system.Checkout;
 import java.util.Date;
 
 /**

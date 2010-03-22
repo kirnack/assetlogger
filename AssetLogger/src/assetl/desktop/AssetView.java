@@ -4,8 +4,12 @@
  * Created on Mar 14, 2010, 4:49:04 PM
  */
 
-package assetl.system;
+package assetl.desktop;
 
+import assetl.system.AssetLControl;
+import assetl.system.AssetLView;
+import assetl.system.DBPacket;
+import assetl.system.DataPacket;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -93,7 +97,7 @@ public abstract class AssetView
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
+        mMenuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         viewMenu = new javax.swing.JMenu();
@@ -104,15 +108,15 @@ public abstract class AssetView
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuBar1.setName("jMenuBar1"); // NOI18N
+        mMenuBar.setName("mMenuBar"); // NOI18N
 
         jMenu1.setText("File");
         jMenu1.setName("jMenu1"); // NOI18N
-        jMenuBar1.add(jMenu1);
+        mMenuBar.add(jMenu1);
 
         jMenu2.setText("Edit");
         jMenu2.setName("jMenu2"); // NOI18N
-        jMenuBar1.add(jMenu2);
+        mMenuBar.add(jMenu2);
 
         viewMenu.setText("View");
         viewMenu.setName("viewMenu"); // NOI18N
@@ -133,9 +137,9 @@ public abstract class AssetView
         cancelMenuItem.setName("cancelMenuItem"); // NOI18N
         viewMenu.add(cancelMenuItem);
 
-        jMenuBar1.add(viewMenu);
+        mMenuBar.add(viewMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,7 +162,7 @@ public abstract class AssetView
     private javax.swing.JMenuItem ckOutMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar mMenuBar;
     private javax.swing.JMenuItem scheduleMenuItem;
     private javax.swing.JMenu viewMenu;
     // End of variables declaration//GEN-END:variables
@@ -194,6 +198,38 @@ public abstract class AssetView
     public void closeView()
     {
         dispose();
+    }
+
+    /**
+     * Shows the menu bar
+     */
+    public void showMenuBar()
+    {
+        mMenuBar.setVisible(true);
+    }
+
+    /**
+     * Hides the menu bar
+     */
+    public void hideMenuBar()
+    {
+        mMenuBar.setVisible(false);
+    }
+
+    /**
+     * Allows the controller to turn on admin abilities in a view
+     */
+    public void enableAdmin()
+    {
+        showMenuBar();
+    }
+
+    /**
+     * Allows the controller to turn off admin abilities in a view
+     */
+    public void disableAdmin()
+    {
+        hideMenuBar();
     }
 
     /**

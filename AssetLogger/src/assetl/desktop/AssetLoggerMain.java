@@ -1,4 +1,6 @@
-package assetl.service;
+package assetl.desktop;
+
+import assetl.service.DatabaseControl;
 
 /**
  * The entry point for the application.

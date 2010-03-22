@@ -28,6 +28,11 @@ public class DBPacket
     private boolean mAdmin;
 
     /**
+     * The user of the view
+     */
+    protected User mUser;
+
+    /**
      * The current person
      */
     protected Person mPerson;
@@ -121,6 +126,16 @@ public class DBPacket
     }
 
     /**
+     * Sets the user
+     *
+     * @param pUser The user data
+     */
+    public void setUser(User pUser)
+    {
+        mUser = pUser;
+    }
+
+    /**
      * Sets a person
      *
      * @param pPerson The person data
@@ -198,6 +213,16 @@ public class DBPacket
     public boolean getIsAdmin()
     {
         return mAdmin;
+    }
+
+    /**
+     * Gets the user of the view
+     *
+     * @return The user data
+     */
+    public User getUser()
+    {
+        return mUser;
     }
 
     /**

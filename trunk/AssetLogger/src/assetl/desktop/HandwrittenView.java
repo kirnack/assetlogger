@@ -1,6 +1,5 @@
-package assetl.service;
+package assetl.desktop;
 
-import assetl.system.AssetView;
 import assetl.system.AssetLControl;
 
 /**
@@ -53,15 +52,6 @@ public class HandwrittenView
     {
 
     }
-
-    /**
-     * Enables cancel ability for this view
-     *
-    @Override
-    public void enableCancel()
-    {
-        //canceling is enabled
-    }*/
 
     /**
      * The entry point for this view

@@ -1,4 +1,4 @@
-package assetl.system;
+package assetl.service;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package assetl.system;
 
-import java.util.Date;
+import java.util.Collection;
 
 /**
  * Provides a common interface for the controller module in the 
@@ -39,6 +39,14 @@ public interface AssetLControl
     //
 
     /**
+     * Returns the User represented by the ID given.
+     *
+     * @param pID The id of the user
+     * @return The User identified
+     */
+    User getUser(String pID);
+
+    /**
      * Returns the Person represented by the ID given.
      *
      * @param pID The unique identification number for this person
@@ -53,4 +61,14 @@ public interface AssetLControl
      * @return The Asset identified
      */
     Asset getAsset(String pID);
+
+    /**
+     * Gets from the model the outstanding requests based on a Person.
+     * The oustanding requests will not have a picked up date set yet for
+     * its checkout collection and will not be past the requested pick up date.
+     *
+     * @param pPerson The person to get the requests for
+     * @return The outstanding requests
+     */
+    Collection<Request> getOutstandingRequests(Person pPerson);
 }

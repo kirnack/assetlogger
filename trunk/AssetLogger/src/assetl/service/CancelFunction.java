@@ -1,4 +1,7 @@
-package assetl.system;
+package assetl.service;
+
+import assetl.system.Checkout;
+import assetl.system.Request;
 
 /**
  * Defines behavior for canceling requests

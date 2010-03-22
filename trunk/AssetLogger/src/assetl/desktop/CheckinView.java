@@ -4,13 +4,12 @@
  * Created on Mar 14, 2010, 3:43:17 PM
  */
 
-package assetl.service;
+package assetl.desktop;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-import assetl.system.AssetView;
 import assetl.system.AssetLControl;
 
 /**

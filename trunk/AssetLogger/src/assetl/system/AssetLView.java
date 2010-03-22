@@ -69,6 +69,16 @@ public interface AssetLView
     void enableSwitch(String pFunction, AbstractButton pItem);
 
     /**
+     * Allows the controller to turn on admin abilities in a view
+     */
+    void enableAdmin();
+
+    /**
+     * Allows the controller to turn off admin abilities in a view
+     */
+    void disableAdmin();
+
+    /**
      * Grabs all pertainent data from the fields and sets them in
      * a DataPacket object
      */

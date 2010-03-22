@@ -1,17 +1,20 @@
 package assetl.service;
 
+import assetl.desktop.CheckinView;
 import java.util.Collection;
 
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
 import assetl.system.ModelObserver;
-import assetl.system.Function;
 import assetl.system.DataPacket;
 import assetl.system.DBPacket;
 import assetl.system.Request;
 import assetl.system.Person;
 import assetl.system.Asset;
+import assetl.system.User;
+import assetl.desktop.LoginView;
+import assetl.desktop.ScheduleView;
 
 /**
  * The Database Controller is used to modify the Server model in response
@@ -74,7 +77,8 @@ public class DatabaseControl
         */
 
         //Use a netbeans generated gui
-        mView = new ScheduleView(this);
+        mView = new LoginView(this);
+        mView.disableAdmin();
     }
 
     /**
@@ -86,8 +90,6 @@ public class DatabaseControl
     private Object loadObj(String pClass)
     {
         Object obj = null;
-
-        pClass = "assetl.system." + pClass;
         
         try
         {
@@ -120,7 +122,7 @@ public class DatabaseControl
         //switch to a view that can perform this function
         if (switchFunction(pFunction))
         {
-            String functionObj = pFunction + "Function";
+            String functionObj = "assetl.service." + pFunction + "Function";
             mFunction = (Function) loadObj(functionObj);
 
             //set the model, data, and controller for the function to work with
@@ -152,9 +154,14 @@ public class DatabaseControl
             //changeView(new CheckinView(this));
             return true;
         }
+        else if ("LogIn".equals(pFunction))
+        {
+            changeView(new LoginView(this));
+            return true;
+        }
         else if ("Checkout".equals(pFunction))
         {
-            changeView(pFunction + "View");
+            changeView("assetl.desktop." + pFunction + "View");
             return true;
         }
 
@@ -217,15 +224,6 @@ public class DatabaseControl
     }
 
     /**
-     * Picks a view that has checkout ability and enables that functionality
-     */
-    public void changeCheckout()
-    {
-        AssetLView currView = mView;
-        changeView(new ScheduleView(this));
-    }
-
-    /**
      * This method is called by the model to indicate
      * there has been a state change in the model.
      * The controller will reflect these changes in
@@ -250,7 +248,17 @@ public class DatabaseControl
      */
     public void updateData(Person pPerson, Asset pAsset, Request pRequest)
     {
+    }
 
+    /**
+     * Returns the User represented by the ID given.
+     *
+     * @param pID The id of the user
+     * @return The User identified
+     */
+    public User getUser(String pID)
+    {
+        return mModel.getUser(pID);
     }
 
     /**
@@ -288,6 +296,16 @@ public class DatabaseControl
         // TODO: Have controller filter results to give to the view
 
         return mModel.getActiveRequests(pPerson);
+    }
+
+    /**
+     * Returns the current view
+     *
+     * @return The current view
+     */
+    public AssetLView getView()
+    {
+        return mView;
     }
 
     /**

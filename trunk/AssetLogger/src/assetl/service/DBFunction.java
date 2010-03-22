@@ -3,9 +3,12 @@
  * and open the template in the editor.
  */
 
-package assetl.system;
+package assetl.service;
 
 import assetl.service.DatabaseControl;
+import assetl.system.AssetLControl;
+import assetl.system.DBPacket;
+import assetl.system.DataPacket;
 
 /**
  * Defines an abstract class that can be used by functions utilizing

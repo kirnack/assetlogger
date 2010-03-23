@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package assetl.service;
 
 import assetl.system.Asset;
@@ -264,13 +259,13 @@ public class ServerTest
         pRequest.addCheckout(new Checkout("1", "1",
                 instance.getAsset("42"), instance.getPerson("kirnack"),
                 new Date(0), new Date(9)));
-        pRequest.addCheckout(new Checkout("1", "1",
+        pRequest.addCheckout(new Checkout("3", "1",
                 instance.getAsset("12"), instance.getPerson("kirnack"),
                 new Date(0), new Date(9)));
         String pUserID = "Doctor";
         instance.setRequest(pRequest, pUserID);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -286,7 +281,7 @@ public class ServerTest
         Request result = instance.getRequest(pID);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
         /**
@@ -314,7 +309,7 @@ public class ServerTest
     {
         System.out.println("getNumCheckouts");
         Server instance = Server.getInstance();
-        int expResult = 0;
+        int expResult = 2;
         int result = instance.getNumCheckouts();
         assertEquals(expResult, result);
     }
@@ -340,7 +335,7 @@ public class ServerTest
     {
         System.out.println("getNumRequests");
         Server instance = Server.getInstance();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.getNumRequests();
         assertEquals(expResult, result);
     }

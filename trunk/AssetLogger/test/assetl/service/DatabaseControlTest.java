@@ -110,7 +110,9 @@ public class DatabaseControlTest {
         Person pPerson = null;
         Asset pAsset = null;
         DatabaseControl instance = new DatabaseControl();
-//        instance.cancel(pPerson, pAsset);
+        //Cannot do this No such method and will never be one.
+        //instance.cancel(pPerson, pAsset);
+
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

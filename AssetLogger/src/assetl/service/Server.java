@@ -159,7 +159,8 @@ public class Server
             String str;
             while ((str = in.readLine()) != null)
             {
-                mStat.execute(str);
+               System.err.println(str);
+               mStat.execute(str);
             }
             in.close();
         }
@@ -437,14 +438,15 @@ public class Server
                  pRequest.getID() + "';");
                while (cs.next())
                {
-                   checkouts.add(new Checkout (cs.getString("CheckoutID"),
+                  checkouts.add(new Checkout (cs.getString("CheckoutID"),
                            cs.getString("RequestID"),
                            getAsset(cs.getString("AssetID")),
                            getPerson(cs.getString("RecipeantID")),
                            cs.getDate("RequestedStartDate"),
                            cs.getDate("RequestedEndDate"),
                            cs.getDate("PickupDate"),
-                           cs.getDate("ReturnDate")));
+                           cs.getDate("ReturnDate"),
+                           cs.getBoolean("isActive")));
                }
                cs.close();
        }
@@ -478,7 +480,8 @@ public class Server
                                        rs.getDate("RequestedStartDate"),
                                        rs.getDate("RequestedEndDate"),
                                        rs.getDate("PickedupDate"),
-                                       rs.getDate("ReturnedDate"));
+                                       rs.getDate("ReturnedDate"),
+                                       rs.getBoolean("isActive"));
            }
            rs.close();
         }
@@ -511,7 +514,7 @@ public class Server
             System.err.println("Adding " + pCheckout.getID());
             prepReq = mConn.prepareStatement(
                      "insert into Checkouts values (?, ?, ?, ?, ?, ?, ?, ?, '" +
-                     pUserID + "');");
+                     pUserID + "', ?);");
          }
          else if (!temp.getAsset().equals(pCheckout.getAsset()) ||
                   !temp.getPickedupDate().equals(pCheckout.getPickedupDate()) ||
@@ -520,7 +523,8 @@ public class Server
                                           pCheckout.getRequestedEndDate()) ||
                   !temp.getRequestedStartDate().equals(
                                           pCheckout.getRequestedStartDate()) ||
-                  !temp.getReturnedDate().equals(pCheckout.getReturnedDate()))
+                  !temp.getReturnedDate().equals(pCheckout.getReturnedDate()) ||
+                  temp.isActive() == pCheckout.isActive())
          {
             System.err.println("Updating " + pCheckout.getID());
             prepReq = mConn.prepareStatement(
@@ -528,7 +532,7 @@ public class Server
                      + " RecipeantID = ?, AssetID = ?,"+
                      " RequestedStartDate = ?, RequestedEndDate = ?," +
                      " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
-                     + pUserID + "' where RequestID ='" +
+                     + pUserID + "', Active = ? where RequestID ='" +
                      pCheckout.getID() + "';" );
          }
 
@@ -537,15 +541,21 @@ public class Server
             prepReq.setString(1, pCheckout.getID());
             prepReq.setString(2, pCheckout.getRequestID());
             prepReq.setString(3, pCheckout.getRecipient().getID());
-            prepReq.setString(4, pCheckout.getAsset().getID());
-            prepReq.setTimestamp(5,
-                    new Timestamp(pCheckout.getRequestedStartDate().getTime()));
-            prepReq.setTimestamp(6,
-                    new Timestamp(pCheckout.getRequestedEndDate().getTime()));
-            prepReq.setTimestamp(7,
-                    new Timestamp(pCheckout.getPickedupDate().getTime()));
-            prepReq.setTimestamp(8,
-                    new Timestamp(pCheckout.getReturnedDate().getTime()));
+            prepReq.setString(4, ((pCheckout.getAsset() == null) ? 
+                                 null : pCheckout.getAsset().getID()));
+            prepReq.setTimestamp(5,((pCheckout.getRequestedStartDate() != null)
+                    ? new Timestamp(pCheckout.getRequestedStartDate().getTime())
+                    : null));
+            prepReq.setTimestamp(6, ((pCheckout.getRequestedEndDate() != null)
+                    ? new Timestamp(pCheckout.getRequestedEndDate().getTime())
+                    : null));
+            prepReq.setTimestamp(7, ((pCheckout.getPickedupDate() != null)
+                    ? new Timestamp(pCheckout.getPickedupDate().getTime())
+                    : null));
+            prepReq.setTimestamp(8, ((pCheckout.getPickedupDate() != null)
+                    ? new Timestamp(pCheckout.getReturnedDate().getTime())
+                    : null));
+            prepReq.setBoolean(9, pCheckout.isActive());
             prepReq.execute();
          }
 
@@ -638,9 +648,43 @@ public class Server
      */
     public Checkout getCheckout(Asset pAsset)
     {
-        //TODO: actually implement and test this method
+     //   Checkout check = null;
 
-        return new Checkout();
+
+        return getActiveCheckouts(pAsset).iterator().next();
+    }
+
+    public Collection<Checkout> getActiveCheckouts(Asset pAsset)
+    {
+       Collection<Checkout> checkouts = new ArrayList<Checkout>();
+
+       try
+        {
+           ResultSet rs = mStat.executeQuery("select * from Checkouts where" +
+                                             " AssetID='" + pAsset.getID() +
+                                             "' isActive=true order by " +
+                                             "RequestedStartDate, PickedupDate"
+                                             + ";");
+           if (rs.next())
+           {
+              checkouts.add(new Checkout (rs.getString("CheckoutID"),
+                                       rs.getString("RequestID"),
+                                       getAsset(rs.getString("AssetID")),
+                                       getPerson(rs.getString("RecipeantID")),
+                                       rs.getDate("RequestedStartDate"),
+                                       rs.getDate("RequestedEndDate"),
+                                       rs.getDate("PickedupDate"),
+                                       rs.getDate("ReturnedDate"),
+                                       rs.getBoolean("isActive")));
+           }
+           rs.close();
+        }
+        catch (Exception e)
+        {
+           System.err.println(e);
+        }
+
+       return checkouts;
     }
 
     /**
@@ -650,7 +694,11 @@ public class Server
      */
     public void setCheckout(Checkout pCheckout)
     {
-        //TODO: actually implement and test this method
+       /*  Only if we want to allow updates without user info.
+        * But we schould not in my opion.  This should not be used.
+        setCheckout(pCheckout, "user");
+
+        */
     }
 
     /**
@@ -844,6 +892,16 @@ public class Server
     */
    public int getNumRequests()
    {
-      return 0;
+      int numCheckouts = 0;
+      try
+      {
+        ResultSet rs = mStat.executeQuery("select count(*) from Requests;");
+         numCheckouts = rs.getInt(1);
+      }
+      catch (SQLException e)
+      {
+          e.printStackTrace(System.err);
+      }
+      return numCheckouts;
    }
 }

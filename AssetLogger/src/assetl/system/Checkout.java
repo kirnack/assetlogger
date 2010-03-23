@@ -86,11 +86,12 @@ public class Checkout
     * @param pRequestedStartDate The requested start date
     * @param pRequestedEndDate The requested end date
     */
-   public Checkout(String pID, String pRequestID, Asset pAsset, Person pRecipient,
-                   Date pRequestedStartDate, Date pRequestedEndDate)
+   public Checkout(String pID, String pRequestID, Asset pAsset,
+                   Person pRecipient, Date pRequestedStartDate,
+                   Date pRequestedEndDate)
    {
        this(pID, pRequestID, pAsset, pRecipient, pRequestedStartDate,
-            pRequestedEndDate, null, null);
+            pRequestedEndDate, null, null, true);
    }
 
    /**
@@ -104,11 +105,12 @@ public class Checkout
     * @param pRequestedEndDate The requested end date
     * @param pPickedupDate
     * @param pReturnedDate
+    * @param pActive
     */
    public Checkout(String pID, String pRequestID, Asset pAsset,
                    Person pRecipient, Date pRequestedStartDate,
                    Date pRequestedEndDate, Date pPickedupDate,
-                   Date pReturnedDate)
+                   Date pReturnedDate, boolean pActive)
    {
        mID = pID;
        mAsset = pAsset;
@@ -118,7 +120,7 @@ public class Checkout
        mRequestID = pRequestID;
        mPickedupDate = pPickedupDate;
        mReturnedDate = pReturnedDate;
-       mActive = true;
+       mActive = pActive;
    }
 
    /**

@@ -69,14 +69,11 @@ public interface AssetLView
     void enableSwitch(String pFunction, AbstractButton pItem);
 
     /**
-     * Allows the controller to turn on admin abilities in a view
+     * Allows control of the visibility of Admin components in the view
+     *
+     * @param pSet True if the admin components are to be set to visible
      */
-    void enableAdmin();
-
-    /**
-     * Allows the controller to turn off admin abilities in a view
-     */
-    void disableAdmin();
+    public void setAdminComponents(boolean pIsAdmin);
 
     /**
      * Grabs all pertainent data from the fields and sets them in

@@ -146,7 +146,7 @@ public class IDView
      */
     public void enable(String pFunction)
     {
-
+        enable(pFunction, mBtn);
     }
 
     /**

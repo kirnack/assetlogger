@@ -36,27 +36,27 @@ public class LoginView
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        mLoginLbl = new javax.swing.JLabel();
+        mPicLbl = new javax.swing.JLabel();
+        mUserLbl = new javax.swing.JLabel();
+        mPwrdLbl = new javax.swing.JLabel();
         mUserTxtFld = new javax.swing.JTextField();
         mPwrdTxtFld = new javax.swing.JPasswordField();
         mLogInBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Log In");
-        jLabel1.setName("jLabel1"); // NOI18N
+        mLoginLbl.setText("Log In");
+        mLoginLbl.setName("mLoginLbl"); // NOI18N
 
-        jLabel2.setText("A picture can go here");
-        jLabel2.setName("jLabel2"); // NOI18N
+        mPicLbl.setText("A picture can go here");
+        mPicLbl.setName("mPicLbl"); // NOI18N
 
-        jLabel3.setText("User:");
-        jLabel3.setName("jLabel3"); // NOI18N
+        mUserLbl.setText("User:");
+        mUserLbl.setName("mUserLbl"); // NOI18N
 
-        jLabel4.setText("Password:");
-        jLabel4.setName("jLabel4"); // NOI18N
+        mPwrdLbl.setText("Password:");
+        mPwrdLbl.setName("mPwrdLbl"); // NOI18N
 
         mUserTxtFld.setName("mUserTxtFld"); // NOI18N
 
@@ -71,18 +71,17 @@ public class LoginView
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mPicLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jLabel4))
+                        .addComponent(mPwrdLbl))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(mUserLbl)))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(mLoginLbl)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(mPwrdTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(mUserTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
@@ -95,17 +94,17 @@ public class LoginView
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(mPicLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addComponent(jLabel1)
+                        .addComponent(mLoginLbl)
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(mUserLbl)
                             .addComponent(mUserTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
+                            .addComponent(mPwrdLbl)
                             .addComponent(mPwrdTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(mLogInBtn)
@@ -117,12 +116,12 @@ public class LoginView
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton mLogInBtn;
+    private javax.swing.JLabel mLoginLbl;
+    private javax.swing.JLabel mPicLbl;
+    private javax.swing.JLabel mPwrdLbl;
     private javax.swing.JPasswordField mPwrdTxtFld;
+    private javax.swing.JLabel mUserLbl;
     private javax.swing.JTextField mUserTxtFld;
     // End of variables declaration//GEN-END:variables
 
@@ -132,6 +131,7 @@ public class LoginView
      */
     public void grabDataPacket()
     {
+        System.out.println(mPwrdTxtFld.getPassword());
         // Grab the user data from the text fields
         mData.setUser(new User(mUserTxtFld.getText(),
                       new String(mPwrdTxtFld.getPassword()), false));
@@ -158,6 +158,7 @@ public class LoginView
      */
     public void run()
     {
+        hideMenuBar();
         enable("LogIn");
     }
 

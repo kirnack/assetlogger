@@ -43,12 +43,12 @@ public class ServiceView
         mRequestedList = new javax.swing.JList();
         mCheckoutLbl = new javax.swing.JLabel();
         mRequestedLbl = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        mReturnBtn = new javax.swing.JButton();
+        mExtendBtn = new javax.swing.JButton();
+        mScheduleBtn = new javax.swing.JButton();
+        mCheckoutBtn = new javax.swing.JButton();
+        mCancelBtn = new javax.swing.JButton();
+        mAddCheckoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,87 +65,92 @@ public class ServiceView
         mRequestedList.setName("mRequestedList"); // NOI18N
         jScrollPane2.setViewportView(mRequestedList);
 
-        mCheckoutLbl.setText("Checkout");
+        mCheckoutLbl.setText("Currently Checked out:");
         mCheckoutLbl.setName("mCheckoutLbl"); // NOI18N
 
-        mRequestedLbl.setText("Requested");
+        mRequestedLbl.setText("Currently Scheduled:");
         mRequestedLbl.setName("mRequestedLbl"); // NOI18N
 
-        jButton1.setText("Return");
-        jButton1.setName("jButton1"); // NOI18N
+        mReturnBtn.setText("-");
+        mReturnBtn.setName("mReturnBtn"); // NOI18N
 
-        jButton2.setText("Extend");
-        jButton2.setName("jButton2"); // NOI18N
+        mExtendBtn.setText("Extend");
+        mExtendBtn.setName("mExtendBtn"); // NOI18N
 
-        jButton3.setText("Undo");
-        jButton3.setName("jButton3"); // NOI18N
+        mScheduleBtn.setText("+");
+        mScheduleBtn.setName("mScheduleBtn"); // NOI18N
 
-        jButton4.setText("Schedule");
-        jButton4.setName("jButton4"); // NOI18N
+        mCheckoutBtn.setText("Checkout");
+        mCheckoutBtn.setName("mCheckoutBtn"); // NOI18N
 
-        jButton5.setText("Checkout");
-        jButton5.setName("jButton5"); // NOI18N
+        mCancelBtn.setText("-");
+        mCancelBtn.setName("mCancelBtn"); // NOI18N
 
-        jButton6.setText("Cancel");
-        jButton6.setName("jButton6"); // NOI18N
+        mAddCheckoutBtn.setText("+");
+        mAddCheckoutBtn.setName("mAddCheckoutBtn"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(mNameLbl))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mCheckoutLbl)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(mRequestedLbl))))
-                .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addContainerGap(74, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mScheduleBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mCancelBtn))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(mRequestedLbl)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mNameLbl)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mCheckoutLbl)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(mAddCheckoutBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(mReturnBtn)))))))
+                .addGap(66, 66, 66)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mExtendBtn)
+                    .addComponent(mCheckoutBtn))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(mNameLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(mCheckoutLbl)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mAddCheckoutBtn)
+                    .addComponent(mReturnBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(mRequestedLbl)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mScheduleBtn)
+                    .addComponent(mCancelBtn))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(jButton1)
-                .addGap(30, 30, 30)
-                .addComponent(jButton2)
-                .addGap(32, 32, 32)
-                .addComponent(jButton3)
-                .addGap(104, 104, 104)
-                .addComponent(jButton4)
-                .addGap(38, 38, 38)
-                .addComponent(jButton5)
-                .addGap(30, 30, 30)
-                .addComponent(jButton6)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(138, 138, 138)
+                .addComponent(mExtendBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
+                .addComponent(mCheckoutBtn)
+                .addGap(117, 117, 117))
         );
 
         pack();
@@ -154,19 +159,19 @@ public class ServiceView
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton mAddCheckoutBtn;
+    private javax.swing.JButton mCancelBtn;
+    private javax.swing.JButton mCheckoutBtn;
     private javax.swing.JLabel mCheckoutLbl;
     private javax.swing.JList mCheckoutList;
+    private javax.swing.JButton mExtendBtn;
     private javax.swing.JLabel mNameLbl;
     private javax.swing.JLabel mRequestedLbl;
     private javax.swing.JList mRequestedList;
+    private javax.swing.JButton mReturnBtn;
+    private javax.swing.JButton mScheduleBtn;
     // End of variables declaration//GEN-END:variables
 
     /**

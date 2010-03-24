@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * SureView.java
  *
  * Created on Mar 21, 2010, 6:57:37 PM
@@ -11,14 +6,25 @@
 
 package assetl.desktop;
 
-/**
- *
- * @author Devo
- */
-public class SureView extends javax.swing.JFrame {
+import assetl.system.AssetLControl;
 
-    /** Creates new form SureView */
-    public SureView() {
+/**
+ * Ensures that the user knows what they are doing.
+ *
+ * @author Devin Doman
+ */
+public class SureView 
+        extends AssetView
+{
+
+    /**
+     * Constructor for the user interface
+     *
+     * @param pControl The controller for this view
+     */
+    public SureView(AssetLControl pControl)
+    {
+        super(pControl);
         initComponents();
     }
 
@@ -31,17 +37,55 @@ public class SureView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        mQueryLbl = new javax.swing.JLabel();
+        mYesBtn = new javax.swing.JButton();
+        mNoBtn = new javax.swing.JButton();
+        mSureLbl = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mQueryLbl.setText("Are you sure?");
+        mQueryLbl.setName("mQueryLbl"); // NOI18N
+
+        mYesBtn.setText("Yes");
+        mYesBtn.setName("mYesBtn"); // NOI18N
+
+        mNoBtn.setText("No");
+        mNoBtn.setName("mNoBtn"); // NOI18N
+
+        mSureLbl.setName("mSureLbl"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(mYesBtn)
+                        .addGap(45, 45, 45)
+                        .addComponent(mNoBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(mQueryLbl))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(mSureLbl)))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addComponent(mSureLbl)
+                .addGap(40, 40, 40)
+                .addComponent(mQueryLbl)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mNoBtn)
+                    .addComponent(mYesBtn))
+                .addGap(105, 105, 105))
         );
 
         pack();
@@ -50,6 +94,42 @@ public class SureView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton mNoBtn;
+    private javax.swing.JLabel mQueryLbl;
+    private javax.swing.JLabel mSureLbl;
+    private javax.swing.JButton mYesBtn;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Updates the views display of the model
+     */
+    public void updateData()
+    {
+
+    }
+
+    /**
+     * Grabs all pertainent data from the fields and sets them in
+     * a DataPacket object
+     */
+    public void grabDataPacket()
+    {
+
+    }
+
+    /**
+     * Enables functionality passed in for this view.
+     */
+    public void enable(String pFunction)
+    {
+
+    }
+
+    /**
+     * The entry point for this view
+     */
+    public void run()
+    {
+
+    }
 }

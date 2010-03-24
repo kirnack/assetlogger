@@ -85,7 +85,7 @@ public abstract class AssetView
         enableSwitch("Checkout", mChkOutMenuItem);
         enableSwitch("Checkin", mChkInMenuItem);
         enableSwitch("Schedule", mScheduleMenuItem);
-        enableSwitch("Cancel", mCancelMenuItem);
+        enableSwitch("FindAsset", mCancelMenuItem);
     }
 
     /** This method is called from within the constructor to
@@ -275,6 +275,15 @@ public abstract class AssetView
     public abstract void enable(String pFunction);
 
     /**
+     * Sets the title
+     * @param pLabels
+     */
+    public void setLabels(String pLabels)
+    {
+        
+    }
+
+    /**
      * Enables functionality on the AbstractButton passed in
      *
      * @param pFunction The function to enable
@@ -282,11 +291,23 @@ public abstract class AssetView
      */
     public void enable(String pFunction, AbstractButton pItem)
     {
+        enable(pFunction, pItem, pFunction);
+    }
+
+    /**
+     * Enables functionality on the AbstractButton passed in
+     *
+     * @param pFunction The function to enable
+     * @param pItem The component to give functionality to
+     * @param pLabel The label for the button performing the function
+     */
+    public void enable(String pFunction, AbstractButton pItem, String pLabel)
+    {
         // TODO: make sure the function passed in is supported in this view
         // and make the labels of the button and title pretty
 
-        setTitle(pFunction);
-        pItem.setText(pFunction);
+        setTitle(pLabel);
+        pItem.setText(pLabel);
 
         //remove all previous action listeners
         removeActionListeners(pItem);

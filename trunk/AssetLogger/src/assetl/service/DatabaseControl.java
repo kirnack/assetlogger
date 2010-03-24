@@ -16,7 +16,10 @@ import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.User;
 import assetl.desktop.LoginView;
-import assetl.desktop.ScheduleView;
+import assetl.desktop.ServiceView;
+import assetl.desktop.IDView;
+import assetl.desktop.FindAssetView;
+import assetl.desktop.SureView;
 
 /**
  * The Database Controller is used to modify the Server model in response
@@ -80,20 +83,56 @@ public class DatabaseControl
         mPacket = new DBPacket();
 
         // construct the map
-        AssetLView tempView = new ScheduleView(this);
         mHashViews = new HashMap<String, AssetLView>();
-        mHashViews.put("Schedule", tempView);
-        mHashViews.put("Checkout", tempView);
-        tempView = new CheckinView(this);
-        mHashViews.put("Checkin", tempView);
+        AssetLView tempView = new ServiceView(this);
+        addView("Schedule", tempView);
+        addView("Checkout", tempView);
+        addView("Cancel", tempView);
+
         tempView = new LoginView(this);
-        mHashViews.put("LogIn", tempView);
+        addView("LogIn", tempView);
+
+        tempView = new IDView(this);
+        addView("Checkin", tempView);
+        addView("IDTeacher", tempView);
+
+        tempView = new FindAssetView(this);
+        addView("FindAsset", tempView);
+        
+        tempView = new SureView(this);
+        addView("Sure", tempView);
 
         //Use a netbeans generated gui
         mView = mHashViews.get("LogIn");
 
         // hide the admin components
         mView.setAdminComponents(false);
+    }
+
+    /**
+     * Associates multiple keys with a single view
+     *
+     * @param pKeys The keys to which the view will be associated
+     * @param pView The view associated with the given keys
+     */
+    public void addViews(Collection<String> pKeys, AssetLView pView)
+    {
+        // associate each key with the view
+        for (String key : pKeys)
+        {
+            mHashViews.put(key, pView);
+        }
+    }
+
+    /**
+     * Adds a new view to the map for the given key
+     *
+     * @param pKey The key to which the view will be associated
+     * @param pView The view associated with the given key
+     */
+    public void addView(String pKey, AssetLView pView)
+    {
+        mHashViews.put(pKey, pView);
     }
 
     /**
@@ -140,9 +179,16 @@ public class DatabaseControl
             String functionObj = "assetl.service." + pFunction + "Function";
             mFunction = (Function) loadObj(functionObj);
 
-            //set the model, data, and controller for the function to work with
-            mFunction.setModules(this, mModel);
-            mFunction.setPacket(mPacket);
+            if (mFunction != null)
+            {
+                //
+                // Set the model, data, and controller
+                // for the function to work with
+                //
+                
+                mFunction.setModules(this, mModel);
+                mFunction.setPacket(mPacket);
+            }
             
             mView.enable(pFunction);
         }

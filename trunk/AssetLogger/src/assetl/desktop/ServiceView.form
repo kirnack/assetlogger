@@ -23,68 +23,78 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="mNameLbl" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="235" max="32767" attributes="1"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="mCheckoutLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" min="-2" pref="235" max="-2" attributes="1"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="mScheduleBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="mCancelBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jScrollPane2" alignment="0" pref="235" max="32767" attributes="1"/>
                           <Component id="mRequestedLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="mNameLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="235" max="-2" attributes="1"/>
+                                  <Component id="mCheckoutLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="mAddCheckoutBtn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="mReturnBtn" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="74" max="32767" attributes="0"/>
+              <EmptySpace pref="84" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="mNameLbl" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="mCheckoutLbl" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="171" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="mAddCheckoutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mReturnBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
               <Component id="mRequestedLbl" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="183" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="mScheduleBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mCancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="56" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
+              <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="235" max="32767" attributes="0"/>
+              <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -138,50 +148,50 @@
     </Container>
     <Component class="javax.swing.JLabel" name="mCheckoutLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Checkout"/>
+        <Property name="text" type="java.lang.String" value="Currently Checked out:"/>
         <Property name="name" type="java.lang.String" value="mCheckoutLbl" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mRequestedLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Requested"/>
+        <Property name="text" type="java.lang.String" value="Currently Scheduled:"/>
         <Property name="name" type="java.lang.String" value="mRequestedLbl" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="mReturnBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Return"/>
-        <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="name" type="java.lang.String" value="mReturnBtn" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="mExtendBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Extend"/>
-        <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="mExtendBtn" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="mScheduleBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Undo"/>
-        <Property name="name" type="java.lang.String" value="jButton3" noResource="true"/>
+        <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="name" type="java.lang.String" value="mScheduleBtn" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Schedule"/>
-        <Property name="name" type="java.lang.String" value="jButton4" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="mCheckoutBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Checkout"/>
-        <Property name="name" type="java.lang.String" value="jButton5" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="mCheckoutBtn" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="mCancelBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
-        <Property name="name" type="java.lang.String" value="jButton6" noResource="true"/>
+        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="name" type="java.lang.String" value="mCancelBtn" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="mAddCheckoutBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="name" type="java.lang.String" value="mAddCheckoutBtn" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

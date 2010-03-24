@@ -38,8 +38,8 @@ public class IDView
 
         // add SwitchListeners
 
-        enableSwitch("LoginSchedule", mScheduleRadio);
-        enableSwitch("LoginCheckin", mCheckInRadio);
+        enableSwitch("IDTeacher", mScheduleRadio);
+        enableSwitch("Checkin", mCheckInRadio);
     }
 
     /** This method is called from within the constructor to
@@ -155,5 +155,6 @@ public class IDView
     public void run()
     {
         mScheduleRadio.setSelected(true);
+        enable("IDTeacher");
     }
 }

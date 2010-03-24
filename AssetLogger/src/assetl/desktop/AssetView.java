@@ -82,10 +82,10 @@ public abstract class AssetView
         // add action listeners to the menu items
         //
 
-        enableSwitch("Checkout", ckOutMenuItem);
-        enableSwitch("Checkin", ckInMenuItem);
-        enableSwitch("Schedule", scheduleMenuItem);
-        enableSwitch("Cancel", cancelMenuItem);
+        enableSwitch("Checkout", mChkOutMenuItem);
+        enableSwitch("Checkin", mChkInMenuItem);
+        enableSwitch("Schedule", mScheduleMenuItem);
+        enableSwitch("Cancel", mCancelMenuItem);
     }
 
     /** This method is called from within the constructor to
@@ -98,46 +98,63 @@ public abstract class AssetView
     private void initComponents() {
 
         mMenuBar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        viewMenu = new javax.swing.JMenu();
-        ckOutMenuItem = new javax.swing.JMenuItem();
-        ckInMenuItem = new javax.swing.JMenuItem();
-        scheduleMenuItem = new javax.swing.JMenuItem();
-        cancelMenuItem = new javax.swing.JMenuItem();
+        mBackBtn = new javax.swing.JMenu();
+        mFileMenu = new javax.swing.JMenu();
+        mEditMenu = new javax.swing.JMenu();
+        mViewMenu = new javax.swing.JMenu();
+        mChkOutMenuItem = new javax.swing.JMenuItem();
+        mChkInMenuItem = new javax.swing.JMenuItem();
+        mScheduleMenuItem = new javax.swing.JMenuItem();
+        mCancelMenuItem = new javax.swing.JMenuItem();
+        mUserMenu = new javax.swing.JMenu();
+        mLogoutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         mMenuBar.setName("mMenuBar"); // NOI18N
 
-        jMenu1.setText("File");
-        jMenu1.setName("jMenu1"); // NOI18N
-        mMenuBar.add(jMenu1);
+        mBackBtn.setForeground(new java.awt.Color(0, 0, 204));
+        mBackBtn.setText("Back");
+        mBackBtn.setName("mBackBtn"); // NOI18N
+        mMenuBar.add(mBackBtn);
 
-        jMenu2.setText("Edit");
-        jMenu2.setName("jMenu2"); // NOI18N
-        mMenuBar.add(jMenu2);
+        mFileMenu.setText("File");
+        mFileMenu.setName("mFileMenu"); // NOI18N
+        mMenuBar.add(mFileMenu);
 
-        viewMenu.setText("View");
-        viewMenu.setName("viewMenu"); // NOI18N
+        mEditMenu.setText("Edit");
+        mEditMenu.setName("mEditMenu"); // NOI18N
+        mMenuBar.add(mEditMenu);
 
-        ckOutMenuItem.setText("Checkout");
-        ckOutMenuItem.setName("ckOutMenuItem"); // NOI18N
-        viewMenu.add(ckOutMenuItem);
+        mViewMenu.setText("View");
+        mViewMenu.setName("mViewMenu"); // NOI18N
 
-        ckInMenuItem.setText("Checkin");
-        ckInMenuItem.setName("ckInMenuItem"); // NOI18N
-        viewMenu.add(ckInMenuItem);
+        mChkOutMenuItem.setText("Checkout");
+        mChkOutMenuItem.setName("mChkOutMenuItem"); // NOI18N
+        mViewMenu.add(mChkOutMenuItem);
 
-        scheduleMenuItem.setText("Schedule");
-        scheduleMenuItem.setName("scheduleMenuItem"); // NOI18N
-        viewMenu.add(scheduleMenuItem);
+        mChkInMenuItem.setText("Checkin");
+        mChkInMenuItem.setName("mChkInMenuItem"); // NOI18N
+        mViewMenu.add(mChkInMenuItem);
 
-        cancelMenuItem.setText("Cancel");
-        cancelMenuItem.setName("cancelMenuItem"); // NOI18N
-        viewMenu.add(cancelMenuItem);
+        mScheduleMenuItem.setText("Schedule");
+        mScheduleMenuItem.setName("mScheduleMenuItem"); // NOI18N
+        mViewMenu.add(mScheduleMenuItem);
 
-        mMenuBar.add(viewMenu);
+        mCancelMenuItem.setText("Cancel");
+        mCancelMenuItem.setName("mCancelMenuItem"); // NOI18N
+        mViewMenu.add(mCancelMenuItem);
+
+        mMenuBar.add(mViewMenu);
+
+        mUserMenu.setText("User");
+        mUserMenu.setName("mUserMenu"); // NOI18N
+
+        mLogoutMenuItem.setText("Log Out");
+        mLogoutMenuItem.setName("mLogoutMenuItem"); // NOI18N
+        mUserMenu.add(mLogoutMenuItem);
+
+        mMenuBar.add(mUserMenu);
 
         setJMenuBar(mMenuBar);
 
@@ -149,7 +166,7 @@ public abstract class AssetView
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 283, Short.MAX_VALUE)
         );
 
         pack();
@@ -157,14 +174,17 @@ public abstract class AssetView
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem cancelMenuItem;
-    private javax.swing.JMenuItem ckInMenuItem;
-    private javax.swing.JMenuItem ckOutMenuItem;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu mBackBtn;
+    private javax.swing.JMenuItem mCancelMenuItem;
+    private javax.swing.JMenuItem mChkInMenuItem;
+    private javax.swing.JMenuItem mChkOutMenuItem;
+    private javax.swing.JMenu mEditMenu;
+    private javax.swing.JMenu mFileMenu;
+    private javax.swing.JMenuItem mLogoutMenuItem;
     private javax.swing.JMenuBar mMenuBar;
-    private javax.swing.JMenuItem scheduleMenuItem;
-    private javax.swing.JMenu viewMenu;
+    private javax.swing.JMenuItem mScheduleMenuItem;
+    private javax.swing.JMenu mUserMenu;
+    private javax.swing.JMenu mViewMenu;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -217,19 +237,15 @@ public abstract class AssetView
     }
 
     /**
-     * Allows the controller to turn on admin abilities in a view
+     * Allows control of the visibility of Admin components in the view
+     * 
+     * @param pIsAdmin True if the admin components are to be set to visible
      */
-    public void enableAdmin()
+    public void setAdminComponents(boolean pIsAdmin)
     {
-        showMenuBar();
-    }
+        // TODO: include the components that need to change for an admin
 
-    /**
-     * Allows the controller to turn off admin abilities in a view
-     */
-    public void disableAdmin()
-    {
-        hideMenuBar();
+        mViewMenu.setVisible(pIsAdmin);
     }
 
     /**

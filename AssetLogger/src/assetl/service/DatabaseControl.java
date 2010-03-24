@@ -2,6 +2,8 @@ package assetl.service;
 
 import assetl.desktop.CheckinView;
 import java.util.Collection;
+import java.util.AbstractMap;
+import java.util.HashMap;
 
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
@@ -47,7 +49,16 @@ public class DatabaseControl
      */
     private DataPacket mPacket;
 
+    /**
+     * Stores the behavior the controller can currently perform with
+     * the DataPacket.
+     */
     private Function mFunction;
+
+    /**
+    * Map storing the choices for views the controller will make
+    */
+    private AbstractMap<String, AssetLView> mHashViews;
 
     /**
      * Default Contructor for the controller. Gets the model and creates
@@ -68,17 +79,21 @@ public class DatabaseControl
 
         mPacket = new DBPacket();
 
-        /*
-         Commented out by Devin Doman 3/13/10 replaced by code following.
-         Delete after 2 weeks if still not applicable. Uses the handwritten
-         view instead of netbeans generated.
-         
-         mView = new HandwrittenView(this);
-        */
+        // construct the map
+        AssetLView tempView = new ScheduleView(this);
+        mHashViews = new HashMap<String, AssetLView>();
+        mHashViews.put("Schedule", tempView);
+        mHashViews.put("Checkout", tempView);
+        tempView = new CheckinView(this);
+        mHashViews.put("Checkin", tempView);
+        tempView = new LoginView(this);
+        mHashViews.put("LogIn", tempView);
 
         //Use a netbeans generated gui
-        mView = new LoginView(this);
-        mView.disableAdmin();
+        mView = mHashViews.get("LogIn");
+
+        // hide the admin components
+        mView.setAdminComponents(false);
     }
 
     /**
@@ -141,31 +156,17 @@ public class DatabaseControl
      */
     public boolean switchFunction(String pFunction)
     {
-        // TODO: use a hashmap to convert the string to a possible view
+        // Get from the hash map a possible view
+        AssetLView tempView = mHashViews.get(pFunction);
+        boolean ableToChange = false;
 
-        if ("Schedule".equals(pFunction) || "Checkout".equals(pFunction))
+        // if there is a mapped view change to it
+        if (tempView != null)
         {
-            changeView(new ScheduleView(this));
-            return true;
+            changeView(tempView);
+            ableToChange = true;
         }
-        else if ("Checkin".equals(pFunction))
-        {
-            changeView(new CheckinView(this));
-            //changeView(new CheckinView(this));
-            return true;
-        }
-        else if ("LogIn".equals(pFunction))
-        {
-            changeView(new LoginView(this));
-            return true;
-        }
-        else if ("Checkout".equals(pFunction))
-        {
-            changeView("assetl.desktop." + pFunction + "View");
-            return true;
-        }
-
-        return false;
+        return ableToChange;
     }
 
     /**

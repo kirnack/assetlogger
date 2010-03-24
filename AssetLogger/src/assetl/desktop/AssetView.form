@@ -7,46 +7,69 @@
         <Property name="name" type="java.lang.String" value="mMenuBar" noResource="true"/>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="mBackBtn">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" noResource="true" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Back"/>
+            <Property name="name" type="java.lang.String" value="mBackBtn" noResource="true"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mFileMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="File"/>
-            <Property name="name" type="java.lang.String" value="jMenu1" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="mFileMenu" noResource="true"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="mEditMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Edit"/>
-            <Property name="name" type="java.lang.String" value="jMenu2" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="mEditMenu" noResource="true"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="viewMenu">
+        <Menu class="javax.swing.JMenu" name="mViewMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="View"/>
-            <Property name="name" type="java.lang.String" value="viewMenu" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="mViewMenu" noResource="true"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="ckOutMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="mChkOutMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Checkout"/>
-                <Property name="name" type="java.lang.String" value="ckOutMenuItem" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="mChkOutMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="ckInMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="mChkInMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Checkin"/>
-                <Property name="name" type="java.lang.String" value="ckInMenuItem" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="mChkInMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="scheduleMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="mScheduleMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Schedule"/>
-                <Property name="name" type="java.lang.String" value="scheduleMenuItem" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="mScheduleMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="cancelMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="mCancelMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
-                <Property name="name" type="java.lang.String" value="cancelMenuItem" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="mCancelMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mUserMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="User"/>
+            <Property name="name" type="java.lang.String" value="mUserMenu" noResource="true"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mLogoutMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Log Out"/>
+                <Property name="name" type="java.lang.String" value="mLogoutMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -81,7 +104,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="279" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="283" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

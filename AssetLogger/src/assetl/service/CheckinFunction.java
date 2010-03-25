@@ -3,7 +3,7 @@ package assetl.service;
 import java.util.Date;
 import assetl.system.Checkout;
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.AssetPacket;
 
 /**
  * Defines the behavior for checking in an asset
@@ -16,10 +16,10 @@ public class CheckinFunction
     /**
      * The specific DataPacket needed for this function to operate
      */
-    DBPacket mData;
+    AssetPacket mData;
 
     /**
-     * Sets the DataPacket for a Login
+     * Sets the DataPacket for a Checkin
      *
      * @param pPacket The DataPacket sent from the view
      */
@@ -27,7 +27,7 @@ public class CheckinFunction
     public void setPacket(DataPacket pPacket)
     {
         super.setPacket(pPacket);
-        mData = (DBPacket) mPacket;
+        mData = (AssetPacket) mPacket;
     }
     /**
      * Checks in an asset: Retrieves the outstanding Checkout object for this
@@ -39,7 +39,8 @@ public class CheckinFunction
         // Get the checkout and set the returned date to today's date
         //
 
-        Checkout outstanding = mModel.getCheckout(mData.getAsset());
+        Checkout outstanding = mModel.getCheckout(
+                               mModel.getAsset(mData.getAssetID()));
         outstanding.setReturnedDate(new Date());
         mModel.setCheckout(outstanding);
     }

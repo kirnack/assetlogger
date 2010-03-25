@@ -25,7 +25,7 @@ public class CheckoutFunction
         if(super.makeCheckout())
         {
             //stamp picked up date with today's date
-            mData.getCheckout().setPickedupDate(mData.getStart());
+            mCurrCheckout.setPickedupDate(mStart);
             return true;
         }
         else
@@ -36,16 +36,14 @@ public class CheckoutFunction
     }
 
     /**
-     * Checks out an asset. Performs all the same functions as a schedule
-     * except that it uses today's date as the starting date for scheduling
-     * the asset and indicates today's date as the date of pickup.
+     * Creates needed objects for the function using
+     * data sent via the DataPacket
      */
     @Override
-    public void performFunction()
+    public void initVariables()
     {
+        super.initVariables();
         //make today the start date for the checkout
-        mData.setStart(new Date());
-
-        super.performFunction();
+        mStart = new Date();
     }
 }

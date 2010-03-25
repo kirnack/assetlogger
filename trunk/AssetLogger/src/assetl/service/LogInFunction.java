@@ -44,7 +44,7 @@ public class LogInFunction
             DatabaseControl tempControl = (DatabaseControl) mControl;
             tempControl.changeView("assetl.desktop.IDView");
 
-            tempControl.setUser(mModel.getUser(mData.getUserName()));
+            tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
         }
 
         System.err.println("The passwords " + test + "match");

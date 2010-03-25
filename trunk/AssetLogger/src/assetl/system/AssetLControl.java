@@ -31,6 +31,13 @@ public interface AssetLControl
      */
     void doFunction(String pFunction);
 
+    /**
+     * Gets the current user of the application
+     *
+     * @return The current user
+     */
+    User getCurrentUser();
+
     //
     // The following methods allow the controller to server as Mediator
     // between the View and Model

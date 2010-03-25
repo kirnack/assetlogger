@@ -1,12 +1,15 @@
 package assetl.service;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import assetl.system.Asset;
 import assetl.system.Checkout;
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.SchedulePacket;
 import assetl.system.Person;
 import assetl.system.Request;
-import java.util.Date;
+
 
 
 /**
@@ -21,7 +24,37 @@ public class ScheduleFunction
     /**
      * The specific DataPacket needed for this function to operate
      */
-    DBPacket mData;
+    SchedulePacket mData;
+
+    /**
+     * The current request
+     */
+    Request mCurrRequest;
+
+    /**
+     * The current checkout
+     */
+    Checkout mCurrCheckout;
+
+    /**
+     * The person who will receive the asset
+     */
+    Person mRecipient;
+    
+    /**
+     * The asset the person will receive
+     */
+    Asset mAsset;
+
+    /**
+     * The start Date
+     */
+    Date mStart;
+
+    /**
+     * The end Date
+     */
+    Date mEnd;
 
     /**
      * Sets the DataPacket for this function
@@ -33,11 +66,40 @@ public class ScheduleFunction
     {
         super.setPacket(pPacket);
 
-        mData = (DBPacket) mPacket;
+        mData = (SchedulePacket) mPacket;
+    }
 
-        //resets the request and checkout data
-        mData.setRequest(null);
-        mData.setCheckout(null);
+    /**
+     * Creates needed objects for the function using
+     * data sent via the DataPacket
+     */
+    public void initVariables()
+    {
+       mCurrRequest = null;
+       mCurrCheckout = null;
+
+       mRecipient = mModel.getPerson(mData.getPersonID());
+       mAsset = mModel.getAsset(mData.getAssetID());
+       mStart = makeDate(mData.getStartMon(), mData.getStartDay(),
+                         mData.getStartYear());
+       mEnd = makeDate(mData.getEndMon(), mData.getEndDay(),
+                       mData.getEndYear());
+    }
+
+    /**
+     * Converts a month, day, and year into a Date object
+     *
+     * @param pMonth The month
+     * @param pDay The day
+     * @param pYear The year
+     * @return The Date object with the values passed in
+     */
+    protected Date makeDate(int pMonth, int pDay, int pYear)
+    {
+        //make a local calander and set the date
+        Calendar cal = Calendar.getInstance();
+        cal.set(pYear, pMonth + 1, pDay);
+        return cal.getTime();
     }
 
     /**
@@ -47,11 +109,6 @@ public class ScheduleFunction
      */
     protected void makeRequest()
     {
-        Request curr = mData.getRequest();
-        Person requestor = mData.getPerson();
-        Date pickup = mData.getStart();
-        String type = mData.getAsset().getType();
-
         //
         // TODO: find a request by its requestor and pickup date
         // and see if it already exists
@@ -63,14 +120,12 @@ public class ScheduleFunction
         // there is no reason to make a new request
         //
 
-        if (curr == null || requestor != curr.getRequestor() ||
-                pickup != curr.getRequestedPickup())
+        if (mCurrRequest == null || mRecipient != mCurrRequest.getRequestor() ||
+            mStart != mCurrRequest.getRequestedPickup())
         {
             // Make the request object, stamp it with today's date
-            curr = new Request("", new Date(), pickup,
-                                        type, requestor);
-            mData.setRequest(curr);
-            mModel.setPerson(requestor);
+            mCurrRequest = new Request("", new Date(), mStart,
+                                       mAsset.getType(), mRecipient);
         }
     }
 
@@ -84,13 +139,7 @@ public class ScheduleFunction
      */
     protected boolean makeCheckout()
     {
-        Request curr = mData.getRequest();
-        Person recipient = mData.getPerson();
-        Asset asset = mData.getAsset();
-        Date start = mData.getStart();
-        Date end = mData.getEnd();
-
-        if (curr == null)
+        if (mCurrRequest == null)
         {
             // Can't add a checkout object
             return false;
@@ -98,15 +147,8 @@ public class ScheduleFunction
         else
         {
             // Make the checkout and add it to the current request
-            Checkout currChkOut = new Checkout("", "",asset, recipient,
-                                               start, end);
-
-            //
-            // TODO: make sure the checkout isn't already in the collection
-            //
-            
-            mModel.setAsset(asset);
-            mData.setCheckout(currChkOut);
+            mCurrCheckout = new Checkout("", "", mAsset, mRecipient,
+                                               mStart, mEnd);
             return true;
         }
     }
@@ -121,15 +163,21 @@ public class ScheduleFunction
      */
     public void performFunction()
     {
+        initVariables();
+        
         //make a new request and checkout
         makeRequest();
         makeCheckout();
 
+        //
+        // TODO: make sure the checkout isn't already in the collection
+        //
+
         //add the checkout to the request
-        mData.getRequest().addCheckout(mData.getCheckout());
+        mCurrRequest.addCheckout(mCurrCheckout);
 
         //send the request to the model
-        mModel.setRequest(mData.getRequest(), mData.getUserID());
+        mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
 
         //TODO: remove the following line of test code for view changing
         //mDBControl.changeView(new assetl.service.HandwrittenView(mControl));

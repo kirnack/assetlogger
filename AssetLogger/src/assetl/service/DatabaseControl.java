@@ -435,7 +435,7 @@ public class DatabaseControl
      * 
      * @param pUser The user to set
      */
-    public void setUser(User pUser)
+    public void setCurrentUser(User pUser)
     {
         mUser = pUser;
     }
@@ -445,7 +445,7 @@ public class DatabaseControl
      *
      * @return The current user
      */
-    public User getUser()
+    public User getCurrentUser()
     {
         return mUser;
     }

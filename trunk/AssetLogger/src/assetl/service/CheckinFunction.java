@@ -39,7 +39,6 @@ public class CheckinFunction
         // Get the checkout and set the returned date to today's date
         //
 
-        System.err.println("This check in was totally performed");
         Checkout outstanding = mModel.getCheckout(mData.getAsset());
         outstanding.setReturnedDate(new Date());
         mModel.setCheckout(outstanding);

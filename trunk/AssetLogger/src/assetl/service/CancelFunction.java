@@ -2,6 +2,8 @@ package assetl.service;
 
 import assetl.system.Checkout;
 import assetl.system.Request;
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
 
 /**
  * Defines behavior for canceling requests
@@ -9,8 +11,25 @@ import assetl.system.Request;
  * @author Devin Doman
  */
 public class CancelFunction 
-        extends DBFunction
+        extends Function
 {
+    /**
+     * The specific DataPacket needed for this function to operate
+     */
+    DBPacket mData;
+
+    /**
+     * Sets the DataPacket for a Login
+     *
+     * @param pPacket The DataPacket sent from the view
+     */
+    @Override
+    public void setPacket(DataPacket pPacket)
+    {
+        super.setPacket(pPacket);
+        mData = (DBPacket) mPacket;
+    }
+
     /**
      * Cancels a request or individual checkout
      */

@@ -9,6 +9,9 @@ package assetl.desktop;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
+
 
 import assetl.system.AssetLControl;
 
@@ -98,12 +101,20 @@ public class CheckinView
 
     /**
      * Grabs all pertainent data from the fields and sets them in
-     * a DataPacket object
+     * a DataPacket object. This DataPacket is then returned by the
+     * method.
+     *
+     * @param pFunction The function that needs the DataPacket
+     * @return The DataPacket that has been set
      */
-    public void grabDataPacket()
+    public DataPacket grabDataPacket(String pFunction)
     {
+        // TODO: provide implementation for this method
+
         //get the laptop data
-        mData.setAsset(mControl.getAsset(ckInTxtFld.getText()));
+        //mData.setAsset(mControl.getAsset(ckInTxtFld.getText()));
+
+        return new DBPacket();
     }
 
     /**
@@ -118,10 +129,13 @@ public class CheckinView
         {
             public void actionPerformed(ActionEvent ev)
             {
-                grabDataPacket();
+                // TODO: fix the test code below
+                
+                /*
                 System.err.println("Check in Laptop: " + 
                                    mData.getAsset().getID() + " " +
                                    mData.getAsset().getType());
+                 */
             }
         });
     }

@@ -38,11 +38,6 @@ public abstract class AssetView
     protected DataPacket mPacket;
 
     /**
-     * The database packet of data
-     */
-    protected DBPacket mData;
-
-    /**
      * In place for dynamic class loading. Assumes the controller
      * will immediately be set by the controller that dynamically loaded
      * the view
@@ -73,10 +68,6 @@ public abstract class AssetView
         super(pTitle);
         initComponents();
         mControl = pControl;
-
-        //Set a DBPacket
-        mData = new DBPacket();
-        mPacket = mData;
 
         //
         // add action listeners to the menu items
@@ -416,7 +407,7 @@ public abstract class AssetView
         public void actionPerformed(ActionEvent ev)
         {
             mControl.setFunction(mFunction);
-            mControl.doFunction(mPacket);
+            mControl.doFunction();
             System.err.println("User pushed the " + mFunction + " button");
         }
     }

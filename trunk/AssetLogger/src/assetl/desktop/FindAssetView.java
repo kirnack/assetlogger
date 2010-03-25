@@ -8,6 +8,9 @@ package assetl.desktop;
 
 import assetl.system.AssetLControl;
 
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
+
 /**
  * Allows the user to find an asset they'd like to checkout or schedule
  *
@@ -192,11 +195,15 @@ public class FindAssetView
 
     /**
      * Grabs all pertainent data from the fields and sets them in
-     * a DataPacket object
+     * a DataPacket object. This DataPacket is then returned by the
+     * method.
+     *
+     * @param pFunction The function that needs the DataPacket
+     * @return The DataPacket that has been set
      */
-    public void grabDataPacket()
+    public DataPacket grabDataPacket(String pFunction)
     {
-
+        return new DBPacket();
     }
 
     /**

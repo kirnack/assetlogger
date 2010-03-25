@@ -77,9 +77,13 @@ public interface AssetLView
 
     /**
      * Grabs all pertainent data from the fields and sets them in
-     * a DataPacket object
+     * a DataPacket object. This DataPacket is then returned by the
+     * method.
+     *
+     * @param pFunction The function that needs the DataPacket
+     * @return The DataPacket that has been set
      */
-    void grabDataPacket();
+    DataPacket grabDataPacket(String pFunction);
 
     /**
      * Prepopulates the fields with the data currently held

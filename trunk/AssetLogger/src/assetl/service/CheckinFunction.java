@@ -1,8 +1,9 @@
 package assetl.service;
 
-import assetl.service.DBFunction;
-import assetl.system.Checkout;
 import java.util.Date;
+import assetl.system.Checkout;
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
 
 /**
  * Defines the behavior for checking in an asset
@@ -10,8 +11,24 @@ import java.util.Date;
  * @author Devin Doman
  */
 public class CheckinFunction 
-        extends DBFunction
+        extends Function
 {
+    /**
+     * The specific DataPacket needed for this function to operate
+     */
+    DBPacket mData;
+
+    /**
+     * Sets the DataPacket for a Login
+     *
+     * @param pPacket The DataPacket sent from the view
+     */
+    @Override
+    public void setPacket(DataPacket pPacket)
+    {
+        super.setPacket(pPacket);
+        mData = (DBPacket) mPacket;
+    }
     /**
      * Checks in an asset: Retrieves the outstanding Checkout object for this
      * asset and sets today's date as the returned date.

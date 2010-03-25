@@ -8,6 +8,8 @@ package assetl.desktop;
 
 import javax.swing.ButtonGroup;
 import assetl.system.AssetLControl;
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
 
 /**
  * Prompts for I-number or Laptop number (if they are an admin)
@@ -123,14 +125,25 @@ public class IDView
     // End of variables declaration//GEN-END:variables
 
     private ButtonGroup mGroup;
+
     /**
-     * Gets the necessary data from the text fields to perform
-     * this views functions
+     * Grabs all pertainent data from the fields and sets them in
+     * a DataPacket object. This DataPacket is then returned by the
+     * method.
+     *
+     * @param pFunction The function that needs the DataPacket
+     * @return The DataPacket that has been set
      */
-    public void grabDataPacket()
+    public DataPacket grabDataPacket(String pFunction)
     {
+        // TODO: provide the correct DataPacket
+
+        return new DBPacket();
+        /*
         mData.setAsset(mControl.getAsset(mTxtFld.getText()));
         mData.setPerson(mControl.getPerson(mTxtFld.getText()));
+         *
+         */
     }
 
     /**

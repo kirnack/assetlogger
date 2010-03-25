@@ -14,6 +14,9 @@ import assetl.system.AssetLControl;
 import assetl.system.Person;
 import assetl.system.Asset;
 
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
+
 /**
  * Provides an interface that can be used to schedule a laptop
  *
@@ -265,11 +268,18 @@ public class ScheduleView
     }
 
     /**
-     * Gets the data from the text fields and makes objects that can
-     * be sent to the controller.
+     * Grabs all pertainent data from the fields and sets them in
+     * a DataPacket object. This DataPacket is then returned by the
+     * method.
+     *
+     * @param pFunction The function that needs the DataPacket
+     * @return The DataPacket that has been set
      */
-    public void grabDataPacket()
+    public DataPacket grabDataPacket(String pFunction)
     {
+        // TODO: fix this code if we wish to continue using this view for tests
+
+        /*
         //get the person data
         mData.setPerson(new Person(iNumTxtFld.getText()));
         mData.getPerson().setFirstName(firstNameTxtFld.getText());
@@ -287,6 +297,10 @@ public class ScheduleView
                 Integer.parseInt(endMonTxtFld.getText()) + 1,
                 Integer.parseInt(endDayTxtFld.getText()));
         mData.setEnd(cal.getTime());
+         *
+         */
+
+        return new DBPacket();
     }
 
     /**

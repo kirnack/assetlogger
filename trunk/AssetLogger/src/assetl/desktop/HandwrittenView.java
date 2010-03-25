@@ -2,6 +2,9 @@ package assetl.desktop;
 
 import assetl.system.AssetLControl;
 
+import assetl.system.DataPacket;
+import assetl.system.DBPacket;
+
 /**
  * A handwritten Swing gui.
  *
@@ -38,11 +41,15 @@ public class HandwrittenView
 
     /**
      * Grabs all pertainent data from the fields and sets them in
-     * a DataPacket object
+     * a DataPacket object. This DataPacket is then returned by the
+     * method.
+     *
+     * @param pFunction The function that needs the DataPacket
+     * @return The DataPacket that has been set
      */
-    public void grabDataPacket()
+    public DataPacket grabDataPacket(String pFunction)
     {
-        
+        return new DBPacket();
     }
 
     /**

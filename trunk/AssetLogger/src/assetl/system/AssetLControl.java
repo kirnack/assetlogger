@@ -17,21 +17,19 @@ public interface AssetLControl
      * @param pFunction The name of the function to set
      */
     void setFunction(String pFunction);
-    
-    /**
-     * Performs the function the controller is currently set to.
-     * 
-     * @param pPacket The data packet needed for the function to perform
-     */
-    void doFunction(DataPacket pPacket);
 
     /**
-     * Performs the function indicated by the string passed in.
+     * Grabs the data packet and performs the last loaded function
+     */
+    public void doFunction();
+
+    /**
+     * Finds the function in the collection, loads it, then performs
+     * the function
      *
      * @param pFunction The function to perform
-     * @param pPacket The data packet needed for the function to perform
      */
-    void doFunction(String pFunction, DataPacket pPacket);
+    void doFunction(String pFunction);
 
     //
     // The following methods allow the controller to server as Mediator

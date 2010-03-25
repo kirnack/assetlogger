@@ -279,6 +279,7 @@ public class ScheduleView
     {
         // TODO: fix this code if we wish to continue using this view for tests
 
+
         /*
         //get the person data
         mData.setPerson(new Person(iNumTxtFld.getText()));
@@ -297,8 +298,7 @@ public class ScheduleView
                 Integer.parseInt(endMonTxtFld.getText()) + 1,
                 Integer.parseInt(endDayTxtFld.getText()));
         mData.setEnd(cal.getTime());
-         *
-         */
+        */
 
         return new DBPacket();
     }

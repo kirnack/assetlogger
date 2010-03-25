@@ -2,6 +2,7 @@ package assetl.service;
 
 import assetl.desktop.CheckinView;
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.AbstractMap;
 import java.util.HashMap;
 
@@ -53,15 +54,25 @@ public class DatabaseControl
     private DataPacket mPacket;
 
     /**
-     * Stores the behavior the controller can currently perform with
-     * the DataPacket.
+     * Holds the last function performed by the controller
      */
     private Function mFunction;
+
+    /**
+     * Stores the behaviors the controller can currently perform, mapped
+     * with the name of the function
+     */
+    private Collection<Function> mFunctions;
 
     /**
     * Map storing the choices for views the controller will make
     */
     private AbstractMap<String, AssetLView> mHashViews;
+
+    /**
+     * The current user of the application
+     */
+    private User mUser;
 
     /**
      * Default Contructor for the controller. Gets the model and creates
@@ -73,17 +84,33 @@ public class DatabaseControl
         mModel = Server.getInstance();
         mModel.registerObserver(this);
 
-        mPacket = new DBPacket();
-        //The default admin
-        DBPacket packet = (DBPacket) mPacket;
-        packet.setUserID("Doctor");
-        packet.setIsAdmin(mModel.isAdmin(packet.getUserID()));
-        mPacket = packet;
+        mFunctions = new ArrayList<Function>();
 
-        mPacket = new DBPacket();
+        //The default admin
+        mUser = new  User();
+        mUser.setID("Doctor");
+        mUser.setAdmin(mModel.isAdmin("Doctor"));
 
         // construct the map
         mHashViews = new HashMap<String, AssetLView>();
+        constructMap();
+
+        //Use a netbeans generated gui
+        mView = mHashViews.get("LogIn");
+
+        // hide the admin components
+        mView.setAdminComponents(false);
+    }
+
+    /**
+     * Builds the map associations for the view choices the
+     * controller will make
+     */
+    private void constructMap()
+    {
+        // Clear the map then rebuild
+        mHashViews.clear();
+
         AssetLView tempView = new ServiceView(this);
         addView("Schedule", tempView);
         addView("Checkout", tempView);
@@ -101,12 +128,6 @@ public class DatabaseControl
         
         tempView = new SureView(this);
         addView("Sure", tempView);
-
-        //Use a netbeans generated gui
-        mView = mHashViews.get("LogIn");
-
-        // hide the admin components
-        mView.setAdminComponents(false);
     }
 
     /**
@@ -167,31 +188,76 @@ public class DatabaseControl
     }
 
     /**
-     * Change the function for the controller to perform for the view
-     * 
-     * @param pFunction The name of the function to set
+     * Loads and then sets the passed function as the controllers current
+     * function
+     *
+     * @param pFunction The function to set
      */
     public void setFunction(String pFunction)
     {
+        mFunction = addFunction(pFunction);
+    }
+
+    /**
+     * Gets the function specified out of the collection
+     *
+     * @param pFunction The function to look for
+     * @return The function, null if not found
+     */
+    public Function getFunction(String pFunction)
+    {
+        Function findMe = null;
+
+        for (Function funct : mFunctions)
+        {
+            // If the function is found
+            if (pFunction.equals(funct.getClass().getCanonicalName()))
+            {
+                findMe = funct;
+                break;
+            }
+        }
+
+        return findMe;
+    }
+
+    /**
+     * Change the function for the controller to perform for the view
+     * 
+     * @param pFunction The name of the function to set
+     * @return The function object just added to the controller
+     */
+    public Function addFunction(String pFunction)
+    {
+        Function tempFunction = getFunction(pFunction);
         //switch to a view that can perform this function
-        if (switchFunction(pFunction))
+        if (switchFunction(pFunction) && (tempFunction == null))
         {
             String functionObj = "assetl.service." + pFunction + "Function";
-            mFunction = (Function) loadObj(functionObj);
+            tempFunction = (Function) loadObj(functionObj);
 
-            if (mFunction != null)
+            if (tempFunction != null)
             {
-                //
-                // Set the model, data, and controller
-                // for the function to work with
-                //
-                
-                mFunction.setModules(this, mModel);
-                mFunction.setPacket(mPacket);
+                // Set the model and controller for the function to work with
+                tempFunction.setModules(this, mModel);
             }
-            
+
+            // Enable this function in the view
             mView.enable(pFunction);
+
+            // Map the function to the name passed in to create it
+            mFunctions.add(tempFunction);
         }
+
+        return tempFunction;
+    }
+
+    /**
+     * Removes all functions from the controller
+     */
+    public void clearFunctions()
+    {
+        mFunctions.clear();
     }
 
     /**
@@ -216,27 +282,44 @@ public class DatabaseControl
     }
 
     /**
-     * Performs the function the controller is currently set to.
-     * 
-     * @param pPacket The data packet needed for the function to perform
+     * Grabs the data packet and performs the last loaded function
      */
-    public void doFunction(DataPacket pPacket)
+    public void doFunction()
     {
-        mView.grabDataPacket();
-        mFunction.setPacket(pPacket);
+        String className = mFunction.getClass().getCanonicalName();
+        mFunction.setPacket(mView.grabDataPacket(className));
         mFunction.performFunction();
     }
 
     /**
-     * Performs the function indicated by the string passed in.
+     * Performs the function the controller is currently set to.
      *
-     * @param pFunction The function to perform
      * @param pPacket The data packet needed for the function to perform
      */
-    public void doFunction(String pFunction, DataPacket pPacket)
+    public void doFunction(DataPacket pPacket)
     {
-        setFunction(pFunction);
-        doFunction(pPacket);
+        mFunction.setPacket(pPacket);
+        mFunction.performFunction();
+    }
+
+
+    /**
+     * Finds the function in the collection, loads it, then performs
+     * the function
+     *
+     * @param pFunction The function to perform
+     */
+    public void doFunction(String pFunction)
+    {
+        pFunction = "assetl.service." + pFunction + "Function";
+
+        mFunction = getFunction(pFunction);
+
+        // If the function was found perform the function
+        if (mFunction != null)
+        {
+            doFunction();
+        }
     }
 
     /**
@@ -267,6 +350,8 @@ public class DatabaseControl
 
             mView.showView();
 
+            //reset the functions
+            mFunctions.clear();
         }
     }
 
@@ -343,6 +428,26 @@ public class DatabaseControl
         // TODO: Have controller filter results to give to the view
 
         return mModel.getActiveRequests(pPerson);
+    }
+
+    /**
+     * Sets the current user of the application
+     * 
+     * @param pUser The user to set
+     */
+    public void setUser(User pUser)
+    {
+        mUser = pUser;
+    }
+
+    /**
+     * Gets the current user of the application
+     *
+     * @return The current user
+     */
+    public User getUser()
+    {
+        return mUser;
     }
 
     /**

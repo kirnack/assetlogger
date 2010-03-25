@@ -7,7 +7,7 @@ package assetl.service;
  * @author Devin Doman
  */
 public class IDTeacherFunction 
-        extends DBFunction
+        extends Function
 {
     /**
      * Loads teacher data into the next view

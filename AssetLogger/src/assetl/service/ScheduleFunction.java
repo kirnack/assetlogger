@@ -1,9 +1,9 @@
 package assetl.service;
 
-import assetl.service.DBFunction;
 import assetl.system.Asset;
 import assetl.system.Checkout;
 import assetl.system.DataPacket;
+import assetl.system.DBPacket;
 import assetl.system.Person;
 import assetl.system.Request;
 import java.util.Date;
@@ -15,8 +15,13 @@ import java.util.Date;
  * @author Devin Doman
  */
 public class ScheduleFunction
-        extends DBFunction
+        extends Function
 {
+
+    /**
+     * The specific DataPacket needed for this function to operate
+     */
+    DBPacket mData;
 
     /**
      * Sets the DataPacket for this function
@@ -27,6 +32,8 @@ public class ScheduleFunction
     public void setPacket(DataPacket pPacket)
     {
         super.setPacket(pPacket);
+
+        mData = (DBPacket) mPacket;
 
         //resets the request and checkout data
         mData.setRequest(null);
@@ -60,7 +67,7 @@ public class ScheduleFunction
                 pickup != curr.getRequestedPickup())
         {
             // Make the request object, stamp it with today's date
-            curr = new Request("0", new Date(), pickup,
+            curr = new Request("", new Date(), pickup,
                                         type, requestor);
             mData.setRequest(curr);
             mModel.setPerson(requestor);
@@ -91,7 +98,7 @@ public class ScheduleFunction
         else
         {
             // Make the checkout and add it to the current request
-            Checkout currChkOut = new Checkout("0", "",asset, recipient,
+            Checkout currChkOut = new Checkout("", "",asset, recipient,
                                                start, end);
 
             //

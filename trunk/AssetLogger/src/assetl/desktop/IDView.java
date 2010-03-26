@@ -9,7 +9,7 @@ package assetl.desktop;
 import javax.swing.ButtonGroup;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.StringPacket;
 
 /**
  * Prompts for I-number or Laptop number (if they are an admin)
@@ -136,14 +136,9 @@ public class IDView
      */
     public DataPacket grabDataPacket(String pFunction)
     {
-        // TODO: provide the correct DataPacket
-
-        return new DBPacket();
-        /*
-        mData.setAsset(mControl.getAsset(mTxtFld.getText()));
-        mData.setPerson(mControl.getPerson(mTxtFld.getText()));
-         *
-         */
+        //Send the string in a packet to the controller
+        mPacket = new StringPacket(mTxtFld.getText());
+        return mPacket;
     }
 
     /**

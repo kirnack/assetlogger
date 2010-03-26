@@ -3,7 +3,7 @@ package assetl.service;
 import java.util.Date;
 import assetl.system.Checkout;
 import assetl.system.DataPacket;
-import assetl.system.AssetPacket;
+import assetl.system.StringPacket;
 
 /**
  * Defines the behavior for checking in an asset
@@ -16,7 +16,7 @@ public class CheckinFunction
     /**
      * The specific DataPacket needed for this function to operate
      */
-    AssetPacket mData;
+    StringPacket mData;
 
     /**
      * Sets the DataPacket for a Checkin
@@ -25,7 +25,7 @@ public class CheckinFunction
      */
     public void setPacket(DataPacket pPacket)
     {
-        mData = (AssetPacket) pPacket;
+        mData = (StringPacket) pPacket;
     }
     
     /**
@@ -48,8 +48,12 @@ public class CheckinFunction
         // Get the checkout and set the returned date to today's date
         //
 
+        //
+        // TODO: handle when no outstanding checkout exists for this asset
+        //
+
         Checkout outstanding = mModel.getCheckout(
-                               mModel.getAsset(mData.getAssetID()));
+                               mModel.getAsset(mData.getString()));
         outstanding.setReturnedDate(new Date());
         mModel.setCheckout(outstanding);
     }

@@ -22,11 +22,19 @@ public class LogInFunction
      *
      * @param pPacket The DataPacket sent from the view
      */
-    @Override
     public void setPacket(DataPacket pPacket)
     {
-        super.setPacket(pPacket);
-        mData = (LoginPacket) mPacket;
+        mData = (LoginPacket) pPacket;
+    }
+
+    /**
+     * Gets the DataPacket currently set for this function
+     *
+     * @return The DataPacket
+     */
+    public DataPacket getPacket()
+    {
+        return mData;
     }
 
     /**
@@ -36,16 +44,21 @@ public class LogInFunction
     {
         String test = "do not ";
 
+        //
+        // TODO: uncomment the if statement to enable validation of passwords
+        // once there are actuall users in the database
+        //
+
         // If the passwords match
-        if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
-        {
+        //if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
+        //{
             test = "";
             // Change to the next view
             DatabaseControl tempControl = (DatabaseControl) mControl;
             tempControl.changeView("assetl.desktop.IDView");
 
             tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
-        }
+        //}
 
         System.err.println("The passwords " + test + "match");
     }

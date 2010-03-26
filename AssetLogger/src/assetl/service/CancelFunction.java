@@ -23,11 +23,19 @@ public class CancelFunction
      *
      * @param pPacket The DataPacket sent from the view
      */
-    @Override
     public void setPacket(DataPacket pPacket)
     {
-        super.setPacket(pPacket);
-        mData = (DBPacket) mPacket;
+        mData = (DBPacket) pPacket;
+    }
+
+    /**
+     * Gets the DataPacket currently set for this function
+     *
+     * @return The DataPacket
+     */
+    public DataPacket getPacket()
+    {
+        return mData;
     }
 
     /**

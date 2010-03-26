@@ -13,6 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import static assetl.service.WebServerConstants.*;
+import static resources.Config.*;
 
 import java.net.URL;
 
@@ -38,8 +43,24 @@ import java.util.Date;
  * @see <a href=""> Database design </a>
  */
 public class Server
+        extends Thread
         implements AssetLModel
 {
+   /**
+    * Default Pool Size
+    */
+   public final static int DEFAULT_POOL_SIZE = 20;
+
+   private ServerSocket mServerSocket = null;
+
+   private int mConnectionCount = 0;
+
+   private RequestHandler[] mHandlerPool;
+
+   private int mPoolSize;
+
+   private int mLastRequestNumber = 0;
+
    /**
     * A File object to represent the database.
     */
@@ -903,5 +924,84 @@ public class Server
           e.printStackTrace(System.err);
       }
       return numCheckouts;
+   }
+
+   public static void main(String[] args)
+   {
+      System.out.println("AssetLogge Serve is now running");
+      Server.getInstance().run();
+   }
+
+   @Override
+   public void run()
+   {
+      try
+      {
+         mPoolSize = getInteger("poolSize", DEFAULT_POOL_SIZE);
+
+         initPool();
+
+         int serverPort = getInteger("serverPort", DEFAULT_SERVER_PORT);
+
+         mServerSocket = new ServerSocket(serverPort);
+
+         //accept connections and process them
+         while(RequestHandler.isConnected())
+         {
+            Socket incoming = mServerSocket.accept();
+            incoming.setSoTimeout(2000);
+            runPool(incoming);
+            mConnectionCount++;
+         }
+      }
+      catch(Exception e)
+      {
+         System.out.println("Error - " + e);
+         //e.printStackTrace();
+      }
+      finally
+      {
+         try
+         {
+            mServerSocket.close();
+         }
+         catch (Exception e)
+         {
+         }
+      }
+   }
+
+   private void initPool()
+   {
+      mHandlerPool = new RequestHandler[mPoolSize];
+      for (int i = 0; i < mPoolSize; i++)
+      {
+         mHandlerPool[i] = new RequestHandler(i);
+         mHandlerPool[i].start();
+      }
+      mLastRequestNumber = 0;
+   }
+
+   private void runPool(Socket socket)
+      throws Exception
+   {
+      for (int i = 0; i < mPoolSize; i++)
+      {
+         mLastRequestNumber++;
+         if (mLastRequestNumber >= mPoolSize)
+         {
+            mLastRequestNumber = 0;
+         }
+
+         if (mHandlerPool[mLastRequestNumber].isAvailable())
+         {
+            mHandlerPool[mLastRequestNumber].init(socket);
+            return;
+         }
+      }
+
+      RequestHandler.writeHeader(socket.getOutputStream(),
+                                    RESP_STATUS_ERROR);
+      socket.close();
    }
 }

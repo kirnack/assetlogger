@@ -7,6 +7,7 @@ package assetl.system;
  * @author Devin Doman
  */
 public class SchedulePacket
+        implements DataPacket
 {
     /**
      * The id needed to get a person from the model

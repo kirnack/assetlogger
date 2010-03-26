@@ -23,12 +23,21 @@ public class CheckinFunction
      *
      * @param pPacket The DataPacket sent from the view
      */
-    @Override
     public void setPacket(DataPacket pPacket)
     {
-        super.setPacket(pPacket);
-        mData = (AssetPacket) mPacket;
+        mData = (AssetPacket) pPacket;
     }
+    
+    /**
+     * Gets the DataPacket currently set for this function
+     *
+     * @return The DataPacket
+     */
+    public DataPacket getPacket()
+    {
+        return mData;
+    }
+
     /**
      * Checks in an asset: Retrieves the outstanding Checkout object for this
      * asset and sets today's date as the returned date.

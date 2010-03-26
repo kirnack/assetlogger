@@ -121,7 +121,7 @@ public class DatabaseControl
 
         tempView = new IDView(this);
         addView("Checkin", tempView);
-        addView("IDTeacher", tempView);
+        addView("LoadPerson", tempView);
 
         tempView = new FindAssetView(this);
         addView("FindAsset", tempView);

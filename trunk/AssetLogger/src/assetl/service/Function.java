@@ -24,11 +24,6 @@ public abstract class Function
      * Reference to the controller calling the function
      */
     protected AssetLControl mControl;
-
-    /**
-     * The data used to manipulate tha model
-     */
-    protected DataPacket mPacket;
   
     /**
      * Sets the model to perform functions on
@@ -67,20 +62,14 @@ public abstract class Function
      *
      * @param pPacket The DataPacket sent from the view
      */
-    public void setPacket(DataPacket pPacket)
-    {
-        mPacket = pPacket;
-    }
+    public abstract void setPacket(DataPacket pPacket);
 
     /**
      * Gets the DataPacket currently set for this function
      *
      * @return The DataPacket
      */
-    public DataPacket getPacket()
-    {
-        return mPacket;
-    }
+    public abstract DataPacket getPacket();
 
     /**
      * Peforms the defined function

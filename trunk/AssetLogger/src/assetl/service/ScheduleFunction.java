@@ -61,12 +61,19 @@ public class ScheduleFunction
      *
      * @param pPacket The DataPacket sent from the view
      */
-    @Override
     public void setPacket(DataPacket pPacket)
     {
-        super.setPacket(pPacket);
+        mData = (SchedulePacket) pPacket;
+    }
 
-        mData = (SchedulePacket) mPacket;
+    /**
+     * Gets the DataPacket currently set for this function
+     *
+     * @return The DataPacket
+     */
+    public DataPacket getPacket()
+    {
+        return mData;
     }
 
     /**

@@ -50,15 +50,15 @@ public class LogInFunction
         //
 
         // If the passwords match
-        //if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
-        //{
+        if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
+        {
             test = "";
             // Change to the next view
             DatabaseControl tempControl = (DatabaseControl) mControl;
             tempControl.changeView("assetl.desktop.IDView");
 
             tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
-        //}
+        }
 
         System.err.println("The passwords " + test + "match");
     }

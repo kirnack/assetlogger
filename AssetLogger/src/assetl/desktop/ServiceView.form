@@ -45,11 +45,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane1" alignment="0" min="-2" pref="235" max="-2" attributes="1"/>
                                   <Component id="mCheckoutLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="mAddCheckoutBtn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="mReturnBtn" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -57,8 +52,9 @@
               </Group>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
                   <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="mReturnBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="84" max="32767" attributes="0"/>
           </Group>
@@ -73,12 +69,7 @@
               <Component id="mCheckoutLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="171" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="mAddCheckoutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mReturnBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="48" max="32767" attributes="0"/>
               <Component id="mRequestedLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="183" max="-2" attributes="0"/>
@@ -90,9 +81,11 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
               <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="235" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Component id="mReturnBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="210" max="32767" attributes="0"/>
               <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
           </Group>
@@ -160,7 +153,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="mReturnBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="text" type="java.lang.String" value="Checkin"/>
         <Property name="name" type="java.lang.String" value="mReturnBtn" noResource="true"/>
       </Properties>
     </Component>
@@ -186,12 +179,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="-"/>
         <Property name="name" type="java.lang.String" value="mCancelBtn" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="mAddCheckoutBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="+"/>
-        <Property name="name" type="java.lang.String" value="mAddCheckoutBtn" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

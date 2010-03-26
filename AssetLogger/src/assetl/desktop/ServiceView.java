@@ -51,7 +51,6 @@ public class ServiceView
         mScheduleBtn = new javax.swing.JButton();
         mCheckoutBtn = new javax.swing.JButton();
         mCancelBtn = new javax.swing.JButton();
-        mAddCheckoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +73,7 @@ public class ServiceView
         mRequestedLbl.setText("Currently Scheduled:");
         mRequestedLbl.setName("mRequestedLbl"); // NOI18N
 
-        mReturnBtn.setText("-");
+        mReturnBtn.setText("Checkin");
         mReturnBtn.setName("mReturnBtn"); // NOI18N
 
         mExtendBtn.setText("Extend");
@@ -88,9 +87,6 @@ public class ServiceView
 
         mCancelBtn.setText("-");
         mCancelBtn.setName("mCancelBtn"); // NOI18N
-
-        mAddCheckoutBtn.setText("+");
-        mAddCheckoutBtn.setName("mAddCheckoutBtn"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,15 +111,12 @@ public class ServiceView
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(mCheckoutLbl)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(mAddCheckoutBtn)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(mReturnBtn)))))))
+                                    .addComponent(mCheckoutLbl))))))
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mExtendBtn)
-                    .addComponent(mCheckoutBtn))
+                    .addComponent(mCheckoutBtn)
+                    .addComponent(mReturnBtn)
+                    .addComponent(mExtendBtn))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -135,11 +128,7 @@ public class ServiceView
                 .addComponent(mCheckoutLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mAddCheckoutBtn)
-                    .addComponent(mReturnBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(mRequestedLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,9 +138,11 @@ public class ServiceView
                     .addComponent(mCancelBtn))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
+                .addGap(114, 114, 114)
                 .addComponent(mExtendBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(mReturnBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(mCheckoutBtn)
                 .addGap(117, 117, 117))
         );
@@ -164,7 +155,6 @@ public class ServiceView
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton mAddCheckoutBtn;
     private javax.swing.JButton mCancelBtn;
     private javax.swing.JButton mCheckoutBtn;
     private javax.swing.JLabel mCheckoutLbl;

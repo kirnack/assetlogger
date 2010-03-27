@@ -48,6 +48,12 @@ public class LoadPersonFunction
       
       if (tempPerson != null)
       {
+         //
+         // TODO: find out why the view doesn't always 
+         // load properly ever since this
+         // if statement was added
+         //
+
          mControl.setFunction("Schedule");
          mControl.getView().receiveDataPacket(new PersonPacket(tempPerson));
       }

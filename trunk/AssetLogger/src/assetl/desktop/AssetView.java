@@ -241,6 +241,7 @@ public abstract class AssetView
    public void receiveDataPacket(DataPacket pPacket)
    {
       mPacket = pPacket;
+      updateData();
    }
 
    /**

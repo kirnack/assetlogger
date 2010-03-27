@@ -1,6 +1,9 @@
 package assetl.service;
 
 import assetl.system.DataPacket;
+import assetl.system.StringPacket;
+import assetl.system.PersonPacket;
+import assetl.system.Person;
 
 /**
  * Locates data for person and loads it so the next view can
@@ -9,33 +12,48 @@ import assetl.system.DataPacket;
  * @author Devin Doman
  */
 public class LoadPersonFunction
-        extends Function
+   extends Function
 {
-    /**
-     * Sets the DataPacket for this function
-     *
-     * @param pPacket The DataPacket sent from the view
-     */
-    public void setPacket(DataPacket pPacket)
-    {
-        
-    }
-    
-    /**
-     * Gets the DataPacket currently set for this function
-     *
-     * @return The DataPacket
-     */
-    public DataPacket getPacket()
-    {
-        return null;
-    }
+   /**
+    * A packet to store a Person's identification
+    */
+   StringPacket mData;
 
-    /**
-     * Loads teacher data into the next view
-     */
-    public void performFunction()
-    {
-        mControl.setFunction("Schedule");
-    }
+   /**
+    * Sets the DataPacket for this function
+    *
+    * @param pPacket The DataPacket sent from the view
+    */
+   public void setPacket(DataPacket pPacket)
+   {
+      mData = (StringPacket) pPacket;
+   }
+
+   /**
+    * Gets the DataPacket currently set for this function
+    *
+    * @return The DataPacket
+    */
+   public DataPacket getPacket()
+   {
+      return mData;
+   }
+
+   /**
+    * Loads teacher data into the next view
+    */
+   public void performFunction()
+   {
+      Person tempPerson = mModel.getPerson(mData.getString());
+      
+      if (tempPerson != null)
+      {
+         mControl.setFunction("Schedule");
+         mControl.getView().receiveDataPacket(new PersonPacket(tempPerson));
+      }
+      else
+      {
+         System.err.println("Person does not exist");
+      }
+   }
 }

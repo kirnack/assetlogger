@@ -38,6 +38,13 @@ public interface AssetLControl
      */
     User getCurrentUser();
 
+    /**
+    * Returns the current view
+    *
+    * @return The current view
+    */
+   AssetLView getView();
+
     //
     // The following methods allow the controller to server as Mediator
     // between the View and Model

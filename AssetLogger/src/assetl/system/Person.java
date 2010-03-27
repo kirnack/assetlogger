@@ -214,6 +214,17 @@ public class Person
    }
 
    /**
+    * Converts a Person object to a string of the person's first, middle,
+    * and last name.
+    *
+    * @return The person's first, middle, and last name
+    */
+   public String toStringName()
+   {
+      return mFirstName + " " + mMiddleName + " " + mLastName;
+   }
+   
+   /**
     * A person is considered equal if the unique identifiers are the same.
     *
     * @param obj The object to compare to see if it is equal to this Person.

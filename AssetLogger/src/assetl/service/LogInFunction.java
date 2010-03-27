@@ -43,12 +43,7 @@ public class LogInFunction
     public void performFunction()
     {
         String test = "do not ";
-
-        //
-        // TODO: uncomment the if statement to enable validation of passwords
-        // once there are actuall users in the database
-        //
-
+        
         // If the passwords match
         if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
         {

@@ -173,7 +173,7 @@ public class ScheduleFunction
 
       //add the checkout to the request
       mCurrRequest.addCheckout(mCurrCheckout);
-
+       
       //send the request to the model
       mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
 

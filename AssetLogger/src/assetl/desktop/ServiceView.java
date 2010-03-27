@@ -5,8 +5,13 @@
  */
 package assetl.desktop;
 
+import java.util.AbstractMap;
+import java.util.HashMap;
+import javax.swing.AbstractButton;
+
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
+import assetl.system.SchedulePacket;
 import assetl.system.PersonPacket;
 import assetl.system.Person;
 
@@ -19,6 +24,15 @@ public class ServiceView
    extends AssetView
 {
    /**
+    * Maps functionality to the button the causes it
+    */
+   AbstractMap<String, AbstractButton> mButtonMap;
+   /**
+    * Maps a functionality to a DataPacket it needs to grab
+    */
+   AbstractMap<String, DataPacket> mPacketMap;
+
+   /**
     * Constructor for the user interface
     *
     * @param pControl The controller for this view
@@ -27,6 +41,8 @@ public class ServiceView
    {
       super(pControl);
       initComponents();
+      mButtonMap = new HashMap<String, AbstractButton>();
+      generateMap();
    }
 
    /** This method is called from within the constructor to
@@ -164,10 +180,29 @@ public class ServiceView
     // End of variables declaration//GEN-END:variables
 
    /**
+    * Creates the map between functions and the buttons that causes them
+    */
+   public void generateMap()
+   {
+      mButtonMap.clear();
+      mButtonMap.put("Cancel", mCancelBtn);
+      mButtonMap.put("Checkout", mCheckoutBtn);
+      mButtonMap.put("Extend", mExtendBtn);
+      mButtonMap.put("Checkin", mReturnBtn);
+      mButtonMap.put("Schedule", mScheduleBtn);
+   }
+
+   /**
     * Updates the views display of the model
     */
    public void updateData()
    {
+
+      //
+      // TODO: find a good way to send the correct DataPacket needed for
+      // the function, perhaps with another HashMap.
+      //
+
       //
       // Use the person id stored in the packet to get from the model
       // the most recent data about the person, then update the packet
@@ -193,7 +228,17 @@ public class ServiceView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      return new PersonPacket();
+      PersonPacket tempPacket = (PersonPacket) mPacket;
+      SchedulePacket test = new SchedulePacket();
+      test.setPersonID(tempPacket.getPerson().getID());
+      test.setAssetID("42");
+      test.setStartDay(2);
+      test.setStartMon(2);
+      test.setStartYear(2010);
+      test.setEndDay(3);
+      test.setEndMon(3);
+      test.setEndYear(2011);
+      return test;
    }
 
    /**
@@ -201,6 +246,7 @@ public class ServiceView
     */
    public void enable(String pFunction)
    {
+      enable(pFunction, mButtonMap.get(pFunction));
    }
 
    /**
@@ -208,5 +254,9 @@ public class ServiceView
     */
    public void run()
    {
+      enable("Schedule");
+      enable("Checkout");
+      enable("Checkin");
+      enable("Cancel");
    }
 }

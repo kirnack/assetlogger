@@ -11,63 +11,63 @@ import javax.swing.JOptionPane;
  * @author Devin Doman
  */
 public class LogInFunction
-        extends Function
+   extends Function
 {
-    /**
-     * The specific DataPacket needed for this function to operate
-     */
-    LoginPacket mData;
+   /**
+    * The specific DataPacket needed for this function to operate
+    */
+   LoginPacket mData;
 
-    /**
-     * Sets the DataPacket for a Login
-     *
-     * @param pPacket The DataPacket sent from the view
-     */
-    public void setPacket(DataPacket pPacket)
-    {
-        mData = (LoginPacket) pPacket;
-    }
+   /**
+    * Sets the DataPacket for a Login
+    *
+    * @param pPacket The DataPacket sent from the view
+    */
+   public void setPacket(DataPacket pPacket)
+   {
+      mData = (LoginPacket) pPacket;
+   }
 
-    /**
-     * Gets the DataPacket currently set for this function
-     *
-     * @return The DataPacket
-     */
-    public DataPacket getPacket()
-    {
-        return mData;
-    }
+   /**
+    * Gets the DataPacket currently set for this function
+    *
+    * @return The DataPacket
+    */
+   public DataPacket getPacket()
+   {
+      return mData;
+   }
 
-    /**
-     * Logs in the user if they have a valid password
-     */
-    public void performFunction()
-    {
-        String test = "do not ";
-        
-        // If the passwords match
-        if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
-        {
-            test = "";
-            // Change to the next view
-            DatabaseControl tempControl = (DatabaseControl) mControl;
-            tempControl.changeView("assetl.desktop.IDView");
+   /**
+    * Logs in the user if they have a valid password
+    */
+   public void performFunction()
+   {
+      String test = "do not ";
 
-            tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
-        }
-        else
-        {
-           /**
-            * Displays a log in error, if the username and password don't match.
-            */
-          JOptionPane.showMessageDialog(new JFrame(),
-                                      "Inccorect Username/Password" +
-                                      " compination.",
-                                      "Wrong Credentials",
-                                      JOptionPane.ERROR_MESSAGE);
+      // If the passwords match
+      if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
+      {
+         test = "";
+         // Change to the next view
+         DatabaseControl tempControl = (DatabaseControl) mControl;
+         tempControl.changeView("assetl.desktop.IDView");
 
-        }
+         tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
+      }
+      else
+      {
+         /**
+          * Displays a log in error, if the username and password don't match.
+          */
+         JOptionPane.showMessageDialog(new JFrame(),
+            "Inccorect Username/Password"
+            + " compination.",
+            "Wrong Credentials",
+            JOptionPane.ERROR_MESSAGE);
 
-        System.err.println("The passwords " + test + "match");
-    }
+      }
+
+      System.err.println("The passwords " + test + "match");
+   }
 }

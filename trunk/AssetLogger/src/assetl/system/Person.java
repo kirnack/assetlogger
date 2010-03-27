@@ -16,40 +16,35 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Person
 {
-    /**
-     * The unique identifier for a person
-     */
-    @XmlElement(name = "id")
-    protected String mID;
-
-    /**
-     * The person's first name
-     */
-    @XmlElement(name = "firstname")
-    protected String mFirstName;
-
-    /**
-     * The person's middle name
-     */
-    @XmlElement(name = "middlename")
-    protected String mMiddleName;
-
+   /**
+    * The unique identifier for a person
+    */
+   @XmlElement(name = "id")
+   protected String mID;
+   /**
+    * The person's first name
+    */
+   @XmlElement(name = "firstname")
+   protected String mFirstName;
+   /**
+    * The person's middle name
+    */
+   @XmlElement(name = "middlename")
+   protected String mMiddleName;
    /**
     * The person's last name
     */
-    @XmlElement(name = "lastname")
+   @XmlElement(name = "lastname")
    protected String mLastName;
-
    /**
     * The person's email
     */
-    @XmlElement(name = "email")
+   @XmlElement(name = "email")
    protected String mEmail;
-
    /**
     * The person's phone number
     */
-    @XmlElement(name = "phonenumber")
+   @XmlElement(name = "phonenumber")
    protected String mPhoneNumber;
 
    /**
@@ -59,9 +54,8 @@ public class Person
     */
    public Person()
    {
-      this("Do","Not","Use","Person","Non","Existant");
+      this("Do", "Not", "Use", "Person", "Non", "Existant");
    }
-
 
    /**
     *
@@ -69,7 +63,7 @@ public class Person
     */
    public Person(String pID)
    {
-      this(pID,"","","","","");
+      this(pID, "", "", "", "", "");
    }
 
    /**
@@ -83,7 +77,7 @@ public class Person
     * @param pPhoneNumber The person's phone number
     */
    public Person(String pID, String pFirstName, String pMiddleName,
-           String pLastName, String pEmail, String pPhoneNumber)
+      String pLastName, String pEmail, String pPhoneNumber)
    {
       this.mID = pID;
       this.mFirstName = pFirstName;
@@ -223,7 +217,7 @@ public class Person
    {
       return mFirstName + " " + mMiddleName + " " + mLastName;
    }
-   
+
    /**
     * A person is considered equal if the unique identifiers are the same.
     *
@@ -243,7 +237,7 @@ public class Person
       }
       final Person other = (Person) obj;
       if ((this.mID == null) ? (other.mID != null)
-              : !this.mID.equals(other.mID))
+         : !this.mID.equals(other.mID))
       {
          return false;
       }

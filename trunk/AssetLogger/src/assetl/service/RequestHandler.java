@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package assetl.service;
 
 import assetl.system.Asset;
@@ -44,27 +43,22 @@ public class RequestHandler
     * The default buffer size.
     */
    private static final int DEFAULT_BUFFER_SIZE = 8196;
-
    /**
     * Keeps track of number of pages served.
     */
    private static int cPagesServed = 0;
-
    /**
     * Keeps track of number of bytes read in.
     */
    private static int cBytesIn = 0;
-
    /**
     * Keeps track of number of bytes written out.
     */
    private static int cBytesOut = 0;
-
    /**
     * Has a disconnect command been received?
     */
    private static boolean cDisconnectReceived;
-
    /**
     * Can we handle requests?
     */
@@ -81,80 +75,62 @@ public class RequestHandler
       cDisconnectReceived = false;
       cCanHandleRequests = true;
    }
-
    /**
     * Incoming Socket
     */
    private Socket mSocket;
-
    /**
     * Socket input stream
     */
    private InputStream mInputStream;
-
    /**
     * Socket output stream
     */
    private OutputStream mOutputStream;
-
    /**
     * Thread ID
     */
-   private int     mID;
-
+   private int mID;
    /**
     * In Use flag
     */
    private boolean mInUse;
-
    /**
     * Thread lock
     */
    private Object mLockObj;
-
    /**
     * Command Request Line -- the first line of the request
     */
    private String mRequest;
-
    /**
     * Parsed command data
     */
    private String mCommand;
-
    /**
     * Tracks the type of Http command that has been received
     */
    private int mCommandType;
-
    /**
     * General Buffered Reader
     */
    private BufferedReader mBufferedReader;
-
    /**
     * Request properties.
     */
    private Map<String, String> mRequestProps;
-
    /**
     * Request length.
     */
    private int mRequestLength;
-
    /**
     * Request timeout.
     */
    private int mRequestTimeout;
-
    private Person p;
-
    private Asset a;
-
    private Checkout c;
-
    private Request r;
-
    /**
     * Digit Display Buffer
     */
@@ -168,12 +144,12 @@ public class RequestHandler
    public RequestHandler(int id)
    {
       p = new Person("2", "Bryon", "Todd", "Rogers",
-                   "kirnack.bryon@gmail.com", "9184102387");
+         "kirnack.bryon@gmail.com", "9184102387");
       a = new Asset("40", "Mac", "iPod Classic 160 GB", "Who knows?",
-                "iPod", "A black 7th Gen iPod Classic 160 GB");
-      c = new Checkout ("42", "",a, p, new Date(), new Date());
+         "iPod", "A black 7th Gen iPod Classic 160 GB");
+      c = new Checkout("42", "", a, p, new Date(), new Date());
       r = new Request("4242", new Date(), new Date(),
-                  a.getType(), p, new ArrayList<Checkout>());
+         a.getType(), p, new ArrayList<Checkout>());
       r.addCheckout(c);
       mID = id;
       mLockObj = new Object();
@@ -221,7 +197,7 @@ public class RequestHandler
     */
    boolean isAvailable()
    {
-      return (! mInUse);
+      return (!mInUse);
    }
 
    /**
@@ -232,7 +208,7 @@ public class RequestHandler
     */
    public static boolean isConnected()
    {
-      return (! cDisconnectReceived);
+      return (!cDisconnectReceived);
    }
 
    /**
@@ -281,8 +257,8 @@ public class RequestHandler
                {
                   handleRequest();
 
-                  if (mCommand.equals("/" +
-                     Integer.toHexString("DISCONNECT".hashCode())))
+                  if (mCommand.equals("/"
+                     + Integer.toHexString("DISCONNECT".hashCode())))
                   {
                      cDisconnectReceived = true;
                   }
@@ -295,7 +271,8 @@ public class RequestHandler
             }
             catch (Exception e)
             {
-               System.err.println("Request Handler " + mID + " " + e.getMessage());
+               System.err.println(
+                  "Request Handler " + mID + " " + e.getMessage());
             }
             mSocket.close();
          }
@@ -345,17 +322,14 @@ public class RequestHandler
       {
          mCommandType = GET;
       }
-
       else if (reqParse[0].equals(REQ_PUT))
       {
          mCommandType = PUT;
       }
-
       else if (reqParse[0].equals(REQ_POST))
       {
          mCommandType = POST;
       }
-
       else
       {
          return false;
@@ -412,7 +386,7 @@ public class RequestHandler
 
       File dataFile = new File(cDataSaveDir + File.separator + dataID);
 
-      if (dataFile.exists() && ! dataFile.isDirectory())
+      if (dataFile.exists() && !dataFile.isDirectory())
       {
          if (dataID.endsWith(".jnlp"))
          {
@@ -450,68 +424,68 @@ public class RequestHandler
       }
       else if (mCommand.equals(PERSON_REQUEST))
       {
-          try
-           {
-           JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-           Marshaller marshal = jaxbCon.createMarshaller();
-           marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-                               new Boolean(true));
-           marshal.marshal(p, mOutputStream);
-           }
-           catch(Exception e)
-           {
-               writeHeader(RESP_STATUS_NOTFOUND);
-               e.printStackTrace(new PrintStream(mOutputStream));
-           }
+         try
+         {
+            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
+            Marshaller marshal = jaxbCon.createMarshaller();
+            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
+               new Boolean(true));
+            marshal.marshal(p, mOutputStream);
+         }
+         catch (Exception e)
+         {
+            writeHeader(RESP_STATUS_NOTFOUND);
+            e.printStackTrace(new PrintStream(mOutputStream));
+         }
       }
       else if (mCommand.equals(ASSET_REQUEST))
       {
-          try
-           {
-           JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-           Marshaller marshal = jaxbCon.createMarshaller();
-           marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-                               new Boolean(true));
-           marshal.marshal(a, mOutputStream);
-           }
-           catch(Exception e)
-           {
-               writeHeader(RESP_STATUS_NOTFOUND);
-               e.printStackTrace(new PrintStream(mOutputStream));
-           }
+         try
+         {
+            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
+            Marshaller marshal = jaxbCon.createMarshaller();
+            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
+               new Boolean(true));
+            marshal.marshal(a, mOutputStream);
+         }
+         catch (Exception e)
+         {
+            writeHeader(RESP_STATUS_NOTFOUND);
+            e.printStackTrace(new PrintStream(mOutputStream));
+         }
       }
       else if (mCommand.equals(CHECKOUT_REQUEST))
       {
-          try
-           {
-           JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-           Marshaller marshal = jaxbCon.createMarshaller();
-           marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-                               new Boolean(true));
-           marshal.marshal(c, mOutputStream);
-           }
-           catch(Exception e)
-           {
-               writeHeader(RESP_STATUS_NOTFOUND);
-               e.printStackTrace(new PrintStream(mOutputStream));
-           }
+         try
+         {
+            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
+            Marshaller marshal = jaxbCon.createMarshaller();
+            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
+               new Boolean(true));
+            marshal.marshal(c, mOutputStream);
+         }
+         catch (Exception e)
+         {
+            writeHeader(RESP_STATUS_NOTFOUND);
+            e.printStackTrace(new PrintStream(mOutputStream));
+         }
       }
       else if (mCommand.equals(REQUEST_REQUEST))
       {
-          try
-           {
-           JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-           Marshaller marshal = jaxbCon.createMarshaller();
-           marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-                               new Boolean(true));
-	   r.addCheckout(c);
-           marshal.marshal(r, mOutputStream);
-           }
-           catch(Exception e)
-           {
-               writeHeader(RESP_STATUS_NOTFOUND);
-               e.printStackTrace(new PrintStream(mOutputStream));
-           }
+         try
+         {
+            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
+            Marshaller marshal = jaxbCon.createMarshaller();
+            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
+               new Boolean(true));
+            r.addCheckout(c);
+            marshal.marshal(r, mOutputStream);
+         }
+         catch (Exception e)
+         {
+            writeHeader(RESP_STATUS_NOTFOUND);
+            e.printStackTrace(new PrintStream(mOutputStream));
+         }
       }
       else // unknown page or data
       {
@@ -547,7 +521,7 @@ public class RequestHandler
 
       mInputStream.reset();
 
-      if (! findStartOfData(mInputStream))
+      if (!findStartOfData(mInputStream))
       {
          throw new IOException("Could not find end of header");
       }
@@ -575,14 +549,14 @@ public class RequestHandler
    {
       String name = mCommand.substring(1);
 
-      if (! mBufferedReader.ready())
+      if (!mBufferedReader.ready())
       {
          writeHeader(RESP_STATUS_NO_CONTENT);
          return;
       }
 
       String line;
-      while (! (line = mBufferedReader.readLine()).equals(""))
+      while (!(line = mBufferedReader.readLine()).equals(""))
       {
          for (String s : line.split("&"))
          {
@@ -590,21 +564,21 @@ public class RequestHandler
             if (props.length > 1)
             {
                mRequestProps.put(httpURLencode(props[0]),
-                                 httpURLencode(props[1]));
+                  httpURLencode(props[1]));
             }
          }
       }
 
-      if (! mRequestProps.containsKey("Message"))
+      if (!mRequestProps.containsKey("Message"))
       {
          System.out.println(mRequestProps + " contains no message");
          writeHeader(RESP_STATUS_NO_CONTENT);
          return;
       }
 
-      System.out.println("From client " + getIPHash() + " received:\n" +
-                         name + " with message " +
-                         mRequestProps.get("Message"));
+      System.out.println("From client " + getIPHash() + " received:\n"
+         + name + " with message "
+         + mRequestProps.get("Message"));
 
       writeHeader(RESP_STATUS_OK);
    }
@@ -647,7 +621,7 @@ public class RequestHandler
          if (indexStart < pSource.length())
          {
             sb.append((char) Integer.valueOf(
-                pSource.substring(indexEnd + 1, indexStart), 16).intValue());
+               pSource.substring(indexEnd + 1, indexStart), 16).intValue());
          }
       }
 
@@ -667,7 +641,7 @@ public class RequestHandler
       {
          if ((char) read == '\n' && (char) pIn.read() == '\n')
          {
-             System.err.print(read);
+            System.err.print(read);
             return true;
          }
       }
@@ -693,8 +667,8 @@ public class RequestHandler
     */
    private void writeResponse(byte[] body, String contentType)
    {
-        writeHeader(RESP_STATUS_OK, contentType);
-        writeData(body);
+      writeHeader(RESP_STATUS_OK, contentType);
+      writeData(body);
 
    }
 
@@ -756,7 +730,7 @@ public class RequestHandler
     * @param len Length to write
     */
    public static void writeData(OutputStream out, byte[] data,
-                                int offset, int len)
+      int offset, int len)
    {
       try
       {
@@ -787,6 +761,7 @@ public class RequestHandler
    {
       writeHeader(mOutputStream, status, RESP_CONTENT_TYPE);
    }
+
    /**
     * Writes out the header
     *
@@ -880,7 +855,7 @@ public class RequestHandler
    {
       for (int i = 0; i < digits; i++)
       {
-         mDigits[31 - i] = (byte)((val % 10) + 0x30);
+         mDigits[31 - i] = (byte) ((val % 10) + 0x30);
          val /= 10;
       }
       writeData(mOutputStream, mDigits, (31 - digits + 1), digits);

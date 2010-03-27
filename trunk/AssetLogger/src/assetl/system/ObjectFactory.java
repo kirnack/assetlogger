@@ -4,12 +4,9 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2010.03.20 at 03:42:42 PM MDT 
 //
-
 package assetl.system;
 
 import javax.xml.bind.annotation.XmlRegistry;
-
-
 
 /**
  * This object contains factory methods for each 
@@ -26,36 +23,37 @@ import javax.xml.bind.annotation.XmlRegistry;
  * 
  */
 @XmlRegistry
-public class ObjectFactory {
+public class ObjectFactory
+{
+   /**
+    * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: generated
+    *
+    */
+   public ObjectFactory()
+   {
+   }
 
+   /**
+    * Create an instance of {@link Person }
+    *
+    */
+   public Person createPerson()
+   {
+      return new Person();
+   }
 
-    /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: generated
-     * 
-     */
-    public ObjectFactory() {
-    }
+   public Request createRequest()
+   {
+      return new Request();
+   }
 
-    /**
-     * Create an instance of {@link Person }
-     * 
-     */
-    public Person createPerson() {
-        return new Person();
-    }
+   public Checkout createCheckout()
+   {
+      return new Checkout();
+   }
 
-    public Request createRequest()
-    {
-	return new Request();
-    }
-
-    public Checkout createCheckout()
-    {
-	return new Checkout();
-    }
-
-    public Asset createAsset()
-    {
-	return new Asset();
-    }
+   public Asset createAsset()
+   {
+      return new Asset();
+   }
 }

@@ -10,65 +10,65 @@ import assetl.system.DBPacket;
  *
  * @author Devin Doman
  */
-public class CancelFunction 
-        extends Function
+public class CancelFunction
+   extends Function
 {
-    /**
-     * The specific DataPacket needed for this function to operate
-     */
-    DBPacket mData;
+   /**
+    * The specific DataPacket needed for this function to operate
+    */
+   DBPacket mData;
 
-    /**
-     * Sets the DataPacket for a Login
-     *
-     * @param pPacket The DataPacket sent from the view
-     */
-    public void setPacket(DataPacket pPacket)
-    {
-        mData = (DBPacket) pPacket;
-    }
+   /**
+    * Sets the DataPacket for a Login
+    *
+    * @param pPacket The DataPacket sent from the view
+    */
+   public void setPacket(DataPacket pPacket)
+   {
+      mData = (DBPacket) pPacket;
+   }
 
-    /**
-     * Gets the DataPacket currently set for this function
-     *
-     * @return The DataPacket
-     */
-    public DataPacket getPacket()
-    {
-        return mData;
-    }
+   /**
+    * Gets the DataPacket currently set for this function
+    *
+    * @return The DataPacket
+    */
+   public DataPacket getPacket()
+   {
+      return mData;
+   }
 
-    /**
-     * Cancels a request or individual checkout
-     */
-    public void performFunction()
-    {
-        // TODO: Remove if statements by extending class 
-        // and using Composite pattern
+   /**
+    * Cancels a request or individual checkout
+    */
+   public void performFunction()
+   {
+      // TODO: Remove if statements by extending class
+      // and using Composite pattern
 
-        Request request = mData.getRequest();
-        Checkout checkout = mData.getCheckout();
+      Request request = mData.getRequest();
+      Checkout checkout = mData.getCheckout();
 
-        if (request != null)
-        {
-            // if a request was sent set it to inactive
-            request.setActive(false);
-            mModel.setRequest(request, mData.getUserID());
-        }
-        else if (checkout != null)
-        {
-            // if a checkout was sent set it to inactive
+      if (request != null)
+      {
+         // if a request was sent set it to inactive
+         request.setActive(false);
+         mModel.setRequest(request, mData.getUserID());
+      }
+      else if (checkout != null)
+      {
+         // if a checkout was sent set it to inactive
 
-            //don't cancel a checkout if they've picked it up already
-            if (checkout.getPickedupDate() != null)
-            {
-                checkout.setActive(false);
-                mModel.setCheckout(checkout);
-            }
-        }
-        else
-        {
-            System.out.println("Nothing to cancel");
-        }
-    }
+         //don't cancel a checkout if they've picked it up already
+         if (checkout.getPickedupDate() != null)
+         {
+            checkout.setActive(false);
+            mModel.setCheckout(checkout);
+         }
+      }
+      else
+      {
+         System.out.println("Nothing to cancel");
+      }
+   }
 }

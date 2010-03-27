@@ -45,7 +45,7 @@ public class LoadPersonFunction
    public void performFunction()
    {
       Person tempPerson = mModel.getPerson(mData.getString());
-      
+
       if (tempPerson != null)
       {
          //

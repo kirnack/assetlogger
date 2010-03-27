@@ -18,43 +18,36 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Request
 {
-
-    /**
-     * The unique identifier for the request
-     */
-    @XmlElement(name = "id")
-    protected String mID;
-
+   /**
+    * The unique identifier for the request
+    */
+   @XmlElement(name = "id")
+   protected String mID;
    /**
     * The date the request was made
     */
    @XmlElement(name = "made")
    protected Date mRequestMade;
-
    /**
     * The date the person requests to pick up the asset
     */
    @XmlElement(name = "reqpickeupdate")
    protected Date mRequestedPickup;
-
    /**
     * The type asset they would like to request
     */
    @XmlElement(name = "reqtype")
    protected String mRequstType;
-
    /**
     * The person requesting an asset
     */
    @XmlElement(name = "requestor")
    protected Person mRequestor;
-
    /**
     * Indicates whether the request data is valid
     */
    @XmlElement(name = "isactive")
    protected boolean mActive;
-
    /**
     * The checkouts to that have been requested
     */
@@ -78,9 +71,10 @@ public class Request
     * @param pRequestor The Person requesting the asset
     */
    public Request(String pID, Date pRequestMade, Date pRequestedPickup,
-                  String pRequstType, Person pRequestor)
+      String pRequstType, Person pRequestor)
    {
-       this(pID, pRequestMade, pRequestedPickup, pRequstType, pRequestor, new ArrayList<Checkout>());
+      this(pID, pRequestMade, pRequestedPickup, pRequstType, pRequestor,
+         new ArrayList<Checkout>());
    }
 
    /**
@@ -93,16 +87,16 @@ public class Request
     * @param pRequestor The Person requesting the asset
     */
    public Request(String pID, Date pRequestMade, Date pRequestedPickup,
-                  String pRequstType, Person pRequestor, Collection<Checkout> pCheckouts)
+      String pRequstType, Person pRequestor, Collection<Checkout> pCheckouts)
    {
-       mID = pID;
-       mRequestMade = pRequestMade;
-       mRequestedPickup = pRequestedPickup;
-       mRequstType = pRequstType;
-       mRequestor = pRequestor;
-       mActive = true;
-       mCheckouts = pCheckouts;
-       setCheckoutsRequestID();
+      mID = pID;
+      mRequestMade = pRequestMade;
+      mRequestedPickup = pRequestedPickup;
+      mRequstType = pRequstType;
+      mRequestor = pRequestor;
+      mActive = true;
+      mCheckouts = pCheckouts;
+      setCheckoutsRequestID();
    }
 
    /**
@@ -133,8 +127,8 @@ public class Request
     */
    public void addCheckout(Checkout pCheckout)
    {
-       pCheckout.setRequestID(mID);
-       mCheckouts.add(pCheckout);
+      pCheckout.setRequestID(mID);
+      mCheckouts.add(pCheckout);
    }
 
    /**
@@ -152,7 +146,8 @@ public class Request
     *
     * @param pActive new value of mActive
     */
-   public void setActive(boolean pActive) {
+   public void setActive(boolean pActive)
+   {
       mActive = pActive;
    }
 
@@ -223,7 +218,7 @@ public class Request
     */
    public Date getRequestedPickup()
    {
-       return mRequestedPickup;
+      return mRequestedPickup;
    }
 
    /**
@@ -233,7 +228,7 @@ public class Request
     */
    public void setRequestedPickup(Date pRequestedPickup)
    {
-       mRequestedPickup = pRequestedPickup;
+      mRequestedPickup = pRequestedPickup;
    }
 
    /**
@@ -272,7 +267,8 @@ public class Request
    @Override
    public boolean equals(Object obj)
    {
-      if (obj == null) {
+      if (obj == null)
+      {
          return false;
       }
       if (getClass() != obj.getClass())
@@ -281,7 +277,7 @@ public class Request
       }
       final Request other = (Request) obj;
       if ((this.mID == null) ? (other.mID != null)
-              : !this.mID.equals(other.mID))
+         : !this.mID.equals(other.mID))
       {
          return false;
       }
@@ -295,6 +291,4 @@ public class Request
       hash = 17 * hash + (this.mID != null ? this.mID.hashCode() : 0);
       return hash;
    }
-
-   
 }

@@ -14,42 +14,36 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Asset
 {
-    /**
-     * The asset's ID
-     */
-    @XmlElement(name = "id")
-    protected String mID;
-
+   /**
+    * The asset's ID
+    */
+   @XmlElement(name = "id")
+   protected String mID;
    /**
     * The asset's make
     */
    @XmlElement(name = "make")
    protected String mMake;
-
    /**
     * The asset's model
     */
    @XmlElement(name = "model")
    protected String mModel;
-
    /**
     * The asset's serial number
     */
    @XmlElement(name = "serialnum")
    protected String mSerialNum;
-
    /**
     * The asset's type
     */
    @XmlElement(name = "type")
    protected String mType;
-
    /**
     * The asset's description
     */
    @XmlElement(name = "descrip")
    protected String mDescription;
-
    /**
     * Tells if the asset is in for matienance
     */
@@ -63,7 +57,7 @@ public class Asset
     */
    public Asset()
    {
-      this("","","","","","");
+      this("", "", "", "", "", "");
    }
 
    /**
@@ -74,7 +68,7 @@ public class Asset
     */
    public Asset(String pID, String pType)
    {
-      this(pID,"","","",pType,"", false);
+      this(pID, "", "", "", pType, "", false);
    }
 
    /**
@@ -88,7 +82,7 @@ public class Asset
     * @param pDescription The description
     */
    public Asset(String pID, String pMake, String pModel, String pSerialNum,
-                String pType, String pDescription)
+      String pType, String pDescription)
    {
       this(pID, pMake, pModel, pSerialNum, pType, pDescription, false);
    }
@@ -105,7 +99,7 @@ public class Asset
     * @param pMaintenance  If the assets is out for maintenance
     */
    public Asset(String pID, String pMake, String pModel, String pSerialNum,
-                String pType, String pDescription, boolean pMaintenance)
+      String pType, String pDescription, boolean pMaintenance)
    {
       this.mID = pID;
       this.mMake = pMake;
@@ -136,7 +130,6 @@ public class Asset
       this.mDescription = pDescription;
    }
 
-
    /**
     * Gets the type of the asset.
     *
@@ -157,7 +150,6 @@ public class Asset
       this.mType = pType;
    }
 
-
    /**
     * Gets the serial number of the asset.
     *
@@ -177,7 +169,6 @@ public class Asset
    {
       this.mSerialNum = pSerialNum;
    }
-
 
    /**
     * Gets the model of the asset.
@@ -214,7 +205,8 @@ public class Asset
     *
     * @param pMake The new make of the asset
     */
-   public void setMake(String pMake) {
+   public void setMake(String pMake)
+   {
       this.mMake = pMake;
    }
 
@@ -223,7 +215,8 @@ public class Asset
     *
     * @return The identifier of the asset.
     */
-   public String getID() {
+   public String getID()
+   {
       return mID;
    }
 
@@ -232,7 +225,8 @@ public class Asset
     *
     * @param pID The new identifier of the asset.
     */
-   public void setID(String pID) {
+   public void setID(String pID)
+   {
       this.mID = pID;
    }
 
@@ -245,18 +239,21 @@ public class Asset
    @Override
    public boolean equals(Object obj)
    {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Asset other = (Asset) obj;
-        if ((this.mID == null) ? (other.mID != null) : !this.mID.equals(other.mID)) {
-            return false;
-        }
-        return true;
-    }
+      if (obj == null)
+      {
+         return false;
+      }
+      if (getClass() != obj.getClass())
+      {
+         return false;
+      }
+      final Asset other = (Asset) obj;
+      if ((this.mID == null) ? (other.mID != null) : !this.mID.equals(other.mID))
+      {
+         return false;
+      }
+      return true;
+   }
 
    /**
     * Overridden hashCode method for this object.
@@ -266,10 +263,10 @@ public class Asset
    @Override
    public int hashCode()
    {
-        int hash = 7;
-        hash = 13 * hash + (this.mID != null ? this.mID.hashCode() : 0);
-        return hash;
-    }
+      int hash = 7;
+      hash = 13 * hash + (this.mID != null ? this.mID.hashCode() : 0);
+      return hash;
+   }
 
    /**
     * Sets the maintenance flag of the asset.

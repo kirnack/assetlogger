@@ -16,53 +16,45 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Checkout
 {
-    /**
-     * The unique identification of a checkout object
-     */
-    @XmlElement(name = "id")
-    protected String mID;
-
-    /**
-     * The ID of the request that owns this checkout.
-     */
-    @XmlElement(name = "asset")
-    protected String mRequestID;
-
-    /**
-     * The asset that needs checkout
-     */
-    protected Asset mAsset;
-
+   /**
+    * The unique identification of a checkout object
+    */
+   @XmlElement(name = "id")
+   protected String mID;
+   /**
+    * The ID of the request that owns this checkout.
+    */
+   @XmlElement(name = "asset")
+   protected String mRequestID;
+   /**
+    * The asset that needs checkout
+    */
+   protected Asset mAsset;
    /**
     * The person receiving the asset
     */
    @XmlElement(name = "receiver")
    protected Person mRecipient;
-
    /**
     * The date to start reserving an asset for the person
     */
    @XmlElement(name = "requestedstart")
    protected Date mRequestedStartDate;
-
    /**
     * The date the person will return the asset
     */
    @XmlElement(name = "requestedend")
    protected Date mRequestedEndDate;
-
    /**
     * The date the asset was actually picked up
     */
    @XmlElement(name = "pickedupon")
    protected Date mPickedupDate;
-
    /**
     * The date the asset was actually returned
     */
    @XmlElement(name = "returnedon")
    protected Date mReturnedDate;
-
    /**
     * Indicates whether the data in this object is valid
     */
@@ -87,11 +79,11 @@ public class Checkout
     * @param pRequestedEndDate The requested end date
     */
    public Checkout(String pID, String pRequestID, Asset pAsset,
-                   Person pRecipient, Date pRequestedStartDate,
-                   Date pRequestedEndDate)
+      Person pRecipient, Date pRequestedStartDate,
+      Date pRequestedEndDate)
    {
-       this(pID, pRequestID, pAsset, pRecipient, pRequestedStartDate,
-            pRequestedEndDate, null, null, true);
+      this(pID, pRequestID, pAsset, pRecipient, pRequestedStartDate,
+         pRequestedEndDate, null, null, true);
    }
 
    /**
@@ -108,19 +100,19 @@ public class Checkout
     * @param pActive
     */
    public Checkout(String pID, String pRequestID, Asset pAsset,
-                   Person pRecipient, Date pRequestedStartDate,
-                   Date pRequestedEndDate, Date pPickedupDate,
-                   Date pReturnedDate, boolean pActive)
+      Person pRecipient, Date pRequestedStartDate,
+      Date pRequestedEndDate, Date pPickedupDate,
+      Date pReturnedDate, boolean pActive)
    {
-       mID = pID;
-       mAsset = pAsset;
-       mRecipient = pRecipient;
-       mRequestedStartDate = pRequestedStartDate;
-       mRequestedStartDate = pRequestedEndDate;
-       mRequestID = pRequestID;
-       mPickedupDate = pPickedupDate;
-       mReturnedDate = pReturnedDate;
-       mActive = pActive;
+      mID = pID;
+      mAsset = pAsset;
+      mRecipient = pRecipient;
+      mRequestedStartDate = pRequestedStartDate;
+      mRequestedStartDate = pRequestedEndDate;
+      mRequestID = pRequestID;
+      mPickedupDate = pPickedupDate;
+      mReturnedDate = pReturnedDate;
+      mActive = pActive;
    }
 
    /**
@@ -317,7 +309,7 @@ public class Checkout
       }
       final Checkout other = (Checkout) obj;
       if ((this.mID == null) ? (other.mID != null)
-              : !this.mID.equals(other.mID))
+         : !this.mID.equals(other.mID))
       {
          return false;
       }

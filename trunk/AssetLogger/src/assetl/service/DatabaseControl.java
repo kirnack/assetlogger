@@ -349,6 +349,16 @@ public abstract class DatabaseControl
    }
 
    /**
+    * Sends a DataPacket to the controller's current view
+    *
+    * @param pPacket The packet to send
+    */
+   public void sendViewPacket(DataPacket pPacket)
+   {
+      mView.receiveDataPacket(pPacket);
+   }
+
+   /**
     * Returns the User represented by the ID given.
     *
     * @param pID The id of the user

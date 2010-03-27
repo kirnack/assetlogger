@@ -38,12 +38,12 @@ public interface AssetLControl
      */
     User getCurrentUser();
 
-    /**
-    * Returns the current view
+   /**
+    * Sends a DataPacket to the controller's current view
     *
-    * @return The current view
+    * @param pPacket The packet to send
     */
-   AssetLView getView();
+   void sendViewPacket(DataPacket pPacket);
 
     //
     // The following methods allow the controller to server as Mediator

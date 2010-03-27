@@ -55,7 +55,7 @@ public class LoadPersonFunction
          //
 
          mControl.setFunction("Schedule");
-         mControl.getView().receiveDataPacket(new PersonPacket(tempPerson));
+         mControl.sendViewPacket(new PersonPacket(tempPerson));
       }
       else
       {

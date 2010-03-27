@@ -1,6 +1,5 @@
 package assetl.service;
 
-import assetl.desktop.CheckinView;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.AbstractMap;
@@ -15,11 +14,6 @@ import assetl.system.Request;
 import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.User;
-import assetl.desktop.LoginView;
-import assetl.desktop.ServiceView;
-import assetl.desktop.IDView;
-import assetl.desktop.FindAssetView;
-import assetl.desktop.SureView;
 
 /**
  * The Database Controller is used to modify the Server model in response
@@ -33,7 +27,7 @@ import assetl.desktop.SureView;
  *
  * @author Devin Doman
  */
-public class DatabaseControl
+public abstract class DatabaseControl
    implements AssetLControl,
    ModelObserver,
    Runnable
@@ -41,33 +35,33 @@ public class DatabaseControl
    /**
     * The Model
     */
-   private AssetLModel mModel;
+   protected AssetLModel mModel;
    /**
     * The View
     */
-   private AssetLView mView;
+   protected AssetLView mView;
    /**
     * A data packet that can be used to set the model and can be retrieved
     * from the view
     */
-   private DataPacket mPacket;
+   protected DataPacket mPacket;
    /**
     * Holds the last function performed by the controller
     */
-   private Function mFunction;
+   protected Function mFunction;
    /**
     * Stores the behaviors the controller can currently perform, mapped
     * with the name of the function
     */
-   private Collection<Function> mFunctions;
+   protected Collection<Function> mFunctions;
    /**
     * Map storing the choices for views the controller will make
     */
-   private AbstractMap<String, AssetLView> mHashViews;
+   protected AbstractMap<String, AssetLView> mHashViews;
    /**
     * The current user of the application
     */
-   private User mUser;
+   protected User mUser;
 
    /**
     * Default Contructor for the controller. Gets the model and creates
@@ -101,29 +95,7 @@ public class DatabaseControl
     * Builds the map associations for the view choices the
     * controller will make
     */
-   private void constructMap()
-   {
-      // Clear the map then rebuild
-      mHashViews.clear();
-
-      AssetLView tempView = new ServiceView(this);
-      addView("Schedule", tempView);
-      addView("Checkout", tempView);
-      addView("Cancel", tempView);
-
-      tempView = new LoginView(this);
-      addView("LogIn", tempView);
-
-      tempView = new IDView(this);
-      addView("Checkin", tempView);
-      addView("LoadPerson", tempView);
-
-      tempView = new FindAssetView(this);
-      addView("FindAsset", tempView);
-
-      tempView = new SureView(this);
-      addView("Sure", tempView);
-   }
+   protected abstract void constructMap();
 
    /**
     * Associates multiple keys with a single view
@@ -157,7 +129,7 @@ public class DatabaseControl
     * @param pDynObj The name of the class to get an instance of
     * @return The dynamically created object
     */
-   private Object loadObj(String pClass)
+   protected Object loadObj(String pClass)
    {
       Object obj = null;
 

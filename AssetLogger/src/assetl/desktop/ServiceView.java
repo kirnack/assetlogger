@@ -11,6 +11,7 @@ import javax.swing.AbstractButton;
 
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
+import assetl.system.StringPacket;
 import assetl.system.SchedulePacket;
 import assetl.system.PersonPacket;
 import assetl.system.Person;
@@ -195,10 +196,10 @@ public class ServiceView
    {
       mButtonMap.clear();
       mButtonMap.put("Cancel", mCancelBtn);
-      mButtonMap.put("Checkout", mCheckoutBtn);
+      mButtonMap.put("CheckoutAsset", mCheckoutBtn);
       mButtonMap.put("Extend", mExtendBtn);
       mButtonMap.put("Checkin", mReturnBtn);
-      mButtonMap.put("Schedule", mScheduleBtn);
+      mButtonMap.put("ScheduleAsset", mScheduleBtn);
    }
 
    /**
@@ -237,6 +238,9 @@ public class ServiceView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
+      /* TODO: find a good way to grab various data packets depending on
+       * the button pushed
+       *
       PersonPacket tempPacket = (PersonPacket) mPacket;
       SchedulePacket test = new SchedulePacket();
       test.setPersonID(tempPacket.getPerson().getID());
@@ -248,6 +252,12 @@ public class ServiceView
       test.setEndMon(3);
       test.setEndYear(2011);
       return test;
+       *
+       */
+
+      // Send the personid
+      PersonPacket tempPacket = (PersonPacket) mPacket;
+      return new StringPacket(tempPacket.getPerson().getID());
    }
 
    /**
@@ -263,8 +273,8 @@ public class ServiceView
     */
    public void run()
    {
-      enable("Schedule");
-      enable("Checkout");
+      enable("ScheduleAsset");
+      enable("CheckoutAsset");
       enable("Checkin");
       enable("Cancel");
    }

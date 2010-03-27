@@ -8,7 +8,7 @@ package assetl.desktop;
 import assetl.system.AssetLControl;
 
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.StringPacket;
 
 /**
  * Allows the user to find an asset they'd like to checkout or schedule
@@ -18,6 +18,16 @@ import assetl.system.DBPacket;
 public class FindAssetView
    extends AssetView
 {
+
+   /**
+    * Default Constructor allowing for dynamic class loading. Expects
+    * controller to add itself.
+    */
+   public FindAssetView()
+   {
+      this(null);
+   }
+
    /**
     * Constructor for the user interface
     *
@@ -180,6 +190,14 @@ public class FindAssetView
     private javax.swing.JLabel mYearLbl;
     // End of variables declaration//GEN-END:variables
 
+    public void setStart(boolean pShow)
+    {
+       mStartLbl.setVisible(pShow);
+       mStartMonTxtFld.setVisible(pShow);
+       mStartDayTxtFld.setVisible(pShow);
+       mStartYearTxtFld.setVisible(pShow);
+    }
+
    /**
     * Updates the views display of the model
     */
@@ -197,7 +215,7 @@ public class FindAssetView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      return new DBPacket();
+      return new StringPacket();
    }
 
    /**
@@ -205,6 +223,8 @@ public class FindAssetView
     */
    public void enable(String pFunction)
    {
+      enable(pFunction, mSelectBtn);
+      setStart("Schedule".equals(pFunction));
    }
 
    /**
@@ -212,5 +232,6 @@ public class FindAssetView
     */
    public void run()
    {
+
    }
 }

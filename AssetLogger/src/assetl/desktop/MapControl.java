@@ -1,6 +1,5 @@
 package assetl.desktop;
 
-import assetl.system.AssetLView;
 import assetl.service.DatabaseControl;
 
 /**
@@ -21,30 +20,21 @@ public class MapControl
    }
 
    /**
-    * Builds the map associations for the view choices the
-    * controller will make
+    * Sets the package for the class name needed to dynamically load the class
+    * @param pPackage
     */
-   protected void constructMap()
+   protected void setViewPackage()
    {
-      // Clear the map then rebuild
-      mHashViews.clear();
+      setClassPackage("assetl.desktop.");
+   }
 
-      AssetLView tempView = new ServiceView(this);
-      addView("Schedule", tempView);
-      addView("Checkout", tempView);
-      addView("Cancel", tempView);
-
-      tempView = new LoginView(this);
-      addView("LogIn", tempView);
-
-      tempView = new IDView(this);
-      addView("Checkin", tempView);
-      addView("LoadPerson", tempView);
-
-      tempView = new FindAssetView(this);
-      addView("FindAsset", tempView);
-
-      tempView = new SureView(this);
-      addView("Sure", tempView);
+   /**
+    * Appends a string to the end of the class name to dynamically load.
+    *
+    * @param mPostClass The string to append to the end of the class name
+    */
+   protected void setPostViewName()
+   {
+      setPostClassName("View");
    }
 }

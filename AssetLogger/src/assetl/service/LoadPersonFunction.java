@@ -54,7 +54,10 @@ public class LoadPersonFunction
          // if statement was added
          //
 
-         mControl.setFunction("Schedule");
+         // Change to the next view
+         DatabaseControl tempControl = (DatabaseControl) mControl;
+         tempControl.changeView("Service");
+
          mControl.sendViewPacket(new PersonPacket(tempPerson));
       }
       else

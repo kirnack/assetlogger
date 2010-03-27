@@ -180,7 +180,7 @@ public class Server
             String str;
             while ((str = in.readLine()) != null)
             {
-               System.err.println(str);
+            //   System.err.println(str);
                mStat.execute(str);
             }
             in.close();
@@ -356,8 +356,7 @@ public class Server
     public void setAsset(Asset pAsset)
     {
        System.err.println("Retreivinng " + pAsset.getID());
-       
-
+      
        try
        {
         //Retrieves data from database to see if the person needs to be added,
@@ -525,19 +524,24 @@ public class Server
     {
        try
        {
+         Checkout temp = null;
          System.err.println("Retreivinng " + pCheckout.getID());
        //Retrieves data from database to see if the person needs to be added,
        //and also to check to see if there is an actual need to update te data.
-         Checkout temp = getCheckout(pCheckout.getID());
+         
          PreparedStatement prepReq = null;
-         if (temp == null)
+         if (("".equals(pCheckout.getID())) ||
+             (((temp = getCheckout(pCheckout.getID())) == null)))
          {
+            pCheckout.setID(Integer.toString(getNumCheckouts() + 1));
             System.err.println("Adding " + pCheckout.getID());
             prepReq = mConn.prepareStatement(
                      "insert into Checkouts values (?, ?, ?, ?, ?, ?, ?, ?, '" +
                      pUserID + "', ?);");
          }
-         else if (!temp.getAsset().equals(pCheckout.getAsset()) ||
+         else
+         {
+            if (!temp.getAsset().equals(pCheckout.getAsset()) ||
                   !temp.getPickedupDate().equals(pCheckout.getPickedupDate()) ||
                   !temp.getRecipient().equals(pCheckout.getRecipient()) ||
                   !temp.getRequestedEndDate().equals(
@@ -546,17 +550,18 @@ public class Server
                                           pCheckout.getRequestedStartDate()) ||
                   !temp.getReturnedDate().equals(pCheckout.getReturnedDate()) ||
                   temp.isActive() == pCheckout.isActive())
-         {
-            System.err.println("Updating " + pCheckout.getID());
-            prepReq = mConn.prepareStatement(
-                     "update Checkouts set CheckoutID = ?, RequestID = ?,"
-                     + " RecipeantID = ?, AssetID = ?,"+
-                     " RequestedStartDate = ?, RequestedEndDate = ?," +
-                     " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
-                     + pUserID + "', Active = ? where RequestID ='" +
-                     pCheckout.getID() + "';" );
-         }
+            {
 
+               System.err.println("Updating " + pCheckout.getID());
+               prepReq = mConn.prepareStatement(
+                        "update Checkouts set CheckoutID = ?, RequestID = ?,"
+                        + " RecipeantID = ?, AssetID = ?,"+
+                        " RequestedStartDate = ?, RequestedEndDate = ?," +
+                        " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
+                        + pUserID + "', Active = ? where RequestID ='" +
+                        pCheckout.getID() + "';" );
+            }
+         }
          if (prepReq != null)
          {
             prepReq.setString(1, pCheckout.getID());
@@ -583,13 +588,11 @@ public class Server
         //a change has been made to the database, notify observers
         notifyObservers();
        }
-       catch(SQLException e)
+       catch(Exception e)
        {
             e.printStackTrace(System.err);
        }
-       catch(NullPointerException e)
-       {
-       }
+
 
     }
 
@@ -606,30 +609,35 @@ public class Server
           //System.err.println("Retreivinng " + pRequest.getID());
          //Retrieves data from database to see if the person needs to be added,
          //and also to check to see if there is an actual need to update te data.
-         Request temp = getRequest(pRequest.getID());
+         Request temp = null;
          PreparedStatement prepReq = null;
 
-         if (temp == null)
+         if (("".equals(pRequest.getID())) ||
+            ((temp = getRequest(pRequest.getID())) == null))
          {
+            pRequest.setID(Integer.toString(getNumRequests() + 1));
             System.err.println("Adding " + pRequest.getID());
             prepReq = mConn.prepareStatement(
                      "insert into Requests values (?, ?, ?, ?, ?, '" +
                      pUserID + "');");
          }
-         else if (!pRequest.getRequestMade().equals(temp.getRequestMade()) ||
+         else
+         {
+            if (!pRequest.getRequestMade().equals(temp.getRequestMade()) ||
                   !pRequest.getRequestedPickup().equals(
                       temp.getRequestedPickup()) ||
                   !pRequest.getRequestor().equals(temp.getRequestor()) ||
                   pRequest.getRequstType().equals(temp.getRequstType()))
-         {
-            System.err.println("Updating " + pRequest.getID());
-            prepReq = mConn.prepareStatement(
+            {
+               System.err.println("Updating " + pRequest.getID());
+               prepReq = mConn.prepareStatement(
                      "update Requests set RequestID = ?, RequestedMadeDate = ?,"
-                     + " RequestedPickupDate = ?, RequestedType = ?,"+
-                     " RequestorID = ?, UserID ='" + pUserID +
-                     "' where RequestID ='" + pRequest.getID() + "';" );
+                        + " RequestedPickupDate = ?, RequestedType = ?,"+
+                        " RequestorID = ?, UserID ='" + pUserID +
+                        "' where RequestID ='" + pRequest.getID() + "';" );
+            }
          }
-
+         
          if (prepReq != null)
          {
             prepReq.setString(1, pRequest.getID());
@@ -703,6 +711,7 @@ public class Server
         catch (Exception e)
         {
            System.err.println(e);
+           e.printStackTrace();
         }
 
        return checkouts;

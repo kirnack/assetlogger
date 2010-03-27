@@ -304,4 +304,31 @@ public class Checkout
       this.mRequestID = pRequestID;
    }
 
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj == null)
+      {
+         return false;
+      }
+      if (getClass() != obj.getClass())
+      {
+         return false;
+      }
+      final Checkout other = (Checkout) obj;
+      if ((this.mID == null) ? (other.mID != null)
+              : !this.mID.equals(other.mID))
+      {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 7;
+      hash = 23 * hash + (this.mID != null ? this.mID.hashCode() : 0);
+      return hash;
+   }
 }

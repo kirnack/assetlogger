@@ -16,18 +16,6 @@
             <Property name="name" type="java.lang.String" value="mBackBtn" noResource="true"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mFileMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="File"/>
-            <Property name="name" type="java.lang.String" value="mFileMenu" noResource="true"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mEditMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Edit"/>
-            <Property name="name" type="java.lang.String" value="mEditMenu" noResource="true"/>
-          </Properties>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="mViewMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="View"/>

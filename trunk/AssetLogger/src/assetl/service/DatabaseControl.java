@@ -2,8 +2,6 @@ package assetl.service;
 
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.AbstractMap;
-import java.util.HashMap;
 
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
@@ -55,13 +53,18 @@ public abstract class DatabaseControl
     */
    protected Collection<Function> mFunctions;
    /**
-    * Map storing the choices for views the controller will make
-    */
-   protected AbstractMap<String, AssetLView> mHashViews;
-   /**
     * The current user of the application
     */
    protected User mUser;
+   /**
+    * Stores the package the controller will dynamically load a class from
+    */
+   protected String mPackage;
+   /**
+    * Stores any part of the class name that needs to be appended to the
+    * end of the object for dynamic loading.
+    */
+   protected String mPostClass;
 
    /**
     * Default Contructor for the controller. Gets the model and creates
@@ -80,47 +83,71 @@ public abstract class DatabaseControl
       mUser.setID("Doctor");
       mUser.setAdmin(mModel.isAdmin("Doctor"));
 
-      // construct the map
-      mHashViews = new HashMap<String, AssetLView>();
-      constructMap();
+      mPostClass = "";
 
       //Use a netbeans generated gui
-      mView = mHashViews.get("LogIn");
-
-      // hide the admin components
-      mView.setAdminComponents(false);
+      changeView("Login");
    }
 
    /**
-    * Builds the map associations for the view choices the
-    * controller will make
+    * Sets the package for the class name needed to dynamically load the class
+    * @param pPackage
     */
-   protected abstract void constructMap();
+   protected abstract void setViewPackage();
 
    /**
-    * Associates multiple keys with a single view
+    * Appends a string to the end of the class name to dynamically load.
     *
-    * @param pKeys The keys to which the view will be associated
-    * @param pView The view associated with the given keys
+    * @param mPostClass The string to append to the end of the class name
     */
-   public void addViews(Collection<String> pKeys, AssetLView pView)
+   protected abstract void setPostViewName();
+
+   /**
+    * Sets the package for the class name needed to dynamically load the class
+    * @param pPackage
+    */
+   protected void setClassPackage(String pPackage)
    {
-      // associate each key with the view
-      for (String key : pKeys)
-      {
-         mHashViews.put(key, pView);
-      }
+      mPackage = pPackage;
    }
 
    /**
-    * Adds a new view to the map for the given key
-    *
-    * @param pKey The key to which the view will be associated
-    * @param pView The view associated with the given key
+    * Appends a string to the end of the class name to dynamically load.
+    * 
+    * @param mPostClass The string to append to the end of the class name
     */
-   public void addView(String pKey, AssetLView pView)
+   protected void setPostClassName(String pPostClass)
    {
-      mHashViews.put(pKey, pView);
+      mPostClass = pPostClass;
+   }
+
+   protected void setViewAmbles()
+   {
+      setViewPackage();
+      setPostViewName();
+   }
+
+   protected void setFunctionAmbles()
+   {
+      setClassPackage("assetl.service.");
+      setPostClassName("Function");
+   }
+
+   protected String addAmbles(String pName)
+   {
+      return mPackage + pName + mPostClass;
+   }
+
+   /**
+    * Appends string before and after a class name to dynamically load.
+    *
+    * @param pPackage The package portion of the class name
+    * @param pPostClass Any string needed to append at the end of the class name
+    */
+   protected void setClassAmbles(String pPackage, String pPostClass)
+   {
+      setClassPackage(pPackage);
+      setPostClassName(pPostClass);
    }
 
    /**
@@ -198,56 +225,26 @@ public abstract class DatabaseControl
     */
    public Function addFunction(String pFunction)
    {
+      // Check the function collection for this function
       Function tempFunction = getFunction(pFunction);
-      //switch to a view that can perform this function
-      if (switchFunction(pFunction) && (tempFunction == null))
-      {
-         String functionObj = "assetl.service." + pFunction + "Function";
-         tempFunction = (Function) loadObj(functionObj);
 
+      // Add the function to the collection if it is not
+      if (tempFunction == null)
+      {
+         setFunctionAmbles();
+         tempFunction = (Function) loadObj(addAmbles(pFunction));
+
+         // If we were able to dynamically load the function
          if (tempFunction != null)
          {
             // Set the model and controller for the function to work with
             tempFunction.setModules(this, mModel);
+            // Map the function to the name passed in to create it
+            mFunctions.add(tempFunction);
          }
-
-         // Enable this function in the view
-         mView.enable(pFunction);
-
-         // Map the function to the name passed in to create it
-         mFunctions.add(tempFunction);
       }
 
       return tempFunction;
-   }
-
-   /**
-    * Removes all functions from the controller
-    */
-   public void clearFunctions()
-   {
-      mFunctions.clear();
-   }
-
-   /**
-    * Changes to a view that can perform the function passed
-    *
-    * @param pFunction The function to find a pairing view for
-    * @return True if there is a view that can perform the function
-    */
-   public boolean switchFunction(String pFunction)
-   {
-      // Get from the hash map a possible view
-      AssetLView tempView = mHashViews.get(pFunction);
-      boolean ableToChange = false;
-
-      // if there is a mapped view change to it
-      if (tempView != null)
-      {
-         changeView(tempView);
-         ableToChange = true;
-      }
-      return ableToChange;
    }
 
    /**
@@ -279,9 +276,9 @@ public abstract class DatabaseControl
     */
    public void doFunction(String pFunction)
    {
-      pFunction = "assetl.service." + pFunction + "Function";
+      setFunctionAmbles();
 
-      mFunction = getFunction(pFunction);
+      mFunction = getFunction(addAmbles(pFunction));
 
       // If the function was found perform the function
       if (mFunction != null)
@@ -297,7 +294,8 @@ public abstract class DatabaseControl
     */
    public void changeView(String pView)
    {
-      AssetLView view = (AssetLView) loadObj(pView);
+      setViewAmbles();
+      AssetLView view = (AssetLView) loadObj(addAmbles(pView));
       changeView(view);
    }
 
@@ -308,13 +306,19 @@ public abstract class DatabaseControl
     */
    public void changeView(AssetLView pView)
    {
-      //if the views are not the same type change the view
-      if (!pView.getClass().equals(mView.getClass()))
+      // If the controller has now view load it
+      if (mView == null)
       {
+         mView = pView;
+      }
+      else if (!pView.getClass().equals(mView.getClass()))
+      {
+         //
+         // If the views are not the same type change the view
+         //
+
          mView.closeView();
          mView = pView;
-         //make sure this controller is the controller for the view
-         mView.setControl(this);
 
          mView.showView();
 
@@ -323,6 +327,12 @@ public abstract class DatabaseControl
 
          //set admin controls
          mView.setAdminComponents(mUser.isAdmin());
+      }
+
+      if (mView != null)
+      {
+         //make sure this controller is the controller for the view
+         mView.setControl(this);
       }
    }
 

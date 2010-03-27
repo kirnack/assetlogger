@@ -33,6 +33,15 @@ public class ServiceView
    AbstractMap<String, DataPacket> mPacketMap;
 
    /**
+    * Default Contructor used for dynamic class loading. Expects
+    * the controller to set itself as the controller.
+    */
+   public ServiceView()
+   {
+      this(null);
+   }
+
+   /**
     * Constructor for the user interface
     *
     * @param pControl The controller for this view

@@ -11,7 +11,6 @@ import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
 import assetl.system.ModelObserver;
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
 import assetl.system.Request;
 import assetl.system.Person;
 import assetl.system.Asset;
@@ -34,437 +33,432 @@ import assetl.desktop.SureView;
  *
  * @author Devin Doman
  */
-public class DatabaseControl 
-        implements AssetLControl, ModelObserver, Runnable
+public class DatabaseControl
+   implements AssetLControl,
+   ModelObserver,
+   Runnable
 {
-    /**
-     * The Model
-     */
-    private AssetLModel mModel;
-
-    /**
-     * The View
-     */
-    private AssetLView mView;
-
-    /**
-     * A data packet that can be used to set the model and can be retrieved
-     * from the view
-     */
-    private DataPacket mPacket;
-
-    /**
-     * Holds the last function performed by the controller
-     */
-    private Function mFunction;
-
-    /**
-     * Stores the behaviors the controller can currently perform, mapped
-     * with the name of the function
-     */
-    private Collection<Function> mFunctions;
-
-    /**
+   /**
+    * The Model
+    */
+   private AssetLModel mModel;
+   /**
+    * The View
+    */
+   private AssetLView mView;
+   /**
+    * A data packet that can be used to set the model and can be retrieved
+    * from the view
+    */
+   private DataPacket mPacket;
+   /**
+    * Holds the last function performed by the controller
+    */
+   private Function mFunction;
+   /**
+    * Stores the behaviors the controller can currently perform, mapped
+    * with the name of the function
+    */
+   private Collection<Function> mFunctions;
+   /**
     * Map storing the choices for views the controller will make
     */
-    private AbstractMap<String, AssetLView> mHashViews;
+   private AbstractMap<String, AssetLView> mHashViews;
+   /**
+    * The current user of the application
+    */
+   private User mUser;
 
-    /**
-     * The current user of the application
-     */
-    private User mUser;
+   /**
+    * Default Contructor for the controller. Gets the model and creates
+    * the view.
+    */
+   public DatabaseControl()
+   {
+      //get the model and register this controller as a listener
+      mModel = Server.getInstance();
+      mModel.registerObserver(this);
 
-    /**
-     * Default Contructor for the controller. Gets the model and creates
-     * the view.
-     */
-    public DatabaseControl()
-    {
-        //get the model and register this controller as a listener
-        mModel = Server.getInstance();
-        mModel.registerObserver(this);
+      mFunctions = new ArrayList<Function>();
 
-        mFunctions = new ArrayList<Function>();
+      //The default admin
+      mUser = new User();
+      mUser.setID("Doctor");
+      mUser.setAdmin(mModel.isAdmin("Doctor"));
 
-        //The default admin
-        mUser = new  User();
-        mUser.setID("Doctor");
-        mUser.setAdmin(mModel.isAdmin("Doctor"));
+      // construct the map
+      mHashViews = new HashMap<String, AssetLView>();
+      constructMap();
 
-        // construct the map
-        mHashViews = new HashMap<String, AssetLView>();
-        constructMap();
+      //Use a netbeans generated gui
+      mView = mHashViews.get("LogIn");
 
-        //Use a netbeans generated gui
-        mView = mHashViews.get("LogIn");
+      // hide the admin components
+      mView.setAdminComponents(false);
+   }
 
-        // hide the admin components
-        mView.setAdminComponents(false);
-    }
+   /**
+    * Builds the map associations for the view choices the
+    * controller will make
+    */
+   private void constructMap()
+   {
+      // Clear the map then rebuild
+      mHashViews.clear();
 
-    /**
-     * Builds the map associations for the view choices the
-     * controller will make
-     */
-    private void constructMap()
-    {
-        // Clear the map then rebuild
-        mHashViews.clear();
+      AssetLView tempView = new ServiceView(this);
+      addView("Schedule", tempView);
+      addView("Checkout", tempView);
+      addView("Cancel", tempView);
 
-        AssetLView tempView = new ServiceView(this);
-        addView("Schedule", tempView);
-        addView("Checkout", tempView);
-        addView("Cancel", tempView);
+      tempView = new LoginView(this);
+      addView("LogIn", tempView);
 
-        tempView = new LoginView(this);
-        addView("LogIn", tempView);
+      tempView = new IDView(this);
+      addView("Checkin", tempView);
+      addView("LoadPerson", tempView);
 
-        tempView = new IDView(this);
-        addView("Checkin", tempView);
-        addView("LoadPerson", tempView);
+      tempView = new FindAssetView(this);
+      addView("FindAsset", tempView);
 
-        tempView = new FindAssetView(this);
-        addView("FindAsset", tempView);
-        
-        tempView = new SureView(this);
-        addView("Sure", tempView);
-    }
+      tempView = new SureView(this);
+      addView("Sure", tempView);
+   }
 
-    /**
-     * Associates multiple keys with a single view
-     *
-     * @param pKeys The keys to which the view will be associated
-     * @param pView The view associated with the given keys
-     */
-    public void addViews(Collection<String> pKeys, AssetLView pView)
-    {
-        // associate each key with the view
-        for (String key : pKeys)
-        {
-            mHashViews.put(key, pView);
-        }
-    }
+   /**
+    * Associates multiple keys with a single view
+    *
+    * @param pKeys The keys to which the view will be associated
+    * @param pView The view associated with the given keys
+    */
+   public void addViews(Collection<String> pKeys, AssetLView pView)
+   {
+      // associate each key with the view
+      for (String key : pKeys)
+      {
+         mHashViews.put(key, pView);
+      }
+   }
 
-    /**
-     * Adds a new view to the map for the given key
-     *
-     * @param pKey The key to which the view will be associated
-     * @param pView The view associated with the given key
-     */
-    public void addView(String pKey, AssetLView pView)
-    {
-        mHashViews.put(pKey, pView);
-    }
+   /**
+    * Adds a new view to the map for the given key
+    *
+    * @param pKey The key to which the view will be associated
+    * @param pView The view associated with the given key
+    */
+   public void addView(String pKey, AssetLView pView)
+   {
+      mHashViews.put(pKey, pView);
+   }
 
-    /**
-     * Uses dynamic class loading to create a new instance of an object.
-     *
-     * @param pDynObj The name of the class to get an instance of
-     * @return The dynamically created object
-     */
-    private Object loadObj(String pClass)
-    {
-        Object obj = null;
-        
-        try
-        {
-            //load into a class object
-            Class<?> clazz = Class.forName(pClass);
+   /**
+    * Uses dynamic class loading to create a new instance of an object.
+    *
+    * @param pDynObj The name of the class to get an instance of
+    * @return The dynamically created object
+    */
+   private Object loadObj(String pClass)
+   {
+      Object obj = null;
 
-            //Dynamically instantiate the object
-            obj = clazz.newInstance();
+      try
+      {
+         //load into a class object
+         Class<?> clazz = Class.forName(pClass);
 
-        }
-        catch (ClassNotFoundException ex)
-        {
-            System.err.println("Class " + pClass + " could not be found.");
-            ex.printStackTrace();
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        return obj;
-    }
+         //Dynamically instantiate the object
+         obj = clazz.newInstance();
 
-    /**
-     * Loads and then sets the passed function as the controllers current
-     * function
-     *
-     * @param pFunction The function to set
-     */
-    public void setFunction(String pFunction)
-    {
-        mFunction = addFunction(pFunction);
-    }
+      }
+      catch (ClassNotFoundException ex)
+      {
+         System.err.println("Class " + pClass + " could not be found.");
+         ex.printStackTrace();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+      return obj;
+   }
 
-    /**
-     * Gets the function specified out of the collection
-     *
-     * @param pFunction The function to look for
-     * @return The function, null if not found
-     */
-    public Function getFunction(String pFunction)
-    {
-        Function findMe = null;
+   /**
+    * Loads and then sets the passed function as the controllers current
+    * function
+    *
+    * @param pFunction The function to set
+    */
+   public void setFunction(String pFunction)
+   {
+      mFunction = addFunction(pFunction);
+   }
 
-        for (Function funct : mFunctions)
-        {
-            // If the function is found
-            if (pFunction.equals(funct.getClass().getCanonicalName()))
-            {
-                findMe = funct;
-                break;
-            }
-        }
+   /**
+    * Gets the function specified out of the collection
+    *
+    * @param pFunction The function to look for
+    * @return The function, null if not found
+    */
+   public Function getFunction(String pFunction)
+   {
+      Function findMe = null;
 
-        return findMe;
-    }
+      for (Function funct : mFunctions)
+      {
+         // If the function is found
+         if (pFunction.equals(funct.getClass().getCanonicalName()))
+         {
+            findMe = funct;
+            break;
+         }
+      }
 
-    /**
-     * Change the function for the controller to perform for the view
-     * 
-     * @param pFunction The name of the function to set
-     * @return The function object just added to the controller
-     */
-    public Function addFunction(String pFunction)
-    {
-        Function tempFunction = getFunction(pFunction);
-        //switch to a view that can perform this function
-        if (switchFunction(pFunction) && (tempFunction == null))
-        {
-            String functionObj = "assetl.service." + pFunction + "Function";
-            tempFunction = (Function) loadObj(functionObj);
+      return findMe;
+   }
 
-            if (tempFunction != null)
-            {
-                // Set the model and controller for the function to work with
-                tempFunction.setModules(this, mModel);
-            }
+   /**
+    * Change the function for the controller to perform for the view
+    *
+    * @param pFunction The name of the function to set
+    * @return The function object just added to the controller
+    */
+   public Function addFunction(String pFunction)
+   {
+      Function tempFunction = getFunction(pFunction);
+      //switch to a view that can perform this function
+      if (switchFunction(pFunction) && (tempFunction == null))
+      {
+         String functionObj = "assetl.service." + pFunction + "Function";
+         tempFunction = (Function) loadObj(functionObj);
 
-            // Enable this function in the view
-            mView.enable(pFunction);
+         if (tempFunction != null)
+         {
+            // Set the model and controller for the function to work with
+            tempFunction.setModules(this, mModel);
+         }
 
-            // Map the function to the name passed in to create it
-            mFunctions.add(tempFunction);
-        }
+         // Enable this function in the view
+         mView.enable(pFunction);
 
-        return tempFunction;
-    }
+         // Map the function to the name passed in to create it
+         mFunctions.add(tempFunction);
+      }
 
-    /**
-     * Removes all functions from the controller
-     */
-    public void clearFunctions()
-    {
-        mFunctions.clear();
-    }
+      return tempFunction;
+   }
 
-    /**
-     * Changes to a view that can perform the function passed
-     *
-     * @param pFunction The function to find a pairing view for
-     * @return True if there is a view that can perform the function
-     */
-    public boolean switchFunction(String pFunction)
-    {
-        // Get from the hash map a possible view
-        AssetLView tempView = mHashViews.get(pFunction);
-        boolean ableToChange = false;
+   /**
+    * Removes all functions from the controller
+    */
+   public void clearFunctions()
+   {
+      mFunctions.clear();
+   }
 
-        // if there is a mapped view change to it
-        if (tempView != null)
-        {
-            changeView(tempView);
-            ableToChange = true;
-        }
-        return ableToChange;
-    }
+   /**
+    * Changes to a view that can perform the function passed
+    *
+    * @param pFunction The function to find a pairing view for
+    * @return True if there is a view that can perform the function
+    */
+   public boolean switchFunction(String pFunction)
+   {
+      // Get from the hash map a possible view
+      AssetLView tempView = mHashViews.get(pFunction);
+      boolean ableToChange = false;
 
-    /**
-     * Grabs the data packet and performs the last loaded function
-     */
-    public void doFunction()
-    {
-        String className = mFunction.getClass().getCanonicalName();
-        mFunction.setPacket(mView.grabDataPacket(className));
-        mFunction.performFunction();
-    }
+      // if there is a mapped view change to it
+      if (tempView != null)
+      {
+         changeView(tempView);
+         ableToChange = true;
+      }
+      return ableToChange;
+   }
 
-    /**
-     * Performs the function the controller is currently set to.
-     *
-     * @param pPacket The data packet needed for the function to perform
-     */
-    public void doFunction(DataPacket pPacket)
-    {
-        mFunction.setPacket(pPacket);
-        mFunction.performFunction();
-    }
+   /**
+    * Grabs the data packet and performs the last loaded function
+    */
+   public void doFunction()
+   {
+      String className = mFunction.getClass().getCanonicalName();
+      mFunction.setPacket(mView.grabDataPacket(className));
+      mFunction.performFunction();
+   }
 
+   /**
+    * Performs the function the controller is currently set to.
+    *
+    * @param pPacket The data packet needed for the function to perform
+    */
+   public void doFunction(DataPacket pPacket)
+   {
+      mFunction.setPacket(pPacket);
+      mFunction.performFunction();
+   }
 
-    /**
-     * Finds the function in the collection, loads it, then performs
-     * the function
-     *
-     * @param pFunction The function to perform
-     */
-    public void doFunction(String pFunction)
-    {
-        pFunction = "assetl.service." + pFunction + "Function";
+   /**
+    * Finds the function in the collection, loads it, then performs
+    * the function
+    *
+    * @param pFunction The function to perform
+    */
+   public void doFunction(String pFunction)
+   {
+      pFunction = "assetl.service." + pFunction + "Function";
 
-        mFunction = getFunction(pFunction);
+      mFunction = getFunction(pFunction);
 
-        // If the function was found perform the function
-        if (mFunction != null)
-        {
-            doFunction();
-        }
-    }
+      // If the function was found perform the function
+      if (mFunction != null)
+      {
+         doFunction();
+      }
+   }
 
-    /**
-     * Uses dynamic class loading to change the view.
-     *
-     * @param pView The name of the view to change to
-     */
-    public void changeView(String pView)
-    {
-        AssetLView view = (AssetLView) loadObj(pView);
-        changeView(view);
-    }
+   /**
+    * Uses dynamic class loading to change the view.
+    *
+    * @param pView The name of the view to change to
+    */
+   public void changeView(String pView)
+   {
+      AssetLView view = (AssetLView) loadObj(pView);
+      changeView(view);
+   }
 
-    /**
-     * Allows the controller to change which view is currently being used
-     *
-     * @param pView The view to change to
-     */
-    public void changeView(AssetLView pView)
-    {
-        //if the views are not the same type change the view
-        if (!pView.getClass().equals(mView.getClass()))
-        {
-            mView.closeView();
-            mView = pView;
-            //make sure this controller is the controller for the view
-            mView.setControl(this);
+   /**
+    * Allows the controller to change which view is currently being used
+    *
+    * @param pView The view to change to
+    */
+   public void changeView(AssetLView pView)
+   {
+      //if the views are not the same type change the view
+      if (!pView.getClass().equals(mView.getClass()))
+      {
+         mView.closeView();
+         mView = pView;
+         //make sure this controller is the controller for the view
+         mView.setControl(this);
 
-            mView.showView();
+         mView.showView();
 
-            //reset the functions
-            mFunctions.clear();
-        }
-    }
+         //reset the functions
+         mFunctions.clear();
+      }
+   }
 
-    /**
-     * This method is called by the model to indicate
-     * there has been a state change in the model.
-     * The controller will reflect these changes in
-     * the view. The controller then makes a pull
-     * on the data it might want to care about.
-     */
-    public void updateData()
-    {
-        //tell the view to update its display
-        mView.updateData();
-    }
+   /**
+    * This method is called by the model to indicate
+    * there has been a state change in the model.
+    * The controller will reflect these changes in
+    * the view. The controller then makes a pull
+    * on the data it might want to care about.
+    */
+   public void updateData()
+   {
+      //tell the view to update its display
+      mView.updateData();
+   }
 
-    /**
-     * This method is called by the model to indicate
-     * there has been a state change in the model.
-     * The controller will reflect the changes in the view.
-     * The model pushes all data that may have been changed.
-     *
-     * @param pPerson The Person object that may have changed
-     * @param pAsset The Asset object that may have changed
-     * @param pRequest The Request object that may have changed
-     */
-    public void updateData(Person pPerson, Asset pAsset, Request pRequest)
-    {
-    }
+   /**
+    * This method is called by the model to indicate
+    * there has been a state change in the model.
+    * The controller will reflect the changes in the view.
+    * The model pushes all data that may have been changed.
+    *
+    * @param pPerson The Person object that may have changed
+    * @param pAsset The Asset object that may have changed
+    * @param pRequest The Request object that may have changed
+    */
+   public void updateData(Person pPerson, Asset pAsset, Request pRequest)
+   {
+   }
 
-    /**
-     * Returns the User represented by the ID given.
-     *
-     * @param pID The id of the user
-     * @return The User identified
-     */
-    public User getUser(String pID)
-    {
-        return mModel.getUser(pID);
-    }
+   /**
+    * Returns the User represented by the ID given.
+    *
+    * @param pID The id of the user
+    * @return The User identified
+    */
+   public User getUser(String pID)
+   {
+      return mModel.getUser(pID);
+   }
 
-    /**
-     * Returns the Person represented by the ID given.
-     *
-     * @param pID The unique identification number for this person
-     * @return The Person identified
-     */
-    public Person getPerson(String pID)
-    {
-        return mModel.getPerson(pID);
-    }
+   /**
+    * Returns the Person represented by the ID given.
+    *
+    * @param pID The unique identification number for this person
+    * @return The Person identified
+    */
+   public Person getPerson(String pID)
+   {
+      return mModel.getPerson(pID);
+   }
 
-    /**
-     * Returns the Asset represented by the ID given
-     *
-     * @param pID The unique identification number for this asset
-     * @return The Asset identified
-     */
-    public Asset getAsset(String pID)
-    {
-        return mModel.getAsset(pID);
-    }
+   /**
+    * Returns the Asset represented by the ID given
+    *
+    * @param pID The unique identification number for this asset
+    * @return The Asset identified
+    */
+   public Asset getAsset(String pID)
+   {
+      return mModel.getAsset(pID);
+   }
 
-    /**
-     * Gets from the model the outstanding requests based on a Person.
-     * The oustanding requests will not have a picked up date set yet for
-     * its checkout collection and will not be past the requested pick up date.
-     *
-     * @param pPerson The person to get the requests for
-     * @return The outstanding requests
-     */
-    public Collection<Request> getOutstandingRequests(Person pPerson)
-    {
-        // TODO: Have controller filter results to give to the view
+   /**
+    * Gets from the model the outstanding requests based on a Person.
+    * The oustanding requests will not have a picked up date set yet for
+    * its checkout collection and will not be past the requested pick up date.
+    *
+    * @param pPerson The person to get the requests for
+    * @return The outstanding requests
+    */
+   public Collection<Request> getOutstandingRequests(Person pPerson)
+   {
+      // TODO: Have controller filter results to give to the view
 
-        return mModel.getActiveRequests(pPerson);
-    }
+      return mModel.getActiveRequests(pPerson);
+   }
 
-    /**
-     * Sets the current user of the application
-     * 
-     * @param pUser The user to set
-     */
-    public void setCurrentUser(User pUser)
-    {
-        mUser = pUser;
-    }
+   /**
+    * Sets the current user of the application
+    *
+    * @param pUser The user to set
+    */
+   public void setCurrentUser(User pUser)
+   {
+      mUser = pUser;
+   }
 
-    /**
-     * Gets the current user of the application
-     *
-     * @return The current user
-     */
-    public User getCurrentUser()
-    {
-        return mUser;
-    }
+   /**
+    * Gets the current user of the application
+    *
+    * @return The current user
+    */
+   public User getCurrentUser()
+   {
+      return mUser;
+   }
 
-    /**
-     * Returns the current view
-     *
-     * @return The current view
-     */
-    public AssetLView getView()
-    {
-        return mView;
-    }
+   /**
+    * Returns the current view
+    *
+    * @return The current view
+    */
+   public AssetLView getView()
+   {
+      return mView;
+   }
 
-    /**
-     * Starts the controller.
-     */
-    public void run()
-    {
-        mView.showView();
-    }
+   /**
+    * Starts the controller.
+    */
+   public void run()
+   {
+      mView.showView();
+   }
 }

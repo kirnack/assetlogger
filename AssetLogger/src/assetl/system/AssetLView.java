@@ -12,82 +12,89 @@ import javax.swing.AbstractButton;
  */
 public interface AssetLView
 {
-    /**
-     * Allows the controller to set the controller for the view
-     */
-    void setControl(AssetLControl pControl);
+   /**
+    * Allows the controller to set the controller for the view
+    */
+   void setControl(AssetLControl pControl);
 
-    /**
-     * Allows the controller to show the view
-     */
-    void showView();
+   /**
+    * Allows the controller to show the view
+    */
+   void showView();
 
-    /**
-     * Allows the controller to hide the view
-     */
-    void hideView();
+   /**
+    * Allows the controller to hide the view
+    */
+   void hideView();
 
-    /**
-     * Allows the controller to close the view
-     */
-    void closeView();
+   /**
+    * Allows the controller to close the view
+    */
+   void closeView();
 
-    /**
-     * Allows the controller to update the data displayed in the view
-     */
-    void updateData();
+   /**
+    * Allows the controller to update the data displayed in the view
+    */
+   void updateData();
 
-    /**
-     * Allows the controller to switch to a view that has the functionality
-     * provided
-     *
-     * @param pFunction The function to switch to
-     */
-    void switchFunction(String pFunction);
+   /**
+    * Allows the controller to switch to a view that has the functionality
+    * provided
+    *
+    * @param pFunction The function to switch to
+    */
+   void switchFunction(String pFunction);
 
-    /**
-     * Enables functionality passed in for this view.
-     *
-     * @param pFunction The function to enable
-     */
-    void enable(String pFunction);
+   /**
+    * Enables functionality passed in for this view.
+    *
+    * @param pFunction The function to enable
+    */
+   void enable(String pFunction);
 
-    /**
-     * Enables functionality on the AbstractButton passed in
-     *
-     * @param pFunction The function to enable
-     * @param pItem The component to give functionality to
-     */
-    void enable(String pFunction, AbstractButton pItem);
+   /**
+    * Enables functionality on the AbstractButton passed in
+    *
+    * @param pFunction The function to enable
+    * @param pItem The component to give functionality to
+    */
+   void enable(String pFunction, AbstractButton pItem);
 
-    /**
-     * Enables a component to listen for a request in functionality change.
-     *
-     * @param pFunction The function to switch for
-     * @param pItem The component to add a listener for
-     */
-    void enableSwitch(String pFunction, AbstractButton pItem);
+   /**
+    * Enables a component to listen for a request in functionality change.
+    *
+    * @param pFunction The function to switch for
+    * @param pItem The component to add a listener for
+    */
+   void enableSwitch(String pFunction, AbstractButton pItem);
 
-    /**
-     * Allows control of the visibility of Admin components in the view
-     *
-     * @param pSet True if the admin components are to be set to visible
-     */
-    public void setAdminComponents(boolean pIsAdmin);
+   /**
+    * Allows control of the visibility of Admin components in the view
+    *
+    * @param pSet True if the admin components are to be set to visible
+    */
+   public void setAdminComponents(boolean pIsAdmin);
 
-    /**
-     * Grabs all pertainent data from the fields and sets them in
-     * a DataPacket object. This DataPacket is then returned by the
-     * method.
-     *
-     * @param pFunction The function that needs the DataPacket
-     * @return The DataPacket that has been set
-     */
-    DataPacket grabDataPacket(String pFunction);
+   /**
+    * Grabs all pertainent data from the fields and sets them in
+    * a DataPacket object. This DataPacket is then returned by the
+    * method.
+    *
+    * @param pFunction The function that needs the DataPacket
+    * @return The DataPacket that has been set
+    */
+   DataPacket grabDataPacket(String pFunction);
 
-    /**
-     * Prepopulates the fields with the data currently held
-     * in the member variables or with those in the model.
-     */
-    void populateFields();
+   /**
+    * Allows the view to receive a DataPacket from the controller
+    *
+    * @param pPacket The DataPacket to receive
+    */
+   void receiveDataPacket(DataPacket pPacket);
+
+   /**
+    * Prepopulates the fields with the data currently held
+    * in the member variables or with those in the model.
+    */
+   void populateFields();
 }

@@ -2,7 +2,8 @@ package assetl.service;
 
 import assetl.system.DataPacket;
 import assetl.system.LoginPacket;
-import assetl.system.User;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Allows a User to log in to the application
@@ -53,6 +54,18 @@ public class LogInFunction
             tempControl.changeView("assetl.desktop.IDView");
 
             tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
+        }
+        else
+        {
+           /**
+            * Displays a log in error, if the username and password don't match.
+            */
+          JOptionPane.showMessageDialog(new JFrame(),
+                                      "Inccorect Username/Password" +
+                                      " compination.",
+                                      "Wrong Credentials",
+                                      JOptionPane.ERROR_MESSAGE);
+
         }
 
         System.err.println("The passwords " + test + "match");

@@ -102,6 +102,7 @@ public class Request
        mRequestor = pRequestor;
        mActive = true;
        mCheckouts = pCheckouts;
+       setCheckoutsRequestID();
    }
 
    /**
@@ -122,6 +123,7 @@ public class Request
    public void setCheckouts(Collection<Checkout> pCheckouts)
    {
       mCheckouts = pCheckouts;
+      setCheckoutsRequestID();
    }
 
    /**
@@ -131,6 +133,7 @@ public class Request
     */
    public void addCheckout(Checkout pCheckout)
    {
+       pCheckout.setRequestID(mID);
        mCheckouts.add(pCheckout);
    }
 
@@ -251,5 +254,47 @@ public class Request
    public void setID(String pID)
    {
       mID = pID;
+      setCheckoutsRequestID();
    }
+
+   /**
+    * Sets all the requests checkouts to have their RequestIDs match the
+    * request's ID.
+    */
+   private void setCheckoutsRequestID()
+   {
+      for (Checkout checkout : mCheckouts)
+      {
+         checkout.setRequestID(mID);
+      }
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj == null) {
+         return false;
+      }
+      if (getClass() != obj.getClass())
+      {
+         return false;
+      }
+      final Request other = (Request) obj;
+      if ((this.mID == null) ? (other.mID != null)
+              : !this.mID.equals(other.mID))
+      {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 7;
+      hash = 17 * hash + (this.mID != null ? this.mID.hashCode() : 0);
+      return hash;
+   }
+
+   
 }

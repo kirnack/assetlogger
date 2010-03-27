@@ -177,8 +177,10 @@ public abstract class DatabaseControl
 
       for (Function funct : mFunctions)
       {
+         Class<?> clazz = funct.getClass();
+
          // If the function is found
-         if (pFunction.equals(funct.getClass().getCanonicalName()))
+         if (clazz != null && pFunction.equals(clazz.getCanonicalName()))
          {
             findMe = funct;
             break;

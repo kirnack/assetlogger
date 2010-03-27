@@ -69,10 +69,11 @@ public abstract class AssetView
       // add action listeners to the menu items
       //
 
-      enableSwitch("Checkout", mChkOutMenuItem);
-      enableSwitch("Checkin", mChkInMenuItem);
-      enableSwitch("Schedule", mScheduleMenuItem);
-      enableSwitch("FindAsset", mCancelMenuItem);
+      enableSwitch("AddAsset", mAddAssetMenuItem);
+      enableSwitch("Login", mLogoutMenuItem);
+
+      // TODO: enable and show the back button
+      mBackBtn.setVisible(false);
    }
 
    /** This method is called from within the constructor to
@@ -87,10 +88,7 @@ public abstract class AssetView
       mMenuBar = new javax.swing.JMenuBar();
       mBackBtn = new javax.swing.JMenu();
       mViewMenu = new javax.swing.JMenu();
-      mChkOutMenuItem = new javax.swing.JMenuItem();
-      mChkInMenuItem = new javax.swing.JMenuItem();
-      mScheduleMenuItem = new javax.swing.JMenuItem();
-      mCancelMenuItem = new javax.swing.JMenuItem();
+      mAddAssetMenuItem = new javax.swing.JMenuItem();
       mUserMenu = new javax.swing.JMenu();
       mLogoutMenuItem = new javax.swing.JMenuItem();
 
@@ -106,21 +104,9 @@ public abstract class AssetView
       mViewMenu.setText("View");
       mViewMenu.setName("mViewMenu"); // NOI18N
 
-      mChkOutMenuItem.setText("Checkout");
-      mChkOutMenuItem.setName("mChkOutMenuItem"); // NOI18N
-      mViewMenu.add(mChkOutMenuItem);
-
-      mChkInMenuItem.setText("Checkin");
-      mChkInMenuItem.setName("mChkInMenuItem"); // NOI18N
-      mViewMenu.add(mChkInMenuItem);
-
-      mScheduleMenuItem.setText("Schedule");
-      mScheduleMenuItem.setName("mScheduleMenuItem"); // NOI18N
-      mViewMenu.add(mScheduleMenuItem);
-
-      mCancelMenuItem.setText("Cancel");
-      mCancelMenuItem.setName("mCancelMenuItem"); // NOI18N
-      mViewMenu.add(mCancelMenuItem);
+      mAddAssetMenuItem.setText("Add Asset");
+      mAddAssetMenuItem.setName("mAddAssetMenuItem"); // NOI18N
+      mViewMenu.add(mAddAssetMenuItem);
 
       mMenuBar.add(mViewMenu);
 
@@ -149,13 +135,10 @@ public abstract class AssetView
       pack();
    }// </editor-fold>//GEN-END:initComponents
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JMenuItem mAddAssetMenuItem;
    private javax.swing.JMenu mBackBtn;
-   private javax.swing.JMenuItem mCancelMenuItem;
-   private javax.swing.JMenuItem mChkInMenuItem;
-   private javax.swing.JMenuItem mChkOutMenuItem;
    private javax.swing.JMenuItem mLogoutMenuItem;
    private javax.swing.JMenuBar mMenuBar;
-   private javax.swing.JMenuItem mScheduleMenuItem;
    private javax.swing.JMenu mUserMenu;
    private javax.swing.JMenu mViewMenu;
    // End of variables declaration//GEN-END:variables
@@ -392,6 +375,7 @@ public abstract class AssetView
          mControl.setFunction(mFunction);
          mControl.doFunction();
          System.err.println("User pushed the " + mFunction + " button");
+         updateData();
       }
    }
 }

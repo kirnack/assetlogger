@@ -22,28 +22,10 @@
             <Property name="name" type="java.lang.String" value="mViewMenu" noResource="true"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mChkOutMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="mAddAssetMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Checkout"/>
-                <Property name="name" type="java.lang.String" value="mChkOutMenuItem" noResource="true"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mChkInMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Checkin"/>
-                <Property name="name" type="java.lang.String" value="mChkInMenuItem" noResource="true"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mScheduleMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Schedule"/>
-                <Property name="name" type="java.lang.String" value="mScheduleMenuItem" noResource="true"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mCancelMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cancel"/>
-                <Property name="name" type="java.lang.String" value="mCancelMenuItem" noResource="true"/>
+                <Property name="text" type="java.lang.String" value="Add Asset"/>
+                <Property name="name" type="java.lang.String" value="mAddAssetMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
           </SubComponents>

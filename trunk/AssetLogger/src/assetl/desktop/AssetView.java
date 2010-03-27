@@ -245,15 +245,6 @@ public abstract class AssetView
    }
 
    /**
-    * Allows the controller to switch to a view that has the functionality
-    * provided
-    */
-   public void switchFunction(String pFunction)
-   {
-      mControl.setFunction(pFunction);
-   }
-
-   /**
     * Enables functionality passed in for this view.
     */
    public abstract void enable(String pFunction);
@@ -342,16 +333,16 @@ public abstract class AssetView
       /**
        * The function for the controller to switch to
        */
-      String mFunction;
+      String mView;
 
       /**
        * Sets the function to switch to
        *
        * @param pFunction The function to switch to
        */
-      public SwitchListener(String pFunction)
+      public SwitchListener(String pView)
       {
-         mFunction = pFunction;
+         mView = pView;
       }
 
       /**
@@ -362,7 +353,7 @@ public abstract class AssetView
        */
       public void actionPerformed(ActionEvent ev)
       {
-         switchFunction(mFunction);
+         mControl.changeView(mView);
       }
    }
 

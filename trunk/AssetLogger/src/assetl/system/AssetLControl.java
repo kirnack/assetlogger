@@ -11,6 +11,21 @@ import java.util.Collection;
  */
 public interface AssetLControl
 {
+
+   /**
+    * Uses dynamic class loading to change the view.
+    *
+    * @param pView The name of the view to change to
+    */
+   void changeView(String pView);
+
+   /**
+    * Enables a function in the current view
+    *
+    * @param pFunction The function to enable
+    */
+   void enableFunction(String pFunction);
+
    /**
     * Change the function for the controller to perform for the view
     *

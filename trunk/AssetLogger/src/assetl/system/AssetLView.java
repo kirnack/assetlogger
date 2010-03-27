@@ -38,14 +38,6 @@ public interface AssetLView
    void updateData();
 
    /**
-    * Allows the controller to switch to a view that has the functionality
-    * provided
-    *
-    * @param pFunction The function to switch to
-    */
-   void switchFunction(String pFunction);
-
-   /**
     * Enables functionality passed in for this view.
     *
     * @param pFunction The function to enable

@@ -248,6 +248,16 @@ public abstract class DatabaseControl
    }
 
    /**
+    * Enables the function in the current view
+    *
+    * @param pFunction The function to enable
+    */
+   public void enableFunction(String pFunction)
+   {
+      mView.enable(pFunction);
+   }
+
+   /**
     * Grabs the data packet and performs the last loaded function
     */
    public void doFunction()

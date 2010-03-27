@@ -11,60 +11,57 @@ import assetl.system.DBPacket;
  * @author Gordon Hale
  */
 public class HandwrittenView
-        extends AssetView
+   extends AssetView
 {
-    /**
-     * Constructor for the user interface
-     *
-     * @param pControl The controller for this view
-     */
-    public HandwrittenView(AssetLControl pControl)
-    {
-        super(pControl);
-        initConponents();
-    }
+   /**
+    * Constructor for the user interface
+    *
+    * @param pControl The controller for this view
+    */
+   public HandwrittenView(AssetLControl pControl)
+   {
+      super(pControl);
+      initConponents();
+   }
 
-    /**
-     * Initializes all the swing components for the gui
-     */
-    public void initConponents()
-    {
-    }
+   /**
+    * Initializes all the swing components for the gui
+    */
+   public void initConponents()
+   {
+   }
 
-    /**
-     * Updates the views display of the model
-     */
-    public void updateData()
-    {
+   /**
+    * Updates the views display of the model
+    */
+   public void updateData()
+   {
+   }
 
-    }
+   /**
+    * Grabs all pertainent data from the fields and sets them in
+    * a DataPacket object. This DataPacket is then returned by the
+    * method.
+    *
+    * @param pFunction The function that needs the DataPacket
+    * @return The DataPacket that has been set
+    */
+   public DataPacket grabDataPacket(String pFunction)
+   {
+      return new DBPacket();
+   }
 
-    /**
-     * Grabs all pertainent data from the fields and sets them in
-     * a DataPacket object. This DataPacket is then returned by the
-     * method.
-     *
-     * @param pFunction The function that needs the DataPacket
-     * @return The DataPacket that has been set
-     */
-    public DataPacket grabDataPacket(String pFunction)
-    {
-        return new DBPacket();
-    }
+   /**
+    * Enables functionality passed in for this view.
+    */
+   public void enable(String pFunction)
+   {
+   }
 
-    /**
-     * Enables functionality passed in for this view.
-     */
-    public void enable(String pFunction)
-    {
-
-    }
-
-    /**
-     * The entry point for this view
-     */
-    public void run()
-    {
-
-    }
+   /**
+    * The entry point for this view
+    */
+   public void run()
+   {
+   }
 }

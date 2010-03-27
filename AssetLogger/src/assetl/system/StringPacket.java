@@ -6,27 +6,27 @@ package assetl.system;
  * @author Devin Doman
  */
 public class StringPacket
-        implements DataPacket
+   implements DataPacket
 {
-    String mString;
+   String mString;
 
-    public StringPacket()
-    {
-        this(null);
-    }
+   public StringPacket()
+   {
+      this(null);
+   }
 
-    public StringPacket(String pString)
-    {
-        mString = pString;
-    }
+   public StringPacket(String pString)
+   {
+      mString = pString;
+   }
 
-    public void setString(String pString)
-    {
-        mString = pString;
-    }
+   public void setString(String pString)
+   {
+      mString = pString;
+   }
 
-    public String getString()
-    {
-        return mString;
-    }
+   public String getString()
+   {
+      return mString;
+   }
 }

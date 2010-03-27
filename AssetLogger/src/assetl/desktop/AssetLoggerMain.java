@@ -1,6 +1,5 @@
 package assetl.desktop;
 
-
 /**
  * The entry point for the application.
  *
@@ -10,15 +9,15 @@ package assetl.desktop;
  */
 public class AssetLoggerMain
 {
-    /**
-     * The main method for this application.
-     * Starts a new instance of a Controller thread.
-     *
-     * @param args Command line arguments
-     */
-    public static void main(String[] args)
-    {
-        System.setProperty("dbfilename", "TestingGUI");
-        new Thread(new MapControl()).start();
-    }
+   /**
+    * The main method for this application.
+    * Starts a new instance of a Controller thread.
+    *
+    * @param args Command line arguments
+    */
+   public static void main(String[] args)
+   {
+      System.setProperty("dbfilename", "TestingGUI");
+      new Thread(new MapControl()).start();
+   }
 }

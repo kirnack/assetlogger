@@ -7,205 +7,198 @@ package assetl.system;
  * @author Devin Doman
  */
 public class SchedulePacket
-        implements DataPacket
+   implements DataPacket
 {
-    /**
-     * The id needed to get a person from the model
-     */
-    String mPersonID;
+   /**
+    * The id needed to get a person from the model
+    */
+   String mPersonID;
+   /**
+    * The id needed to get an asset from the model
+    */
+   String mAssetID;
+   /**
+    * The starting month
+    */
+   int mStartMon;
+   /**
+    * The starting day
+    */
+   int mStartDay;
+   /**
+    * The starting year
+    */
+   int mStartYear;
+   /**
+    * The ending month
+    */
+   int mEndMon;
+   /**
+    * The ending day
+    */
+   int mEndDay;
+   /**
+    * The ending day
+    */
+   int mEndYear;
 
-    /**
-     * The id needed to get an asset from the model
-     */
-    String mAssetID;
+   /**
+    * Sets the person id
+    *
+    * @param pPersonID The person id
+    */
+   public void setPersonID(String pPersonID)
+   {
+      mPersonID = pPersonID;
+   }
 
-    /**
-     * The starting month
-     */
-    int mStartMon;
+   /**
+    * Sets the asset id
+    *
+    * @param pAssetID The asset id
+    */
+   public void setAssetID(String pAssetID)
+   {
+      mAssetID = pAssetID;
+   }
 
-    /**
-     * The starting day
-     */
-    int mStartDay;
+   /**
+    * Sets the start month
+    *
+    * @param pStartMon The start month
+    */
+   public void setStartMon(int pStartMon)
+   {
+      mStartMon = pStartMon;
+   }
 
-    /**
-     * The starting year
-     */
-    int mStartYear;
+   /**
+    * Sets the start day
+    *
+    * @param pStartDay The start day
+    */
+   public void setStartDay(int pStartDay)
+   {
+      mStartDay = pStartDay;
+   }
 
-    /**
-     * The ending month
-     */
-    int mEndMon;
+   /**
+    * Sets the start year
+    *
+    * @param pStartYear The start year
+    */
+   public void setStartYear(int pStartYear)
+   {
+      mStartYear = pStartYear;
+   }
 
-    /**
-     * The ending day
-     */
-    int mEndDay;
+   /**
+    * Sets the end month
+    *
+    * @param pEndMon The end month
+    */
+   public void setEndMon(int pEndMon)
+   {
+      mEndMon = pEndMon;
+   }
 
-    /**
-     * The ending day
-     */
-    int mEndYear;
+   /**
+    * Sets the end day
+    *
+    * @param pEndDay The end day
+    */
+   public void setEndDay(int pEndDay)
+   {
+      mEndDay = pEndDay;
+   }
 
-    /**
-     * Sets the person id
-     *
-     * @param pPersonID The person id
-     */
-    public void setPersonID(String pPersonID)
-    {
-        mPersonID = pPersonID;
-    }
+   /**
+    * Sets the end year
+    *
+    * @param pEndYear The end year
+    */
+   public void setEndYear(int pEndYear)
+   {
+      mEndYear = pEndYear;
+   }
 
-    /**
-     * Sets the asset id
-     *
-     * @param pAssetID The asset id
-     */
-    public void setAssetID(String pAssetID)
-    {
-        mAssetID = pAssetID;
-    }
+   /**
+    * Gets the person id
+    *
+    * @return The person id
+    */
+   public String getPersonID()
+   {
+      return mPersonID;
+   }
 
-    /**
-     * Sets the start month
-     *
-     * @param pStartMon The start month
-     */
-    public void setStartMon(int pStartMon)
-    {
-        mStartMon = pStartMon;
-    }
+   /**
+    * Gets the asset id
+    *
+    * @return The asset id
+    */
+   public String getAssetID()
+   {
+      return mAssetID;
+   }
 
-    /**
-     * Sets the start day
-     *
-     * @param pStartDay The start day
-     */
-    public void setStartDay(int pStartDay)
-    {
-        mStartDay = pStartDay;
-    }
+   /**
+    * Gets the start month
+    *
+    * @return The start month
+    */
+   public int getStartMon()
+   {
+      return mStartMon;
+   }
 
-    /**
-     * Sets the start year
-     *
-     * @param pStartYear The start year
-     */
-    public void setStartYear(int pStartYear)
-    {
-        mStartYear = pStartYear;
-    }
+   /**
+    * Gets the start day
+    *
+    * @return The start day
+    */
+   public int getStartDay()
+   {
+      return mStartDay;
+   }
 
-    /**
-     * Sets the end month
-     *
-     * @param pEndMon The end month
-     */
-    public void setEndMon(int pEndMon)
-    {
-        mEndMon = pEndMon;
-    }
+   /**
+    * Gets the start year
+    *
+    * @return The start year
+    */
+   public int getStartYear()
+   {
+      return mStartYear;
+   }
 
-    /**
-     * Sets the end day
-     *
-     * @param pEndDay The end day
-     */
-    public void setEndDay(int pEndDay)
-    {
-        mEndDay = pEndDay;
-    }
+   /**
+    * Gets the end month
+    *
+    * @return The end month
+    */
+   public int getEndMon()
+   {
+      return mEndMon;
+   }
 
-    /**
-     * Sets the end year
-     *
-     * @param pEndYear The end year
-     */
-    public void setEndYear(int pEndYear)
-    {
-        mEndYear = pEndYear;
-    }
+   /**
+    * Gets the end day
+    *
+    * @return The end day
+    */
+   public int getEndDay()
+   {
+      return mEndDay;
+   }
 
-    /**
-     * Gets the person id
-     *
-     * @return The person id
-     */
-    public String getPersonID()
-    {
-        return mPersonID;
-    }
-
-    /**
-     * Gets the asset id
-     *
-     * @return The asset id
-     */
-    public String getAssetID()
-    {
-        return mAssetID;
-    }
-
-    /**
-     * Gets the start month
-     *
-     * @return The start month
-     */
-    public int getStartMon()
-    {
-        return mStartMon;
-    }
-
-    /**
-     * Gets the start day
-     *
-     * @return The start day
-     */
-    public int getStartDay()
-    {
-        return mStartDay;
-    }
-
-    /**
-     * Gets the start year
-     *
-     * @return The start year
-     */
-    public int getStartYear()
-    {
-        return mStartYear;
-    }
-
-    /**
-     * Gets the end month
-     *
-     * @return The end month
-     */
-    public int getEndMon()
-    {
-        return mEndMon;
-    }
-
-    /**
-     * Gets the end day
-     *
-     * @return The end day
-     */
-    public int getEndDay()
-    {
-        return mEndDay;
-    }
-
-    /**
-     * Gets the end year
-     *
-     * @return The end year
-     */
-    public int getEndYear()
-    {
-        return mEndYear;
-    }
+   /**
+    * Gets the end year
+    *
+    * @return The end year
+    */
+   public int getEndYear()
+   {
+      return mEndYear;
+   }
 }

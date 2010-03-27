@@ -21,13 +21,13 @@ public class HandwrittenView
    public HandwrittenView(AssetLControl pControl)
    {
       super(pControl);
-      initConponents();
+      initComponents();
    }
 
    /**
     * Initializes all the swing components for the gui
     */
-   public void initConponents()
+   public void initComponents()
    {
    }
 

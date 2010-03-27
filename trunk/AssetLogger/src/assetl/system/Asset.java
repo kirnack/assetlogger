@@ -273,7 +273,7 @@ public class Asset
     *
     * @param pMaintenance The new maintenance status
     */
-   void setMaintenance(boolean pMaintenance)
+   public void setMaintenance(boolean pMaintenance)
    {
       this.mMaintenance = pMaintenance;
    }
@@ -283,7 +283,7 @@ public class Asset
     * 
     * @return Returns true if the asset is in for maintenance.
     */
-   boolean isInMaintenance()
+   public boolean isInMaintenance()
    {
       return mMaintenance;
    }

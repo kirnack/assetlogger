@@ -318,6 +318,9 @@ public abstract class DatabaseControl
 
          //reset the functions
          mFunctions.clear();
+
+         //set admin controls
+         mView.setAdminComponents(mUser.isAdmin());
       }
    }
 
@@ -414,6 +417,7 @@ public abstract class DatabaseControl
    public void setCurrentUser(User pUser)
    {
       mUser = pUser;
+      mView.setAdminComponents(mUser.isAdmin());
    }
 
    /**

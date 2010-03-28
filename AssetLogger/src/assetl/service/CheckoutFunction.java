@@ -25,7 +25,7 @@ public class CheckoutFunction
       if (super.makeCheckout())
       {
          //stamp picked up date with today's date
-         mCurrCheckout.setPickedupDate(mStart);
+         mCurrCheckout.setPickedupDate(mData.getStart());
          return true;
       }
       else
@@ -44,6 +44,6 @@ public class CheckoutFunction
    {
       super.initVariables();
       //make today the start date for the checkout
-      mStart = new Date();
+      mData.setStart(new Date());
    }
 }

@@ -1,5 +1,7 @@
 package assetl.system;
 
+import java.util.Date;
+
 /**
  * Encapsulates the data needed to be sent by the view to the controller
  * to schedule an asset.
@@ -18,29 +20,13 @@ public class SchedulePacket
     */
    String mAssetID;
    /**
-    * The starting month
+    * The start date
     */
-   int mStartMon;
+   Date mStart;
    /**
-    * The starting day
+    * The end date
     */
-   int mStartDay;
-   /**
-    * The starting year
-    */
-   int mStartYear;
-   /**
-    * The ending month
-    */
-   int mEndMon;
-   /**
-    * The ending day
-    */
-   int mEndDay;
-   /**
-    * The ending day
-    */
-   int mEndYear;
+   Date mEnd;
 
    /**
     * Sets the person id
@@ -63,63 +49,23 @@ public class SchedulePacket
    }
 
    /**
-    * Sets the start month
+    * Sets the start date
     *
-    * @param pStartMon The start month
+    * @param pStart The start date
     */
-   public void setStartMon(int pStartMon)
+   public void setStart(Date pStart)
    {
-      mStartMon = pStartMon;
+      mStart = pStart;
    }
 
    /**
-    * Sets the start day
+    * Sets the end date
     *
-    * @param pStartDay The start day
+    * @param pStart The start date
     */
-   public void setStartDay(int pStartDay)
+   public void setEnd(Date pEnd)
    {
-      mStartDay = pStartDay;
-   }
-
-   /**
-    * Sets the start year
-    *
-    * @param pStartYear The start year
-    */
-   public void setStartYear(int pStartYear)
-   {
-      mStartYear = pStartYear;
-   }
-
-   /**
-    * Sets the end month
-    *
-    * @param pEndMon The end month
-    */
-   public void setEndMon(int pEndMon)
-   {
-      mEndMon = pEndMon;
-   }
-
-   /**
-    * Sets the end day
-    *
-    * @param pEndDay The end day
-    */
-   public void setEndDay(int pEndDay)
-   {
-      mEndDay = pEndDay;
-   }
-
-   /**
-    * Sets the end year
-    *
-    * @param pEndYear The end year
-    */
-   public void setEndYear(int pEndYear)
-   {
-      mEndYear = pEndYear;
+      mEnd = pEnd;
    }
 
    /**
@@ -143,62 +89,22 @@ public class SchedulePacket
    }
 
    /**
-    * Gets the start month
+    * Gets the start date
     *
-    * @return The start month
+    * @return The start date
     */
-   public int getStartMon()
+   public Date getStart()
    {
-      return mStartMon;
+      return mStart;
    }
 
    /**
-    * Gets the start day
+    * Gets the end date
     *
-    * @return The start day
+    * @return The start date
     */
-   public int getStartDay()
+   public Date getEnd()
    {
-      return mStartDay;
-   }
-
-   /**
-    * Gets the start year
-    *
-    * @return The start year
-    */
-   public int getStartYear()
-   {
-      return mStartYear;
-   }
-
-   /**
-    * Gets the end month
-    *
-    * @return The end month
-    */
-   public int getEndMon()
-   {
-      return mEndMon;
-   }
-
-   /**
-    * Gets the end day
-    *
-    * @return The end day
-    */
-   public int getEndDay()
-   {
-      return mEndDay;
-   }
-
-   /**
-    * Gets the end year
-    *
-    * @return The end year
-    */
-   public int getEndYear()
-   {
-      return mEndYear;
+      return mEnd;
    }
 }

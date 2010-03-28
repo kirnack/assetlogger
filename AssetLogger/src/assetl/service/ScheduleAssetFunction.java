@@ -5,7 +5,7 @@ package assetl.service;
  * @author Devin Doman
  */
 public class ScheduleAssetFunction
-   extends FindAssetFunction
+   extends LoadFinderFunction
 {
    /**
     * Enables scheduling in the when finding an asset

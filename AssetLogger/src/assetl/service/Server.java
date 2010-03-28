@@ -7,6 +7,7 @@ import assetl.system.Asset;
 import assetl.system.Checkout;
 import assetl.system.Request;
 import assetl.system.User;
+import static assetl.service.WebServerConstants.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,9 +16,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import static assetl.service.WebServerConstants.*;
-import static resources.Config.*;
 
 import java.net.URL;
 
@@ -32,6 +30,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
+import static resources.Config.*;
 
 /**
  * A singleton Server that will take assets, people, and request classes
@@ -68,10 +68,6 @@ public class Server
     */
    private Statement mStat;
    /**
-    * A collection of interested listeners for change in model state
-    */
-   Collection<ModelObserver> mObservers;
-   /**
     * Variable to hold a singleton of Server
     */
    private static final Server cInstance;
@@ -91,7 +87,6 @@ public class Server
     */
    private Server()
    {
-      mObservers = new ArrayList<ModelObserver>();
       mFile = new File(System.getProperty(
          "dbfilename", "LaptopChecker") + "."
          + System.getProperty("dbfileext", "aldb"));
@@ -115,35 +110,6 @@ public class Server
       {
          System.out.println(e);
          System.exit(-1);
-      }
-   }
-
-   /**
-    * Register any interested listeners in the model
-    *
-    * @param pObserver An object that wants to listen for state change
-    */
-   public void registerObserver(ModelObserver pObserver)
-   {
-      mObservers.add(pObserver);
-   }
-
-   /**
-    * Notifies all observers in the collection that a state change
-    * has been made. Call this method whenever the state of the
-    * model has been changed.
-    */
-   private void notifyObservers()
-   {
-      for (ModelObserver observe : mObservers)
-      {
-         //since the collection already has an instance of the model
-         //it can simply be notified and a pull made
-         observe.updateData();
-
-         //or we can send all data in a push which the controller must
-         //then send to the view
-         //observe.updateData(new Person(), new Asset(), new Request());
       }
    }
 
@@ -254,8 +220,6 @@ public class Server
     */
    public void setPerson(Person pPerson)
    {
-      //System.err.println("Retreivinng " + pPerson.getFirstName());
-
       //
       // Retrieves data from database to see if the person needs
       // to be added, and also to check to see if there is an actual
@@ -293,9 +257,6 @@ public class Server
             prep.setString(5, pPerson.getPhoneNumber());
             prep.setString(6, pPerson.getEmail());
             prep.execute();
-
-            //a change has been made to the database, notify observers
-            notifyObservers();
          }
       }
       catch (SQLException e)
@@ -324,7 +285,8 @@ public class Server
                rs.getString("Make"), rs.getString("Model"),
                rs.getString("SerialNumber"),
                rs.getString("AssetType"),
-               rs.getString("Description"));
+               rs.getString("Description"),
+               rs.getBoolean("inMaintenence"));
          }
          rs.close();
       }
@@ -361,13 +323,15 @@ public class Server
             || !(temp.getModel().equals(pAsset.getModel()))
             || !(temp.getSerialNum().equals(pAsset.getSerialNum()))
             || !(temp.getType().equals(pAsset.getType()))
-            || !(temp.getDescription().equals(pAsset.getDescription())))
+            || !(temp.getDescription().equals(pAsset.getDescription()))
+            || (temp.isInMaintenance() != pAsset.isInMaintenance()))
          {
             System.err.println("Updating " + pAsset.getID());
             prep = mConn.prepareStatement(
                "update Assets set AssetID = ?, Make = ?, "
                + "Model = ?, SerialNumber =?, AssetType = ?, "
-               + "Description = ? where AssetID ='" + pAsset.getID()
+               + "Description = ? inMaintence = ? where AssetID ='" + pAsset.
+               getID()
                + "';");
          }
 
@@ -379,10 +343,8 @@ public class Server
             prep.setString(4, pAsset.getSerialNum());
             prep.setString(5, pAsset.getType());
             prep.setString(6, pAsset.getDescription());
+            prep.setBoolean(7, pAsset.isInMaintenance());
             prep.execute();
-
-            //a change has been made to the database, notify observers
-            notifyObservers();
          }
       }
       catch (SQLException e)
@@ -572,9 +534,6 @@ public class Server
             prepReq.setBoolean(9, pCheckout.isActive());
             prepReq.execute();
          }
-
-         //a change has been made to the database, notify observers
-         notifyObservers();
       }
       catch (Exception e)
       {
@@ -642,9 +601,6 @@ public class Server
          {
             setCheckout(checkout, pUserID);
          }
-
-         //a change has been made to the database, notify observers
-         notifyObservers();
       }
       catch (SQLException e)
       {
@@ -664,9 +620,6 @@ public class Server
     */
    public Checkout getCheckout(Asset pAsset)
    {
-      //   Checkout check = null;
-
-
       return getActiveCheckouts(pAsset).iterator().next();
    }
 
@@ -679,7 +632,7 @@ public class Server
          ResultSet rs = mStat.executeQuery("select * from Checkouts where"
             + " AssetID='" + pAsset.getID()
             + "' isActive=true order by "
-            + "RequestedStartDate, PickedupDate"
+            + "RequestedStartDate, PickedupDate DESC"
             + ";");
          if (rs.next())
          {
@@ -731,11 +684,9 @@ public class Server
          ResultSet rs = mStat.executeQuery("select * from users;");
          while (rs.next())
          {
-            Boolean admin = rs.getBoolean("isAdmin");
-            boolean primAdmin = admin.booleanValue();
             users.add(new User(rs.getString("UserID"),
                rs.getString("Password"),
-               primAdmin));
+               rs.getBoolean("isAdmin")));
          }
          rs.close();
       }
@@ -780,10 +731,8 @@ public class Server
             + " UserID='" + pID + "';");
          if (rs.next())
          {
-            Boolean admin = rs.getBoolean("isAdmin");
-            boolean primAdmin = admin.booleanValue();
             user = new User(rs.getString("UserID"), rs.getString("Password"),
-               primAdmin);
+               rs.getBoolean("isAdmin"));
          }
          rs.close();
       }
@@ -823,7 +772,30 @@ public class Server
     */
    public Collection<Asset> getAvailAsset(Date pStart, Date pEnd)
    {
-      return new ArrayList<Asset>();
+      Collection<Asset> assets = new ArrayList<Asset>();
+      try
+      {
+         ResultSet rs = mStat.executeQuery(
+            "select * from assets left outer join checkouts"
+            + " ON Assets.AssetID = Checkouts.AssetID where "
+            + "Assets.inMaintenence=False and "
+            + "Checkouts.RequestedStartTime<=" + pEnd
+            + " and Checkouts.RequestedEndTime<=" + pStart + ";");
+         while(rs.next())
+         {
+               assets.add(new Asset(rs.getString("AssetID"),
+               rs.getString("Make"), rs.getString("Model"),
+               rs.getString("SerialNumber"),
+               rs.getString("AssetType"),
+               rs.getString("Description"),
+               rs.getBoolean("inMaintenence")));
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return assets;
    }
 
    /**
@@ -845,7 +817,31 @@ public class Server
     */
    public Collection<Request> getActiveRequests(Person pPerson)
    {
-      return new ArrayList<Request>();
+      Collection<Request> requests = new ArrayList<Request>();
+      try
+      {
+         ResultSet rs = mStat.executeQuery("select * from Requests "+
+                                    "where RequestorID = " + pPerson.getID()
+                                    + ";");
+         while(rs.next())
+         {
+            requests.add(new Request(rs.getString("RequestID"),
+                                     rs.getDate("RequestedMadeDate"),
+                                     rs.getDate("RequestedPickupDate"),
+                                     rs.getString("RequestedType"),
+                                     getPerson(rs.getString("RequestorID"))));
+         }
+
+         for (Request request : requests)
+         {
+            request.setCheckouts(getCheckouts(request));
+         }
+      }
+      catch (Exception e)
+      {
+
+      }
+      return requests;
    }
 
    /**

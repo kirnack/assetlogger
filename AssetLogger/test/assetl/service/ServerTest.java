@@ -254,7 +254,7 @@ public class ServerTest
       System.out.println("setRequest");
       Server instance = Server.getInstance();
       Person person = instance.getPerson("42");
-      Request pRequest = new Request("1", new Date(0), new Date(7),
+      Request pRequest = new Request("1=", new Date(0), new Date(7),
          "Laptop", person);
       pRequest.addCheckout(new Checkout("1", "1",
          instance.getAsset("42"), instance.getPerson("kirnack"),
@@ -275,7 +275,7 @@ public class ServerTest
    public void testGetRequest()
    {
       System.out.println("getRequest");
-      String pID = "";
+      String pID = "1";
       Server instance = Server.getInstance();
       Request expResult = null;
       Request result = instance.getRequest(pID);

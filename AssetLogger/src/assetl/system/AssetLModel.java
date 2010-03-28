@@ -154,10 +154,35 @@ public interface AssetLModel
    int getNumLogs();
 
    /**
-    * Allows for any interested listerners for state change in to model
-    * to register with this model.
+    * Takes the passed Checkout object and makes corresponding changes to
+    * the database based on that object
     *
-    * @param pObserver The interested listener
+    * @param pCheckout The checkout to make changes based on.
+    * @param pUserID The user who made the change.
     */
-   void registerObserver(ModelObserver pObserver);
+   public void setCheckout(Checkout pCheckout, String pUserID);
+
+   /**
+    * Creates a Checkout with the ID that is passed, based on the data in the
+    * database.
+    *
+    * @param pID The ID of the checkout to create a checkout of.
+    * @return The checkout with the passed ID.
+    */
+   public Checkout getCheckout(String pID);
+
+   /**
+    * Creates a collection of checkouts that are owned by the passed request.
+    *
+    * @param pRequest The request which owns all the returned checkouts.
+    * @return A collection of checkouts that are part of the passed request.
+    */
+   public Collection<Checkout> getCheckouts(Request pRequest);
+
+   /**
+    * Creates a collection of all users.
+    *
+    * @return A collection of all users.
+    */
+   public Collection<User> getUsers();
 }

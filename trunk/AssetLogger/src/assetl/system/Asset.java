@@ -44,9 +44,11 @@ public class Asset
     */
    @XmlElement(name = "descrip")
    protected String mDescription;
+
    /**
     * Tells if the asset is in for matienance
     */
+   @XmlElement(name = "inmaintance")
    protected boolean mMaintenance;
 
    /**
@@ -57,7 +59,7 @@ public class Asset
     */
    public Asset()
    {
-      this("", "", "", "", "", "");
+      this("", "", "", "", "", "", false);
    }
 
    /**

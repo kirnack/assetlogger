@@ -74,7 +74,6 @@ public abstract class DatabaseControl
    {
       //get the model and register this controller as a listener
       mModel = Server.getInstance();
-      mModel.registerObserver(this);
 
       mFunctions = new ArrayList<Function>();
 

@@ -52,7 +52,7 @@ public class AddAssetFunction
       laptop.setSerialNum(mData.getSerialNubmer());
 
       String type = "PC";
-      if ("Apple".equals(mData.getMake()))
+      if ("Apple".equalsIgnoreCase(mData.getMake()))
       {
          type = "Mac";
       }

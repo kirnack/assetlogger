@@ -1,7 +1,6 @@
 package assetl.service;
 
 import assetl.system.AssetLModel;
-import assetl.system.ModelObserver;
 import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.Checkout;
@@ -286,7 +285,7 @@ public class Server
                rs.getString("SerialNumber"),
                rs.getString("AssetType"),
                rs.getString("Description"),
-               rs.getBoolean("inMaintenence"));
+               rs.getBoolean("inMaintenance"));
          }
          rs.close();
       }
@@ -306,18 +305,18 @@ public class Server
    public void setAsset(Asset pAsset)
    {
       System.err.println("Retreivinng " + pAsset.getID());
-
+      PreparedStatement prep = null;
       try
       {
          //Retrieves data from database to see if the person needs to be added,
          //and also to check to see if there is an actual need to update te data.
          Asset temp = getAsset(pAsset.getID());
-         PreparedStatement prep = null;
+         
          if (temp == null)
          {
             System.err.println("Adding " + pAsset.getID());
             prep = mConn.prepareStatement(
-               "insert into Assets values (?, ?, ?, ?, ?, ?);");
+               "insert into Assets values (?, ?, ?, ?, ?, ?, ?);");
          }
          else if (!(temp.getMake().equals(pAsset.getMake()))
             || !(temp.getModel().equals(pAsset.getModel()))
@@ -330,7 +329,7 @@ public class Server
             prep = mConn.prepareStatement(
                "update Assets set AssetID = ?, Make = ?, "
                + "Model = ?, SerialNumber =?, AssetType = ?, "
-               + "Description = ? inMaintence = ? where AssetID ='" + pAsset.
+               + "Description = ?, inMaintenance = ? where AssetID ='" + pAsset.
                getID()
                + "';");
          }
@@ -349,7 +348,47 @@ public class Server
       }
       catch (SQLException e)
       {
+         System.err.println(e.getSQLState());
          e.printStackTrace(System.err);
+         if (("java.sql.SQLException: table Assets has 6 columns" +
+            " but 7 values were supplied").equals(e.toString()))
+         {
+            System.err.println("column");
+            try
+            {
+               mConn.prepareStatement(
+                  "create table temp (AssetID varchar(255) " +
+                  "PRIMARY KEY, Make varchar(255), Model varchar(255)," +
+                  " SerialNumber varchar(255), AssetType varchar(255), " +
+                  "Description varchar(255), inMaintenance boolean);").execute();
+
+               mConn.prepareStatement(
+                  "insert into temp (AssetID, Make, Model, SerialNumber, AssetType,"
+                  + " Description) select * from Assets;").execute();
+               mConn.prepareStatement(
+                 "drop table Assets;").execute();
+               mConn.prepareStatement(
+                  "alter table temp rename to Assets;").execute();
+               //setAsset(pAsset);
+            }
+            catch (Exception ex)
+            {
+               System.err.println("Cannot Update database file to correct"+
+                                  " format! ");
+               ex.printStackTrace();
+            }
+            finally
+            {
+               try
+               {
+                  mConn.prepareStatement("drop table temp").execute();
+               }
+               catch (Exception exc)
+               {
+                  exc.printStackTrace();
+               }
+            }
+         }
       }
    }
 

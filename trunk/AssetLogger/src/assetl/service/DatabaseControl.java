@@ -8,7 +8,6 @@ import resources.ObjectLoader;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
-import assetl.system.ModelObserver;
 import assetl.system.DataPacket;
 import assetl.system.Request;
 import assetl.system.Person;
@@ -29,7 +28,6 @@ import assetl.system.User;
  */
 public abstract class DatabaseControl
    implements AssetLControl,
-   ModelObserver,
    Runnable
 {
    /**

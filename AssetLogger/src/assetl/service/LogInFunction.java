@@ -44,7 +44,7 @@ public class LogInFunction
    public void performFunction()
    {
       String test = "do not ";
-
+      
       // If the passwords match
       if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
       {

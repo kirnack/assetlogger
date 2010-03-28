@@ -375,7 +375,9 @@ public abstract class AssetView
          mControl.setFunction(mFunction);
          mControl.doFunction();
          System.err.println("User pushed the " + mFunction + " button");
-         updateData();
+
+         // TODO: uncomment this when it won't break anything
+         //updateData();
       }
    }
 }

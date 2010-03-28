@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.StringPacket;
 
 
 import assetl.system.AssetLControl;
@@ -106,7 +106,7 @@ public class CheckinView
       //get the laptop data
       //mData.setAsset(mControl.getAsset(ckInTxtFld.getText()));
 
-      return new DBPacket();
+      return new StringPacket();
    }
 
    /**

@@ -3,7 +3,7 @@ package assetl.service;
 import assetl.system.Checkout;
 import assetl.system.Request;
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.RequestPacket;
 
 /**
  * Defines behavior for canceling requests
@@ -16,7 +16,7 @@ public class CancelFunction
    /**
     * The specific DataPacket needed for this function to operate
     */
-   private DBPacket mData;
+   private RequestPacket mData;
 
    /**
     * Sets the DataPacket for a Login
@@ -25,7 +25,7 @@ public class CancelFunction
     */
    public void setPacket(DataPacket pPacket)
    {
-      mData = (DBPacket) pPacket;
+      mData = (RequestPacket) pPacket;
    }
 
    /**
@@ -53,7 +53,7 @@ public class CancelFunction
       {
          // if a request was sent set it to inactive
          request.setActive(false);
-         mModel.setRequest(request, mData.getUserID());
+         mModel.setRequest(request, mControl.getCurrentUser().getID());
       }
       else if (checkout != null)
       {

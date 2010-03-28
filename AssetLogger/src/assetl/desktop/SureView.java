@@ -8,7 +8,7 @@ package assetl.desktop;
 import assetl.system.AssetLControl;
 
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.StringPacket;
 
 /**
  * Ensures that the user knows what they are doing.
@@ -115,7 +115,7 @@ public class SureView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      return new DBPacket();
+      return new StringPacket();
    }
 
    /**

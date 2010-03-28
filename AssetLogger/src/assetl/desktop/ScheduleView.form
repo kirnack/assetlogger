@@ -117,7 +117,7 @@
                   <Component id="endYearTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="endMonTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
               <Component id="scheduleBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
           </Group>

@@ -11,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
 import resources.DateConverter;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
@@ -256,6 +254,9 @@ public class FindAssetView
             mAssetListModel.addElement(laptop);
          }
       }
+
+      // TODO: remove the following test code
+      mAssetListModel.addElement(new Asset("12", "PC"));
    }
 
    /**

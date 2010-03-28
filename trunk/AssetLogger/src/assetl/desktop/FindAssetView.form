@@ -181,9 +181,10 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="mAssetList">
           <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="0"/>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="mAssetListModel" type="code"/>
             </Property>
+            <Property name="selectionMode" type="int" value="0"/>
             <Property name="name" type="java.lang.String" value="mAssetList" noResource="true"/>
           </Properties>
         </Component>

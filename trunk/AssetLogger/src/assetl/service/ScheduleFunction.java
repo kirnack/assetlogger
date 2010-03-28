@@ -1,7 +1,7 @@
 package assetl.service;
 
-import java.util.Calendar;
 import java.util.Date;
+import resources.DateConverter;
 
 import assetl.system.Asset;
 import assetl.system.Checkout;
@@ -38,14 +38,6 @@ public class ScheduleFunction
     * The asset the person will receive
     */
    Asset mAsset;
-   /**
-    * The start Date
-    */
-   Date mStart;
-   /**
-    * The end Date
-    */
-   Date mEnd;
 
    /**
     * Sets the DataPacket for this function
@@ -78,26 +70,6 @@ public class ScheduleFunction
 
       mRecipient = mModel.getPerson(mData.getPersonID());
       mAsset = mModel.getAsset(mData.getAssetID());
-      mStart = makeDate(mData.getStartMon(), mData.getStartDay(),
-         mData.getStartYear());
-      mEnd = makeDate(mData.getEndMon(), mData.getEndDay(),
-         mData.getEndYear());
-   }
-
-   /**
-    * Converts a month, day, and year into a Date object
-    *
-    * @param pMonth The month
-    * @param pDay The day
-    * @param pYear The year
-    * @return The Date object with the values passed in
-    */
-   protected Date makeDate(int pMonth, int pDay, int pYear)
-   {
-      //make a local calander and set the date
-      Calendar cal = Calendar.getInstance();
-      cal.set(pYear, pMonth + 1, pDay);
-      return cal.getTime();
    }
 
    /**
@@ -119,10 +91,10 @@ public class ScheduleFunction
       //
 
       if (mCurrRequest == null || mRecipient != mCurrRequest.getRequestor()
-         || mStart != mCurrRequest.getRequestedPickup())
+         || mData.getStart() != mCurrRequest.getRequestedPickup())
       {
          // Make the request object, stamp it with today's date
-         mCurrRequest = new Request("", new Date(), mStart,
+         mCurrRequest = new Request("", new Date(), mData.getStart(),
             mAsset.getType(), mRecipient);
       }
    }
@@ -146,7 +118,7 @@ public class ScheduleFunction
       {
          // Make the checkout and add it to the current request
          mCurrCheckout = new Checkout("", "", mAsset, mRecipient,
-            mStart, mEnd);
+            mData.getStart(), mData.getEnd());
          return true;
       }
    }
@@ -173,7 +145,7 @@ public class ScheduleFunction
 
       //add the checkout to the request
       mCurrRequest.addCheckout(mCurrCheckout);
-       
+
       //send the request to the model
       mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
 

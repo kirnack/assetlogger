@@ -15,7 +15,7 @@ public class AddAssetFunction
    /**
     * Sends the data needed to make a laptop asset
     */
-   LaptopPacket mData;
+   private LaptopPacket mData;
 
    /**
     * Sets the DataPacket for this function

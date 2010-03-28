@@ -1,6 +1,7 @@
 package assetl.system;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Provides a common interface for the controller module in the 
@@ -87,6 +88,16 @@ public interface AssetLControl
     * @return The Asset identified
     */
    Asset getAsset(String pID);
+
+   /**
+    * Gets from the model the assets that are available to be
+    * scheduled or checked out with the given start and end dates
+    *
+    * @param pStart The start date
+    * @param pEnd The end date
+    * @return The assets available between the dates
+    */
+   Collection<Asset> getAvailableAssets(Date pStart, Date pEnd);
 
    /**
     * Gets from the model the outstanding requests based on a Person.

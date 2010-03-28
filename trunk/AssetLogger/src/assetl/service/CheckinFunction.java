@@ -16,7 +16,7 @@ public class CheckinFunction
    /**
     * The specific DataPacket needed for this function to operate
     */
-   StringPacket mData;
+   private StringPacket mData;
 
    /**
     * Sets the DataPacket for a Checkin

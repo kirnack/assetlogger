@@ -16,7 +16,7 @@ public class CancelFunction
    /**
     * The specific DataPacket needed for this function to operate
     */
-   DBPacket mData;
+   private DBPacket mData;
 
    /**
     * Sets the DataPacket for a Login

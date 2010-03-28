@@ -2,6 +2,7 @@ package assetl.service;
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Date;
 
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
@@ -38,11 +39,6 @@ public abstract class DatabaseControl
     * The View
     */
    protected AssetLView mView;
-   /**
-    * A data packet that can be used to set the model and can be retrieved
-    * from the view
-    */
-   protected DataPacket mPacket;
    /**
     * Holds the last function performed by the controller
     */
@@ -242,7 +238,6 @@ public abstract class DatabaseControl
             mFunctions.add(tempFunction);
          }
       }
-
       return tempFunction;
    }
 
@@ -359,20 +354,6 @@ public abstract class DatabaseControl
    }
 
    /**
-    * This method is called by the model to indicate
-    * there has been a state change in the model.
-    * The controller will reflect the changes in the view.
-    * The model pushes all data that may have been changed.
-    *
-    * @param pPerson The Person object that may have changed
-    * @param pAsset The Asset object that may have changed
-    * @param pRequest The Request object that may have changed
-    */
-   public void updateData(Person pPerson, Asset pAsset, Request pRequest)
-   {
-   }
-
-   /**
     * Sends a DataPacket to the controller's current view
     *
     * @param pPacket The packet to send
@@ -413,6 +394,19 @@ public abstract class DatabaseControl
    public Asset getAsset(String pID)
    {
       return mModel.getAsset(pID);
+   }
+
+   /**
+    * Gets from the model the assets that are available to be
+    * scheduled or checked out with the given start and end dates
+    *
+    * @param pStart The start date
+    * @param pEnd The end date
+    * @return The assets available between the dates
+    */
+   public Collection<Asset> getAvailableAssets(Date pStart, Date pEnd)
+   {
+      return mModel.getAvailAsset(pStart, pEnd);
    }
 
    /**

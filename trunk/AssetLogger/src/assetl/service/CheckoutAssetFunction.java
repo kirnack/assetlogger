@@ -1,11 +1,12 @@
 package assetl.service;
 
 /**
- *
- * @author Devo
+ * Enables checkout in the FindAsset view
+ * 
+ * @author Devin Doman
  */
 public class CheckoutAssetFunction
-   extends FindAssetFunction
+   extends LoadFinderFunction
 {
    /**
     * Enables scheduling in the when finding an asset

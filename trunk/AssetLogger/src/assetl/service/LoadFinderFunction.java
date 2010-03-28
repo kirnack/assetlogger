@@ -9,7 +9,7 @@ import assetl.system.StringPacket;
  * 
  * @author Devin Doman
  */
-public abstract class FindAssetFunction
+public abstract class LoadFinderFunction
    extends Function
 {
    StringPacket mData;

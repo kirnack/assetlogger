@@ -1,10 +1,7 @@
 package assetl.service;
 
 import assetl.system.AssetLControl;
-import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
-import assetl.system.AssetLModel;
-import assetl.system.DataPacket;
 import assetl.system.DataPacket;
 
 /**

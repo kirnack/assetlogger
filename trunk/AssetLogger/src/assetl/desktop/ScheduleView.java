@@ -12,7 +12,7 @@ import assetl.system.Person;
 import assetl.system.Asset;
 
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.StringPacket;
 
 /**
  * Provides an interface that can be used to schedule a laptop
@@ -295,7 +295,7 @@ public class ScheduleView
       mData.setEnd(cal.getTime());
        */
 
-      return new DBPacket();
+      return new StringPacket();
    }
 
    /**

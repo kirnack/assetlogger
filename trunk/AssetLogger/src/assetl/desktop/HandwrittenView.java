@@ -3,7 +3,7 @@ package assetl.desktop;
 import assetl.system.AssetLControl;
 
 import assetl.system.DataPacket;
-import assetl.system.DBPacket;
+import assetl.system.StringPacket;
 
 /**
  * A handwritten Swing gui.
@@ -48,7 +48,7 @@ public class HandwrittenView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      return new DBPacket();
+      return new StringPacket();
    }
 
    /**

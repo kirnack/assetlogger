@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Date;
 
+import resources.ObjectLoader;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
@@ -146,37 +147,6 @@ public abstract class DatabaseControl
    }
 
    /**
-    * Uses dynamic class loading to create a new instance of an object.
-    *
-    * @param pDynObj The name of the class to get an instance of
-    * @return The dynamically created object
-    */
-   protected Object loadObj(String pClass)
-   {
-      Object obj = null;
-
-      try
-      {
-         //load into a class object
-         Class<?> clazz = Class.forName(pClass);
-
-         //Dynamically instantiate the object
-         obj = clazz.newInstance();
-
-      }
-      catch (ClassNotFoundException ex)
-      {
-         System.err.println("Class " + pClass + " could not be found.");
-         ex.printStackTrace();
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
-      return obj;
-   }
-
-   /**
     * Loads and then sets the passed function as the controllers current
     * function
     *
@@ -195,6 +165,9 @@ public abstract class DatabaseControl
     */
    public Function getFunction(String pFunction)
    {
+      setFunctionAmbles();
+      pFunction = addAmbles(pFunction);
+
       Function findMe = null;
 
       for (Function funct : mFunctions)
@@ -227,7 +200,7 @@ public abstract class DatabaseControl
       if (tempFunction == null)
       {
          setFunctionAmbles();
-         tempFunction = (Function) loadObj(addAmbles(pFunction));
+         tempFunction = (Function) ObjectLoader.loadObj(addAmbles(pFunction));
 
          // If we were able to dynamically load the function
          if (tempFunction != null)
@@ -280,9 +253,8 @@ public abstract class DatabaseControl
     */
    public void doFunction(String pFunction)
    {
-      setFunctionAmbles();
-
-      mFunction = getFunction(addAmbles(pFunction));
+   
+      mFunction = getFunction(pFunction);
 
       // If the function was found perform the function
       if (mFunction != null)
@@ -299,7 +271,7 @@ public abstract class DatabaseControl
    public void changeView(String pView)
    {
       setViewAmbles();
-      AssetLView view = (AssetLView) loadObj(addAmbles(pView));
+      AssetLView view = (AssetLView) ObjectLoader.loadObj(addAmbles(pView));
       changeView(view);
    }
 

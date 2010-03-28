@@ -1,12 +1,12 @@
 package assetl.service;
 
 import java.util.Date;
-import resources.DateConverter;
 
 import assetl.system.Asset;
 import assetl.system.Checkout;
 import assetl.system.DataPacket;
 import assetl.system.SchedulePacket;
+import assetl.system.PersonPacket;
 import assetl.system.Person;
 import assetl.system.Request;
 
@@ -70,6 +70,11 @@ public class ScheduleFunction
 
       mRecipient = mModel.getPerson(mData.getPersonID());
       mAsset = mModel.getAsset(mData.getAssetID());
+
+      // TODO: remove this test code until get asset works again
+      mAsset = new Asset();
+      mAsset.setID(mData.getAssetID());
+      mAsset.setType("Mac");
    }
 
    /**
@@ -93,6 +98,7 @@ public class ScheduleFunction
       if (mCurrRequest == null || mRecipient != mCurrRequest.getRequestor()
          || mData.getStart() != mCurrRequest.getRequestedPickup())
       {
+         System.err.println("findprob: " + mAsset);
          // Make the request object, stamp it with today's date
          mCurrRequest = new Request("", new Date(), mData.getStart(),
             mAsset.getType(), mRecipient);
@@ -147,10 +153,13 @@ public class ScheduleFunction
       mCurrRequest.addCheckout(mCurrCheckout);
 
       //send the request to the model
-      mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
+      // TODO: uncomment me when setRequest works:
+      //mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
 
-      //TODO: remove the following line of test code for view changing
-      //mDBControl.changeView(new assetl.service.HandwrittenView(mControl));
+      // TODO: find a better way to do this: separate view changing from
+      // functions more
 
+      mControl.changeView("Service");
+      mControl.sendViewPacket(new PersonPacket(mRecipient));
    }
 }

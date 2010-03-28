@@ -8,19 +8,18 @@ import assetl.system.Asset;
 import assetl.system.AssetLView;
 import assetl.system.DataPacket;
 import assetl.system.Person;
-import assetl.system.Request;
 import assetl.system.User;
 import java.util.Collection;
+import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Devo
+ * Tests the functionality of DatabaseControl
+ * @author Devin Doman
  */
 public class DatabaseControlTest
 {
-
    /**
     * Test of setViewPackage method, of class DatabaseControl.
     */
@@ -30,8 +29,7 @@ public class DatabaseControlTest
       System.out.println("setViewPackage");
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setViewPackage();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals("assetl.desktop.", instance.mPackage);
    }
 
    /**
@@ -43,8 +41,7 @@ public class DatabaseControlTest
       System.out.println("setPostViewName");
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setPostViewName();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals("View", instance.mPostClass);
    }
 
    /**
@@ -54,11 +51,10 @@ public class DatabaseControlTest
    public void testSetClassPackage()
    {
       System.out.println("setClassPackage");
-      String pPackage = "";
+      String pPackage = "assetl.desktop.";
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setClassPackage(pPackage);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals(pPackage, instance.mPackage);
    }
 
    /**
@@ -68,11 +64,10 @@ public class DatabaseControlTest
    public void testSetPostClassName()
    {
       System.out.println("setPostClassName");
-      String pPostClass = "";
+      String pPostClass = "View";
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setPostClassName(pPostClass);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals(pPostClass, instance.mPostClass);
    }
 
    /**
@@ -84,8 +79,8 @@ public class DatabaseControlTest
       System.out.println("setViewAmbles");
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setViewAmbles();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals("assetl.desktop.", instance.mPackage);
+      assertEquals("View", instance.mPostClass);
    }
 
    /**
@@ -97,8 +92,8 @@ public class DatabaseControlTest
       System.out.println("setFunctionAmbles");
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setFunctionAmbles();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals("assetl.service.", instance.mPackage);
+      assertEquals("Function", instance.mPostClass);
    }
 
    /**
@@ -108,13 +103,11 @@ public class DatabaseControlTest
    public void testAddAmbles()
    {
       System.out.println("addAmbles");
-      String pName = "";
+      String pName = "Class";
       DatabaseControl instance = new DatabaseControlImpl();
-      String expResult = "";
+      String expResult = instance.mPackage + "Class" + instance.mPostClass;
       String result = instance.addAmbles(pName);
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -124,28 +117,13 @@ public class DatabaseControlTest
    public void testSetClassAmbles()
    {
       System.out.println("setClassAmbles");
-      String pPackage = "";
-      String pPostClass = "";
+      String pPackage = "assetl.system.";
+      String pPostClass = "Post";
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setClassAmbles(pPackage, pPostClass);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
 
-   /**
-    * Test of loadObj method, of class DatabaseControl.
-    */
-   @Test
-   public void testLoadObj()
-   {
-      System.out.println("loadObj");
-      String pClass = "";
-      DatabaseControl instance = new DatabaseControlImpl();
-      Object expResult = null;
-      Object result = instance.loadObj(pClass);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals(instance.mPackage, pPackage);
+      assertEquals(instance.mPostClass, pPostClass);
    }
 
    /**
@@ -155,11 +133,11 @@ public class DatabaseControlTest
    public void testSetFunction()
    {
       System.out.println("setFunction");
-      String pFunction = "";
+      String pFunction = "Checkout";
       DatabaseControl instance = new DatabaseControlImpl();
       instance.setFunction(pFunction);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertEquals(instance.mPackage + pFunction + instance.mPostClass,
+         instance.mFunction.getClass().getCanonicalName());
    }
 
    /**
@@ -169,13 +147,12 @@ public class DatabaseControlTest
    public void testGetFunction()
    {
       System.out.println("getFunction");
-      String pFunction = "";
+      String pFunction = "Checkout";
       DatabaseControl instance = new DatabaseControlImpl();
-      Function expResult = null;
+      instance.setFunction(pFunction);
+      Function expResult = instance.mFunction;
       Function result = instance.getFunction(pFunction);
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -190,6 +167,20 @@ public class DatabaseControlTest
       Function expResult = null;
       Function result = instance.addFunction(pFunction);
       assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of enableFunction method, of class DatabaseControl.
+    */
+   @Test
+   public void testEnableFunction()
+   {
+      System.out.println("enableFunction");
+      String pFunction = "";
+      DatabaseControl instance = new DatabaseControlImpl();
+      instance.enableFunction(pFunction);
       // TODO review the generated test code and remove the default call to fail.
       fail("The test case is a prototype.");
    }
@@ -267,27 +258,11 @@ public class DatabaseControlTest
     * Test of updateData method, of class DatabaseControl.
     */
    @Test
-   public void testUpdateData_0args()
+   public void testUpdateData()
    {
       System.out.println("updateData");
       DatabaseControl instance = new DatabaseControlImpl();
       instance.updateData();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
-
-   /**
-    * Test of updateData method, of class DatabaseControl.
-    */
-   @Test
-   public void testUpdateData_3args()
-   {
-      System.out.println("updateData");
-      Person pPerson = null;
-      Asset pAsset = null;
-      Request pRequest = null;
-      DatabaseControl instance = new DatabaseControlImpl();
-      instance.updateData(pPerson, pAsset, pRequest);
       // TODO review the generated test code and remove the default call to fail.
       fail("The test case is a prototype.");
    }
@@ -349,6 +324,23 @@ public class DatabaseControlTest
       DatabaseControl instance = new DatabaseControlImpl();
       Asset expResult = null;
       Asset result = instance.getAsset(pID);
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getAvailableAssets method, of class DatabaseControl.
+    */
+   @Test
+   public void testGetAvailableAssets()
+   {
+      System.out.println("getAvailableAssets");
+      Date pStart = null;
+      Date pEnd = null;
+      DatabaseControl instance = new DatabaseControlImpl();
+      Collection expResult = null;
+      Collection result = instance.getAvailableAssets(pStart, pEnd);
       assertEquals(expResult, result);
       // TODO review the generated test code and remove the default call to fail.
       fail("The test case is a prototype.");
@@ -436,10 +428,5 @@ public class DatabaseControlTest
       public void setPostViewName()
       {
       }
-
-      public void constructMap()
-      {
-      }
    }
-
 }

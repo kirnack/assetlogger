@@ -103,6 +103,26 @@ public class Server
             mConn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
             mStat = mConn.createStatement();
+            URL setupSQL = ClassLoader.getSystemResource(
+            Server.class.getPackage().getName().replace(".", "/")
+            + "/Update.sql");
+            File updateScript = new File(
+               setupSQL.toString().replace("file:", ""));
+            BufferedReader in = new BufferedReader(
+               new FileReader(updateScript));
+            ResultSet rs = mStat.executeQuery("Select ChangeString from "
+                                              + "DatabaseInfo");
+            String str = rs.getString(1);
+            rs.close();
+            System.err.println(str);
+            if (str.compareTo(in.readLine()) > 0)
+            {
+               while ((str = in.readLine()) != null)
+               {
+                  //   System.err.println(str);
+                  mStat.execute(str);
+               }
+            }
          }
       }
       catch (Exception e)
@@ -127,7 +147,7 @@ public class Server
          mStat = mConn.createStatement();
          URL setupSQL = ClassLoader.getSystemResource(
             Server.class.getPackage().getName().replace(".", "/")
-            + "/AssetLoggerSetup.sql");
+            + "/BackupAssetLoggerSetup.sql");
          //System.err.println(setupSQL);
          File name = new File(setupSQL.toString().replace("file:", ""));
          //System.err.println(name);
@@ -350,45 +370,6 @@ public class Server
       {
          System.err.println(e.getSQLState());
          e.printStackTrace(System.err);
-         if (("java.sql.SQLException: table Assets has 6 columns" +
-            " but 7 values were supplied").equals(e.toString()))
-         {
-            System.err.println("column");
-            try
-            {
-               mConn.prepareStatement(
-                  "create table temp (AssetID varchar(255) " +
-                  "PRIMARY KEY, Make varchar(255), Model varchar(255)," +
-                  " SerialNumber varchar(255), AssetType varchar(255), " +
-                  "Description varchar(255), inMaintenance boolean);").execute();
-
-               mConn.prepareStatement(
-                  "insert into temp (AssetID, Make, Model, SerialNumber, AssetType,"
-                  + " Description) select * from Assets;").execute();
-               mConn.prepareStatement(
-                 "drop table Assets;").execute();
-               mConn.prepareStatement(
-                  "alter table temp rename to Assets;").execute();
-               //setAsset(pAsset);
-            }
-            catch (Exception ex)
-            {
-               System.err.println("Cannot Update database file to correct"+
-                                  " format! ");
-               ex.printStackTrace();
-            }
-            finally
-            {
-               try
-               {
-                  mConn.prepareStatement("drop table temp").execute();
-               }
-               catch (Exception exc)
-               {
-                  exc.printStackTrace();
-               }
-            }
-         }
       }
    }
 

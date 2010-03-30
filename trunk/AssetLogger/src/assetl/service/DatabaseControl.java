@@ -262,6 +262,7 @@ public abstract class DatabaseControl
    public void changeView(AssetLView pView)
    {
       pView.setControl(this);
+
       // If the controller has no view load it
       if (mView == null)
       {
@@ -275,18 +276,14 @@ public abstract class DatabaseControl
 
          mView.closeView();
          mView = pView;
-
          mView.showView();
 
          //reset the functions
          mFunctions.clear();
-
-         //set admin controls
-         mView.setAdminComponents(true);
-
-         //TODO: uncomment this when server is working again
-         //mView.setAdminComponents(mUser.isAdmin());
       }
+      //TODO: uncomment this when server is working again
+      //mView.setAdminComponents(mUser.isAdmin());
+      mView.setAdminComponents(true);
    }
 
    /**

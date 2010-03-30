@@ -28,6 +28,12 @@
                 <Property name="name" type="java.lang.String" value="mAddAssetMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mAddPersonMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add Person"/>
+                <Property name="name" type="java.lang.String" value="mAddPersonMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mUserMenu">

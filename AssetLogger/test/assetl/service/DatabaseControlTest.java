@@ -162,13 +162,11 @@ public class DatabaseControlTest
    public void testAddFunction()
    {
       System.out.println("addFunction");
-      String pFunction = "";
+      String pFunction = "LogIn";
       DatabaseControl instance = new DatabaseControlImpl();
-      Function expResult = null;
       Function result = instance.addFunction(pFunction);
+      Function expResult = instance.getFunction("LogIn");
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -178,7 +176,7 @@ public class DatabaseControlTest
    public void testEnableFunction()
    {
       System.out.println("enableFunction");
-      String pFunction = "";
+      String pFunction = "LogIn";
       DatabaseControl instance = new DatabaseControlImpl();
       instance.enableFunction(pFunction);
       // TODO review the generated test code and remove the default call to fail.
@@ -419,14 +417,17 @@ public class DatabaseControlTest
       fail("The test case is a prototype.");
    }
 
-   public class DatabaseControlImpl extends DatabaseControl
+   public class DatabaseControlImpl
+      extends DatabaseControl
    {
       public void setViewPackage()
       {
+         setClassPackage("assetl.desktop.");
       }
 
       public void setPostViewName()
       {
+         setPostClassName("View");
       }
    }
 }

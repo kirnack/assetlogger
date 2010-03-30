@@ -372,8 +372,7 @@ public abstract class AssetView
        */
       public void actionPerformed(ActionEvent ev)
       {
-         mControl.setFunction(mFunction);
-         mControl.doFunction();
+         mControl.doFunction(mFunction);
          System.err.println("User pushed the " + mFunction + " button");
 
          // TODO: uncomment this when it won't break anything

@@ -51,7 +51,7 @@ public class LogInFunction
          test = "";
          // Change to the next view
          DatabaseControl tempControl = (DatabaseControl) mControl;
-         tempControl.changeView("ID");
+         mControl.changeView("ID");
 
          tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
       }

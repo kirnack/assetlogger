@@ -248,15 +248,12 @@ public class FindAssetView
       {
          ArrayList<Asset> laptops;
          laptops = (ArrayList<Asset>) mControl.getAvailableAssets(start, end);
-
+         
          for (Asset laptop : laptops)
          {
             mAssetListModel.addElement(laptop);
          }
       }
-
-      // TODO: remove the following test code
-      mAssetListModel.addElement(mControl.getAsset("12").getMake());
    }
 
    /**

@@ -67,16 +67,13 @@ public abstract class DatabaseControl
     */
    public DatabaseControl()
    {
-      //get the model and register this controller as a listener
-      mModel = Server.getInstance();
+      //get the model
 
+      // TODO: uncomment this once the Server code is properly debugged
+      //mModel = Server.getInstance();
+
+      mModel = new DeleteMe();
       mFunctions = new ArrayList<Function>();
-
-      //The default admin
-      mUser = new User();
-      mUser.setID("Doctor");
-      mUser.setAdmin(mModel.isAdmin("Doctor"));
-
       mPostClass = "";
 
       //Use a netbeans generated gui
@@ -223,55 +220,25 @@ public abstract class DatabaseControl
    }
 
    /**
-    * Grabs the data packet and performs the last loaded function
-    */
-   public void doFunction()
-   {
-      try
-      {
-         String className = mFunction.getClass().getCanonicalName();
-         doFunction(mView.grabDataPacket(className));
-      }
-      catch (NullPointerException ex)
-      {
-         ex.printStackTrace();
-      }
-
-   }
-
-   /**
-    * Performs the function the controller is currently set to.
-    *
-    * @param pPacket The data packet needed for the function to perform
-    */
-   public void doFunction(DataPacket pPacket)
-   {
-      try
-      {
-         mFunction.setPacket(pPacket);
-         mFunction.performFunction();
-      }
-      catch (NullPointerException ex)
-      {
-         System.err.println("No function currently set.");
-      }
-   }
-
-   /**
-    * Finds the function in the collection, loads it, then performs
-    * the function
+    * Sets the function, grabs the DataPacket from the view, then
+    * performs the function.
     *
     * @param pFunction The function to perform
     */
    public void doFunction(String pFunction)
    {
-
-      mFunction = getFunction(pFunction);
-
-      // If the function was found perform the function
-      if (mFunction != null)
+      try
       {
-         doFunction();
+         setFunctionAmbles();
+         setFunction(pFunction);
+         String className = addAmbles(pFunction);
+         mFunction.setPacket(mView.grabDataPacket(className));
+         mFunction.performFunction();
+      }
+      catch (Exception ex)
+      {
+         System.err.println("The function could not be performed");
+         ex.printStackTrace();
       }
    }
 
@@ -294,7 +261,8 @@ public abstract class DatabaseControl
     */
    public void changeView(AssetLView pView)
    {
-      // If the controller has now view load it
+      pView.setControl(this);
+      // If the controller has no view load it
       if (mView == null)
       {
          mView = pView;
@@ -314,13 +282,10 @@ public abstract class DatabaseControl
          mFunctions.clear();
 
          //set admin controls
-         mView.setAdminComponents(mUser.isAdmin());
-      }
+         mView.setAdminComponents(true);
 
-      if (mView != null)
-      {
-         //make sure this controller is the controller for the view
-         mView.setControl(this);
+         //TODO: uncomment this when server is working again
+         //mView.setAdminComponents(mUser.isAdmin());
       }
    }
 

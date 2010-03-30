@@ -828,7 +828,28 @@ public class Server
     */
    public Collection<Person> getBorrowers(Asset pAsset)
    {
-      return new ArrayList<Person>();
+      Collection<Person> borrowers = new ArrayList<Person>();
+      try
+      {
+         ResultSet rs = mStat.executeQuery(
+            "select * from Requestors left outer join Request"
+            + " ON Requestors.RequestorID = Requests.RequestorID "
+            + " left outer join Checkouts ON "
+            + "Checkouts.RequestsID=Requests.RequestID where"
+            + "Checkouts.AssetID<=" + pAsset.getID() + ";");
+         while(rs.next())
+         {
+               borrowers.add(new Person(rs.getString("RequestorID"),
+               rs.getString("FirstName"), rs.getString("MI"),
+               rs.getString("LastName"), rs.getString("Email"),
+               rs.getString("Phone")));
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return borrowers;
    }
 
    /**
@@ -842,9 +863,12 @@ public class Server
       Collection<Request> requests = new ArrayList<Request>();
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from Requests "+
-                                    "where RequestorID = " + pPerson.getID()
-                                    + ";");
+         ResultSet rs = mStat.executeQuery(
+            "select * from Requests left outer join Checkouts "
+            + "ON Requests.RequestID=Checkouts.RequestID "
+            + "where Requests.RequestorID = " + pPerson.getID()
+            + " and Checkouts.isActive=1"
+            + "order by Requests.RequestedMadeDate;");
          while(rs.next())
          {
             requests.add(new Request(rs.getString("RequestID"),
@@ -874,6 +898,29 @@ public class Server
     */
    public Collection<Asset> getAssets(Person pPerson)
    {
+      Collection<Asset> assets = new ArrayList<Asset>();
+      try
+      {
+         ResultSet rs = mStat.executeQuery(
+            "select * from assets left outer join checkouts"
+            + " ON Assets.AssetID = Checkouts.AssetID "
+            +"where Requests.RequestorID=\"" + pPerson.getID()
+            +"or Checkouts.RequestID=\"" + pPerson.getID() + "\";");
+
+         while(rs.next())
+         {
+               assets.add(new Asset(rs.getString("AssetID"),
+               rs.getString("Make"), rs.getString("Model"),
+               rs.getString("SerialNumber"),
+               rs.getString("AssetType"),
+               rs.getString("Description"),
+               rs.getBoolean("inMaintenence")));
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
       return new ArrayList<Asset>();
    }
 

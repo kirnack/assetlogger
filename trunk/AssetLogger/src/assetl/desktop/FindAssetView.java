@@ -256,7 +256,7 @@ public class FindAssetView
       }
 
       // TODO: remove the following test code
-      mAssetListModel.addElement(new Asset("12", "PC"));
+      mAssetListModel.addElement(mControl.getAsset("12").getMake());
    }
 
    /**

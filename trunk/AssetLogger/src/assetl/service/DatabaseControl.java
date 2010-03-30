@@ -227,9 +227,16 @@ public abstract class DatabaseControl
     */
    public void doFunction()
    {
-      String className = mFunction.getClass().getCanonicalName();
-      mFunction.setPacket(mView.grabDataPacket(className));
-      mFunction.performFunction();
+      try
+      {
+         String className = mFunction.getClass().getCanonicalName();
+         doFunction(mView.grabDataPacket(className));
+      }
+      catch (NullPointerException ex)
+      {
+         ex.printStackTrace();
+      }
+
    }
 
    /**
@@ -239,8 +246,15 @@ public abstract class DatabaseControl
     */
    public void doFunction(DataPacket pPacket)
    {
-      mFunction.setPacket(pPacket);
-      mFunction.performFunction();
+      try
+      {
+         mFunction.setPacket(pPacket);
+         mFunction.performFunction();
+      }
+      catch (NullPointerException ex)
+      {
+         System.err.println("No function currently set.");
+      }
    }
 
    /**
@@ -251,7 +265,7 @@ public abstract class DatabaseControl
     */
    public void doFunction(String pFunction)
    {
-   
+
       mFunction = getFunction(pFunction);
 
       // If the function was found perform the function

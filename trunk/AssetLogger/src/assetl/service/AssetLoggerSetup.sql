@@ -5,6 +5,6 @@ create table Requests (RequestID INTEGER PRIMARY KEY, RequestedMadeDate Date, Re
 create table Checkouts (CheckoutID INTEGER PRIMARY KEY, RequestID INTEGER, RecipeantID varchar(255), AssetID varchar(255), RequestedStartDate Date, RequestedEndDate Date, PickupDate Date, ReturnDate Date, UserID varchar(255), Active boolean);
 create table CheckoutLog (CheckLogID INTEGER PRIMARY KEY, CheckoutID INTEGER, CheckoutLogDate DATE, UserID varchar(255), Comments varchar(255));
 create table DatabaseInfo (VersionNumber INTEGER, ChangeString VARCHAR(255))
-insert into DatabaseInfo values (1, "1.0.0.0");
+insert into DatabaseInfo values (1, "1.0.0.1");
 insert into Users values ("Doctor", "Buffalo", 1);
 insert into Users values ("user", "password", 0);

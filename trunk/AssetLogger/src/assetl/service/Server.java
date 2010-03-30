@@ -115,12 +115,14 @@ public class Server
             String str = rs.getString(1);
             rs.close();
             System.err.println(str);
-            if (str.compareTo(in.readLine()) > 0)
+            int compare = str.compareTo(in.readLine());
+            System.err.println(compare);
+            if (compare < 0)
             {
                while ((str = in.readLine()) != null)
                {
-                  //   System.err.println(str);
-                  mStat.execute(str);
+                  System.err.println(str);
+                  mConn.prepareStatement(str).execute();
                }
             }
          }
@@ -155,7 +157,7 @@ public class Server
          String str;
          while ((str = in.readLine()) != null)
          {
-            //   System.err.println(str);
+            System.err.println(str);
             mStat.execute(str);
          }
          in.close();

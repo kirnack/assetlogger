@@ -13,6 +13,7 @@ import assetl.system.Asset;
 
 /**
  * Allows an admin to add Assets to the model
+ *
  * @author Devin Doman
  */
 public class AddAssetView 

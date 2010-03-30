@@ -28,20 +28,8 @@ public interface AssetLControl
    void enableFunction(String pFunction);
 
    /**
-    * Change the function for the controller to perform for the view
-    *
-    * @param pFunction The name of the function to set
-    */
-   void setFunction(String pFunction);
-
-   /**
-    * Grabs the data packet and performs the last loaded function
-    */
-   public void doFunction();
-
-   /**
-    * Finds the function in the collection, loads it, then performs
-    * the function
+    * Sets the function from the collection, grabs the DataPacket from the view,
+    * then performs the function.
     *
     * @param pFunction The function to perform
     */

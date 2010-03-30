@@ -271,6 +271,15 @@ public class Asset
    }
 
    /**
+    *
+    */
+   @Override
+   public String toString()
+   {
+      return mModel + ": " + mType;
+   }
+
+   /**
     * Sets the maintenance flag of the asset.
     *
     * @param pMaintenance The new maintenance status

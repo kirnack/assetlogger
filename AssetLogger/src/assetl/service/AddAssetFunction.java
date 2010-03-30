@@ -69,5 +69,6 @@ public class AddAssetFunction
    public void performFunction()
    {
       mModel.setAsset(generateLaptop());
+      mControl.changeView("ID");
    }
 }

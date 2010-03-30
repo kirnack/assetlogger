@@ -8,6 +8,7 @@ package assetl.desktop;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
 import assetl.system.PersonPacket;
+import assetl.system.Person;
 
 /**
  * Allows the admin to add Persons to the model
@@ -22,6 +23,7 @@ public class AddPersonView
     */
    public AddPersonView()
    {
+      this(null);
    }
 
    /**
@@ -44,23 +46,141 @@ public class AddPersonView
    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
    private void initComponents() {
 
+      mINumLbl = new javax.swing.JLabel();
+      mFirstLbl = new javax.swing.JLabel();
+      mMiddleLbl = new javax.swing.JLabel();
+      mLastLbl = new javax.swing.JLabel();
+      mEmailLbl = new javax.swing.JLabel();
+      mPhoneLbl = new javax.swing.JLabel();
+      mINumTxtFld = new javax.swing.JTextField();
+      mFirstTxtFld = new javax.swing.JTextField();
+      mMiddleTxtFld = new javax.swing.JTextField();
+      mLastTxtFld = new javax.swing.JTextField();
+      mEMailTxtFld = new javax.swing.JTextField();
+      mPhoneTxtFld = new javax.swing.JTextField();
+      mAddBtn = new javax.swing.JButton();
+
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+      mINumLbl.setText("I-number:");
+      mINumLbl.setName("mINumLbl"); // NOI18N
+
+      mFirstLbl.setText("First");
+      mFirstLbl.setName("mFirstLbl"); // NOI18N
+
+      mMiddleLbl.setText("MI");
+      mMiddleLbl.setName("mMiddleLbl"); // NOI18N
+
+      mLastLbl.setText("Last");
+      mLastLbl.setName("mLastLbl"); // NOI18N
+
+      mEmailLbl.setText("e-mail");
+      mEmailLbl.setName("mEmailLbl"); // NOI18N
+
+      mPhoneLbl.setText("Phone");
+      mPhoneLbl.setName("mPhoneLbl"); // NOI18N
+
+      mINumTxtFld.setName("mINumTxtFld"); // NOI18N
+
+      mFirstTxtFld.setName("mFirstTxtFld"); // NOI18N
+
+      mMiddleTxtFld.setName("mMiddleTxtFld"); // NOI18N
+
+      mLastTxtFld.setName("mLastTxtFld"); // NOI18N
+
+      mEMailTxtFld.setName("mEMailTxtFld"); // NOI18N
+
+      mPhoneTxtFld.setName("mPhoneTxtFld"); // NOI18N
+
+      mAddBtn.setText("Add Person");
+      mAddBtn.setName("mAddBtn"); // NOI18N
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 400, Short.MAX_VALUE)
+         .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                  .addGap(36, 36, 36)
+                  .addComponent(mINumLbl)
+                  .addGap(18, 18, 18)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                     .addComponent(mINumTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                           .addGroup(layout.createSequentialGroup()
+                              .addComponent(mFirstTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addComponent(mMiddleTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                           .addGroup(layout.createSequentialGroup()
+                              .addComponent(mFirstLbl)
+                              .addGap(51, 51, 51)
+                              .addComponent(mMiddleLbl)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                           .addComponent(mLastTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                           .addComponent(mLastLbl)))))
+               .addGroup(layout.createSequentialGroup()
+                  .addGap(97, 97, 97)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(mEmailLbl)
+                     .addComponent(mEMailTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGap(26, 26, 26)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(mPhoneLbl)
+                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(mAddBtn)
+                        .addComponent(mPhoneTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+            .addGap(105, 105, 105))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 300, Short.MAX_VALUE)
+         .addGroup(layout.createSequentialGroup()
+            .addGap(49, 49, 49)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mINumLbl)
+               .addComponent(mINumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(24, 24, 24)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mFirstLbl)
+               .addComponent(mMiddleLbl)
+               .addComponent(mLastLbl))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mFirstTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mMiddleTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mLastTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mEmailLbl)
+               .addComponent(mPhoneLbl))
+            .addGap(27, 27, 27)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mEMailTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mPhoneTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addComponent(mAddBtn)
+            .addGap(25, 25, 25))
       );
 
       pack();
    }// </editor-fold>//GEN-END:initComponents
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JButton mAddBtn;
+   private javax.swing.JTextField mEMailTxtFld;
+   private javax.swing.JLabel mEmailLbl;
+   private javax.swing.JLabel mFirstLbl;
+   private javax.swing.JTextField mFirstTxtFld;
+   private javax.swing.JLabel mINumLbl;
+   private javax.swing.JTextField mINumTxtFld;
+   private javax.swing.JLabel mLastLbl;
+   private javax.swing.JTextField mLastTxtFld;
+   private javax.swing.JLabel mMiddleLbl;
+   private javax.swing.JTextField mMiddleTxtFld;
+   private javax.swing.JLabel mPhoneLbl;
+   private javax.swing.JTextField mPhoneTxtFld;
    // End of variables declaration//GEN-END:variables
    /**
     * Updates the views display of the model
@@ -79,11 +199,19 @@ public class AddPersonView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      
-      //String pID, String pFirstName, String pMiddleName,
-      //String pLastName, String pEmail, String pPhoneNumber
+      PersonPacket packet = null;
 
-      return new PersonPacket();
+      String id = mINumTxtFld.getText();
+      String first = mFirstTxtFld.getText();
+      String middle = mMiddleTxtFld.getText();
+      String last = mLastTxtFld.getText();
+      String email = mEMailTxtFld.getText();
+      String phone = mPhoneTxtFld.getText();
+
+      Person myPerson = new Person(id, first, middle, last, email, phone);
+      packet = new PersonPacket(myPerson);
+      
+      return packet;
    }
 
    /**
@@ -91,6 +219,7 @@ public class AddPersonView
     */
    public void enable(String pFunction)
    {
+      enable(pFunction, mAddBtn);
    }
 
    /**
@@ -98,5 +227,6 @@ public class AddPersonView
     */
    public void run()
    {
+      enable("AddPerson");
    }
 }

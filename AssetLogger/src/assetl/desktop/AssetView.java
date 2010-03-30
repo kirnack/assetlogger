@@ -70,6 +70,7 @@ public abstract class AssetView
       //
 
       enableSwitch("AddAsset", mAddAssetMenuItem);
+      enableSwitch("AddPerson", mAddPersonMenuItem);
       enableSwitch("Login", mLogoutMenuItem);
 
       // TODO: enable and show the back button
@@ -89,6 +90,7 @@ public abstract class AssetView
       mBackBtn = new javax.swing.JMenu();
       mViewMenu = new javax.swing.JMenu();
       mAddAssetMenuItem = new javax.swing.JMenuItem();
+      mAddPersonMenuItem = new javax.swing.JMenuItem();
       mUserMenu = new javax.swing.JMenu();
       mLogoutMenuItem = new javax.swing.JMenuItem();
 
@@ -107,6 +109,10 @@ public abstract class AssetView
       mAddAssetMenuItem.setText("Add Asset");
       mAddAssetMenuItem.setName("mAddAssetMenuItem"); // NOI18N
       mViewMenu.add(mAddAssetMenuItem);
+
+      mAddPersonMenuItem.setText("Add Person");
+      mAddPersonMenuItem.setName("mAddPersonMenuItem"); // NOI18N
+      mViewMenu.add(mAddPersonMenuItem);
 
       mMenuBar.add(mViewMenu);
 
@@ -136,6 +142,7 @@ public abstract class AssetView
    }// </editor-fold>//GEN-END:initComponents
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JMenuItem mAddAssetMenuItem;
+   private javax.swing.JMenuItem mAddPersonMenuItem;
    private javax.swing.JMenu mBackBtn;
    private javax.swing.JMenuItem mLogoutMenuItem;
    private javax.swing.JMenuBar mMenuBar;
@@ -202,6 +209,7 @@ public abstract class AssetView
       // TODO: include the components that need to change for an admin
 
       mViewMenu.setVisible(pIsAdmin);
+      System.err.println("Show me: " + pIsAdmin);
    }
 
    /**

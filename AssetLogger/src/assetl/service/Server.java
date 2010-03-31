@@ -862,11 +862,12 @@ public class Server
       try
       {
          ResultSet rs = mStat.executeQuery(
+
             "select * from Requestors left outer join Request"
             + " ON Requestors.RequestorID = Requests.RequestorID "
             + " left outer join Checkouts ON "
             + "Checkouts.RequestsID=Requests.RequestID where"
-            + "Checkouts.AssetID<=" + pAsset.getID() + ";");
+            + "Checkouts.AssetID=" + pAsset.getID() + ";");
          while (rs.next())
          {
             borrowers.add(new Person(rs.getString("RequestorID"),
@@ -894,11 +895,9 @@ public class Server
       try
       {
          ResultSet rs = mStat.executeQuery(
-            "select * from Requests left outer join Checkouts "
-            + "ON Requests.RequestID=Checkouts.RequestID "
-            + "where Requests.RequestorID = " + pPerson.getID()
-            + " and Checkouts.isActive=1"
-            + "order by Requests.RequestedMadeDate;");
+            "Select * from Requests where requestorID=\"" + pPerson.getID() +
+            " and Exists (select requestID from checkouts where active=1 and " +
+            "checkouts.requestID=requests.requestID);");
          while (rs.next())
          {
             requests.add(new Request(rs.getString("RequestID"),
@@ -931,10 +930,10 @@ public class Server
       try
       {
          ResultSet rs = mStat.executeQuery(
-            "select * from assets left outer join checkouts"
-            + " ON Assets.AssetID = Checkouts.AssetID "
-            + "where Requests.RequestorID=\"" + pPerson.getID()
-            + "or Checkouts.RequestID=\"" + pPerson.getID() + "\";");
+            "select * from assets where exists(select * from checkouts where"+
+            " Checkouts.assetID=Assets.assetID and Checkouts.active=1 and "+
+            "exists (select * from requests where requestorID=" +
+            pPerson.getID() + "\";");
 
          while (rs.next())
          {

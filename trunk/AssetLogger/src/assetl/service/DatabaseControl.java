@@ -70,9 +70,9 @@ public abstract class DatabaseControl
       //get the model
 
       // TODO: uncomment this once the Server code is properly debugged
-      //mModel = Server.getInstance();
+      mModel = Server.getInstance();
 
-      mModel = new DeleteMe();
+      //mModel = new DeleteMe();
       mFunctions = new ArrayList<Function>();
       mPostClass = "";
 

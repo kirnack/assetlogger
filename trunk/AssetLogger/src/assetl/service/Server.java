@@ -104,14 +104,14 @@ public class Server
                + mFile.getName());
             mStat = mConn.createStatement();
             URL setupSQL = ClassLoader.getSystemResource(
-            Server.class.getPackage().getName().replace(".", "/")
-            + "/Update.sql");
+               Server.class.getPackage().getName().replace(".", "/")
+               + "/Update.sql");
             File updateScript = new File(
                setupSQL.toString().replace("file:", ""));
             BufferedReader in = new BufferedReader(
                new FileReader(updateScript));
             ResultSet rs = mStat.executeQuery("Select ChangeString from "
-                                              + "DatabaseInfo");
+               + "DatabaseInfo");
             String str = rs.getString(1);
             rs.close();
             System.err.println(str);
@@ -333,7 +333,7 @@ public class Server
          //Retrieves data from database to see if the person needs to be added,
          //and also to check to see if there is an actual need to update te data.
          Asset temp = getAsset(pAsset.getID());
-         
+
          if (temp == null)
          {
             System.err.println("Adding " + pAsset.getID());
@@ -799,19 +799,49 @@ public class Server
       {
          ResultSet rs = mStat.executeQuery(
             "select * from assets left outer join checkouts"
-            + " ON Assets.AssetID = Checkouts.AssetID where "
-            + "Assets.inMaintenence=False and "
-            + "Checkouts.RequestedStartTime<=" + pEnd
-            + " and Checkouts.RequestedEndTime<=" + pStart + ";");
-         while(rs.next())
+            + " ON Assets.AssetID=Checkouts.AssetID where "
+            + "Assets.inMaintenance=0 and "
+            + "Checkouts.RequestedStartDate<=\"" + pEnd
+            + "\" and Checkouts.RequestedEndDate<=\"" + pStart + "\";");
+         try
          {
+            while (rs.next())
+            {
                assets.add(new Asset(rs.getString("AssetID"),
-               rs.getString("Make"), rs.getString("Model"),
-               rs.getString("SerialNumber"),
-               rs.getString("AssetType"),
-               rs.getString("Description"),
-               rs.getBoolean("inMaintenence")));
+                  rs.getString("Make"), rs.getString("Model"),
+                  rs.getString("SerialNumber"),
+                  rs.getString("AssetType"),
+                  rs.getString("Description"),
+                  rs.getBoolean("inMaintenance")));
+            }
          }
+         catch (Exception e)
+         {
+
+         }
+
+         rs.close();
+         rs = mStat.executeQuery(
+            "select * from assets where not exists "
+            + "(select assetid from checkouts Where "
+            + "assets.assetid=checkouts.assetid);");
+         try
+         {
+            while (rs.next())
+            {
+               assets.add(new Asset(rs.getString("AssetID"),
+                  rs.getString("Make"), rs.getString("Model"),
+                  rs.getString("SerialNumber"),
+                  rs.getString("AssetType"),
+                  rs.getString("Description"),
+                  rs.getBoolean("inMaintenance")));
+            }
+         }
+         catch (Exception e)
+         {
+            
+         }
+
       }
       catch (Exception e)
       {
@@ -837,9 +867,9 @@ public class Server
             + " left outer join Checkouts ON "
             + "Checkouts.RequestsID=Requests.RequestID where"
             + "Checkouts.AssetID<=" + pAsset.getID() + ";");
-         while(rs.next())
+         while (rs.next())
          {
-               borrowers.add(new Person(rs.getString("RequestorID"),
+            borrowers.add(new Person(rs.getString("RequestorID"),
                rs.getString("FirstName"), rs.getString("MI"),
                rs.getString("LastName"), rs.getString("Email"),
                rs.getString("Phone")));
@@ -869,13 +899,13 @@ public class Server
             + "where Requests.RequestorID = " + pPerson.getID()
             + " and Checkouts.isActive=1"
             + "order by Requests.RequestedMadeDate;");
-         while(rs.next())
+         while (rs.next())
          {
             requests.add(new Request(rs.getString("RequestID"),
-                                     rs.getDate("RequestedMadeDate"),
-                                     rs.getDate("RequestedPickupDate"),
-                                     rs.getString("RequestedType"),
-                                     getPerson(rs.getString("RequestorID"))));
+               rs.getDate("RequestedMadeDate"),
+               rs.getDate("RequestedPickupDate"),
+               rs.getString("RequestedType"),
+               getPerson(rs.getString("RequestorID"))));
          }
 
          for (Request request : requests)
@@ -885,7 +915,6 @@ public class Server
       }
       catch (Exception e)
       {
-
       }
       return requests;
    }
@@ -904,17 +933,17 @@ public class Server
          ResultSet rs = mStat.executeQuery(
             "select * from assets left outer join checkouts"
             + " ON Assets.AssetID = Checkouts.AssetID "
-            +"where Requests.RequestorID=\"" + pPerson.getID()
-            +"or Checkouts.RequestID=\"" + pPerson.getID() + "\";");
+            + "where Requests.RequestorID=\"" + pPerson.getID()
+            + "or Checkouts.RequestID=\"" + pPerson.getID() + "\";");
 
-         while(rs.next())
+         while (rs.next())
          {
-               assets.add(new Asset(rs.getString("AssetID"),
+            assets.add(new Asset(rs.getString("AssetID"),
                rs.getString("Make"), rs.getString("Model"),
                rs.getString("SerialNumber"),
                rs.getString("AssetType"),
                rs.getString("Description"),
-               rs.getBoolean("inMaintenence")));
+               rs.getBoolean("inMaintenance")));
          }
       }
       catch (Exception e)

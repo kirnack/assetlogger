@@ -101,7 +101,7 @@ public class ScheduleFunction
          System.err.println("findprob: " + mAsset);
          // Make the request object, stamp it with today's date
          mCurrRequest = new Request("", new Date(), mData.getStart(),
-            mAsset.getType(), mRecipient);
+            mAsset.getType(), mRecipient);   
       }
    }
 

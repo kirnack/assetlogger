@@ -76,6 +76,10 @@ public abstract class DatabaseControl
       mFunctions = new ArrayList<Function>();
       mPostClass = "";
 
+      //default user
+      mUser = new User();
+      mUser.setAdmin(false);
+
       //Use a netbeans generated gui
       changeView("Login");
    }
@@ -281,9 +285,7 @@ public abstract class DatabaseControl
          //reset the functions
          mFunctions.clear();
       }
-      //TODO: uncomment this when server is working again
-      //mView.setAdminComponents(mUser.isAdmin());
-      mView.setAdminComponents(true);
+      mView.setAdminComponents(mUser.isAdmin());
    }
 
    /**
@@ -356,17 +358,32 @@ public abstract class DatabaseControl
    }
 
    /**
-    * Gets from the model the outstanding requests based on a Person.
-    * The oustanding requests will not have a picked up date set yet for
-    * its checkout collection and will not be past the requested pick up date.
+    * Gets from the model the the scheduled requests based on a Person.
+    * The scheduled requests will not have a picked up date set yet for
+    * its checkout collection and will not be past the requested pick up date-
+    * they will not have been checked out yet.
     *
     * @param pPerson The person to get the requests for
-    * @return The outstanding requests
+    * @return The scheduled requests
     */
-   public Collection<Request> getOutstandingRequests(Person pPerson)
+   public Collection<Request> getScheduledRequests(Person pPerson)
    {
       // TODO: Have controller filter results to give to the view
 
+      return mModel.getActiveRequests(pPerson);
+   }
+
+   /**
+    * Gets from the model the checked out requests based on a Person.
+    * These will be those requests that have been checked out to a person
+    * but not yet returned.
+    *
+    * @param pPerson The person to get the requests for
+    * @return The checked out requests
+    */
+   public Collection<Request> getCheckedOutRequests(Person pPerson)
+   {
+      // TODO: have controller filter results to give to the view
       return mModel.getActiveRequests(pPerson);
    }
 

@@ -187,33 +187,6 @@ public class DatabaseControlTest
     * Test of doFunction method, of class DatabaseControl.
     */
    @Test
-   public void testDoFunction_0args()
-   {
-      System.out.println("doFunction");
-      DatabaseControl instance = new DatabaseControlImpl();
-      instance.doFunction();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
-
-   /**
-    * Test of doFunction method, of class DatabaseControl.
-    */
-   @Test
-   public void testDoFunction_DataPacket()
-   {
-      System.out.println("doFunction");
-      DataPacket pPacket = null;
-      DatabaseControl instance = new DatabaseControlImpl();
-      instance.doFunction(pPacket);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
-
-   /**
-    * Test of doFunction method, of class DatabaseControl.
-    */
-   @Test
    public void testDoFunction_String()
    {
       System.out.println("doFunction");

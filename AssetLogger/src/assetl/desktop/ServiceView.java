@@ -244,16 +244,22 @@ public class ServiceView
 
       requests = (ArrayList<Request>) mControl.getScheduledRequests(tempPerson);
 
-      for (Request curr : requests)
+      if (requests != null)
       {
-         mScheduledListModel.addElement(curr);
+         for (Request curr : requests)
+         {
+            mScheduledListModel.addElement(curr);
+         }
       }
 
       requests = (ArrayList<Request>) mControl.getCheckedOutRequests(tempPerson);
 
-      for (Request curr : requests)
+      if (requests != null)
       {
-         mCheckedOutListModel.addElement(curr);
+         for (Request curr : requests)
+         {
+            mCheckedOutListModel.addElement(curr);
+         }
       }
    }
 

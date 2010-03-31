@@ -125,6 +125,7 @@ public class ScheduleFunction
          // Make the checkout and add it to the current request
          mCurrCheckout = new Checkout("", "", mAsset, mRecipient,
             mData.getStart(), mData.getEnd());
+         mCurrCheckout.setActive(true);
          return true;
       }
    }
@@ -153,8 +154,7 @@ public class ScheduleFunction
       mCurrRequest.addCheckout(mCurrCheckout);
 
       //send the request to the model
-      // TODO: uncomment me when setRequest works:
-      //mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
+      mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
 
       // TODO: find a better way to do this: separate view changing from
       // functions more

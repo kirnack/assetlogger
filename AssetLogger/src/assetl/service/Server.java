@@ -149,7 +149,7 @@ public class Server
          mStat = mConn.createStatement();
          URL setupSQL = ClassLoader.getSystemResource(
             Server.class.getPackage().getName().replace(".", "/")
-            + "/BackupAssetLoggerSetup.sql");
+            + "/AssetLoggerSetup.sql");
          //System.err.println(setupSQL);
          File name = new File(setupSQL.toString().replace("file:", ""));
          //System.err.println(name);

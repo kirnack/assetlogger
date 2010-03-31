@@ -122,7 +122,9 @@ public class DeleteMe
     */
    public User getUser(String pID)
    {
-      return new User();
+      User temp = new User();
+      temp.setAdmin(true);
+      return temp;
    }
 
    /**
@@ -173,7 +175,10 @@ public class DeleteMe
     */
    public Collection<Request> getActiveRequests(Person pPerson)
    {
-      return new ArrayList<Request>();
+      ArrayList<Request> temp = new ArrayList<Request>();
+      Request tempReq = new Request("33", new Date(), new Date(), "PC", new Person());
+      temp.add(tempReq);
+      return temp;
    }
 
    /**

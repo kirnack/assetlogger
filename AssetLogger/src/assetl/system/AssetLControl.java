@@ -12,7 +12,6 @@ import java.util.Date;
  */
 public interface AssetLControl
 {
-
    /**
     * Uses dynamic class loading to change the view.
     *
@@ -88,12 +87,23 @@ public interface AssetLControl
    Collection<Asset> getAvailableAssets(Date pStart, Date pEnd);
 
    /**
-    * Gets from the model the outstanding requests based on a Person.
-    * The oustanding requests will not have a picked up date set yet for
-    * its checkout collection and will not be past the requested pick up date.
+    * Gets from the model the checked out requests based on a Person.
+    * These will be those requests that have been checked out to a person
+    * but not yet returned.
     *
     * @param pPerson The person to get the requests for
-    * @return The outstanding requests
+    * @return The checked out requests
     */
-   Collection<Request> getOutstandingRequests(Person pPerson);
+   Collection<Request> getCheckedOutRequests(Person pPerson);
+
+   /**
+    * Gets from the model the the scheduled requests based on a Person.
+    * The scheduled requests will not have a picked up date set yet for
+    * its checkout collection and will not be past the requested pick up date-
+    * they will not have been checked out yet.
+    *
+    * @param pPerson The person to get the requests for
+    * @return The scheduled requests
+    */
+   Collection<Request> getScheduledRequests(Person pPerson);
 }

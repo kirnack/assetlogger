@@ -10,6 +10,7 @@ import assetl.system.AssetLModel;
 import assetl.system.AssetLView;
 import assetl.system.DataPacket;
 import assetl.system.Request;
+import assetl.system.Checkout;
 import assetl.system.Person;
 import assetl.system.Asset;
 import assetl.system.User;
@@ -68,10 +69,9 @@ public abstract class DatabaseControl
    public DatabaseControl()
    {
       //get the model
-
-      // TODO: uncomment this once the Server code is properly debugged
       mModel = Server.getInstance();
 
+      // TODO: delete the following line of test code
       //mModel = new DeleteMe();
       mFunctions = new ArrayList<Function>();
       mPostClass = "";
@@ -358,6 +358,55 @@ public abstract class DatabaseControl
    }
 
    /**
+    * Gets the collection of active requests from the model based on the
+    * person and then splits the active requests into a collection of
+    * those that are scheduled and those that are checked out. The collection
+    * returned is based on the string passed in indicating what is needed
+    *
+    * @param pNeeded The needed collection to get from the split
+    * @param pPerson The person to get the collection for
+    * @return The needed collection
+    */
+   protected Collection<Request> splitRequests(String pNeeded, Person pPerson)
+   {
+      ArrayList<Checkout> checkouts = null;
+      ArrayList<Request> scheduled = null;
+      ArrayList<Request> checkedout = null;
+      ArrayList<Request> active = null;
+
+      //Get the active requests from the model
+      active = (ArrayList<Request>) mModel.getActiveRequests(pPerson);
+
+      for (Request request : active)
+      {
+         //
+         //Get the checkouts contained in a request, if the checkouts don't
+         // have a pickedup date add it to the list of scheduled requests
+         // otherwise put it in the list of checked out requests.
+         //
+
+         checkouts = (ArrayList<Checkout>) request.getCheckouts();
+         if (checkouts.get(0).getPickedupDate() == null)
+         {
+            scheduled.add(request);
+         }
+         else
+         {
+            checkedout.add(request);
+         }
+      }
+      if ("Scheduled".equals(pNeeded))
+      {
+         return scheduled;
+      }
+      else if ("CheckedOut".equals(pNeeded))
+      {
+         return checkedout;
+      }
+      return null;
+   }
+
+   /**
     * Gets from the model the the scheduled requests based on a Person.
     * The scheduled requests will not have a picked up date set yet for
     * its checkout collection and will not be past the requested pick up date-
@@ -368,9 +417,7 @@ public abstract class DatabaseControl
     */
    public Collection<Request> getScheduledRequests(Person pPerson)
    {
-      // TODO: Have controller filter results to give to the view
-
-      return mModel.getActiveRequests(pPerson);
+      return splitRequests("Scheduled", pPerson);
    }
 
    /**
@@ -383,8 +430,7 @@ public abstract class DatabaseControl
     */
    public Collection<Request> getCheckedOutRequests(Person pPerson)
    {
-      // TODO: have controller filter results to give to the view
-      return mModel.getActiveRequests(pPerson);
+      return splitRequests("CheckedOut", pPerson);
    }
 
    /**

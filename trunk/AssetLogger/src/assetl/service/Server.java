@@ -550,7 +550,7 @@ public class Server
             prepReq.setTimestamp(7, ((pCheckout.getPickedupDate() != null)
                ? new Timestamp(pCheckout.getPickedupDate().getTime())
                : null));
-            prepReq.setTimestamp(8, ((pCheckout.getPickedupDate() != null)
+            prepReq.setTimestamp(8, ((pCheckout.getReturnedDate() != null)
                ? new Timestamp(pCheckout.getReturnedDate().getTime())
                : null));
             prepReq.setBoolean(9, pCheckout.isActive());
@@ -839,7 +839,7 @@ public class Server
          }
          catch (Exception e)
          {
-            
+
          }
 
       }

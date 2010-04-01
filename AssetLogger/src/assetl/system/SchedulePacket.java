@@ -1,6 +1,8 @@
 package assetl.system;
 
 import java.util.Date;
+import java.util.Collection;
+import java.util.ArrayList;
 
 /**
  * Encapsulates the data needed to be sent by the view to the controller
@@ -16,9 +18,9 @@ public class SchedulePacket
     */
    String mPersonID;
    /**
-    * The id needed to get an asset from the model
+    * The id needed to get an assets from the model
     */
-   String mAssetID;
+   Collection<String> mAssetIDs;
    /**
     * The start date
     */
@@ -27,6 +29,11 @@ public class SchedulePacket
     * The end date
     */
    Date mEnd;
+
+   public SchedulePacket()
+   {
+      mAssetIDs = new ArrayList<String>();
+   }
 
    /**
     * Sets the person id
@@ -43,9 +50,9 @@ public class SchedulePacket
     *
     * @param pAssetID The asset id
     */
-   public void setAssetID(String pAssetID)
+   public void addAssetID(String pAssetID)
    {
-      mAssetID = pAssetID;
+      mAssetIDs.add(pAssetID);
    }
 
    /**
@@ -83,9 +90,9 @@ public class SchedulePacket
     *
     * @return The asset id
     */
-   public String getAssetID()
+   public Collection<String> getAssetIDs()
    {
-      return mAssetID;
+      return mAssetIDs;
    }
 
    /**

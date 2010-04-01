@@ -55,9 +55,6 @@ public class FindAssetView
       mAssetListModel = new DefaultListModel();
       initComponents();
 
-      // TODO: support the selection of multiple assets
-      mAssetList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
       // add action listeners
       mFindBtn.addActionListener(new ActionListener()
       {
@@ -131,7 +128,6 @@ public class FindAssetView
       jScrollPane1.setName("jScrollPane1"); // NOI18N
 
       mAssetList.setModel(mAssetListModel);
-      mAssetList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
       mAssetList.setName("mAssetList"); // NOI18N
       jScrollPane1.setViewportView(mAssetList);
 
@@ -248,7 +244,7 @@ public class FindAssetView
       {
          ArrayList<Asset> laptops;
          laptops = (ArrayList<Asset>) mControl.getAvailableAssets(start, end);
-         
+
          for (Asset laptop : laptops)
          {
             mAssetListModel.addElement(laptop);
@@ -300,8 +296,12 @@ public class FindAssetView
       SchedulePacket packet = new SchedulePacket();
       // Get the person id sent from ServiceView
       packet.setPersonID(tempPacket.getString());
-      Asset tempAsset = (Asset) mAssetList.getSelectedValue();
-      packet.setAssetID(tempAsset.getID());
+      Object[] selected = mAssetList.getSelectedValues();
+      for (Object obj : selected)
+      {
+         Asset asset = (Asset) obj;
+         packet.addAssetID(asset.getID());
+      }
       packet.setStart(grabStart());
       packet.setEnd(grabEnd());
 

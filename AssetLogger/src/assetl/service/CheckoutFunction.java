@@ -1,6 +1,7 @@
 package assetl.service;
 
 import java.util.Date;
+import assetl.system.Asset;
 
 /**
  * Peforms all the same functions as a schedule except that the pickup
@@ -20,9 +21,9 @@ public class CheckoutFunction
     * @return true if the checkout can be made
     */
    @Override
-   protected boolean makeCheckout()
+   protected boolean makeCheckout(Asset pAsset)
    {
-      if (super.makeCheckout())
+      if (super.makeCheckout(pAsset))
       {
          //stamp picked up date with today's date
          mCurrCheckout.setPickedupDate(mData.getStart());
@@ -32,8 +33,6 @@ public class CheckoutFunction
       {
          return false;
       }
-
-
    }
 
    /**

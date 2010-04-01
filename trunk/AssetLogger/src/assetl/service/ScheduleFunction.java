@@ -88,18 +88,26 @@ public class ScheduleFunction
    protected void makeRequest()
    {
       //
-      // TODO: find a request by its requestor and pickup date
+      // Find a request by its requestor and pickup date
       // and see if it already exists
-      // (rather than just checking the last request made)
       //
 
-      //
-      // If the pickup dates are the same for the same person
-      // there is no reason to make a new request
-      //
+      for (Request request : mModel.getActiveRequests(mRecipient))
+      {
+         //
+         // If the pickup dates are the same for the same person
+         // there is no reason to make a new request
+         //
 
-      if (mCurrRequest == null || mRecipient != mCurrRequest.getRequestor()
-         || mData.getStart() != mCurrRequest.getRequestedPickup())
+         if (request.getRequestedPickup() == mData.getStart())
+         {
+            mCurrRequest = request;
+            break;
+         }
+      }
+
+      //If a request doesn't exist make it
+      if (mCurrRequest == null)
       {
          // Make the request object, stamp it with today's date
          mCurrRequest = new Request("", new Date(), mData.getStart(),

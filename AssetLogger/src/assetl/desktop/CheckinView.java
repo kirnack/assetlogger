@@ -7,12 +7,10 @@ package assetl.desktop;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
-import assetl.system.DataPacket;
-import assetl.system.StringPacket;
-
-
 import assetl.system.AssetLControl;
+import assetl.system.DataPacket;
+import assetl.system.AssetCollectionPacket;
+import assetl.system.Asset;
 
 /**
  * Provides an interface to check in a laptop
@@ -101,12 +99,10 @@ public class CheckinView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      // TODO: provide implementation for this method
-
       //get the laptop data
       //mData.setAsset(mControl.getAsset(ckInTxtFld.getText()));
 
-      return new StringPacket();
+      return new AssetCollectionPacket();
    }
 
    /**

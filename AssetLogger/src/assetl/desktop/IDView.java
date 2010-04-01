@@ -5,6 +5,8 @@
  */
 package assetl.desktop;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
@@ -37,10 +39,30 @@ public class IDView
       mGroup.add(mScheduleRadio);
       mGroup.add(mCheckInRadio);
 
-      // add SwitchListeners
+      // Add listeners
 
-      enableSwitch("LoadPerson", mScheduleRadio);
-      enableSwitch("Checkin", mCheckInRadio);
+      mScheduleRadio.addActionListener(new ActionListener()
+      {
+         /**
+          * Enable the ability to load a person in
+          * the next view
+          */
+         public void actionPerformed(ActionEvent ev)
+         {
+            enable("LoadPerson");
+         }
+      });
+
+      mCheckInRadio.addActionListener(new ActionListener()
+      {
+         /**
+          * Enable the ability to checkin a laptop
+          */
+         public void actionPerformed(ActionEvent ev)
+         {
+            enable("Checkin");
+         }
+      });
    }
 
    /** This method is called from within the constructor to

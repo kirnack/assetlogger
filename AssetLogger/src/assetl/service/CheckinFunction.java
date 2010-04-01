@@ -1,9 +1,13 @@
 package assetl.service;
 
 import java.util.Date;
-import assetl.system.Checkout;
+import java.util.Collection;
+import java.util.ArrayList;
 import assetl.system.DataPacket;
+import assetl.system.AssetCollectionPacket;
 import assetl.system.StringPacket;
+import assetl.system.Asset;
+import assetl.system.Checkout;
 
 /**
  * Defines the behavior for checking in an asset
@@ -16,7 +20,7 @@ public class CheckinFunction
    /**
     * The specific DataPacket needed for this function to operate
     */
-   private StringPacket mData;
+   private DataPacket mData;
 
    /**
     * Sets the DataPacket for a Checkin
@@ -25,7 +29,7 @@ public class CheckinFunction
     */
    public void setPacket(DataPacket pPacket)
    {
-      mData = (StringPacket) pPacket;
+      mData = pPacket;
    }
 
    /**
@@ -39,6 +43,31 @@ public class CheckinFunction
    }
 
    /**
+    * Gets from the DataPacket the assets that need to be checked in
+    *
+    * @return The collection of assests that need to be checked in
+    */
+   public Collection<Asset> getAssets()
+   {
+      ArrayList<Asset> checkins = new ArrayList<Asset>();
+
+      //Handle different DataPackets
+      checkins = new ArrayList<Asset>();
+      if (StringPacket.class.isAssignableFrom(mData.getClass()))
+      {
+         StringPacket strPack = (StringPacket) mData;
+         checkins.add(mModel.getAsset(strPack.getString()));
+      }
+      else
+      {
+         AssetCollectionPacket colPack = (AssetCollectionPacket) mData;
+         checkins = (ArrayList<Asset>) colPack.getAssets();
+      }
+
+      return checkins;
+   }
+
+   /**
     * Checks in an asset: Retrieves the outstanding Checkout object for this
     * asset and sets today's date as the returned date.
     */
@@ -48,13 +77,18 @@ public class CheckinFunction
       // Get the checkout and set the returned date to today's date
       //
 
-      //
-      // TODO: handle when no outstanding checkout exists for this asset
-      //
-
-      Checkout outstanding = mModel.getCheckout(
-         mModel.getAsset(mData.getString()));
-      outstanding.setReturnedDate(new Date());
-      mModel.setCheckout(outstanding);
+      for (Asset asset : getAssets())
+      {
+         Checkout outstanding = mModel.getCheckout(asset);
+         if (outstanding != null)
+         {
+            outstanding.setReturnedDate(new Date());
+            mModel.setCheckout(outstanding);
+         }
+         else
+         {
+            System.err.println("Item not out.");
+         }
+      }
    }
 }

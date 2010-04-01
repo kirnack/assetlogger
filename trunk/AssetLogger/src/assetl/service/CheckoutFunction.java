@@ -2,6 +2,7 @@ package assetl.service;
 
 import java.util.Date;
 import assetl.system.Asset;
+import assetl.system.Checkout;
 
 /**
  * Peforms all the same functions as a schedule except that the pickup
@@ -12,6 +13,18 @@ import assetl.system.Asset;
 public class CheckoutFunction
    extends ScheduleFunction
 {
+   /**
+    * Creates needed objects for the function using
+    * data sent via the DataPacket
+    */
+   @Override
+   public void initVariables()
+   {
+      super.initVariables();
+      //make today the start date for the checkout
+      mData.setStart(new Date());
+   }
+
    /**
     * Makes a new checkout using data obtained from the view and adds
     * it to the current request. Expects the Person, Asset, start Date,
@@ -36,14 +49,28 @@ public class CheckoutFunction
    }
 
    /**
-    * Creates needed objects for the function using
-    * data sent via the DataPacket
+    * Makes the necessary Request and Checkout objects to send
+    * to the model
     */
    @Override
-   public void initVariables()
+   public void make()
    {
-      super.initVariables();
-      //make today the start date for the checkout
-      mData.setStart(new Date());
+      //
+      // If a new Request was made then add checkouts to it
+      // otherwise go through the checkouts in the existing request
+      // and set their picked up date to today
+      //
+
+      if(makeRequest())
+      {
+         addCheckouts();
+      }
+      else
+      {
+         for (Checkout out : mCurrRequest.getCheckouts())
+         {
+            out.setPickedupDate(new Date());
+         }
+      }
    }
 }

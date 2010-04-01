@@ -84,9 +84,12 @@ public class ScheduleFunction
     * Makes a new request using objects sent from the view.
     * Expects the Person, start Date, and Asset fields to be set in the packet.
     * Sets the Request made in the Request field of the data packet.
+    *
+    * @return True if a request was made
     */
-   protected void makeRequest()
+   protected boolean makeRequest()
    {
+      boolean makeRequest = true;
       //
       // Find a request by its requestor and pickup date
       // and see if it already exists
@@ -102,18 +105,20 @@ public class ScheduleFunction
          if (request.getRequestedPickup() == mData.getStart())
          {
             mCurrRequest = request;
+            makeRequest = false;
             break;
          }
       }
 
       //If a request doesn't exist make it
-      if (mCurrRequest == null)
+      if (mCurrRequest == null && makeRequest)
       {
          // Make the request object, stamp it with today's date
          mCurrRequest = new Request("", new Date(), mData.getStart(),
             "Faculty Checkout", mRecipient);
       }
       mCurrRequest.setActive(true);
+      return makeRequest;
    }
 
    /**
@@ -126,18 +131,63 @@ public class ScheduleFunction
     */
    protected boolean makeCheckout(Asset pAsset)
    {
+      //Assume we will make a checkout
+      boolean makeCheckout = true;
+
+      //Find the reasons not to make a checkout
       if (mCurrRequest == null)
       {
          // Can't add a checkout object
-         return false;
+         makeCheckout = false;
       }
       else
       {
-         // Make the checkout and add it to the current request
+         //See if the checkout is already made for this asset
+         for (Checkout out : mCurrRequest.getCheckouts())
+         {
+            if (out.getAsset() == pAsset)
+            {
+               makeCheckout = false;
+               break;
+            }
+         }
+      }
+
+      if (makeCheckout)
+      {
+         //Make the checkout
          mCurrCheckout = new Checkout("", "", pAsset, mRecipient,
             mData.getStart(), mData.getEnd());
          mCurrCheckout.setActive(true);
-         return true;
+      }
+      return makeCheckout;
+   }
+
+   /**
+    * Makes the necessary Request and Checkout objects to send
+    * to the model
+    */
+   public void make()
+   {
+      //Make a new request
+      makeRequest();
+      addCheckouts();
+   }
+
+   /**
+    * Adds checkouts to the current request
+    */
+   public void addCheckouts()
+   {
+      //Make a checkout for every asset and add it to the request
+      for (Asset asset : mAssets)
+      {
+         //If a checkout was made
+         if (makeCheckout(asset))
+         {
+            //add the checkout to the request
+            mCurrRequest.addCheckout(mCurrCheckout);
+         }
       }
    }
 
@@ -153,21 +203,7 @@ public class ScheduleFunction
    {
       initVariables();
 
-      //Make a new request
-      makeRequest();
-
-      //Make a checkout for every asset and add it to the request
-      for (Asset asset : mAssets)
-      {
-         makeCheckout(asset);
-
-         //
-         // TODO: make sure the checkout isn't already in the collection
-         //
-
-         //add the checkout to the request
-         mCurrRequest.addCheckout(mCurrCheckout);
-      }
+      make();
 
       //send the request to the model
       mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());

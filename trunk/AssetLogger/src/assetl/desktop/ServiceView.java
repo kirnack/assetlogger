@@ -70,7 +70,6 @@ public class ServiceView
       mScheduledListModel = new DefaultListModel();
       mCheckedOutListModel = new DefaultListModel();
       initComponents();
-      mButtonMap = new HashMap<String, AbstractButton>();
       generateMap();
       generatePacketMap();
 
@@ -263,7 +262,7 @@ public class ServiceView
     */
    public void generateMap()
    {
-      mButtonMap.clear();
+      mButtonMap = new HashMap<String, AbstractButton>();
       mButtonMap.put("Cancel", mCancelBtn);
       mButtonMap.put("Checkout", mCheckoutBtn);
       mButtonMap.put("CheckoutAsset", mCheckoutBtn);
@@ -277,8 +276,8 @@ public class ServiceView
     */
    public void generatePacketMap()
    {
-      PacketGenerator gen;
-      mPacketMap.clear();
+      PacketGenerator gen = null;
+      mPacketMap = new HashMap<String, PacketGenerator>();
 
       gen = new ServiceStringGrabber(this);
       mPacketMap.put("ScheduleAsset", gen);

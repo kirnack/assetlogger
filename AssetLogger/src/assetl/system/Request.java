@@ -291,4 +291,12 @@ public class Request
       hash = 17 * hash + (this.mID != null ? this.mID.hashCode() : 0);
       return hash;
    }
+
+   @Override
+   public String toString()
+   {
+      return "Request " + mID + " for " + mCheckouts.size() + " assets.";
+   }
+
+
 }

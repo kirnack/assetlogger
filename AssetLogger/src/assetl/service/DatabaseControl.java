@@ -69,10 +69,10 @@ public abstract class DatabaseControl
    public DatabaseControl()
    {
       //get the model
-      //mModel = Server.getInstance();
+      mModel = Server.getInstance();
 
       // TODO: delete the following line of test code
-      mModel = new Mimick();
+      //mModel = new Mimick();
       mFunctions = new ArrayList<Function>();
       mPostClass = "";
 

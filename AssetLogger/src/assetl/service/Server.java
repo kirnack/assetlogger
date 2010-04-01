@@ -896,7 +896,7 @@ public class Server
       {
          ResultSet rs = mStat.executeQuery(
             "Select * from Requests where requestorID=\"" + pPerson.getID() +
-            " and Exists (select requestID from checkouts where active=1 and " +
+            "\" and Exists (select requestID from checkouts where active=1 and " +
             "checkouts.requestID=requests.requestID);");
          while (rs.next())
          {
@@ -914,6 +914,7 @@ public class Server
       }
       catch (Exception e)
       {
+         e.printStackTrace();
       }
       return requests;
    }

@@ -1,5 +1,7 @@
 package assetl.service;
 
+import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
 
 import assetl.system.Asset;
@@ -35,9 +37,9 @@ public class ScheduleFunction
     */
    Person mRecipient;
    /**
-    * The asset the person will receive
+    * The assets the person will receive
     */
-   Asset mAsset;
+   Collection<Asset> mAssets;
 
    /**
     * Sets the DataPacket for this function
@@ -67,14 +69,15 @@ public class ScheduleFunction
    {
       mCurrRequest = null;
       mCurrCheckout = null;
+      mAssets = new ArrayList<Asset>();
 
       mRecipient = mModel.getPerson(mData.getPersonID());
-      mAsset = mModel.getAsset(mData.getAssetID());
 
-      // TODO: remove this test code until get asset works again
-      mAsset = new Asset();
-      mAsset.setID(mData.getAssetID());
-      mAsset.setType("Mac");
+      // Add the assets to the collection
+      for (String id : mData.getAssetIDs())
+      {
+         mAssets.add(mModel.getAsset(id));
+      }
    }
 
    /**
@@ -98,10 +101,9 @@ public class ScheduleFunction
       if (mCurrRequest == null || mRecipient != mCurrRequest.getRequestor()
          || mData.getStart() != mCurrRequest.getRequestedPickup())
       {
-         System.err.println("findprob: " + mAsset);
          // Make the request object, stamp it with today's date
          mCurrRequest = new Request("", new Date(), mData.getStart(),
-            mAsset.getType(), mRecipient);   
+            "Faculty Checkout", mRecipient);
       }
       mCurrRequest.setActive(true);
    }
@@ -114,7 +116,7 @@ public class ScheduleFunction
     *
     * @return true if the checkout can be made
     */
-   protected boolean makeCheckout()
+   protected boolean makeCheckout(Asset pAsset)
    {
       if (mCurrRequest == null)
       {
@@ -124,7 +126,7 @@ public class ScheduleFunction
       else
       {
          // Make the checkout and add it to the current request
-         mCurrCheckout = new Checkout("", "", mAsset, mRecipient,
+         mCurrCheckout = new Checkout("", "", pAsset, mRecipient,
             mData.getStart(), mData.getEnd());
          mCurrCheckout.setActive(true);
          return true;
@@ -143,16 +145,21 @@ public class ScheduleFunction
    {
       initVariables();
 
-      //make a new request and checkout
+      //Make a new request
       makeRequest();
-      makeCheckout();
 
-      //
-      // TODO: make sure the checkout isn't already in the collection
-      //
+      //Make a checkout for every asset and add it to the request
+      for (Asset asset : mAssets)
+      {
+         makeCheckout(asset);
 
-      //add the checkout to the request
-      mCurrRequest.addCheckout(mCurrCheckout);
+         //
+         // TODO: make sure the checkout isn't already in the collection
+         //
+
+         //add the checkout to the request
+         mCurrRequest.addCheckout(mCurrCheckout);
+      }
 
       //send the request to the model
       mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());

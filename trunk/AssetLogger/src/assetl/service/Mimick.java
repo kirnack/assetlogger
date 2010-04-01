@@ -12,14 +12,31 @@ import assetl.system.Checkout;
 import assetl.system.User;
 
 /**
- * A class to use until the Server has completed its changes such that the
- * building of the controller can continue.
+ * Mimicks the behavior of the Server so as to test the functionality of
+ * the controller.
  *
  * @author Devin Doman
  */
-public class DeleteMe
+public class Mimick
    implements AssetLModel
 {
+   Collection<Request> mRequests;
+   Collection<Person> mPersons;
+   Collection<Asset> mAssets;
+
+   Mimick()
+   {
+      mRequests = new ArrayList<Request>();
+      mPersons = new ArrayList<Person>();
+      mAssets = new ArrayList<Asset>();
+      
+      mPersons.add(new Person("42", "Travis", "", "Rice", "fake@byui.edu", "(208)555-2323"));
+
+      mAssets.add(new Asset("676", "Apple", "#2", "asdfasf", "Mac", ""));
+      mAssets.add(new Asset("967", "Dell", "#4", "cvxbcxb", "PC", ""));
+      mAssets.add(new Asset("9787", "HP", "#88", "yiyuiy", "PC", ""));
+      mAssets.add(new Asset("5677", "Dell", "#42", "qwewqeq", "PC", ""));
+   }
    /**
     * Gets a person by their id.
     *
@@ -28,8 +45,14 @@ public class DeleteMe
     */
    public Person getPerson(String pID)
    {
-      return new Person("42", "Travis", "M", "Rice", "fake@byui.edu",
-         "(608)449-4322");
+      for (Person p : mPersons)
+      {
+         if (pID.equals(p.getID()))
+         {
+            return p;
+         }
+      }
+      return null;
    }
 
    /**
@@ -39,6 +62,7 @@ public class DeleteMe
     */
    public void setPerson(Person pPerson)
    {
+      mPersons.add(pPerson);
    }
 
    /**
@@ -49,7 +73,14 @@ public class DeleteMe
     */
    public Asset getAsset(String pID)
    {
-      return new Asset();
+      for (Asset a : mAssets)
+      {
+         if (pID.equals(a.getID()))
+         {
+            return a;
+         }
+      }
+      return null;
    }
 
    /**
@@ -59,6 +90,7 @@ public class DeleteMe
     */
    public void setAsset(Asset pAsset)
    {
+      mAssets.add(pAsset);
    }
 
    /**
@@ -69,7 +101,14 @@ public class DeleteMe
     */
    public Request getRequest(String pID)
    {
-      return new Request();
+      for (Request r : mRequests)
+      {
+         if (pID.equals(r.getID()))
+         {
+            return r;
+         }
+      }
+      return null;
    }
 
    /**
@@ -80,6 +119,7 @@ public class DeleteMe
     */
    public void setRequest(Request pRequest, String pUserID)
    {
+      mRequests.add(pRequest);
    }
 
    /**
@@ -91,6 +131,19 @@ public class DeleteMe
     */
    public Checkout getCheckout(Asset pAsset)
    {
+      for (Request r : mRequests)
+      {
+         if (r.isActive())
+         {
+            for (Checkout c : r.getCheckouts())
+            {
+               if (c.getReturnedDate() == null && c.getAsset() == pAsset)
+               {
+                  return c;
+               }
+            }
+         }
+      }
       return new Checkout();
    }
 
@@ -148,12 +201,7 @@ public class DeleteMe
     */
    public Collection<Asset> getAvailAsset(Date pStart, Date pEnd)
    {
-      ArrayList<Asset> temp = new ArrayList<Asset>();
-      temp.add(new Asset("676", "Apple", "#2", "asdfasf", "Mac", ""));
-      temp.add(new Asset("967", "Dell", "#4", "cvxbcxb", "PC", ""));
-      temp.add(new Asset("9787", "HP", "#88", "yiyuiy", "PC", ""));
-      temp.add(new Asset("5677", "Dell", "#42", "qwewqeq", "PC", ""));
-      return temp;
+      return mAssets;
    }
 
    /**
@@ -176,8 +224,13 @@ public class DeleteMe
    public Collection<Request> getActiveRequests(Person pPerson)
    {
       ArrayList<Request> temp = new ArrayList<Request>();
-      Request tempReq = new Request("33", new Date(), new Date(), "PC", new Person());
-      temp.add(tempReq);
+      for (Request r: mRequests)
+      {
+         if (r.isActive())
+         {
+            temp.add(r);
+         }
+      }
       return temp;
    }
 

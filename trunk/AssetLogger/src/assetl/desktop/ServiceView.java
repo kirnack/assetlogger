@@ -8,6 +8,10 @@ package assetl.desktop;
 import java.util.ArrayList;
 import java.util.AbstractMap;
 import java.util.HashMap;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.JList;
+import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.AbstractButton;
 
@@ -15,6 +19,7 @@ import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
 import assetl.system.StringPacket;
 import assetl.system.PersonPacket;
+import assetl.system.SchedulePacket;
 import assetl.system.Person;
 import assetl.system.Request;
 
@@ -39,9 +44,10 @@ public class ServiceView
     */
    AbstractMap<String, AbstractButton> mButtonMap;
    /**
-    * Maps a functionality to a DataPacket it needs to grab
+    * Maps a functionality to a PacketGenerator that will
+    * produce the DataPacket the function needs
     */
-   AbstractMap<String, DataPacket> mPacketMap;
+   AbstractMap<String, PacketGenerator> mPacketMap;
 
    /**
     * Default Contructor used for dynamic class loading. Expects
@@ -66,6 +72,34 @@ public class ServiceView
       initComponents();
       mButtonMap = new HashMap<String, AbstractButton>();
       generateMap();
+      generatePacketMap();
+
+      mScheduledList.addListSelectionListener(new ListSelectionListener()
+      {
+         /**
+          * Listens for when the value of a list selection has changed
+          */
+         public void valueChanged(ListSelectionEvent ev)
+         {
+            enable("Checkout");
+         }
+      });
+
+      mCheckedOutList.addListSelectionListener(new ListSelectionListener()
+      {
+         /**
+          * Listens for when the value of a list selection has changed
+          */
+         public void valueChanged(ListSelectionEvent ev)
+         {
+            // TODO: uncomment when extend is supported
+            //enable("Extend");
+            enable("Checkin");
+         }
+      });
+
+      // TODO: uncomment when extend is supported
+      mExtendBtn.setVisible(false);
    }
 
    /** This method is called from within the constructor to
@@ -79,9 +113,9 @@ public class ServiceView
 
       mNameLbl = new javax.swing.JLabel();
       jScrollPane1 = new javax.swing.JScrollPane();
-      mCheckoutList = new javax.swing.JList();
+      mCheckedOutList = new javax.swing.JList();
       jScrollPane2 = new javax.swing.JScrollPane();
-      mRequestedList = new javax.swing.JList();
+      mScheduledList = new javax.swing.JList();
       mCheckoutLbl = new javax.swing.JLabel();
       mRequestedLbl = new javax.swing.JLabel();
       mReturnBtn = new javax.swing.JButton();
@@ -97,15 +131,15 @@ public class ServiceView
 
       jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-      mCheckoutList.setModel(mCheckedOutListModel);
-      mCheckoutList.setName("mCheckoutList"); // NOI18N
-      jScrollPane1.setViewportView(mCheckoutList);
+      mCheckedOutList.setModel(mCheckedOutListModel);
+      mCheckedOutList.setName("mCheckedOutList"); // NOI18N
+      jScrollPane1.setViewportView(mCheckedOutList);
 
       jScrollPane2.setName("jScrollPane2"); // NOI18N
 
-      mRequestedList.setModel(mScheduledListModel);
-      mRequestedList.setName("mRequestedList"); // NOI18N
-      jScrollPane2.setViewportView(mRequestedList);
+      mScheduledList.setModel(mScheduledListModel);
+      mScheduledList.setName("mScheduledList"); // NOI18N
+      jScrollPane2.setViewportView(mScheduledList);
 
       mCheckoutLbl.setText("Currently Checked out:");
       mCheckoutLbl.setName("mCheckoutLbl"); // NOI18N
@@ -193,16 +227,36 @@ public class ServiceView
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JScrollPane jScrollPane2;
    private javax.swing.JButton mCancelBtn;
+   private javax.swing.JList mCheckedOutList;
    private javax.swing.JButton mCheckoutBtn;
    private javax.swing.JLabel mCheckoutLbl;
-   private javax.swing.JList mCheckoutList;
    private javax.swing.JButton mExtendBtn;
    private javax.swing.JLabel mNameLbl;
    private javax.swing.JLabel mRequestedLbl;
-   private javax.swing.JList mRequestedList;
    private javax.swing.JButton mReturnBtn;
    private javax.swing.JButton mScheduleBtn;
+   private javax.swing.JList mScheduledList;
    // End of variables declaration//GEN-END:variables
+
+   public JLabel getNameLbl()
+   {
+      return mNameLbl;
+   }
+
+   public JList getCheckedOutList()
+   {
+      return mCheckedOutList;
+   }
+
+   public JList getScheduledList()
+   {
+      return mScheduledList;
+   }
+
+   public DataPacket getDataPacket()
+   {
+      return mPacket;
+   }
 
    /**
     * Creates the map between functions and the buttons that causes them
@@ -211,10 +265,26 @@ public class ServiceView
    {
       mButtonMap.clear();
       mButtonMap.put("Cancel", mCancelBtn);
+      mButtonMap.put("Checkout", mCheckoutBtn);
       mButtonMap.put("CheckoutAsset", mCheckoutBtn);
       mButtonMap.put("Extend", mExtendBtn);
       mButtonMap.put("Checkin", mReturnBtn);
       mButtonMap.put("ScheduleAsset", mScheduleBtn);
+   }
+
+   /**
+    * Creates the map between functions and the PacketGenerator it needs
+    */
+   public void generatePacketMap()
+   {
+      PacketGenerator gen;
+      mPacketMap.clear();
+
+      gen = new ServiceStringGrabber(this);
+      mPacketMap.put("ScheduleAsset", gen);
+      mPacketMap.put("CheckoutAsset", gen);
+      gen = new ServiceScheduleGrabber(this);
+      mPacketMap.put("Checkout", gen);
    }
 
    /**
@@ -273,26 +343,9 @@ public class ServiceView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      /* TODO: find a good way to grab various data packets depending on
-       * the button pushed
-       *
-      PersonPacket tempPacket = (PersonPacket) mPacket;
-      SchedulePacket test = new SchedulePacket();
-      test.setPersonID(tempPacket.getPerson().getID());
-      test.setAssetID("42");
-      test.setStartDay(2);
-      test.setStartMon(2);
-      test.setStartYear(2010);
-      test.setEndDay(3);
-      test.setEndMon(3);
-      test.setEndYear(2011);
-      return test;
-       *
-       */
-
-      // Send the personid
-      PersonPacket tempPacket = (PersonPacket) mPacket;
-      return new StringPacket(tempPacket.getPerson().getID());
+      ServiceDataGrabber grabber = null;
+      grabber = (ServiceDataGrabber) mPacketMap.get(pFunction);
+      return grabber.grab();
    }
 
    /**

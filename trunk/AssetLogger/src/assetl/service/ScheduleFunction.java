@@ -103,6 +103,7 @@ public class ScheduleFunction
          mCurrRequest = new Request("", new Date(), mData.getStart(),
             mAsset.getType(), mRecipient);   
       }
+      mCurrRequest.setActive(true);
    }
 
    /**

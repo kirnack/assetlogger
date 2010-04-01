@@ -69,10 +69,10 @@ public abstract class DatabaseControl
    public DatabaseControl()
    {
       //get the model
-      mModel = Server.getInstance();
+      //mModel = Server.getInstance();
 
       // TODO: delete the following line of test code
-      //mModel = new DeleteMe();
+      mModel = new Mimick();
       mFunctions = new ArrayList<Function>();
       mPostClass = "";
 
@@ -233,10 +233,8 @@ public abstract class DatabaseControl
    {
       try
       {
-         setFunctionAmbles();
          setFunction(pFunction);
-         String className = addAmbles(pFunction);
-         mFunction.setPacket(mView.grabDataPacket(className));
+         mFunction.setPacket(mView.grabDataPacket(pFunction));
          mFunction.performFunction();
       }
       catch (Exception ex)
@@ -369,10 +367,10 @@ public abstract class DatabaseControl
     */
    protected Collection<Request> splitRequests(String pNeeded, Person pPerson)
    {
-      ArrayList<Checkout> checkouts = null;
-      ArrayList<Request> scheduled = null;
-      ArrayList<Request> checkedout = null;
-      ArrayList<Request> active = null;
+      ArrayList<Checkout> checkouts = new ArrayList<Checkout>();
+      ArrayList<Request> scheduled = new ArrayList<Request>();
+      ArrayList<Request> checkedout = new ArrayList<Request>();
+      ArrayList<Request> active = new ArrayList<Request>();
 
       //Get the active requests from the model
       active = (ArrayList<Request>) mModel.getActiveRequests(pPerson);
@@ -386,7 +384,7 @@ public abstract class DatabaseControl
          //
 
          checkouts = (ArrayList<Checkout>) request.getCheckouts();
-         if (checkouts.get(0).getPickedupDate() == null)
+         if (!checkouts.isEmpty() && checkouts.get(0).getPickedupDate() == null)
          {
             scheduled.add(request);
          }

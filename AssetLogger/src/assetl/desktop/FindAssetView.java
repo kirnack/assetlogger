@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultListModel;
-import javax.swing.ListSelectionModel;
 import resources.DateConverter;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;

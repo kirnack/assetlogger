@@ -131,12 +131,14 @@ public class ServiceView
       jScrollPane1.setName("jScrollPane1"); // NOI18N
 
       mCheckedOutList.setModel(mCheckedOutListModel);
+      mCheckedOutList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
       mCheckedOutList.setName("mCheckedOutList"); // NOI18N
       jScrollPane1.setViewportView(mCheckedOutList);
 
       jScrollPane2.setName("jScrollPane2"); // NOI18N
 
       mScheduledList.setModel(mScheduledListModel);
+      mScheduledList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
       mScheduledList.setName("mScheduledList"); // NOI18N
       jScrollPane2.setViewportView(mScheduledList);
 

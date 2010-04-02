@@ -52,6 +52,8 @@ public class IDView
          {
             enable("LoadPerson");
             setLabeling("Load", "Enter I-number:");
+            mTxtFld.setText("");
+            mTxtFld.requestFocus();
          }
       });
 
@@ -64,6 +66,8 @@ public class IDView
          {
             enable("Checkin");
             setLabeling("Checkin", "Enter laptop barcode:");
+            mTxtFld.setText("");
+            mTxtFld.requestFocus();
          }
       });
    }

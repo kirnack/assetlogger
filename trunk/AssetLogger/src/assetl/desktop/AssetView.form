@@ -22,6 +22,12 @@
             <Property name="name" type="java.lang.String" value="mViewMenu" noResource="true"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mScreenMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Main screen"/>
+                <Property name="name" type="java.lang.String" value="mScreenMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mAddAssetMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add Asset"/>

@@ -4,6 +4,7 @@ import assetl.system.Checkout;
 import assetl.system.Request;
 import assetl.system.DataPacket;
 import assetl.system.RequestPacket;
+import assetl.system.CheckoutPacket;
 
 /**
  * Defines behavior for canceling requests
@@ -16,7 +17,15 @@ public class CancelFunction
    /**
     * The specific DataPacket needed for this function to operate
     */
-   private RequestPacket mData;
+   private DataPacket mData;
+   /**
+    * The request sent
+    */
+   private Request mCurrRequest;
+   /**
+    * The checkout sent
+    */
+   private Checkout mCurrCheckout;
 
    /**
     * Sets the DataPacket for a Login
@@ -25,7 +34,7 @@ public class CancelFunction
     */
    public void setPacket(DataPacket pPacket)
    {
-      mData = (RequestPacket) pPacket;
+      mData = pPacket;
    }
 
    /**
@@ -39,6 +48,30 @@ public class CancelFunction
    }
 
    /**
+    * Sets the checkout or request member variable depending on the
+    * DataPacket sent
+    */
+   public void getData()
+   {
+      mCurrRequest = null;
+      mCurrCheckout = null;
+      RequestPacket reqPack;
+      CheckoutPacket checkPack;
+
+      if (RequestPacket.class.isAssignableFrom(mData.getClass()))
+      {
+         //If a RequestPacket was sent
+         reqPack = (RequestPacket) mData;
+         mCurrRequest = reqPack.getRequest();
+      }
+      else if (CheckoutPacket.class.isAssignableFrom(mData.getClass()))
+      {
+         checkPack = (CheckoutPacket) mData;
+         mCurrCheckout = checkPack.getCheckout();
+      }
+   }
+
+   /**
     * Cancels a request or individual checkout
     */
    public void performFunction()
@@ -46,24 +79,23 @@ public class CancelFunction
       // TODO: Remove if statements by extending class
       // and using Composite pattern
 
-      Request request = mData.getRequest();
-      Checkout checkout = null;
+      getData();
 
-      if (request != null)
+      if (mCurrRequest != null)
       {
          // if a request was sent set it to inactive
-         request.setActive(false);
-         mModel.setRequest(request, mControl.getCurrentUser().getID());
+         mCurrRequest.setActive(false);
+         mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
       }
-      else if (checkout != null)
+      else if (mCurrCheckout != null)
       {
          // if a checkout was sent set it to inactive
 
          //don't cancel a checkout if they've picked it up already
-         if (checkout.getPickedupDate() != null)
+         if (mCurrCheckout.getPickedupDate() != null)
          {
-            checkout.setActive(false);
-            mModel.setCheckout(checkout);
+            mCurrCheckout.setActive(false);
+            mModel.setCheckout(mCurrCheckout);
          }
       }
       else

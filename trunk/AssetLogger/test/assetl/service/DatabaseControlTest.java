@@ -318,22 +318,6 @@ public class DatabaseControlTest
    }
 
    /**
-    * Test of getOutstandingRequests method, of class DatabaseControl.
-    */
-   @Test
-   public void testGetOutstandingRequests()
-   {
-      System.out.println("getOutstandingRequests");
-      Person pPerson = null;
-      DatabaseControl instance = new DatabaseControlImpl();
-      Collection expResult = null;
-      Collection result = instance.getOutstandingRequests(pPerson);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
-
-   /**
     * Test of setCurrentUser method, of class DatabaseControl.
     */
    @Test

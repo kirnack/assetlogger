@@ -17,9 +17,7 @@ import javax.swing.AbstractButton;
 
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
-import assetl.system.StringPacket;
 import assetl.system.PersonPacket;
-import assetl.system.SchedulePacket;
 import assetl.system.Person;
 import assetl.system.Request;
 
@@ -294,11 +292,7 @@ public class ServiceView
    public void updateData()
    {
       ArrayList<Request> requests = null;
-      //
-      // TODO: find a good way to send the correct DataPacket needed for
-      // the function, perhaps with another HashMap.
-      //
-
+      
       //
       // Use the person id stored in the packet to get from the model
       // the most recent data about the person, then update the packet

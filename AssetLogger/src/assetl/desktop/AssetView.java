@@ -225,7 +225,8 @@ public abstract class AssetView
     */
    public void setAdminComponents(boolean pIsAdmin)
    {
-      mViewMenu.setVisible(pIsAdmin);
+      mAddAssetMenuItem.setVisible(pIsAdmin);
+      mAddPersonMenuItem.setVisible(pIsAdmin);
    }
 
    /**

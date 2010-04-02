@@ -8,6 +8,8 @@ package assetl.desktop;
 import java.util.ArrayList;
 import java.util.AbstractMap;
 import java.util.HashMap;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.JList;
@@ -91,9 +93,10 @@ public class ServiceView
          {
             // TODO: uncomment when extend is supported
             //enable("Extend");
-            enable("Checkin");
          }
       });
+
+      enableSwitch("ID", mReturnBtn);
 
       // TODO: uncomment when extend is supported
       mExtendBtn.setVisible(false);
@@ -267,7 +270,6 @@ public class ServiceView
       mButtonMap.put("Checkout", mCheckoutBtn);
       mButtonMap.put("CheckoutAsset", mCheckoutBtn);
       mButtonMap.put("Extend", mExtendBtn);
-      mButtonMap.put("Checkin", mReturnBtn);
       mButtonMap.put("ScheduleAsset", mScheduleBtn);
    }
 
@@ -358,7 +360,6 @@ public class ServiceView
    {
       enable("ScheduleAsset");
       enable("CheckoutAsset");
-      enable("Checkin");
       enable("Cancel");
    }
 }

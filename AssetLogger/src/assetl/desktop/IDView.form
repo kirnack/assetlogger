@@ -69,6 +69,9 @@
       <Properties>
         <Property name="name" type="java.lang.String" value="mTxtFld" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFldKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="mScheduleRadio">
       <Properties>

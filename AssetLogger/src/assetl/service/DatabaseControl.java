@@ -381,17 +381,25 @@ public abstract class DatabaseControl
          //
          // Get the checkouts contained in a request, if the checkouts don't
          // have a pickedup date add it to the list of scheduled requests
-         // otherwise put it in the list of checked out requests.
+         // otherwise put it in the list of checked out requests if
+         // it does not have a returned date set.
          //
 
          checkouts = (ArrayList<Checkout>) request.getCheckouts();
-         if (!checkouts.isEmpty() && checkouts.get(0).getPickedupDate() == null)
+         if (!checkouts.isEmpty())
          {
-            scheduled.add(request);
-         }
-         else
-         {
-            checkedout.add(request);
+            if (checkouts.get(0).getPickedupDate() == null)
+            {
+               // If the checkouts in this request have not been picked up
+
+               scheduled.add(request);
+            }
+            else if (checkouts.get(0).getReturnedDate() == null)
+            {
+               // If the checkouts in this request have not been returned
+               
+               checkedout.add(request);
+            }
          }
       }
       if ("Scheduled".equals(pNeeded))

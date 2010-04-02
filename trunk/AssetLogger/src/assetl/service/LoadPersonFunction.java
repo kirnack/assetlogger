@@ -48,16 +48,8 @@ public class LoadPersonFunction
 
       if (tempPerson != null)
       {
-         //
-         // TODO: find out why the view doesn't always 
-         // load properly ever since this
-         // if statement was added
-         //
-
          // Change to the next view
-         DatabaseControl tempControl = (DatabaseControl) mControl;
-         tempControl.changeView("Service");
-
+         mControl.changeView("Service");
          mControl.sendViewPacket(new PersonPacket(tempPerson));
       }
       else

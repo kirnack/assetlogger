@@ -184,7 +184,8 @@ public class IDView
     */
    public void enable(String pFunction)
    {
-      enable(pFunction, mBtn);
+      //Enable a FunctionListener for the button
+      enable(pFunction, mBtn, "Function");
    }
 
    /**

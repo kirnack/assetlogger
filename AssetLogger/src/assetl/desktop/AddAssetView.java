@@ -211,7 +211,8 @@ public class AddAssetView
     */
    public void enable(String pFunction)
    {
-      enable(pFunction, mAddBtn);
+      //Enable a FunctionListener for the button
+      enable(pFunction, mAddBtn, "Function");
    }
 
    /**

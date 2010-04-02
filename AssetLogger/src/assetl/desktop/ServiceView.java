@@ -8,8 +8,6 @@ package assetl.desktop;
 import java.util.ArrayList;
 import java.util.AbstractMap;
 import java.util.HashMap;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.JList;
@@ -96,7 +94,8 @@ public class ServiceView
          }
       });
 
-      enableSwitch("ID", mReturnBtn);
+      //Enable a SwitchListener for the button
+      enable("ID", mReturnBtn, "Switch");
 
       // TODO: uncomment when extend is supported
       mExtendBtn.setVisible(false);
@@ -365,7 +364,8 @@ public class ServiceView
     */
    public void enable(String pFunction)
    {
-      enable(pFunction, mButtonMap.get(pFunction));
+      //Enable a FunctionListener for the button
+      enable(pFunction, mButtonMap.get(pFunction), "Function");
    }
 
    /**

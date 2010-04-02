@@ -185,7 +185,8 @@ public class LoginView
     */
    public void enable(String pFunction)
    {
-      enable(pFunction, mLogInBtn);
+      //Enable a FunctionListener for the button
+      enable(pFunction, mLogInBtn, "Function");
    }
 
    /**

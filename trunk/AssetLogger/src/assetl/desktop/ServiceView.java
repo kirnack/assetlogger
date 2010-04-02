@@ -291,12 +291,25 @@ public class ServiceView
    }
 
    /**
+    * Allows control of the visibility of Admin components in the view
+    *
+    * @param pIsAdmin True if the admin components are to be set to visible
+    */
+   @Override
+   public void setAdminComponents(boolean pIsAdmin)
+   {
+      super.setAdminComponents(pIsAdmin);
+      mReturnBtn.setVisible(pIsAdmin);
+      mCheckoutBtn.setVisible(pIsAdmin);
+   }
+
+   /**
     * Updates the views display of the model
     */
    public void updateData()
    {
       ArrayList<Request> requests = null;
-      
+
       //
       // Use the person id stored in the packet to get from the model
       // the most recent data about the person, then update the packet

@@ -206,8 +206,6 @@ public abstract class AssetView
     */
    public void setAdminComponents(boolean pIsAdmin)
    {
-      // TODO: include the components that need to change for an admin
-
       mViewMenu.setVisible(pIsAdmin);
    }
 

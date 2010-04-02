@@ -286,6 +286,8 @@ public class ServiceView
       mPacketMap.put("CheckoutAsset", gen);
       gen = new ServiceScheduleGrabber(this);
       mPacketMap.put("Checkout", gen);
+      gen = new ServiceRequestGrabber(this);
+      mPacketMap.put("Cancel", gen);
    }
 
    /**

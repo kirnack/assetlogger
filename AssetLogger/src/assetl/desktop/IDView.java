@@ -159,6 +159,19 @@ public class IDView
    }
 
    /**
+    * Allows control of the visibility of Admin components in the view
+    *
+    * @param pIsAdmin True if the admin components are to be set to visible
+    */
+   @Override
+   public void setAdminComponents(boolean pIsAdmin)
+   {
+      super.setAdminComponents(pIsAdmin);
+      mCheckInRadio.setVisible(pIsAdmin);
+      mScheduleRadio.setVisible(pIsAdmin);
+   }
+
+   /**
     * Gets any needed data from the model
     */
    public void updateData()

@@ -1,5 +1,7 @@
 package resources;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Provides static methods to allow an easy way to dynamically
  * load objects
@@ -25,6 +27,36 @@ public class ObjectLoader
 
          //Dynamically instantiate the object
          obj = clazz.newInstance();
+
+      }
+      catch (ClassNotFoundException ex)
+      {
+         System.err.println("Class " + pClass + " could not be found.");
+         ex.printStackTrace();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+      return obj;
+   }
+
+   public static Object loadObj(String pClass, Object pParam)
+   {
+      Object obj = null;
+
+      try
+      {
+         //load into a class object
+         Class<?> clazz = Class.forName(pClass);
+
+         //get the class object for the parameter
+         Class<?> param = pParam.getClass();
+
+         Constructor<?> con = clazz.getConstructor(param);
+
+         //Dynamically instantiate the object
+         obj = con.newInstance(pParam);
 
       }
       catch (ClassNotFoundException ex)

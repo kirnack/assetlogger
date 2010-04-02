@@ -50,6 +50,7 @@ public class IDView
          public void actionPerformed(ActionEvent ev)
          {
             enable("LoadPerson");
+            setLabeling("Load", "Enter I-number:");
          }
       });
 
@@ -61,6 +62,7 @@ public class IDView
          public void actionPerformed(ActionEvent ev)
          {
             enable("Checkin");
+            setLabeling("Checkin", "Enter laptop barcode:");
          }
       });
    }
@@ -144,6 +146,18 @@ public class IDView
    private ButtonGroup mGroup;
 
    /**
+    * Changes the button label and the label above the text field
+    *
+    * @param pBtnLbl The new label for the button
+    * @param pLbl The new label for the text field
+    */
+   public void setLabeling(String pBtnLbl, String pLbl)
+   {
+      mLabel.setText(pLbl);
+      setLabel(pBtnLbl, mBtn);
+   }
+
+   /**
     * Grabs all pertainent data from the fields and sets them in
     * a DataPacket object. This DataPacket is then returned by the
     * method.
@@ -195,5 +209,6 @@ public class IDView
    {
       mScheduleRadio.setSelected(true);
       enable("LoadPerson");
+      setLabeling("Load", "Enter I-number:");
    }
 }

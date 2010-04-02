@@ -2,6 +2,7 @@ package assetl.desktop;
 
 import assetl.system.DataPacket;
 import assetl.system.RequestPacket;
+import assetl.system.Request;
 
 /**
  * Gets a RequestPacket from the ServiceView
@@ -28,8 +29,8 @@ public class ServiceRequestGrabber
     */
    public DataPacket grab()
    {
-      RequestPacket packet = new RequestPacket();
-
-      return packet;
+      //Send the request selected in the scheduled list
+      Request req = (Request) mServView.getScheduledList().getSelectedValue();
+      return new RequestPacket(req);
    }
 }

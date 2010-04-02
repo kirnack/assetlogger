@@ -367,10 +367,11 @@ public abstract class DatabaseControl
     */
    protected Collection<Request> splitRequests(String pNeeded, Person pPerson)
    {
+      ArrayList<Request> active = new ArrayList<Request>();
       ArrayList<Checkout> checkouts = new ArrayList<Checkout>();
       ArrayList<Request> scheduled = new ArrayList<Request>();
       ArrayList<Request> checkedout = new ArrayList<Request>();
-      ArrayList<Request> active = new ArrayList<Request>();
+
 
       //Get the active requests from the model
       active = (ArrayList<Request>) mModel.getActiveRequests(pPerson);
@@ -378,7 +379,7 @@ public abstract class DatabaseControl
       for (Request request : active)
       {
          //
-         //Get the checkouts contained in a request, if the checkouts don't
+         // Get the checkouts contained in a request, if the checkouts don't
          // have a pickedup date add it to the list of scheduled requests
          // otherwise put it in the list of checked out requests.
          //

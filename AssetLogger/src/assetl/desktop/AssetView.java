@@ -73,6 +73,7 @@ public abstract class AssetView
       enable("AddAsset", mAddAssetMenuItem, "Switch");
       enable("AddPerson", mAddPersonMenuItem, "Switch");
       enable("Login", mLogoutMenuItem, "Switch");
+      enable("ID", mScreenMenuItem, "Switch");
 
       // TODO: enable and show the back button
       mBackBtn.setVisible(false);
@@ -90,6 +91,7 @@ public abstract class AssetView
       mMenuBar = new javax.swing.JMenuBar();
       mBackBtn = new javax.swing.JMenu();
       mViewMenu = new javax.swing.JMenu();
+      mScreenMenuItem = new javax.swing.JMenuItem();
       mAddAssetMenuItem = new javax.swing.JMenuItem();
       mAddPersonMenuItem = new javax.swing.JMenuItem();
       mUserMenu = new javax.swing.JMenu();
@@ -106,6 +108,10 @@ public abstract class AssetView
 
       mViewMenu.setText("View");
       mViewMenu.setName("mViewMenu"); // NOI18N
+
+      mScreenMenuItem.setText("Main screen");
+      mScreenMenuItem.setName("mScreenMenuItem"); // NOI18N
+      mViewMenu.add(mScreenMenuItem);
 
       mAddAssetMenuItem.setText("Add Asset");
       mAddAssetMenuItem.setName("mAddAssetMenuItem"); // NOI18N
@@ -147,6 +153,7 @@ public abstract class AssetView
    private javax.swing.JMenu mBackBtn;
    private javax.swing.JMenuItem mLogoutMenuItem;
    private javax.swing.JMenuBar mMenuBar;
+   private javax.swing.JMenuItem mScreenMenuItem;
    private javax.swing.JMenu mUserMenu;
    private javax.swing.JMenu mViewMenu;
    // End of variables declaration//GEN-END:variables

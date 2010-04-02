@@ -5,6 +5,7 @@
  */
 package assetl.desktop;
 
+import resources.ObjectLoader;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLView;
 import assetl.system.DataPacket;
@@ -238,11 +239,14 @@ public abstract class AssetView
    public abstract void enable(String pFunction);
 
    /**
-    * Sets the title
-    * @param pLabels
+    * Sets the label on the button passed in
+    *
+    * @param pLabel The label to give the button
+    * @param pItem The button to change the label for
     */
-   public void setLabels(String pLabels)
+   public void setLabels(String pLabel, AbstractButton pItem)
    {
+      pItem.setText(pLabel);
    }
 
    /**
@@ -253,29 +257,46 @@ public abstract class AssetView
     */
    public void enable(String pFunction, AbstractButton pItem)
    {
-      enable(pFunction, pItem, pFunction);
+      enable(pFunction, pItem, "Function");
    }
 
    /**
-    * Enables functionality on the AbstractButton passed in
+    * Attaches a listener to the button given that performs the function given.
+    * If the ActionListener indicated is a switch listener pFunction will
+    * be the name of the view to switch to.
     *
-    * @param pFunction The function to enable
-    * @param pItem The component to give functionality to
-    * @param pLabel The label for the button performing the function
+    * @param pFunction The function to perform of name of view for listener
+    *                  to switch to.
+    * @param pItem     The button to perform the action
+    * @param pListener The listener for an action
     */
-   public void enable(String pFunction, AbstractButton pItem, String pLabel)
+   public void enable(String pFunction, AbstractButton pItem, String pListener)
    {
-      // TODO: make sure the function passed in is supported in this view
-      // and make the labels of the button and title pretty
-
-      setTitle(pLabel);
-      pItem.setText(pLabel);
-
       //remove all previous action listeners
       removeActionListeners(pItem);
 
-      //add a function action listener
-      pItem.addActionListener(new FunctionListener(pFunction));
+
+      //
+      // Load the listener with pFunction as a
+      // parameter to the dynamic constructor
+      //
+
+      /* Ask brother neff how to get dynamic constructing with parameters
+       * working
+      pListener += "Listener";
+      pListener = "assetl.desktop.AssetView$" + pListener;
+      ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener,
+         pFunction);
+       *
+       */
+      ActionListener listen = new SwitchListener(pFunction);
+      if ("Function".equals(pListener))
+      {
+         listen = new FunctionListener(pFunction);
+      }
+
+      //add the action listener indicated
+      pItem.addActionListener(listen);
    }
 
    /**
@@ -286,11 +307,7 @@ public abstract class AssetView
     */
    public void enableSwitch(String pFunction, AbstractButton pItem)
    {
-      //remove all previous action listeners
-      removeActionListeners(pItem);
-
-      //add a function action listener
-      pItem.addActionListener(new SwitchListener(pFunction));
+      enable(pFunction, pItem, "Switch");
    }
 
    /**
@@ -378,10 +395,7 @@ public abstract class AssetView
       public void actionPerformed(ActionEvent ev)
       {
          mControl.doFunction(mFunction);
-         System.err.println("User pushed the " + mFunction + " button");
-
-         // TODO: uncomment this when it won't break anything
-         //updateData();
+         updateData();
       }
    }
 }

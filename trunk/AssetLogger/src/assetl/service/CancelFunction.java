@@ -47,7 +47,7 @@ public class CancelFunction
       // and using Composite pattern
 
       Request request = mData.getRequest();
-      Checkout checkout = mData.getCheckout();
+      Checkout checkout = null;
 
       if (request != null)
       {

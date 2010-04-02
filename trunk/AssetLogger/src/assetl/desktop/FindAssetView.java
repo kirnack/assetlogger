@@ -312,7 +312,8 @@ public class FindAssetView
     */
    public void enable(String pFunction)
    {
-      enable(pFunction, mSelectBtn);
+      //Enable a FunctionListener for the button
+      enable(pFunction, mSelectBtn, "Function");
       setStart("Schedule".equals(pFunction));
    }
 

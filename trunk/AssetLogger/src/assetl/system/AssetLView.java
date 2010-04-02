@@ -45,20 +45,16 @@ public interface AssetLView
    void enable(String pFunction);
 
    /**
-    * Enables functionality on the AbstractButton passed in
+    * Attaches a listener to the button given that performs the function given.
+    * If the ActionListener indicated is a switch listener pFunction will
+    * be the name of the view to switch to.
     *
-    * @param pFunction The function to enable
-    * @param pItem The component to give functionality to
+    * @param pFunction The function to perform of name of view for listener
+    *                  to switch to.
+    * @param pItem     The button to perform the action
+    * @param pListener The listener for an action
     */
-   void enable(String pFunction, AbstractButton pItem);
-
-   /**
-    * Enables a component to listen for a request in functionality change.
-    *
-    * @param pFunction The function to switch for
-    * @param pItem The component to add a listener for
-    */
-   void enableSwitch(String pFunction, AbstractButton pItem);
+   void enable(String pFunction, AbstractButton pItem, String pListener);
 
    /**
     * Allows control of the visibility of Admin components in the view

@@ -70,9 +70,9 @@ public abstract class AssetView
       // add action listeners to the menu items
       //
 
-      enableSwitch("AddAsset", mAddAssetMenuItem);
-      enableSwitch("AddPerson", mAddPersonMenuItem);
-      enableSwitch("Login", mLogoutMenuItem);
+      enable("AddAsset", mAddAssetMenuItem, "Switch");
+      enable("AddPerson", mAddPersonMenuItem, "Switch");
+      enable("Login", mLogoutMenuItem, "Switch");
 
       // TODO: enable and show the back button
       mBackBtn.setVisible(false);
@@ -150,6 +150,17 @@ public abstract class AssetView
    private javax.swing.JMenu mUserMenu;
    private javax.swing.JMenu mViewMenu;
    // End of variables declaration//GEN-END:variables
+
+   /**
+    * Sets the label on the button passed in
+    *
+    * @param pLabel The label to give the button
+    * @param pItem The button to change the label for
+    */
+   public void setLabel(String pLabel, AbstractButton pItem)
+   {
+      pItem.setText(pLabel);
+   }
 
    /**
     * Allows the controller to set the controller for the view
@@ -239,28 +250,6 @@ public abstract class AssetView
    public abstract void enable(String pFunction);
 
    /**
-    * Sets the label on the button passed in
-    *
-    * @param pLabel The label to give the button
-    * @param pItem The button to change the label for
-    */
-   public void setLabels(String pLabel, AbstractButton pItem)
-   {
-      pItem.setText(pLabel);
-   }
-
-   /**
-    * Enables functionality on the AbstractButton passed in
-    *
-    * @param pFunction The function to enable
-    * @param pItem The component to give functionality to
-    */
-   public void enable(String pFunction, AbstractButton pItem)
-   {
-      enable(pFunction, pItem, "Function");
-   }
-
-   /**
     * Attaches a listener to the button given that performs the function given.
     * If the ActionListener indicated is a switch listener pFunction will
     * be the name of the view to switch to.
@@ -275,7 +264,6 @@ public abstract class AssetView
       //remove all previous action listeners
       removeActionListeners(pItem);
 
-
       //
       // Load the listener with pFunction as a
       // parameter to the dynamic constructor
@@ -286,9 +274,13 @@ public abstract class AssetView
       pListener += "Listener";
       pListener = "assetl.desktop.AssetView$" + pListener;
       ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener,
-         pFunction);
+      pFunction);
        *
        */
+      
+      // KLUGE: would like to use dynamic class loading as soon as
+      // some unanswered questions on how to do it are resolved
+
       ActionListener listen = new SwitchListener(pFunction);
       if ("Function".equals(pListener))
       {
@@ -297,17 +289,6 @@ public abstract class AssetView
 
       //add the action listener indicated
       pItem.addActionListener(listen);
-   }
-
-   /**
-    * Enables a component to listen for a request in functionality change.
-    *
-    * @param pFunction The function to switch for
-    * @param pItem The component to add a listener for
-    */
-   public void enableSwitch(String pFunction, AbstractButton pItem)
-   {
-      enable(pFunction, pItem, "Switch");
    }
 
    /**
@@ -330,20 +311,20 @@ public abstract class AssetView
    }
 
    /**
-    * Listens for when the user needs to change the functionality of the view
+    * Listens for when the user needs to change the view
     */
    public class SwitchListener
       implements ActionListener
    {
       /**
-       * The function for the controller to switch to
+       * The view for the controller to switch to
        */
       String mView;
 
       /**
-       * Sets the function to switch to
+       * Sets the view to switch to
        *
-       * @param pFunction The function to switch to
+       * @param pView The view to switch to
        */
       public SwitchListener(String pView)
       {
@@ -351,8 +332,7 @@ public abstract class AssetView
       }
 
       /**
-       * Has the controller modify or switch to a view
-       * with the functionality given.
+       * Has the controller modify or switch to the view given.
        *
        * @param ev The causing action
        */

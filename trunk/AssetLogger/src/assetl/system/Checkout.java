@@ -108,7 +108,7 @@ public class Checkout
       mAsset = pAsset;
       mRecipient = pRecipient;
       mRequestedStartDate = pRequestedStartDate;
-      mRequestedStartDate = pRequestedEndDate;
+      mRequestedEndDate = pRequestedEndDate;
       mRequestID = pRequestID;
       mPickedupDate = pPickedupDate;
       mReturnedDate = pReturnedDate;

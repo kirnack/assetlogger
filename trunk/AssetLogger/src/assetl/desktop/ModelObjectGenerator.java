@@ -43,6 +43,7 @@ public class ModelObjectGenerator
    public static Request generateRequest(String pPersonID,
       Collection<Asset> pAssets, Date pStart, Date pEnd)
    {
+
       ArrayList<Checkout> checkouts = new ArrayList<Checkout>();
       Person recipient = cControl.getPerson(pPersonID);
 

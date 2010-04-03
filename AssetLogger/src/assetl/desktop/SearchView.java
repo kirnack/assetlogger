@@ -7,6 +7,7 @@ package assetl.desktop;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
+import javax.swing.JTextField;
 
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
@@ -134,6 +135,16 @@ public class SearchView
    private javax.swing.JButton mSearchBtn;
    private javax.swing.JLabel mSearchLbl;
    // End of variables declaration//GEN-END:variables
+
+   /**
+    * Returns the data text field in the view
+    *
+    * @return The data text field
+    */
+   public JTextField getDataFld()
+   {
+      return mDataFld;
+   }
 
    /**
     * Updates the views display of the model

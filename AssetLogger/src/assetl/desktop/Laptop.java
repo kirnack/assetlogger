@@ -1,14 +1,16 @@
 package assetl.desktop;
 
+import assetl.service.AssetType;
 import assetl.system.Asset;
 import assetl.system.AssetMissMatchExecption;
 
 /**
- * A LapTop Asset.
+ * A Laptop Asset.
+ * 
  * @author Bryon Rogers
  */
 public class Laptop
-   extends Asset
+   extends AssetType
 {
 
    Asset mAsset;
@@ -17,78 +19,6 @@ public class Laptop
    {
       mAsset = new Asset(pID, pMake, pLaptopNumber,
                          pSerialNum, pType, pModel, false);
-   }
-
-   @Override
-   public boolean equals(Object obj)
-   {
-      return (obj instanceof Laptop) && mAsset.equals(((Laptop) obj).mAsset);
-   }
-
-   @Override
-   public String getID()
-   {
-      return mAsset.getID();
-   }
-
-   @Override
-   public String getMake()
-   {
-      return mAsset.getMake();
-   }
-
-   @Override
-   public String getSerialNum()
-   {
-      return mAsset.getSerialNum();
-   }
-
-   @Override
-   public String getType()
-   {
-      return mAsset.getType();
-   }
-
-   @Override
-   public int hashCode()
-   {
-      return mAsset.hashCode();
-   }
-
-   @Override
-   public boolean isInMaintenance()
-   {
-      return mAsset.isInMaintenance();
-   }
-
-   @Override
-   public void setID(String pID)
-   {
-      mAsset.setID(pID);
-   }
-
-   @Override
-   public void setMaintenance(boolean pMaintenance)
-   {
-      mAsset.setMaintenance(pMaintenance);
-   }
-
-   @Override
-   public void setMake(String pMake)
-   {
-      mAsset.setMake(pMake);
-   }
-
-   @Override
-   public void setSerialNum(String pSerialNum)
-   {
-      mAsset.setSerialNum(pSerialNum);
-   }
-
-   @Override
-   public void setType(String pType)
-   {
-      mAsset.setType(pType);
    }
 
    public Laptop(String pID, String pLaptopNumber, String pMake,
@@ -168,15 +98,9 @@ public class Laptop
       mAsset.setModel(pModel);
    }
 
-   
+   @Override
    public String toString()
    {
       return mAsset.getModel() + ": " + mAsset.getType();
    }
-
-   public Asset getAsset()
-   {
-      return mAsset;
-   }
-
 }

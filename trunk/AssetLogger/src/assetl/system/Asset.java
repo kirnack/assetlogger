@@ -112,6 +112,17 @@ public class Asset
       mMaintenance = pMaintenance;
    }
 
+   public Asset(Asset pAsset)
+   {
+      mID = pAsset.mID;
+      mMake = pAsset.mMake;
+      mModel = pAsset.mModel;
+      mSerialNum = pAsset.mSerialNum;
+      mType = pAsset.mType;
+      mDescription = pAsset.mDescription;
+      mMaintenance = pAsset.mMaintenance;
+   }
+
    /**
     * Gets the description of this asset.
     *

@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package assetl.desktop;
 
 import assetl.system.Asset;
+import assetl.system.AssetMissMatchExecption;
 
 /**
- *
- * @author brogers3
+ * A LapTop Asset.
+ * @author Bryon Rogers
  */
 public class Laptop
    extends Asset
@@ -32,6 +28,26 @@ public class Laptop
    public Laptop(String pID, String pLaptopNumber, String pType)
    {
       super(pID, "", pLaptopNumber, "", pType, "", false);
+   }
+
+   public Laptop(Asset pAsset)
+      throws AssetMissMatchExecption
+   {
+      if(pAsset.getType().equalsIgnoreCase("Mac")
+         || pAsset.getType().equalsIgnoreCase("PC"))
+      {
+         super.mDescription = pAsset.getDescription();
+         super.mID = pAsset.getID();
+         super.mMaintenance = pAsset.isInMaintenance();
+         super.mMake = pAsset.getMake();
+         super.mModel = pAsset.getModel();
+         super.mSerialNum = pAsset.getSerialNum();
+         super.mType = pAsset.getType();
+      }
+      else
+      {
+         throw new AssetMissMatchExecption("Not a Laptiop asset.");
+      }
    }
 
    public Laptop()

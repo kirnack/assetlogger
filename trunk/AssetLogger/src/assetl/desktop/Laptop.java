@@ -113,7 +113,7 @@ public class Laptop
       }
       else
       {
-         throw new AssetMissMatchExecption("Not a Laptiop asset.");
+         throw new AssetMissMatchExecption("Not a Laptop asset.");
       }
    }
 
@@ -168,10 +168,10 @@ public class Laptop
       mAsset.setModel(pModel);
    }
 
-   @Override
+   
    public String toString()
    {
-      return mAsset.getModel() + ": " + mType;
+      return mAsset.getModel() + ": " + mAsset.getType();
    }
 
    public Asset getAsset()

@@ -45,6 +45,15 @@ public interface AssetLView
    void enable(String pFunction);
 
    /**
+    * Enables ability to switch to a view with the given function enabled.
+    *
+    * @param pView The view to switch to
+    * @param pFunction The function to enable
+    * @param pItem The button to perform the switch
+    */
+   void enable(String pView, String pFunction, AbstractButton pItem);
+
+   /**
     * Attaches a listener to the button given that performs the function given.
     * If the ActionListener indicated is a switch listener pFunction will
     * be the name of the view to switch to.

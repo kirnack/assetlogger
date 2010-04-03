@@ -106,4 +106,20 @@ public interface AssetLControl
     * @return The scheduled requests
     */
    Collection<Request> getScheduledRequests(Person pPerson);
+
+   /**
+    * Returns the people who have recently borrowed the given asset
+    *
+    * @param pAsset The asset borrowed
+    * @return The people who have borrowed the asset
+    */
+   Collection<Person> getPastBorrowers(Asset pAsset);
+
+   /**
+    * Returns the assets recently borrowed by the person given
+    *
+    * @param pPerson The person who has borrowed the assets
+    * @return The assets borrowed by the person
+    */
+   Collection<Asset> getAssetHistory(Person pPerson);
 }

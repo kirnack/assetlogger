@@ -74,6 +74,8 @@ public abstract class AssetView
       enable("AddPerson", mAddPersonMenuItem, "Switch");
       enable("Login", mLogoutMenuItem, "Switch");
       enable("ID", mScreenMenuItem, "Switch");
+      enable("Search", "SearchBorrowers", mSearchMenuItem);
+      enable("Search", "SearchAssetHistory", mHistoryMenuItem);
 
       // TODO: enable and show the back button
       mBackBtn.setVisible(false);
@@ -94,6 +96,8 @@ public abstract class AssetView
       mScreenMenuItem = new javax.swing.JMenuItem();
       mAddAssetMenuItem = new javax.swing.JMenuItem();
       mAddPersonMenuItem = new javax.swing.JMenuItem();
+      mSearchMenuItem = new javax.swing.JMenuItem();
+      mHistoryMenuItem = new javax.swing.JMenuItem();
       mUserMenu = new javax.swing.JMenu();
       mLogoutMenuItem = new javax.swing.JMenuItem();
 
@@ -120,6 +124,14 @@ public abstract class AssetView
       mAddPersonMenuItem.setText("Add Person");
       mAddPersonMenuItem.setName("mAddPersonMenuItem"); // NOI18N
       mViewMenu.add(mAddPersonMenuItem);
+
+      mSearchMenuItem.setText("Search Borrowers");
+      mSearchMenuItem.setName("mSearchMenuItem"); // NOI18N
+      mViewMenu.add(mSearchMenuItem);
+
+      mHistoryMenuItem.setText("Search Asset History");
+      mHistoryMenuItem.setName("mHistoryMenuItem"); // NOI18N
+      mViewMenu.add(mHistoryMenuItem);
 
       mMenuBar.add(mViewMenu);
 
@@ -151,9 +163,11 @@ public abstract class AssetView
    private javax.swing.JMenuItem mAddAssetMenuItem;
    private javax.swing.JMenuItem mAddPersonMenuItem;
    private javax.swing.JMenu mBackBtn;
+   private javax.swing.JMenuItem mHistoryMenuItem;
    private javax.swing.JMenuItem mLogoutMenuItem;
    private javax.swing.JMenuBar mMenuBar;
    private javax.swing.JMenuItem mScreenMenuItem;
+   private javax.swing.JMenuItem mSearchMenuItem;
    private javax.swing.JMenu mUserMenu;
    private javax.swing.JMenu mViewMenu;
    // End of variables declaration//GEN-END:variables
@@ -227,6 +241,7 @@ public abstract class AssetView
    {
       mAddAssetMenuItem.setVisible(pIsAdmin);
       mAddPersonMenuItem.setVisible(pIsAdmin);
+      mSearchMenuItem.setVisible(pIsAdmin);
    }
 
    /**
@@ -258,11 +273,29 @@ public abstract class AssetView
    public abstract void enable(String pFunction);
 
    /**
+    * Enables ability to switch to a view with the given function enabled.
+    *
+    * @param pView The view to switch to
+    * @param pFunction The function to enable
+    * @param pItem The button to perform the switch
+    */
+   public void enable(String pView, String pFunction, AbstractButton pItem)
+   {
+      // TODO: change to remove switch listeners
+
+      //remove all previous action listeners
+      removeActionListeners(pItem);
+      
+      //Enable view switching, with a function enabled
+      pItem.addActionListener(new SwitchListener(pView, pFunction));
+   }
+
+   /**
     * Attaches a listener to the button given that performs the function given.
     * If the ActionListener indicated is a switch listener pFunction will
     * be the name of the view to switch to.
     *
-    * @param pFunction The function to perform of name of view for listener
+    * @param pFunction The function to perform or name of view for listener
     *                  to switch to.
     * @param pItem     The button to perform the action
     * @param pListener The listener for an action
@@ -284,15 +317,15 @@ public abstract class AssetView
       ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener,
       pFunction);
 
-            pListener += "Listener";
+      pListener += "Listener";
       pListener = "assetl.desktop.AssetView$" + pListener;
       ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener);
        */
-      
+
       // KLUGE: would like to use dynamic class loading as soon as
       // some unanswered questions on how to do it are resolved
 
-      
+
       ActionListener listen = new SwitchListener(pFunction);
       if ("Function".equals(pListener))
       {
@@ -332,11 +365,11 @@ public abstract class AssetView
        * The view for the controller to switch to
        */
       String mView;
+      /**
+       * The function to enable in this view
+       */
+      String mFunction;
 
-      public SwitchListener()
-      {
-
-      }
       /**
        * Sets the view to switch to
        *
@@ -345,6 +378,20 @@ public abstract class AssetView
       public SwitchListener(String pView)
       {
          mView = pView;
+         mFunction = null;
+      }
+
+      /**
+       * Sets the view to switch to and the function for the view
+       * to start performing
+       *
+       * @param pView The view to switch to
+       * @param pFunction The function to enable in the view
+       */
+      public SwitchListener(String pView, String pFunction)
+      {
+         mView = pView;
+         mFunction = pFunction;
       }
 
       /**
@@ -354,7 +401,14 @@ public abstract class AssetView
        */
       public void actionPerformed(ActionEvent ev)
       {
-         mControl.changeView(mView);
+         if (mView != null)
+         {
+            mControl.changeView(mView);
+         }
+         if (mFunction != null)
+         {
+            mControl.enableFunction(mFunction);
+         }
       }
    }
 

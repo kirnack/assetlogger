@@ -5,12 +5,15 @@
  */
 package assetl.desktop;
 
-import java.util.AbstractMap;
-import java.util.HashMap;
-import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultListModel;
+
 
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
+import assetl.system.Person;
+import assetl.system.Asset;
 
 /**
  * Allows an Admin to search through borrower history. A list
@@ -23,10 +26,28 @@ public class SearchView
    extends AssetView
 {
    /**
-    * Maps a functionality to a PacketGenerator that will
-    * produce the DataPacket the function needs
+    * The list model holding the past borrowers of an asset
     */
-   AbstractMap<String, PacketGenerator> mPacketMap;
+   private DefaultListModel mPersonListModel;
+   /**
+    * The list model holding the history of assets for a person
+    */
+   private DefaultListModel mAssetListModel;
+   /**
+    * Indicates whether the current function is searching for
+    * past borrowers or whether it is searching for past history
+    * of assets given to a person
+    */
+   private boolean mIsBorrowersSearch;
+
+   /**
+    * Default Constructor for dynamic loading, assumes controller
+    * will add itself
+    */
+   public SearchView()
+   {
+      this(null);
+   }
 
    /**
     * Constructor for the user interface
@@ -36,8 +57,24 @@ public class SearchView
    public SearchView(AssetLControl pControl)
    {
       super(pControl);
+
+      mPersonListModel = new DefaultListModel();
+      mAssetListModel = new DefaultListModel();
+
       initComponents();
-      generatePacketMap();
+
+      mSearchBtn.addActionListener(new ActionListener()
+      {
+         /**
+          * Updates data in the JList from the model
+          * according to the current function set and
+          * by the value in the text field
+          */
+         public void actionPerformed(ActionEvent ev)
+         {
+            updateData();
+         }
+      });
    }
 
    /** This method is called from within the constructor to
@@ -53,7 +90,7 @@ public class SearchView
       mItemList = new javax.swing.JList();
       mDataFld = new javax.swing.JTextField();
       mSearchBtn = new javax.swing.JButton();
-      jLabel1 = new javax.swing.JLabel();
+      mItemsLbl = new javax.swing.JLabel();
       mDataLbl = new javax.swing.JLabel();
       mSearchLbl = new javax.swing.JLabel();
 
@@ -69,8 +106,8 @@ public class SearchView
       mSearchBtn.setText("Search");
       mSearchBtn.setName("mSearchBtn"); // NOI18N
 
-      jLabel1.setText("Items:");
-      jLabel1.setName("jLabel1"); // NOI18N
+      mItemsLbl.setText("Items:");
+      mItemsLbl.setName("mItemsLbl"); // NOI18N
 
       mDataLbl.setText("Enter:");
       mDataLbl.setName("mDataLbl"); // NOI18N
@@ -96,7 +133,7 @@ public class SearchView
                         .addComponent(mSearchBtn)))
                   .addGap(69, 69, 69)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addComponent(jLabel1)
+                     .addComponent(mItemsLbl)
                      .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                .addGroup(layout.createSequentialGroup()
                   .addGap(152, 152, 152)
@@ -111,7 +148,7 @@ public class SearchView
                   .addGap(22, 22, 22)
                   .addComponent(mSearchLbl)
                   .addGap(14, 14, 14)
-                  .addComponent(jLabel1)
+                  .addComponent(mItemsLbl)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                   .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                .addGroup(layout.createSequentialGroup()
@@ -127,23 +164,50 @@ public class SearchView
       pack();
    }// </editor-fold>//GEN-END:initComponents
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JLabel jLabel1;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JTextField mDataFld;
    private javax.swing.JLabel mDataLbl;
    private javax.swing.JList mItemList;
+   private javax.swing.JLabel mItemsLbl;
    private javax.swing.JButton mSearchBtn;
    private javax.swing.JLabel mSearchLbl;
    // End of variables declaration//GEN-END:variables
 
    /**
-    * Returns the data text field in the view
+    * Sets the mode the view is running in.
     *
-    * @return The data text field
+    * @param pIsBorrowersSearch True if a borrow search is to be performed
     */
-   public JTextField getDataFld()
+   public void setMode(boolean pIsBorrowersSearch)
    {
-      return mDataFld;
+      mIsBorrowersSearch = pIsBorrowersSearch;
+
+      if (mIsBorrowersSearch)
+      {
+         setLabeling("Search Past Borrowers", "Enter Laptop barcode:",
+            "Borrowers:");
+         mItemList.setModel(mPersonListModel);
+      }
+      else
+      {
+         setLabeling("Search Laptops Borrowed", "Enter I-number:",
+            "Laptops borrowed:");
+         mItemList.setModel(mAssetListModel);
+      }
+   }
+
+   /**
+    * Sets the view labeling
+    *
+    * @param pHeader The header label value
+    * @param pPrompt The prompt for data to be entered in the text field
+    * @param pList The list description
+    */
+   public void setLabeling(String pHeader, String pPrompt, String pList)
+   {
+      mSearchLbl.setText(pHeader);
+      mDataLbl.setText(pPrompt);
+      mItemsLbl.setText(pList);
    }
 
    /**
@@ -151,20 +215,44 @@ public class SearchView
     */
    public void updateData()
    {
+      if (mIsBorrowersSearch)
+      {
+         updateBorrowers();
+      }
+      else
+      {
+         updateAssetHistory();
+      }
    }
 
    /**
-    * Creates the map between functions and the PacketGenerator it needs
+    * Updates the JList with a list of past borrowers of an asset
     */
-   public void generatePacketMap()
+   public void updateBorrowers()
    {
-      PacketGenerator gen = null;
-      mPacketMap = new HashMap<String, PacketGenerator>();
+      Asset asset = ModelObjectGenerator.fetchAsset(mDataFld.getText());
+      if (asset != null)
+      {
+         for (Person person : mControl.getPastBorrowers(asset))
+         {
+            mPersonListModel.addElement(person);
+         }
+      }
+   }
 
-      gen = new SearchAssetGrabber(this);
-      mPacketMap.put("SearchBorrowers", gen);
-      gen = new SearchPersonGrabber(this);
-      mPacketMap.put("SearchAssetHistory", gen);
+   /**
+    * Updates the JList with a history of assets borrowed by a person
+    */
+   public void updateAssetHistory()
+   {
+      Person person = ModelObjectGenerator.fetchPerson(mDataFld.getText());
+      if (person != null)
+      {
+         for (Asset asset : mControl.getAssetHistory(person))
+         {
+            mAssetListModel.addElement(asset);
+         }
+      }
    }
 
    /**
@@ -177,9 +265,8 @@ public class SearchView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      SearchDataGrabber grabber = null;
-      grabber = (SearchDataGrabber) mPacketMap.get(pFunction);
-      return grabber.grab();
+      //No packet to send
+      return null;
    }
 
    /**
@@ -187,6 +274,7 @@ public class SearchView
     */
    public void enable(String pFunction)
    {
+      setMode("SearchBorrowers".equals(pFunction));
    }
 
    /**

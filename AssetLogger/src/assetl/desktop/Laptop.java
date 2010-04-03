@@ -1,6 +1,6 @@
 package assetl.desktop;
 
-import assetl.service.AssetType;
+import assetl.system.AssetType;
 import assetl.system.Asset;
 import assetl.system.AssetMissMatchExecption;
 

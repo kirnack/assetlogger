@@ -1005,7 +1005,7 @@ public class Server
       {
          e.printStackTrace();
       }
-      return new ArrayList<Asset>();
+      return assets;
    }
 
    /**

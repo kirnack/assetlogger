@@ -390,13 +390,13 @@ public abstract class DatabaseControl
          {
             if (checkouts.get(0).getPickedupDate() == null)
             {
-               // If the checkouts in this request have not been picked up
+               //The active checkouts that have not been picked up
 
                scheduled.add(request);
             }
-            else if (checkouts.get(0).getReturnedDate() == null)
+            else
             {
-               // If the checkouts in this request have not been returned
+               //The active checkouts that have been picked up
                
                checkedout.add(request);
             }

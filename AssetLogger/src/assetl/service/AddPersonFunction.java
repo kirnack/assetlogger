@@ -66,5 +66,6 @@ public class AddPersonFunction
         }
       }
       mControl.changeView("ID");
+      mControl.enableFunction("LoadPerson");
    }
 }

@@ -98,5 +98,6 @@ public class AddAssetFunction
         }
      }
      mControl.changeView("ID");
+     mControl.enableFunction("LoadPerson");
    }
 }

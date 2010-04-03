@@ -53,7 +53,6 @@
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
-                  <Component id="mReturnBtn" min="-2" max="-2" attributes="0"/>
                   <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="84" max="32767" attributes="0"/>
@@ -83,9 +82,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
               <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="mReturnBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="212" max="32767" attributes="0"/>
+              <EmptySpace pref="263" max="32767" attributes="0"/>
               <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
           </Group>
@@ -151,12 +148,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Currently Scheduled:"/>
         <Property name="name" type="java.lang.String" value="mRequestedLbl" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="mReturnBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Checkin"/>
-        <Property name="name" type="java.lang.String" value="mReturnBtn" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="mExtendBtn">

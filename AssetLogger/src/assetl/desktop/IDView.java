@@ -51,9 +51,6 @@ public class IDView
          public void actionPerformed(ActionEvent ev)
          {
             enable("LoadPerson");
-            setLabeling("Load", "Enter I-number:");
-            mTxtFld.setText("");
-            mTxtFld.requestFocus();
          }
       });
 
@@ -65,9 +62,6 @@ public class IDView
          public void actionPerformed(ActionEvent ev)
          {
             enable("Checkin");
-            setLabeling("Checkin", "Enter laptop barcode:");
-            mTxtFld.setText("");
-            mTxtFld.requestFocus();
          }
       });
    }
@@ -164,6 +158,23 @@ public class IDView
    // End of variables declaration//GEN-END:variables
    private ButtonGroup mGroup;
 
+   public void setMode(boolean pIsLoad)
+   {
+      mScheduleRadio.setSelected(pIsLoad);
+      mCheckInRadio.setSelected(!pIsLoad);
+      mTxtFld.setText("");
+      mTxtFld.requestFocus();
+
+      if (pIsLoad)
+      {
+         setLabeling("Load", "Enter I-number:");
+      }
+      else
+      {
+         setLabeling("Checkin", "Enter laptop barcode:");
+      }
+   }
+
    /**
     * Changes the button label and the label above the text field
     *
@@ -219,6 +230,7 @@ public class IDView
    {
       //Enable a FunctionListener for the button
       enable(pFunction, mBtn, "Function");
+      setMode("LoadPerson".equals(pFunction));
    }
 
    /**
@@ -226,9 +238,5 @@ public class IDView
     */
    public void run()
    {
-      mScheduleRadio.setSelected(true);
-      enable("LoadPerson");
-      setLabeling("Load", "Enter I-number:");
-      mTxtFld.requestFocus();
    }
 }

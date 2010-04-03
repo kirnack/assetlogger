@@ -428,6 +428,28 @@ public abstract class DatabaseControl
    }
 
    /**
+    * Returns the people who have recently borrowed the given asset
+    *
+    * @param pAsset The asset borrowed
+    * @return The people who have borrowed the asset
+    */
+   public Collection<Person> getPastBorrowers(Asset pAsset)
+   {
+      return mModel.getBorrowers(pAsset);
+   }
+
+   /**
+    * Returns the assets recently borrowed by the person given
+    *
+    * @param pPerson The person who has borrowed the assets
+    * @return The assets borrowed by the person
+    */
+   public Collection<Asset> getAssetHistory(Person pPerson)
+   {
+      return mModel.getAssets(pPerson);
+   }
+
+   /**
     * Gets from the model the checked out requests based on a Person.
     * These will be those requests that have been checked out to a person
     * but not yet returned.

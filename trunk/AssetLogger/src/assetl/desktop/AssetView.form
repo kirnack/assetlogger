@@ -40,6 +40,18 @@
                 <Property name="name" type="java.lang.String" value="mAddPersonMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mSearchMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search Borrowers"/>
+                <Property name="name" type="java.lang.String" value="mSearchMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mHistoryMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search Asset History"/>
+                <Property name="name" type="java.lang.String" value="mHistoryMenuItem" noResource="true"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mUserMenu">

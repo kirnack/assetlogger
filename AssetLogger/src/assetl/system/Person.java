@@ -256,4 +256,12 @@ public class Person
       hash = 97 * hash + (this.mID != null ? this.mID.hashCode() : 0);
       return hash;
    }
+
+   @Override
+   public String toString()
+   {
+      return mID + ": " + mFirstName.substring(0,1) + ". " + mLastName;
+   }
+
+
 }

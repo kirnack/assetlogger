@@ -10,7 +10,7 @@ public class PersonPacket
    /**
     * The person to send in the packet
     */
-   Person mPerson;
+   private Person mPerson;
 
    /**
     * Default Constructor

@@ -306,7 +306,7 @@ public class FindAssetView
       }
 
       //Generate a new Request
-      req = RequestGenerator.generateRequest(tempPacket.getString(), assets,
+      req = ModelObjectGenerator.generateRequest(tempPacket.getString(), assets,
          grabStart(), grabEnd());
 
       return new RequestPacket(req);

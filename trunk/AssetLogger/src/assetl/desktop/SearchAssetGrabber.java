@@ -2,9 +2,11 @@ package assetl.desktop;
 
 import assetl.system.DataPacket;
 import assetl.system.AssetPacket;
+import assetl.system.Asset;
 
 /**
  * Creates an AssetPacket for the SearchView to send to the controller
+ * 
  * @author Devin Doman
  */
 public class SearchAssetGrabber
@@ -27,6 +29,8 @@ public class SearchAssetGrabber
     */
    public DataPacket grab()
    {
-      return new AssetPacket();
+      Asset laptop = ModelObjectGenerator.fetchAsset(mSearchView.getDataFld().
+         getText());
+      return new AssetPacket(laptop);
    }
 }

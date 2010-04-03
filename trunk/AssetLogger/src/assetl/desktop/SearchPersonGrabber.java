@@ -2,6 +2,7 @@ package assetl.desktop;
 
 import assetl.system.DataPacket;
 import assetl.system.PersonPacket;
+import assetl.system.Person;
 
 /**
  * Creates a PersonPacket for the SearchView to send to the controller
@@ -28,6 +29,8 @@ public class SearchPersonGrabber
     */
    public DataPacket grab()
    {
-      return new PersonPacket();
+      Person person = ModelObjectGenerator.fetchPerson(mSearchView.getDataFld().
+         getText());
+      return new PersonPacket(person);
    }
 }

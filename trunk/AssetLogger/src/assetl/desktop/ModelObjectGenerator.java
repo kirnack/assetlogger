@@ -16,7 +16,7 @@ import assetl.system.Asset;
  * 
  * @author Devin Doman
  */
-public class RequestGenerator
+public class ModelObjectGenerator
 {
    /**
     * The controller used to generate a request
@@ -54,5 +54,27 @@ public class RequestGenerator
 
       return new Request("", new Date(), pStart, "Faculty Checkout", recipient,
          checkouts);
+   }
+
+   /**
+    * Fetch the asset from the model with the given id
+    *
+    * @param pID The id of the asset
+    * @return The asset from the model
+    */
+   public static Asset fetchAsset(String pID)
+   {
+      return cControl.getAsset(pID);
+   }
+
+   /**
+    * Fetch the person from the model with the given id
+    *
+    * @param pID The id of the person
+    * @return The person from the model
+    */
+   public static Person fetchPerson(String pID)
+   {
+      return cControl.getPerson(pID);
    }
 }

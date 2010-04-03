@@ -19,8 +19,7 @@ public class Laptop
    }
 
    public Laptop(String pID, String pLaptopNumber, String pMake,
-                 String pModel, String pSerialNum, String pType,
-                 String pDescription)
+                 String pModel, String pSerialNum, String pType)
    {
       super(pID, pMake, pLaptopNumber, pSerialNum, pType, pModel, false);
    }

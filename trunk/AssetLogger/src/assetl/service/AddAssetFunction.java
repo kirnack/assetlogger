@@ -1,7 +1,7 @@
 package assetl.service;
 
 import assetl.system.DataPacket;
-import assetl.system.LaptopPacket;
+import assetl.system.AssetPacket;
 import assetl.system.Asset;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +17,7 @@ public class AddAssetFunction
    /**
     * Sends the data needed to make a laptop asset
     */
-   private LaptopPacket mData;
+   private AssetPacket mData;
 
    /**
     * Sets the DataPacket for this function
@@ -26,7 +26,7 @@ public class AddAssetFunction
     */
    public void setPacket(DataPacket pPacket)
    {
-      mData = (LaptopPacket) pPacket;
+      mData = (AssetPacket) pPacket;
    }
 
    /**
@@ -40,41 +40,11 @@ public class AddAssetFunction
    }
 
    /**
-    * Take the data packet and make an asset
-    *
-    * @return The asset to set in the model
-    */
-   public Asset generateLaptop()
-   {
-      Asset laptop = null;
-
-      if (!("".equals(mData.getBarCode())))
-      {
-         laptop = new Asset();
-         laptop.setID(mData.getBarCode());
-         laptop.setMake(mData.getMake());
-         laptop.setModel(mData.getLaptopNumber());
-         laptop.setSerialNum(mData.getSerialNubmer());
-
-         String type = "PC";
-         if ("Apple".equalsIgnoreCase(mData.getMake()))
-         {
-            type = "Mac";
-         }
-
-         laptop.setType(type);
-         laptop.setMaintenance(mData.getMaintenance());
-      }
-      
-      return laptop;
-   }
-
-   /**
     * Adds an asset to the model
     */
    public void performFunction()
    {
-     Asset asset = generateLaptop();
+     Asset asset = mData.getAsset();
      if (asset != null)
      {
          mModel.setAsset(asset);

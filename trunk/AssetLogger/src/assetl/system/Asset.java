@@ -103,13 +103,13 @@ public class Asset
    public Asset(String pID, String pMake, String pModel, String pSerialNum,
       String pType, String pDescription, boolean pMaintenance)
    {
-      this.mID = pID;
-      this.mMake = pMake;
-      this.mModel = pModel;
-      this.mSerialNum = pSerialNum;
-      this.mType = pType;
-      this.mDescription = pDescription;
-      this.mMaintenance = pMaintenance;
+      mID = pID;
+      mMake = pMake;
+      mModel = pModel;
+      mSerialNum = pSerialNum;
+      mType = pType;
+      mDescription = pDescription;
+      mMaintenance = pMaintenance;
    }
 
    /**
@@ -129,7 +129,7 @@ public class Asset
     */
    public void setDescription(String pDescription)
    {
-      this.mDescription = pDescription;
+      mDescription = pDescription;
    }
 
    /**
@@ -149,7 +149,7 @@ public class Asset
     */
    public void setType(String pType)
    {
-      this.mType = pType;
+      mType = pType;
    }
 
    /**
@@ -169,7 +169,7 @@ public class Asset
     */
    public void setSerialNum(String pSerialNum)
    {
-      this.mSerialNum = pSerialNum;
+      mSerialNum = pSerialNum;
    }
 
    /**
@@ -189,7 +189,7 @@ public class Asset
     */
    public void setModel(String pModel)
    {
-      this.mModel = pModel;
+      mModel = pModel;
    }
 
    /**
@@ -209,7 +209,7 @@ public class Asset
     */
    public void setMake(String pMake)
    {
-      this.mMake = pMake;
+      mMake = pMake;
    }
 
    /**
@@ -229,7 +229,7 @@ public class Asset
     */
    public void setID(String pID)
    {
-      this.mID = pID;
+      mID = pID;
    }
 
    /**
@@ -250,7 +250,7 @@ public class Asset
          return false;
       }
       final Asset other = (Asset) obj;
-      if ((this.mID == null) ? (other.mID != null) : !this.mID.equals(other.mID))
+      if ((mID == null) ? (other.mID != null) : !mID.equals(other.mID))
       {
          return false;
       }
@@ -266,7 +266,7 @@ public class Asset
    public int hashCode()
    {
       int hash = 7;
-      hash = 13 * hash + (this.mID != null ? this.mID.hashCode() : 0);
+      hash = 13 * hash + (mID != null ? mID.hashCode() : 0);
       return hash;
    }
 
@@ -286,7 +286,7 @@ public class Asset
     */
    public void setMaintenance(boolean pMaintenance)
    {
-      this.mMaintenance = pMaintenance;
+      mMaintenance = pMaintenance;
    }
 
    /**

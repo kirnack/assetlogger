@@ -78,4 +78,34 @@ public class ModelObjectGenerator
    {
       return cControl.getPerson(pID);
    }
+
+   /**
+    * Creates an Asset object containing laptop data
+    *
+    * @param pBarCode The bar code
+    * @param pLaptopNumber The laptop number
+    * @param pMake The make
+    * @param pModel The model
+    * @param pSerialNum The serial number
+    * @param pMaintenance Whether the laptop is in maintenance
+    * @return The asset object representing the laptop
+    */
+   public static Asset generateLaptop(String pBarCode, String pLaptopNumber,
+      String pMake, String pModel, String pSerialNum, boolean pMaintenance)
+   {
+      Asset laptop = null;
+
+      if (!("".equals(pBarCode)))
+      {
+         String type = "PC";
+         if ("Apple".equalsIgnoreCase(pMake))
+         {
+            type = "Mac";
+         }
+         laptop = new Asset(pBarCode, pMake, pLaptopNumber, pSerialNum, type,
+            pModel, pMaintenance);
+      }
+
+      return laptop;
+   }
 }

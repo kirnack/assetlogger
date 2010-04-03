@@ -204,10 +204,10 @@ public class AddAssetView
       boolean inMaintain = mMaintainChkBox.isSelected();
       
       //Generate a laptop object
-      Asset laptop = ModelObjectGenerator.generateLaptop(barCode, laptopNum,
+      Laptop laptop = ModelObjectGenerator.generateLaptop(barCode, laptopNum,
          make, model, serialNum, inMaintain);
 
-      return new AssetPacket(laptop);
+      return new AssetPacket(laptop.getAsset());
    }
 
    /**

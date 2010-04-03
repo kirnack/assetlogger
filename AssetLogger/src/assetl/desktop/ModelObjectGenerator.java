@@ -90,10 +90,10 @@ public class ModelObjectGenerator
     * @param pMaintenance Whether the laptop is in maintenance
     * @return The asset object representing the laptop
     */
-   public static Asset generateLaptop(String pBarCode, String pLaptopNumber,
+   public static Laptop generateLaptop(String pBarCode, String pLaptopNumber,
       String pMake, String pModel, String pSerialNum, boolean pMaintenance)
    {
-      Asset laptop = null;
+      Laptop laptop = null;
 
       if (!("".equals(pBarCode)))
       {
@@ -102,8 +102,9 @@ public class ModelObjectGenerator
          {
             type = "Mac";
          }
-         laptop = new Asset(pBarCode, pMake, pLaptopNumber, pSerialNum, type,
-            pModel, pMaintenance);
+         
+         laptop = new Laptop(pBarCode, pLaptopNumber, pMake, pModel, pSerialNum,
+            type, pMaintenance);
       }
 
       return laptop;

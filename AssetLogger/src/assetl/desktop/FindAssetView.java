@@ -242,11 +242,12 @@ public class FindAssetView
 
       if (start != null && end != null)
       {
-         ArrayList<Asset> laptops;
-         laptops = (ArrayList<Asset>) mControl.getAvailableAssets(start, end);
+         ArrayList<Asset> available;
+         available = (ArrayList<Asset>) mControl.getAvailableAssets(start, end);
 
-         for (Asset laptop : laptops)
+         for (Asset asset : available)
          {
+            Laptop laptop = new Laptop(asset);
             mAssetListModel.addElement(laptop);
          }
       }

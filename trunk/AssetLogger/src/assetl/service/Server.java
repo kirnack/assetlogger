@@ -110,7 +110,7 @@ public class Server
                setupSQL.toString().replace("file:", ""));
             BufferedReader in = new BufferedReader(
                new FileReader(updateScript));
-            ResultSet rs = mStat.executeQuery("Select ChangeString from "
+            ResultSet rs = mConn.createStatement().executeQuery("Select ChangeString from "
                + "DatabaseInfo");
             String str = rs.getString(1);
             rs.close();
@@ -215,7 +215,7 @@ public class Server
       Person person = null;
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from requestors where"
+         ResultSet rs = mConn.createStatement().executeQuery("select * from requestors where"
             + " RequestorID='" + pID + "';");
          if (rs.next())
          {
@@ -298,7 +298,7 @@ public class Server
       Asset asset = null;
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from assets where"
+         ResultSet rs = mConn.createStatement().executeQuery("select * from assets where"
             + " AssetID='" + pID + "';");
          if (rs.next())
          {
@@ -388,7 +388,7 @@ public class Server
       Request request = null;
       try
       {
-         ResultSet requestSet = mStat.executeQuery(
+         ResultSet requestSet = mConn.createStatement().executeQuery(
             "select * from Requests where" + " RequestID='" + pID + "';");
          if (requestSet.next())
          {
@@ -425,26 +425,31 @@ public class Server
 
       try
       {
-         ResultSet cs = mStat.executeQuery(
+         
+         ResultSet rs = mConn.createStatement().executeQuery(
             "select * from Checkouts where" + " RequestID='"
             + pRequest.getID() + "';");
-         while (cs.next())
+
+         System.out.println(rs.isBeforeFirst());
+
+         while (rs.next())
          {
-            checkouts.add(new Checkout(cs.getString("CheckoutID"),
-               cs.getString("RequestID"),
-               getAsset(cs.getString("AssetID")),
-               getPerson(cs.getString("RecipeantID")),
-               cs.getDate("RequestedStartDate"),
-               cs.getDate("RequestedEndDate"),
-               cs.getDate("PickupDate"),
-               cs.getDate("ReturnDate"),
-               cs.getBoolean("isActive")));
+            checkouts.add(new Checkout(rs.getString("CheckoutID"),
+               rs.getString("RequestID"),
+               getAsset(rs.getString("AssetID")),
+               getPerson(rs.getString("RecipeantID")),
+               rs.getDate("RequestedStartDate"),
+               rs.getDate("RequestedEndDate"),
+               rs.getDate("PickupDate"),
+               rs.getDate("ReturnDate"),
+               rs.getBoolean("Active")));
          }
-         cs.close();
+         rs.close();
       }
       catch (Exception e)
       {
          System.err.println(e);
+         e.printStackTrace();
       }
       return checkouts;
    }
@@ -461,7 +466,7 @@ public class Server
       Checkout checkout = null;
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from Checkouts where"
+         ResultSet rs = mConn.createStatement().executeQuery("select * from Checkouts where"
             + " CheckoutID='" + pID + "';");
          if (rs.next())
          {
@@ -471,9 +476,9 @@ public class Server
                getPerson(rs.getString("RecipeantID")),
                rs.getDate("RequestedStartDate"),
                rs.getDate("RequestedEndDate"),
-               rs.getDate("PickedupDate"),
-               rs.getDate("ReturnedDate"),
-               rs.getBoolean("isActive"));
+               rs.getDate("PickupDate"),
+               rs.getDate("ReturnDate"),
+               rs.getBoolean("Active"));
          }
          rs.close();
       }
@@ -619,6 +624,7 @@ public class Server
             prepReq.execute();
          }
 
+         prepReq.close();
          for (Checkout checkout : pRequest.getCheckouts())
          {
             setCheckout(checkout, pUserID);
@@ -651,10 +657,10 @@ public class Server
 
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from Checkouts where"
+         ResultSet rs = mConn.createStatement().executeQuery("select * from Checkouts where"
             + " AssetID='" + pAsset.getID()
-            + "' isActive=true order by "
-            + "RequestedStartDate, PickedupDate DESC"
+            + "' Active=true order by "
+            + "RequestedStartDate, PickupDate DESC"
             + ";");
          if (rs.next())
          {
@@ -664,9 +670,9 @@ public class Server
                getPerson(rs.getString("RecipeantID")),
                rs.getDate("RequestedStartDate"),
                rs.getDate("RequestedEndDate"),
-               rs.getDate("PickedupDate"),
-               rs.getDate("ReturnedDate"),
-               rs.getBoolean("isActive")));
+               rs.getDate("PickupDate"),
+               rs.getDate("ReturnDate"),
+               rs.getBoolean("Active")));
          }
          rs.close();
       }
@@ -703,7 +709,7 @@ public class Server
       Collection<User> users = new ArrayList<User>();
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from users;");
+         ResultSet rs = mConn.createStatement().executeQuery("select * from users;");
          while (rs.next())
          {
             users.add(new User(rs.getString("UserID"),
@@ -749,7 +755,7 @@ public class Server
       User user = null;
       try
       {
-         ResultSet rs = mStat.executeQuery("select * from users where"
+         ResultSet rs = mConn.createStatement().executeQuery("select * from users where"
             + " UserID='" + pID + "';");
          if (rs.next())
          {
@@ -797,7 +803,7 @@ public class Server
       Collection<Asset> assets = new ArrayList<Asset>();
       try
       {
-         ResultSet rs = mStat.executeQuery(
+         ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets left outer join checkouts"
             + " ON Assets.AssetID=Checkouts.AssetID where "
             + "Assets.inMaintenance=0 and "
@@ -821,7 +827,7 @@ public class Server
          }
 
          rs.close();
-         rs = mStat.executeQuery(
+         rs = mConn.createStatement().executeQuery(
             "select * from assets where not exists "
             + "(select assetid from checkouts Where "
             + "assets.assetid=checkouts.assetid);");
@@ -861,7 +867,7 @@ public class Server
       Collection<Person> borrowers = new ArrayList<Person>();
       try
       {
-         ResultSet rs = mStat.executeQuery(
+         ResultSet rs = mConn.createStatement().executeQuery(
 
             "select * from Requestors left outer join Request"
             + " ON Requestors.RequestorID = Requests.RequestorID "
@@ -894,7 +900,7 @@ public class Server
       Collection<Request> requests = new ArrayList<Request>();
       try
       {
-         ResultSet rs = mStat.executeQuery(
+         ResultSet rs = mConn.createStatement().executeQuery(
             "Select * from Requests where requestorID=\"" + pPerson.getID() +
             "\" and Exists (select requestID from checkouts where active=1 and " +
             "checkouts.requestID=requests.requestID);");
@@ -906,6 +912,8 @@ public class Server
                rs.getString("RequestedType"),
                getPerson(rs.getString("RequestorID"))));
          }
+
+         rs.close();
 
          for (Request request : requests)
          {
@@ -930,7 +938,7 @@ public class Server
       Collection<Asset> assets = new ArrayList<Asset>();
       try
       {
-         ResultSet rs = mStat.executeQuery(
+         ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets where exists(select * from checkouts where"+
             " Checkouts.assetID=Assets.assetID and Checkouts.active=1 and "+
             "exists (select * from requests where requestorID=" +
@@ -963,7 +971,7 @@ public class Server
       int numCheckouts = 0;
       try
       {
-         ResultSet rs = mStat.executeQuery("select count(*) from checkouts;");
+         ResultSet rs = mConn.createStatement().executeQuery("select count(*) from checkouts;");
          numCheckouts = rs.getInt(1);
       }
       catch (SQLException e)
@@ -984,7 +992,7 @@ public class Server
 
       try
       {
-         ResultSet rs = mStat.executeQuery("select count(*) from CheckoutLog;");
+         ResultSet rs = mConn.createStatement().executeQuery("select count(*) from CheckoutLog;");
          numLogs = rs.getInt(1);
          rs.close();
       }
@@ -1006,7 +1014,7 @@ public class Server
       int numCheckouts = 0;
       try
       {
-         ResultSet rs = mStat.executeQuery("select count(*) from Requests;");
+         ResultSet rs = mConn.createStatement().executeQuery("select count(*) from Requests;");
          numCheckouts = rs.getInt(1);
       }
       catch (SQLException e)

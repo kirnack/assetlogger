@@ -11,22 +11,96 @@ public class Laptop
    extends Asset
 {
 
+   Asset mAsset;
    public Laptop(String pID, String pLaptopNumber, String pMake,
       String pModel, String pSerialNum, String pType,  boolean pMaintenance)
    {
-      super(pID, pMake, pLaptopNumber, pSerialNum, pType, pModel,
-            pMaintenance);
+      mAsset = new Asset(pID, pMake, pLaptopNumber,
+                         pSerialNum, pType, pModel, false);
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      return (obj instanceof Laptop) && mAsset.equals(((Laptop) obj).mAsset);
+   }
+
+   @Override
+   public String getID()
+   {
+      return mAsset.getID();
+   }
+
+   @Override
+   public String getMake()
+   {
+      return mAsset.getMake();
+   }
+
+   @Override
+   public String getSerialNum()
+   {
+      return mAsset.getSerialNum();
+   }
+
+   @Override
+   public String getType()
+   {
+      return mAsset.getType();
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return mAsset.hashCode();
+   }
+
+   @Override
+   public boolean isInMaintenance()
+   {
+      return mAsset.isInMaintenance();
+   }
+
+   @Override
+   public void setID(String pID)
+   {
+      mAsset.setID(pID);
+   }
+
+   @Override
+   public void setMaintenance(boolean pMaintenance)
+   {
+      mAsset.setMaintenance(pMaintenance);
+   }
+
+   @Override
+   public void setMake(String pMake)
+   {
+      mAsset.setMake(pMake);
+   }
+
+   @Override
+   public void setSerialNum(String pSerialNum)
+   {
+      mAsset.setSerialNum(pSerialNum);
+   }
+
+   @Override
+   public void setType(String pType)
+   {
+      mAsset.setType(pType);
    }
 
    public Laptop(String pID, String pLaptopNumber, String pMake,
                  String pModel, String pSerialNum, String pType)
    {
-      super(pID, pMake, pLaptopNumber, pSerialNum, pType, pModel, false);
+      mAsset =
+      new Asset(pID, pMake, pLaptopNumber, pSerialNum, pType, pModel, false);
    }
 
    public Laptop(String pID, String pLaptopNumber, String pType)
    {
-      super(pID, "", pLaptopNumber, "", pType, "", false);
+      mAsset = new Asset(pID, "", pLaptopNumber, "", pType, "", false);
    }
 
    public Laptop(Asset pAsset)
@@ -35,13 +109,7 @@ public class Laptop
       if(pAsset.getType().equalsIgnoreCase("Mac")
          || pAsset.getType().equalsIgnoreCase("PC"))
       {
-         super.mDescription = pAsset.getDescription();
-         super.mID = pAsset.getID();
-         super.mMaintenance = pAsset.isInMaintenance();
-         super.mMake = pAsset.getMake();
-         super.mModel = pAsset.getModel();
-         super.mSerialNum = pAsset.getSerialNum();
-         super.mType = pAsset.getType();
+         mAsset = pAsset;
       }
       else
       {
@@ -56,13 +124,13 @@ public class Laptop
    @Override
    public String getModel()
    {
-      return super.getDescription();
+      return mAsset.getDescription();
    }
 
    @Override
    public void setModel(String pModel)
    {
-      super.setDescription(pModel);
+      mAsset.setDescription(pModel);
    }
 
    /**
@@ -75,7 +143,7 @@ public class Laptop
    @Override
    public String getDescription()
    {
-      return super.getDescription();
+      return mAsset.getDescription();
    }
 
    /**
@@ -87,23 +155,28 @@ public class Laptop
    @Override
    public void setDescription(String pDescription)
    {
-      super.setDescription(pDescription);
+      mAsset.setDescription(pDescription);
    }
 
    String getLaptopNumber()
    {
-      return mModel;
+      return mAsset.getModel();
    }
 
    void setLaptopNumber(String pModel)
    {
-      mModel = pModel;
+      mAsset.setModel(pModel);
    }
 
    @Override
    public String toString()
    {
-      return mModel + ": " + mType;
+      return mAsset.getModel() + ": " + mType;
+   }
+
+   public Asset getAsset()
+   {
+      return mAsset;
    }
 
 }

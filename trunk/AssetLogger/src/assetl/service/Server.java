@@ -425,7 +425,7 @@ public class Server
 
       try
       {
-         
+
          ResultSet rs = mConn.createStatement().executeQuery(
             "select * from Checkouts where" + " RequestID='"
             + pRequest.getID() + "';");
@@ -499,87 +499,91 @@ public class Server
     */
    public void setCheckout(Checkout pCheckout, String pUserID)
    {
-      if(pCheckout != null)
+      if (pCheckout != null)
       {
-      try
-      {
-         Checkout temp = null;
-         System.err.println("Retreivinng " + pCheckout.getID());
-         //Retrieves data from database to see if the person needs to be added,
-         //and also to check to see if there is an actual need to update te data.
+         try
+         {
+            Checkout temp = null;
+            System.err.println("Retreivinng " + pCheckout.getID());
+            //Retrieves data from database to see if the person needs to be added,
+            //and also to check to see if there is an actual need to update te data.
 
-         PreparedStatement prepReq = null;
-         if (("".equals(pCheckout.getID()))
-            || (((temp = getCheckout(pCheckout.getID())) == null)))
-         {
-            pCheckout.setID(Integer.toString(getNumCheckouts() + 1));
-            System.err.println("Adding " + pCheckout.getID());
-            prepReq = mConn.prepareStatement(
-               "insert into Checkouts values (?, ?, ?, ?, ?, ?, ?, ?, '"
-               + pUserID + "', ?);");
-         }
-         else
-         {
-            System.err.println("temp: " + temp.getReturnedDate());
-            System.err.println("pCheckout: " + pCheckout.getReturnedDate());
-            if (!(temp.getAsset() != null ?
-                 temp.getAsset().equals(pCheckout.getAsset()) :
-                 pCheckout.getAsset() == null)
-               || !((temp.getPickedupDate() != null) ?
-                 temp.getPickedupDate().equals(pCheckout.getPickedupDate()) :
-                 pCheckout.getPickedupDate() == null)
-               || !((temp.getRecipient() != null) ?
-                 temp.getRecipient().equals(pCheckout.getRecipient()) :
-                 pCheckout.getRecipient() == null)
-               || !((temp.getRequestedEndDate() != null) ?
-                 temp.getRequestedEndDate().equals(pCheckout.getRequestedEndDate()) :
-                 pCheckout.getRequestedEndDate() == null)
-               || !((temp.getRequestedEndDate() != null) ?
-                 temp.getRequestedStartDate().equals(pCheckout.getRequestedStartDate()) :
-                 pCheckout.getRequestedStartDate() == null)
-               || !((temp.getReturnedDate() != null) ?
-                 temp.getReturnedDate().equals(pCheckout.getReturnedDate()) :
-                 pCheckout.getReturnedDate() == null)
-               || temp.isActive() == pCheckout.isActive())
+            PreparedStatement prepReq = null;
+            if (("".equals(pCheckout.getID()))
+               || (((temp = getCheckout(pCheckout.getID())) == null)))
             {
-
-               System.err.println("Updating " + pCheckout.getID());
+               pCheckout.setID(Integer.toString(getNumCheckouts() + 1));
+               System.err.println("Adding " + pCheckout.getID());
                prepReq = mConn.prepareStatement(
-                  "update Checkouts set CheckoutID = ?, RequestID = ?,"
-                  + " RecipeantID = ?, AssetID = ?,"
-                  + " RequestedStartDate = ?, RequestedEndDate = ?,"
-                  + " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
-                  + pUserID + "', Active = ? where RequestID ='"
-                  + pCheckout.getID() + "';");
+                  "insert into Checkouts values (?, ?, ?, ?, ?, ?, ?, ?, '"
+                  + pUserID + "', ?);");
+            }
+            else
+            {
+               if(
+                  !(temp.getAsset() != null
+                  ? temp.getAsset().equals(pCheckout.getAsset())
+                  : pCheckout.getAsset() == null)
+             
+                  || !((temp.getPickedupDate() != null)
+                  ? temp.getPickedupDate().equals(pCheckout.getPickedupDate())
+                  : pCheckout.getPickedupDate() == null)
+
+                  || !((temp.getRecipient() != null)
+                  ? temp.getRecipient().equals(pCheckout.getRecipient())
+                  : pCheckout.getRecipient() == null)
+                  || !((temp.getRequestedEndDate() != null)
+                  ? temp.getRequestedEndDate().equals(pCheckout.
+                  getRequestedEndDate())
+                  : pCheckout.getRequestedEndDate() == null)
+
+                  || !((temp.getRequestedEndDate() != null)
+                  ? temp.getRequestedStartDate().equals(pCheckout.
+                  getRequestedStartDate())
+                  : pCheckout.getRequestedStartDate() == null)
+                  || !((temp.getReturnedDate() != null)
+                  ? temp.getReturnedDate().equals(pCheckout.getReturnedDate())
+                  : pCheckout.getReturnedDate() == null)
+                  || temp.isActive() != pCheckout.isActive())
+               {
+
+                  System.err.println("Updating " + pCheckout.getID());
+                  prepReq = mConn.prepareStatement(
+                     "update Checkouts set CheckoutID = ?, RequestID = ?,"
+                     + " RecipeantID = ?, AssetID = ?,"
+                     + " RequestedStartDate = ?, RequestedEndDate = ?,"
+                     + " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
+                     + pUserID + "', Active = ? where RequestID ='"
+                     + pCheckout.getID() + "';");
+               }
+            }
+            if (prepReq != null)
+            {
+               prepReq.setString(1, pCheckout.getID());
+               prepReq.setString(2, pCheckout.getRequestID());
+               prepReq.setString(3, pCheckout.getRecipient().getID());
+               prepReq.setString(4, ((pCheckout.getAsset() == null)
+                  ? null : pCheckout.getAsset().getID()));
+               prepReq.setTimestamp(5, ((pCheckout.getRequestedStartDate() != null)
+                  ? new Timestamp(pCheckout.getRequestedStartDate().getTime())
+                  : null));
+               prepReq.setTimestamp(6, ((pCheckout.getRequestedEndDate() != null)
+                  ? new Timestamp(pCheckout.getRequestedEndDate().getTime())
+                  : null));
+               prepReq.setTimestamp(7, ((pCheckout.getPickedupDate() != null)
+                  ? new Timestamp(pCheckout.getPickedupDate().getTime())
+                  : null));
+               prepReq.setTimestamp(8, ((pCheckout.getReturnedDate() != null)
+                  ? new Timestamp(pCheckout.getReturnedDate().getTime())
+                  : null));
+               prepReq.setBoolean(9, pCheckout.isActive());
+               prepReq.execute();
             }
          }
-         if (prepReq != null)
+         catch (Exception e)
          {
-            prepReq.setString(1, pCheckout.getID());
-            prepReq.setString(2, pCheckout.getRequestID());
-            prepReq.setString(3, pCheckout.getRecipient().getID());
-            prepReq.setString(4, ((pCheckout.getAsset() == null)
-               ? null : pCheckout.getAsset().getID()));
-            prepReq.setTimestamp(5, ((pCheckout.getRequestedStartDate() != null)
-               ? new Timestamp(pCheckout.getRequestedStartDate().getTime())
-               : null));
-            prepReq.setTimestamp(6, ((pCheckout.getRequestedEndDate() != null)
-               ? new Timestamp(pCheckout.getRequestedEndDate().getTime())
-               : null));
-            prepReq.setTimestamp(7, ((pCheckout.getPickedupDate() != null)
-               ? new Timestamp(pCheckout.getPickedupDate().getTime())
-               : null));
-            prepReq.setTimestamp(8, ((pCheckout.getReturnedDate() != null)
-               ? new Timestamp(pCheckout.getReturnedDate().getTime())
-               : null));
-            prepReq.setBoolean(9, pCheckout.isActive());
-            prepReq.execute();
+            e.printStackTrace(System.err);
          }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace(System.err);
-      }
       }
    }
 
@@ -756,7 +760,8 @@ public class Server
       Collection<User> users = new ArrayList<User>();
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select * from users;");
+         ResultSet rs = mConn.createStatement().executeQuery(
+            "select * from users;");
          while (rs.next())
          {
             users.add(new User(rs.getString("UserID"),
@@ -870,7 +875,6 @@ public class Server
          }
          catch (Exception e)
          {
-
          }
 
          rs.close();
@@ -892,7 +896,6 @@ public class Server
          }
          catch (Exception e)
          {
-
          }
 
       }
@@ -915,12 +918,9 @@ public class Server
       try
       {
          ResultSet rs = mConn.createStatement().executeQuery(
-
-            "select * from Requestors left outer join Requests"
-            + " ON Requestors.RequestorID = Requests.RequestorID "
-            + " left outer join Checkouts ON "
-            + "Checkouts.RequestsID=Requests.RequestID where "
-            + "Checkouts.AssetID=" + pAsset.getID() + ";");
+            "select * from Requestors where exists (select requestorid Requests"
+            + " where exists (select requestid from Checkouts where "
+            + "Checkouts.AssetID=" + pAsset.getID() + "));");
          while (rs.next())
          {
             borrowers.add(new Person(rs.getString("RequestorID"),
@@ -948,9 +948,9 @@ public class Server
       try
       {
          ResultSet rs = mConn.createStatement().executeQuery(
-            "Select * from Requests where requestorID=\"" + pPerson.getID() +
-            "\" and Exists (select requestID from checkouts where active=1 and " +
-            "checkouts.requestID=requests.requestID);");
+            "Select * from Requests where requestorID=\"" + pPerson.getID()
+            + "\" and Exists (select requestID from checkouts where active=1 and "
+            + "checkouts.requestID=requests.requestID);");
          while (rs.next())
          {
             requests.add(new Request(rs.getString("RequestID"),
@@ -986,10 +986,10 @@ public class Server
       try
       {
          ResultSet rs = mConn.createStatement().executeQuery(
-            "select * from assets where exists(select * from checkouts where"+
-            " Checkouts.assetID=Assets.assetID and Checkouts.active=1 and "+
-            "exists (select * from requests where requestorID=\"" +
-            pPerson.getID() + "\"));");
+            "select * from assets where exists(select assetid from checkouts"
+            + " where exists (select requestid from requests where "
+            + "requestorID=\""
+            + pPerson.getID() + "\"));");
 
          while (rs.next())
          {
@@ -1018,7 +1018,8 @@ public class Server
       int numCheckouts = 0;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select count(*) from checkouts;");
+         ResultSet rs = mConn.createStatement().executeQuery(
+            "select count(*) from checkouts;");
          numCheckouts = rs.getInt(1);
       }
       catch (SQLException e)
@@ -1039,7 +1040,8 @@ public class Server
 
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select count(*) from CheckoutLog;");
+         ResultSet rs = mConn.createStatement().executeQuery(
+            "select count(*) from CheckoutLog;");
          numLogs = rs.getInt(1);
          rs.close();
       }
@@ -1061,7 +1063,8 @@ public class Server
       int numCheckouts = 0;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select count(*) from Requests;");
+         ResultSet rs = mConn.createStatement().executeQuery(
+            "select count(*) from Requests;");
          numCheckouts = rs.getInt(1);
       }
       catch (SQLException e)

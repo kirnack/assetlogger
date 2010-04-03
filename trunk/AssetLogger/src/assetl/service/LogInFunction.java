@@ -44,7 +44,7 @@ public class LogInFunction
    public void performFunction()
    {
       String test = "do not ";
-      
+
       // If the passwords match
       if (mModel.checkPwd(mData.getUserName(), mData.getPassword()))
       {
@@ -52,6 +52,7 @@ public class LogInFunction
          // Change to the next view
          DatabaseControl tempControl = (DatabaseControl) mControl;
          mControl.changeView("ID");
+         mControl.enableFunction("LoadPerson");
 
          tempControl.setCurrentUser(mModel.getUser(mData.getUserName()));
       }

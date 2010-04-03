@@ -276,7 +276,7 @@ public class Asset
    @Override
    public String toString()
    {
-      return mModel + ": " + mType;
+      return mType + ": " + mModel;
    }
 
    /**

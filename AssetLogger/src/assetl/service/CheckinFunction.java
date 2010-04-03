@@ -64,6 +64,7 @@ public class CheckinFunction
             // different don't check it in
 
             outstanding.setReturnedDate(new Date());
+            outstanding.setActive(false);
             mModel.setCheckout(outstanding, mControl.getCurrentUser().getID());
             System.err.println("works");
          }

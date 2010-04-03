@@ -133,7 +133,7 @@ public class Checkout
     */
    public void setActive(boolean pActive)
    {
-      this.mActive = pActive;
+      mActive = pActive;
    }
 
    /**
@@ -153,7 +153,7 @@ public class Checkout
     */
    public void setReturnedDate(Date pReturnedDate)
    {
-      this.mReturnedDate = pReturnedDate;
+      mReturnedDate = pReturnedDate;
    }
 
    /**
@@ -173,7 +173,7 @@ public class Checkout
     */
    public void setPickedupDate(Date pPickedupDate)
    {
-      this.mPickedupDate = pPickedupDate;
+      mPickedupDate = pPickedupDate;
    }
 
    /**
@@ -193,7 +193,7 @@ public class Checkout
     */
    public void setRequestedEndDate(Date pRequestedEndDate)
    {
-      this.mRequestedEndDate = pRequestedEndDate;
+      mRequestedEndDate = pRequestedEndDate;
    }
 
    /**
@@ -213,7 +213,7 @@ public class Checkout
     */
    public void setRequestedStartDate(Date pRequestedStartDate)
    {
-      this.mRequestedStartDate = pRequestedStartDate;
+      mRequestedStartDate = pRequestedStartDate;
    }
 
    /**
@@ -233,7 +233,7 @@ public class Checkout
     */
    public void setRecipient(Person pRecipient)
    {
-      this.mRecipient = pRecipient;
+      mRecipient = pRecipient;
    }
 
    /**
@@ -253,7 +253,7 @@ public class Checkout
     */
    public void setAsset(Asset pAsset)
    {
-      this.mAsset = pAsset;
+      mAsset = pAsset;
    }
 
    /**
@@ -273,7 +273,7 @@ public class Checkout
     */
    public void setID(String pID)
    {
-      this.mID = pID;
+      mID = pID;
    }
 
    /**
@@ -293,7 +293,7 @@ public class Checkout
     */
    public void setRequestID(String pRequestID)
    {
-      this.mRequestID = pRequestID;
+      mRequestID = pRequestID;
    }
 
    @Override

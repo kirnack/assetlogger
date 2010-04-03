@@ -283,12 +283,16 @@ public abstract class AssetView
       pListener = "assetl.desktop.AssetView$" + pListener;
       ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener,
       pFunction);
-       *
+
+            pListener += "Listener";
+      pListener = "assetl.desktop.AssetView$" + pListener;
+      ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener);
        */
       
       // KLUGE: would like to use dynamic class loading as soon as
       // some unanswered questions on how to do it are resolved
 
+      
       ActionListener listen = new SwitchListener(pFunction);
       if ("Function".equals(pListener))
       {
@@ -329,6 +333,10 @@ public abstract class AssetView
        */
       String mView;
 
+      public SwitchListener()
+      {
+
+      }
       /**
        * Sets the view to switch to
        *

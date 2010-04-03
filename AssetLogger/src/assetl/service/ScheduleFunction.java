@@ -1,16 +1,8 @@
 package assetl.service;
 
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.Date;
-
-import assetl.system.Asset;
-import assetl.system.Checkout;
 import assetl.system.DataPacket;
-import assetl.system.SchedulePacket;
+import assetl.system.RequestPacket;
 import assetl.system.PersonPacket;
-import assetl.system.Person;
-import assetl.system.Request;
 
 /**
  * Schedules an asset
@@ -23,23 +15,7 @@ public class ScheduleFunction
    /**
     * The specific DataPacket needed for this function to operate
     */
-   SchedulePacket mData;
-   /**
-    * The current request
-    */
-   Request mCurrRequest;
-   /**
-    * The current checkout
-    */
-   Checkout mCurrCheckout;
-   /**
-    * The person who will receive the asset
-    */
-   Person mRecipient;
-   /**
-    * The assets the person will receive
-    */
-   Collection<Asset> mAssets;
+   RequestPacket mData;
 
    /**
     * Sets the DataPacket for this function
@@ -48,7 +24,7 @@ public class ScheduleFunction
     */
    public void setPacket(DataPacket pPacket)
    {
-      mData = (SchedulePacket) pPacket;
+      mData = (RequestPacket) pPacket;
    }
 
    /**
@@ -62,133 +38,13 @@ public class ScheduleFunction
    }
 
    /**
-    * Creates needed objects for the function using
-    * data sent via the DataPacket
+    * An idea of a function that makes sure that a request doesn't already exist,
+    * and if an asset needs to be changed the user can be prompted to select
+    * another one by switching to the FindAssetView and resending the request.
     */
-   public void initVariables()
+   public void validateRequest()
    {
-      mCurrRequest = null;
-      mCurrCheckout = null;
-      mAssets = new ArrayList<Asset>();
-
-      mRecipient = mModel.getPerson(mData.getPersonID());
-
-      // Add the assets to the collection
-      for (String id : mData.getAssetIDs())
-      {
-         mAssets.add(mModel.getAsset(id));
-      }
-   }
-
-   /**
-    * Makes a new request using objects sent from the view.
-    * Expects the Person, start Date, and Asset fields to be set in the packet.
-    * Sets the Request made in the Request field of the data packet.
-    *
-    * @return True if a request was made
-    */
-   protected boolean makeRequest()
-   {
-      boolean makeRequest = true;
-      //
-      // Find a request by its requestor and pickup date
-      // and see if it already exists
-      //
-
-      for (Request request : mModel.getActiveRequests(mRecipient))
-      {
-         //
-         // If the pickup dates are the same for the same person
-         // there is no reason to make a new request
-         //
-
-         if (request.getRequestedPickup() == mData.getStart())
-         {
-            mCurrRequest = request;
-            makeRequest = false;
-            break;
-         }
-      }
-
-      //If a request doesn't exist make it
-      if (mCurrRequest == null && makeRequest)
-      {
-         // Make the request object, stamp it with today's date
-         mCurrRequest = new Request("", new Date(), mData.getStart(),
-            "Faculty Checkout", mRecipient);
-      }
-      mCurrRequest.setActive(true);
-      return makeRequest;
-   }
-
-   /**
-    * Makes a new checkout using data obtained from the view and adds
-    * it to the current request. Expects the Person, Asset, start Date,
-    * and end Date to be set in the data packet. Sets the checkout data
-    * in the Checkout field of the data packet.
-    *
-    * @return true if the checkout can be made
-    */
-   protected boolean makeCheckout(Asset pAsset)
-   {
-      //Assume we will make a checkout
-      boolean makeCheckout = true;
-
-      //Find the reasons not to make a checkout
-      if (mCurrRequest == null)
-      {
-         // Can't add a checkout object
-         makeCheckout = false;
-      }
-      else
-      {
-         //See if the checkout is already made for this asset
-         for (Checkout out : mCurrRequest.getCheckouts())
-         {
-            if (out.getAsset() == pAsset)
-            {
-               makeCheckout = false;
-               break;
-            }
-         }
-      }
-
-      if (makeCheckout)
-      {
-         //Make the checkout
-         mCurrCheckout = new Checkout("", "", pAsset, mRecipient,
-            mData.getStart(), mData.getEnd());
-         mCurrCheckout.setActive(true);
-      }
-      return makeCheckout;
-   }
-
-   /**
-    * Makes the necessary Request and Checkout objects to send
-    * to the model
-    */
-   public void make()
-   {
-      //Make a new request
-      makeRequest();
-      addCheckouts();
-   }
-
-   /**
-    * Adds checkouts to the current request
-    */
-   public void addCheckouts()
-   {
-      //Make a checkout for every asset and add it to the request
-      for (Asset asset : mAssets)
-      {
-         //If a checkout was made
-         if (makeCheckout(asset))
-         {
-            //add the checkout to the request
-            mCurrRequest.addCheckout(mCurrCheckout);
-         }
-      }
+      
    }
 
    /**
@@ -201,17 +57,17 @@ public class ScheduleFunction
     */
    public void performFunction()
    {
-      initVariables();
-
-      make();
+      validateRequest();
 
       //send the request to the model
-      mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
+      mModel.setRequest(mData.getRequest(), mControl.getCurrentUser().getID());
 
       // TODO: find a better way to do this: separate view changing from
-      // functions more
+      // functions more, perhaps a keyed singleton that needs person
+      // set only once
 
       mControl.changeView("Service");
-      mControl.sendViewPacket(new PersonPacket(mRecipient));
+      mControl.sendViewPacket(
+         new PersonPacket(mData.getRequest().getRequestor()));
    }
 }

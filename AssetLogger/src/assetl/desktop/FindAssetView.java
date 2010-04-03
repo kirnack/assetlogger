@@ -13,9 +13,10 @@ import javax.swing.DefaultListModel;
 import resources.DateConverter;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
-import assetl.system.SchedulePacket;
+import assetl.system.RequestPacket;
 import assetl.system.StringPacket;
 import assetl.system.Asset;
+import assetl.system.Request;
 
 /**
  * Allows the user to find an asset they'd like to checkout or schedule
@@ -291,20 +292,24 @@ public class FindAssetView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
+      Request req;
+      ArrayList<Asset> assets = new ArrayList<Asset>();
+      //Get the person id sent from ServiceView
       StringPacket tempPacket = (StringPacket) mPacket;
-      SchedulePacket packet = new SchedulePacket();
-      // Get the person id sent from ServiceView
-      packet.setPersonID(tempPacket.getString());
+
+      //Get the selected assets
       Object[] selected = mAssetList.getSelectedValues();
       for (Object obj : selected)
       {
          Asset asset = (Asset) obj;
-         packet.addAssetID(asset.getID());
+         assets.add(asset);
       }
-      packet.setStart(grabStart());
-      packet.setEnd(grabEnd());
 
-      return packet;
+      //Generate a new Request
+      req = RequestGenerator.generateRequest(tempPacket.getString(), assets,
+         grabStart(), grabEnd());
+
+      return new RequestPacket(req);
    }
 
    /**

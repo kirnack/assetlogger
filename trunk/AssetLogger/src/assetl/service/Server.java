@@ -518,14 +518,24 @@ public class Server
          }
          else
          {
-            if (!temp.getAsset().equals(pCheckout.getAsset())
-               || !temp.getPickedupDate().equals(pCheckout.getPickedupDate())
-               || !temp.getRecipient().equals(pCheckout.getRecipient())
-               || !temp.getRequestedEndDate().equals(
-               pCheckout.getRequestedEndDate())
-               || !temp.getRequestedStartDate().equals(
-               pCheckout.getRequestedStartDate())
-               || !temp.getReturnedDate().equals(pCheckout.getReturnedDate())
+            if (!(temp.getAsset() != null ?
+                 temp.getAsset().equals(pCheckout.getAsset()) :
+                 pCheckout.getAsset() == null)
+               || !((temp.getPickedupDate() != null) ?
+                 temp.getPickedupDate().equals(pCheckout.getPickedupDate()) :
+                 pCheckout.getPickedupDate() == null)
+               || !((temp.getRecipient() != null) ?
+                 temp.getRecipient().equals(pCheckout.getRecipient()) :
+                 pCheckout.getRecipient() == null)
+               || !((temp.getRequestedEndDate() != null) ?
+                 temp.getRequestedEndDate().equals(pCheckout.getRequestedEndDate()) :
+                 pCheckout.getRequestedEndDate() == null)
+               || !((temp.getRequestedEndDate() != null) ?
+                 temp.getRequestedStartDate().equals(pCheckout.getRequestedStartDate()) :
+                 pCheckout.getRequestedStartDate() == null)
+               || !((temp.getRequestedEndDate() != null) ?
+                 temp.getReturnedDate().equals(pCheckout.getReturnedDate()) :
+                 pCheckout.getReturnedDate() == null)
                || temp.isActive() == pCheckout.isActive())
             {
 
@@ -869,10 +879,10 @@ public class Server
       {
          ResultSet rs = mConn.createStatement().executeQuery(
 
-            "select * from Requestors left outer join Request"
+            "select * from Requestors left outer join Requests"
             + " ON Requestors.RequestorID = Requests.RequestorID "
             + " left outer join Checkouts ON "
-            + "Checkouts.RequestsID=Requests.RequestID where"
+            + "Checkouts.RequestsID=Requests.RequestID where "
             + "Checkouts.AssetID=" + pAsset.getID() + ";");
          while (rs.next())
          {
@@ -941,8 +951,8 @@ public class Server
          ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets where exists(select * from checkouts where"+
             " Checkouts.assetID=Assets.assetID and Checkouts.active=1 and "+
-            "exists (select * from requests where requestorID=" +
-            pPerson.getID() + "\";");
+            "exists (select * from requests where requestorID=\"" +
+            pPerson.getID() + "\"));");
 
          while (rs.next())
          {

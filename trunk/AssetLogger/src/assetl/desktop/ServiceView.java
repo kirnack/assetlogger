@@ -306,6 +306,9 @@ public class ServiceView
     */
    public void updateData()
    {
+      //Clear both JLists
+      mScheduledListModel.clear();
+      mCheckedOutListModel.clear();
       ArrayList<Request> requests = null;
 
       //

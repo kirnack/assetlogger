@@ -20,6 +20,11 @@ import assetl.system.User;
 public class Mimick
    implements AssetLModel
 {
+
+   public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset)
+   {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
    Collection<Request> mRequests;
    Collection<Person> mPersons;
    Collection<Asset> mAssets;

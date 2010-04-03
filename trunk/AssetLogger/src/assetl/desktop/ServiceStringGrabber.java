@@ -17,7 +17,7 @@ public class ServiceStringGrabber
     *
     * @param pServView The ServiceView to grab a DataPacket from
     */
-   ServiceStringGrabber(ServiceView pServView)
+   public ServiceStringGrabber(ServiceView pServView)
    {
       super(pServView);
    }

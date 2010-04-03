@@ -499,6 +499,8 @@ public class Server
     */
    public void setCheckout(Checkout pCheckout, String pUserID)
    {
+      if(pCheckout != null)
+      {
       try
       {
          Checkout temp = null;
@@ -576,8 +578,7 @@ public class Server
       {
          e.printStackTrace(System.err);
       }
-
-
+      }
    }
 
    /**
@@ -661,18 +662,52 @@ public class Server
       return getActiveCheckouts(pAsset).iterator().next();
    }
 
+   public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset)
+   {
+      Collection<Checkout> checkouts = new ArrayList<Checkout>();
+
+      try
+      {
+         ResultSet rs = mConn.createStatement().executeQuery(
+            "select * from Checkouts where"
+            + " AssetID='" + pAsset.getID()
+            + "' and Active=1 and PickupDate is not null;");
+         while (rs.next())
+         {
+            checkouts.add(new Checkout(rs.getString("CheckoutID"),
+               rs.getString("RequestID"),
+               getAsset(rs.getString("AssetID")),
+               getPerson(rs.getString("RecipeantID")),
+               rs.getDate("RequestedStartDate"),
+               rs.getDate("RequestedEndDate"),
+               rs.getDate("PickupDate"),
+               rs.getDate("ReturnDate"),
+               rs.getBoolean("Active")));
+         }
+         rs.close();
+      }
+      catch (Exception e)
+      {
+         System.err.println(e);
+         e.printStackTrace();
+      }
+
+      return checkouts;
+   }
+
    public Collection<Checkout> getActiveCheckouts(Asset pAsset)
    {
       Collection<Checkout> checkouts = new ArrayList<Checkout>();
 
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select * from Checkouts where"
+         ResultSet rs = mConn.createStatement().executeQuery(
+            "select * from Checkouts where"
             + " AssetID='" + pAsset.getID()
-            + "' Active=true order by "
+            + "' and Active=1 order by "
             + "RequestedStartDate, PickupDate DESC"
             + ";");
-         if (rs.next())
+         while (rs.next())
          {
             checkouts.add(new Checkout(rs.getString("CheckoutID"),
                rs.getString("RequestID"),

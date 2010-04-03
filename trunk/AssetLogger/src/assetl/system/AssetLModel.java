@@ -185,4 +185,6 @@ public interface AssetLModel
     * @return A collection of all users.
     */
    public Collection<User> getUsers();
+
+   public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset);
 }

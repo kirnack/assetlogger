@@ -5,6 +5,7 @@ import assetl.system.DataPacket;
 import assetl.system.StringPacket;
 import assetl.system.Asset;
 import assetl.system.Checkout;
+import java.util.Collection;
 
 /**
  * Defines the behavior for checking in an asset
@@ -54,9 +55,18 @@ public class CheckinFunction
 
       if (asset != null)
       {
-         outstanding = mModel.getCheckout(asset);
+         Collection<Checkout> outstandings
+            = mModel.getCheckedOutCheckouts(asset);
+
          System.err.println("asset found");
 
+         if (outstandings.size() != 1)
+         {
+            System.err.println("Too many standing checkouts, "
+               + "or no standing chekcouts");
+            return;
+         }
+         outstanding = (Checkout) outstandings.toArray()[0];
          if (outstanding != null)
          {
             // TODO: prompt if the power cord is missing

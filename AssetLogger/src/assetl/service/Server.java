@@ -520,6 +520,8 @@ public class Server
          }
          else
          {
+            System.err.println("temp: " + temp.getReturnedDate());
+            System.err.println("pCheckout: " + pCheckout.getReturnedDate());
             if (!(temp.getAsset() != null ?
                  temp.getAsset().equals(pCheckout.getAsset()) :
                  pCheckout.getAsset() == null)
@@ -535,7 +537,7 @@ public class Server
                || !((temp.getRequestedEndDate() != null) ?
                  temp.getRequestedStartDate().equals(pCheckout.getRequestedStartDate()) :
                  pCheckout.getRequestedStartDate() == null)
-               || !((temp.getRequestedEndDate() != null) ?
+               || !((temp.getReturnedDate() != null) ?
                  temp.getReturnedDate().equals(pCheckout.getReturnedDate()) :
                  pCheckout.getReturnedDate() == null)
                || temp.isActive() == pCheckout.isActive())

@@ -7,7 +7,7 @@ package assetl.desktop;
 
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
-import assetl.system.LaptopPacket;
+import assetl.system.AssetPacket;
 
 import assetl.system.Asset;
 
@@ -195,15 +195,19 @@ public class AddAssetView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      LaptopPacket laptopPack = new LaptopPacket();
 
-      laptopPack.setBarCode(mBarCodeTxtFld.getText());
-      laptopPack.setLaptopNumber(mLaptopNumTxtFld.getText());
-      laptopPack.setMake(mMakeTxtFld.getText());
-      laptopPack.setSerialNubmer(mSerialNumTxtFld.getText());
-      laptopPack.setMaintenance(mMaintainChkBox.isSelected());
+      String barCode = mBarCodeTxtFld.getText();
+      String laptopNum = mLaptopNumTxtFld.getText();
+      String make = mMakeTxtFld.getText();
+      String model = "";
+      String serialNum = mSerialNumTxtFld.getText();
+      boolean inMaintain = mMaintainChkBox.isSelected();
+      
+      //Generate a laptop object
+      Asset laptop = ModelObjectGenerator.generateLaptop(barCode, laptopNum,
+         make, model, serialNum, inMaintain);
 
-      return laptopPack;
+      return new AssetPacket(laptop);
    }
 
    /**

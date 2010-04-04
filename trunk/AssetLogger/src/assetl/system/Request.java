@@ -85,6 +85,7 @@ public class Request
     * @param pRequestedPickup The Date they want to pick the Asset up
     * @param pRequstType
     * @param pRequestor The Person requesting the asset
+    * @param pCheckouts
     */
    public Request(String pID, Date pRequestMade, Date pRequestedPickup,
       String pRequstType, Person pRequestor, Collection<Checkout> pCheckouts)

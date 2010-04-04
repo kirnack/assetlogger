@@ -53,9 +53,6 @@ public class Asset
 
    /**
     * Constructs an asset with only the identifier and a type.
-    *
-    * @param pID The identifier
-    * @param pType The type
     */
    public Asset()
    {
@@ -112,6 +109,11 @@ public class Asset
       mMaintenance = pMaintenance;
    }
 
+   /**
+    * Constructor that takes another Asset object as a parameter
+    *
+    * @param pAsset The Asset to read data from
+    */
    public Asset(Asset pAsset)
    {
       mID = pAsset.mID;

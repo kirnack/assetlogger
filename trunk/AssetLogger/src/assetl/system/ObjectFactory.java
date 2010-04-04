@@ -26,8 +26,8 @@ import javax.xml.bind.annotation.XmlRegistry;
 public class ObjectFactory
 {
    /**
-    * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: generated
-    *
+    * Create a new ObjectFactory that can be used to create new instances
+    * of schema derived classes for package: generated
     */
    public ObjectFactory()
    {
@@ -36,22 +36,38 @@ public class ObjectFactory
    /**
     * Create an instance of {@link Person }
     *
+    * @return An instance of {@link Person}
     */
    public Person createPerson()
    {
       return new Person();
    }
 
+   /**
+    * Create an instance of {@link Request}
+    *
+    * @return An instance of {@link Request}
+    */
    public Request createRequest()
    {
       return new Request();
    }
 
+   /**
+    * Create an instance of {@link Checkout}
+    *
+    * @return An instance of {@link Checkout}
+    */
    public Checkout createCheckout()
    {
       return new Checkout();
    }
 
+   /**
+    * Create an instance of {@link Asset}
+    *
+    * @return An instance of {@link Asset}
+    */
    public Asset createAsset()
    {
       return new Asset();

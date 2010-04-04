@@ -50,7 +50,6 @@ public class Person
    /**
     * Constructor for Person with the person's id as a parameter.
     *
-    * @param pID The unique identifier for this person
     */
    public Person()
    {

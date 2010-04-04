@@ -7,13 +7,40 @@ package assetl.system;
 public class AssetType
    extends Asset
 {
+   /**
+    * Provides an Asset to be decorated by subclasses
+    */
    protected Asset mAsset;
 
-   public AssetType(Asset pAsset)
+   /**
+    * Default Constructor
+    */
+   public AssetType()
    {
-      this.mAsset = pAsset;
    }
 
+   /**
+    * Constructor that takes an Asset as a parameter
+    *
+    * @param pAsset The asset to decorate
+    */
+   public AssetType(Asset pAsset)
+   {
+      mAsset = pAsset;
+   }
+
+   /**
+    * Constructor with parameters
+    *
+    * @param pID The asset id
+    * @param pMake The make
+    * @param pModel The model
+    * @param pSerialNum The serial number
+    * @param pType The type
+    * @param pDescription The description
+    * @param pMaintenance True if in maintenance
+    * @param mAsset The asset
+    */
    public AssetType(String pID, String pMake, String pModel, String pSerialNum,
       String pType, String pDescription, boolean pMaintenance, Asset mAsset)
    {
@@ -21,19 +48,33 @@ public class AssetType
          pType, pDescription, pMaintenance);
    }
 
+   /**
+    * Constructor with parameters
+    *
+    * @param pID The asset id
+    * @param pMake The make
+    * @param pModel The model
+    * @param pSerialNum The serial number
+    * @param pType The type
+    * @param pDescription The description
+    * @param mAsset The asset
+    */
    public AssetType(String pID, String pMake, String pModel, String pSerialNum,
       String pType, String pDescription, Asset mAsset)
    {
       mAsset = new Asset(pID, pMake, pModel, pSerialNum, pType, pDescription);
    }
 
+   /**
+    * Constructor with parameters
+    *
+    * @param pID The asset id
+    * @param pType The type
+    * @param mAsset The asset
+    */
    public AssetType(String pID, String pType, Asset mAsset)
    {
       mAsset = new Asset(pID, pType);
-   }
-
-   public AssetType()
-   {
    }
 
    @Override
@@ -132,6 +173,11 @@ public class AssetType
       mAsset.setType(pType);
    }
 
+   /**
+    * Returns the asset being decorated
+    *
+    * @return The asset being decorated
+    */
    public Asset getAsset()
    {
       return mAsset;

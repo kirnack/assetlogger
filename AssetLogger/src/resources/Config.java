@@ -12,6 +12,7 @@ public class Config
     * @param pName the name.
     * @param pDefaultValue the default value if no configurable by
     *        that name exists.
+    * @return The string configured by name
     */
    public static String getString(final String pName, final String pDefaultValue)
    {
@@ -24,6 +25,7 @@ public class Config
     * @param pName the name.
     * @param pDefaultValue the default value if no configurable by
     *        that name exists.
+    * @return The integer configured by name
     */
    public static int getInteger(final String pName, final int pDefaultValue)
    {
@@ -46,6 +48,7 @@ public class Config
     * @param pName the name.
     * @param pDefaultValue the default value if no configurable by
     *        that name exists.
+    * @return The boolean configured by name
     */
    public static boolean getBoolean(final String pName, final boolean pDefaultValue)
    {

@@ -192,6 +192,8 @@ public abstract class AssetView
 
    /**
     * Allows the controller to set the controller for the view
+    *
+    * @param pControl The controller to set
     */
    public void setControl(AssetLControl pControl)
    {

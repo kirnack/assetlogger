@@ -21,7 +21,6 @@ public class MapControl
 
    /**
     * Sets the package for the class name needed to dynamically load the class
-    * @param pPackage
     */
    protected void setViewPackage()
    {
@@ -31,7 +30,6 @@ public class MapControl
    /**
     * Appends a string to the end of the class name to dynamically load.
     *
-    * @param mPostClass The string to append to the end of the class name
     */
    protected void setPostViewName()
    {

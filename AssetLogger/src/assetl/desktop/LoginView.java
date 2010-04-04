@@ -29,7 +29,9 @@ public class LoginView
    }
 
    /**
-    * Creates new form LoginView
+    * Constructor for the LoginView
+    *
+    * @param pControl The controller for this view
     */
    public LoginView(AssetLControl pControl)
    {

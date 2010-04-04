@@ -220,6 +220,12 @@ public class FindAssetView
    private javax.swing.JLabel mYearLbl;
    // End of variables declaration//GEN-END:variables
 
+   /**
+    * Changes what components are shown in the view based on functionality.
+    * The components will be shown if the boolean passed in is true.
+    *
+    * @param pShow The components will be shown if true
+    */
    public void setStart(boolean pShow)
    {
       mStartLbl.setVisible(pShow);

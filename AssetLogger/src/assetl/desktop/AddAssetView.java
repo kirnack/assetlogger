@@ -9,14 +9,12 @@ import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
 import assetl.system.AssetPacket;
 
-import assetl.system.Asset;
-
 /**
  * Allows an admin to add Assets to the model
  *
  * @author Devin Doman
  */
-public class AddAssetView 
+public class AddAssetView
    extends AssetView
 {
    /**
@@ -49,15 +47,17 @@ public class AddAssetView
 
       mAddBtn = new javax.swing.JButton();
       mBarCodeTxtFld = new javax.swing.JTextField();
-      jLabel1 = new javax.swing.JLabel();
+      mBarCodeLbl = new javax.swing.JLabel();
       mLaptopNumTxtFld = new javax.swing.JTextField();
-      jLabel2 = new javax.swing.JLabel();
-      jLabel3 = new javax.swing.JLabel();
-      mMakeTxtFld = new javax.swing.JTextField();
+      mLaptopNumLbl = new javax.swing.JLabel();
+      mMakeLbl = new javax.swing.JLabel();
       mSerialNumTxtFld = new javax.swing.JTextField();
-      jLabel4 = new javax.swing.JLabel();
+      mSerialLbl = new javax.swing.JLabel();
       mMaintainChkBox = new javax.swing.JCheckBox();
       mLaptopData = new javax.swing.JLabel();
+      mModelTxtFld = new javax.swing.JTextField();
+      mModelLbl = new javax.swing.JLabel();
+      mMakeTxtFld = new javax.swing.JTextField();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,113 +66,112 @@ public class AddAssetView
 
       mBarCodeTxtFld.setName("mBarCodeTxtFld"); // NOI18N
 
-      jLabel1.setText("Barcode:");
-      jLabel1.setName("jLabel1"); // NOI18N
+      mBarCodeLbl.setText("Barcode:");
+      mBarCodeLbl.setName("mBarCodeLbl"); // NOI18N
 
       mLaptopNumTxtFld.setName("mLaptopNumTxtFld"); // NOI18N
 
-      jLabel2.setText("Laptop Number:");
-      jLabel2.setName("jLabel2"); // NOI18N
+      mLaptopNumLbl.setText("Laptop Number:");
+      mLaptopNumLbl.setName("mLaptopNumLbl"); // NOI18N
 
-      jLabel3.setText("Make:");
-      jLabel3.setName("jLabel3"); // NOI18N
-
-      mMakeTxtFld.setName("mMakeTxtFld"); // NOI18N
+      mMakeLbl.setText("Make:");
+      mMakeLbl.setName("mMakeLbl"); // NOI18N
 
       mSerialNumTxtFld.setName("mSerialNumTxtFld"); // NOI18N
 
-      jLabel4.setText("Serial #:");
-      jLabel4.setName("jLabel4"); // NOI18N
+      mSerialLbl.setText("Serial #:");
+      mSerialLbl.setName("mSerialLbl"); // NOI18N
 
       mMaintainChkBox.setText("In Maintenance");
       mMaintainChkBox.setName("mMaintainChkBox"); // NOI18N
 
       mLaptopData.setName("mLaptopData"); // NOI18N
 
+      mModelTxtFld.setName("mModelTxtFld"); // NOI18N
+
+      mModelLbl.setText("Model:");
+      mModelLbl.setName("mModelLbl"); // NOI18N
+
+      mMakeTxtFld.setName("mMakeTxtFld"); // NOI18N
+
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGap(46, 46, 46)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+               .addComponent(mBarCodeTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mBarCodeLbl, javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                  .addGap(49, 49, 49)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addComponent(mBarCodeTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(jLabel1))
-                  .addGap(50, 50, 50)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addComponent(jLabel2)
-                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(mAddBtn)
-                        .addComponent(mLaptopNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
-               .addGroup(layout.createSequentialGroup()
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                     .addComponent(mMakeLbl)
+                     .addComponent(mSerialLbl)
+                     .addComponent(mModelLbl))
+                  .addGap(33, 33, 33)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mMaintainChkBox))
-                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                           .addComponent(jLabel3)
-                           .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                           .addComponent(mMakeTxtFld)
-                           .addComponent(mSerialNumTxtFld, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))))
-                  .addGap(85, 85, 85)
+                     .addComponent(mMakeTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(mModelTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(mSerialNumTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                     .addComponent(mMaintainChkBox, javax.swing.GroupLayout.Alignment.LEADING))
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(mLaptopData)))
-            .addContainerGap(33, Short.MAX_VALUE))
+            .addGap(72, 72, 72)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+               .addComponent(mLaptopNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mLaptopNumLbl)
+               .addComponent(mAddBtn))
+            .addContainerGap(66, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+         .addGroup(layout.createSequentialGroup()
+            .addGap(23, 23, 23)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                .addGroup(layout.createSequentialGroup()
-                  .addGap(32, 32, 32)
-                  .addComponent(jLabel1)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                  .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(jLabel2)
-                  .addGap(20, 20, 20)))
+                  .addComponent(mBarCodeLbl)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addComponent(mBarCodeTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addGroup(layout.createSequentialGroup()
+                  .addComponent(mLaptopNumLbl)
+                  .addGap(28, 28, 28)
+                  .addComponent(mLaptopNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(mBarCodeTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(mLaptopNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(mMakeLbl)
+               .addComponent(mMakeTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(20, 20, 20)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(mLaptopData)
                .addGroup(layout.createSequentialGroup()
-                  .addGap(35, 35, 35)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(jLabel3)
-                     .addComponent(mMakeTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mLaptopData))
-                  .addGap(18, 18, 18)
+                     .addComponent(mModelTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addComponent(mModelLbl))
+                  .addGap(26, 26, 26)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                     .addComponent(mSerialLbl)
                      .addComponent(mSerialNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(jLabel4))
-                  .addGap(18, 18, 18)
-                  .addComponent(mMaintainChkBox)
-                  .addContainerGap())
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                  .addComponent(mAddBtn)
-                  .addGap(63, 63, 63))))
+                     .addComponent(mAddBtn))))
+            .addGap(18, 18, 18)
+            .addComponent(mMaintainChkBox)
+            .addGap(37, 37, 37))
       );
 
       pack();
    }// </editor-fold>//GEN-END:initComponents
-
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JLabel jLabel1;
-   private javax.swing.JLabel jLabel2;
-   private javax.swing.JLabel jLabel3;
-   private javax.swing.JLabel jLabel4;
    private javax.swing.JButton mAddBtn;
+   private javax.swing.JLabel mBarCodeLbl;
    private javax.swing.JTextField mBarCodeTxtFld;
    private javax.swing.JLabel mLaptopData;
+   private javax.swing.JLabel mLaptopNumLbl;
    private javax.swing.JTextField mLaptopNumTxtFld;
    private javax.swing.JCheckBox mMaintainChkBox;
+   private javax.swing.JLabel mMakeLbl;
    private javax.swing.JTextField mMakeTxtFld;
+   private javax.swing.JLabel mModelLbl;
+   private javax.swing.JTextField mModelTxtFld;
+   private javax.swing.JLabel mSerialLbl;
    private javax.swing.JTextField mSerialNumTxtFld;
    // End of variables declaration//GEN-END:variables
 
@@ -181,8 +180,6 @@ public class AddAssetView
     */
    public void updateData()
    {
-      Asset test = mControl.getAsset(mBarCodeTxtFld.getText());
-      mLaptopData.setText(test.getID() + ": " + test.getMake() + " " + test.getType() );
    }
 
    /**
@@ -195,14 +192,13 @@ public class AddAssetView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-
       String barCode = mBarCodeTxtFld.getText();
       String laptopNum = mLaptopNumTxtFld.getText();
       String make = mMakeTxtFld.getText();
-      String model = "";
+      String model = mModelTxtFld.getText();
       String serialNum = mSerialNumTxtFld.getText();
       boolean inMaintain = mMaintainChkBox.isSelected();
-      
+
       //Generate a laptop object
       Laptop laptop = ModelObjectGenerator.generateLaptop(barCode, laptopNum,
          make, model, serialNum, inMaintain);

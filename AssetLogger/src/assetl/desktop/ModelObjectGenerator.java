@@ -12,7 +12,8 @@ import assetl.system.Asset;
 
 /**
  * Provides static methods that can be used by the views to create
- * new Request objects to be sent to the controller
+ * new Request model objects, whose fields are specific to this package,
+ * to be sent to the controller
  * 
  * @author Devin Doman
  */

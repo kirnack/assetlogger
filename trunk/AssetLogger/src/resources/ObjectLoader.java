@@ -13,7 +13,7 @@ public class ObjectLoader
    /**
     * Uses dynamic class loading to create a new instance of an object.
     *
-    * @param pDynObj The name of the class to get an instance of
+    * @param pClass
     * @return The dynamically created object
     */
    public static Object loadObj(String pClass)
@@ -41,6 +41,14 @@ public class ObjectLoader
       return obj;
    }
 
+   /**
+    * Dynamically loads an object via its constructor for objects
+    * with one parameter.
+    *
+    * @param pClass The class to dynamically load
+    * @param pParam The one parameter to the objects constructor
+    * @return The dynamically loaded object
+    */
    public static Object loadObj(String pClass, Object pParam)
    {
       Object obj = null;

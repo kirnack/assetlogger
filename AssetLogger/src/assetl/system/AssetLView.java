@@ -14,6 +14,7 @@ public interface AssetLView
 {
    /**
     * Allows the controller to set the controller for the view
+    * @param pControl
     */
    void setControl(AssetLControl pControl);
 
@@ -68,7 +69,7 @@ public interface AssetLView
    /**
     * Allows control of the visibility of Admin components in the view
     *
-    * @param pSet True if the admin components are to be set to visible
+    * @param pIsAdmin
     */
    public void setAdminComponents(boolean pIsAdmin);
 

@@ -186,5 +186,13 @@ public interface AssetLModel
     */
    public Collection<User> getUsers();
 
+   /**
+    * Returns a collection of checked out Checkouts based on an asset.
+    * If more than one checkout is in the collection there is likely
+    * a problem-only one asset should be checked out at a time.
+    *
+    * @param pAsset The asset to get checked out Checkouts for
+    * @return The collection of checked out Checkouts
+    */
    public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset);
 }

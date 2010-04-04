@@ -668,6 +668,13 @@ public class Server
       return getActiveCheckouts(pAsset).iterator().next();
    }
 
+   /**
+    * Gets the checked out Checkouts for this asset. If more than one checkout
+    * is returned in the collection there is likely a problem to be resolved.
+    *
+    * @param pAsset The asset to get checked out Checkouts
+    * @return The Checkouts that are checked out for this asset
+    */
    public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset)
    {
       Collection<Checkout> checkouts = new ArrayList<Checkout>();
@@ -701,6 +708,12 @@ public class Server
       return checkouts;
    }
 
+   /**
+    * Gets the active checkouts in the database for an asset.
+    *
+    * @param pAsset The asset to find active checkouts for
+    * @return The checkouts that are active for this asset
+    */
    public Collection<Checkout> getActiveCheckouts(Asset pAsset)
    {
       Collection<Checkout> checkouts = new ArrayList<Checkout>();
@@ -1074,9 +1087,14 @@ public class Server
       return numCheckouts;
    }
 
+   /**
+    * Entry point for the Server to run as a stand alone server.
+    *
+    * @param args Command line arguments
+    */
    public static void main(String[] args)
    {
-      System.out.println("AssetLogge Serve is now running");
+      System.out.println("AssetLogger Serve is now running");
       Server.getInstance().run();
    }
 

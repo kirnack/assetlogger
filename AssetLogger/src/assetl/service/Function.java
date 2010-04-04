@@ -24,7 +24,7 @@ public abstract class Function
    /**
     * Sets the model to perform functions on
     *
-    * @param mModel The model to set
+    * @param pModel The model to perform functions on
     */
    protected void setModel(AssetLModel pModel)
    {

@@ -86,14 +86,11 @@ public abstract class DatabaseControl
 
    /**
     * Sets the package for the class name needed to dynamically load the class
-    * @param pPackage
     */
    protected abstract void setViewPackage();
 
    /**
     * Appends a string to the end of the class name to dynamically load.
-    *
-    * @param mPostClass The string to append to the end of the class name
     */
    protected abstract void setPostViewName();
 
@@ -109,25 +106,40 @@ public abstract class DatabaseControl
    /**
     * Appends a string to the end of the class name to dynamically load.
     * 
-    * @param mPostClass The string to append to the end of the class name
+    * @param pPostClass
     */
    protected void setPostClassName(String pPostClass)
    {
       mPostClass = pPostClass;
    }
 
+   /**
+    * Sets the pre and post ambles of the class name for views that
+    * need to by dynamically loaded.
+    */
    protected void setViewAmbles()
    {
       setViewPackage();
       setPostViewName();
    }
 
+   /**
+    * Sets the pre and post ambles of the class name for function classes
+    * that need to by dynamically loaded.
+    */
    protected void setFunctionAmbles()
    {
       setClassPackage("assetl.service.");
       setPostClassName("Function");
    }
 
+   /**
+    * Addes the pre and post ambles of the class name to the string passed in
+    * to prepare for dynamic class loading.
+    *
+    * @param pName The name of the class to add the ambles to
+    * @return The cannonical class name
+    */
    protected String addAmbles(String pName)
    {
       return mPackage + pName + mPostClass;

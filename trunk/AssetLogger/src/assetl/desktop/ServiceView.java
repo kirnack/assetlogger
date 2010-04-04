@@ -228,21 +228,41 @@ public class ServiceView
     private javax.swing.JList mScheduledList;
     // End of variables declaration//GEN-END:variables
 
-   public JLabel getNameLbl()
+    /**
+     * Gives access to the name label
+     *
+     * @return The name label
+     */
+    public JLabel getNameLbl()
    {
       return mNameLbl;
    }
 
-   public JList getCheckedOutList()
+    /**
+     * Gives access to the checked out list
+     *
+     * @return The checked out list
+     */
+    public JList getCheckedOutList()
    {
       return mCheckedOutList;
    }
 
+   /**
+    * Gives access to the scheduled list
+    *
+    * @return The scheduled list
+    */
    public JList getScheduledList()
    {
       return mScheduledList;
    }
 
+   /**
+    * Returns the current DataPacket
+    *
+    * @return The DataPacket
+    */
    public DataPacket getDataPacket()
    {
       return mPacket;

@@ -35,7 +35,7 @@ public class ModelObjectGenerator
     * Generates a new Request object with the parameters given
     *
     * @param pPersonID The person id
-    * @param pAssetIDs A collection of strings holding asset ids
+    * @param pAssets The assets contained in this request
     * @param pStart The start date
     * @param pEnd The end date
     * @return The generated request

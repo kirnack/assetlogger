@@ -1,11 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package assetl.system;
-
-import assetl.system.Asset;
 
 /**
  * A Decorator for different types of assets.
@@ -14,7 +7,7 @@ import assetl.system.Asset;
 public class AssetType
    extends Asset
 {
-   Asset mAsset;
+   protected Asset mAsset;
 
    public AssetType(Asset pAsset)
    {

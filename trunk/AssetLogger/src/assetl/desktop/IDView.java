@@ -30,7 +30,9 @@ public class IDView
    }
 
    /**
-    * Creates new form idView
+    * Constructor for IDView
+    *
+    * @param pControl The controller for this view
     */
    public IDView(AssetLControl pControl)
    {
@@ -158,6 +160,11 @@ public class IDView
    // End of variables declaration//GEN-END:variables
    private ButtonGroup mGroup;
 
+   /**
+    * Sets what mode the view is functioning in
+    *
+    * @param pIsLoad True if the view is performing person loading function
+    */
    public void setMode(boolean pIsLoad)
    {
       mScheduleRadio.setSelected(pIsLoad);

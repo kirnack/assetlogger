@@ -10,6 +10,7 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
@@ -78,7 +79,18 @@ public class ServiceView
           */
          public void valueChanged(ListSelectionEvent ev)
          {
-            enable("Checkout");
+            JList list = (JList) ev.getSource();
+            //If nothing in the list is selected
+            if (list.isSelectionEmpty())
+            {
+               //Enable CheckoutAsset function, which will prompt for assets
+               enable("CheckoutAsset");
+            }
+            else
+            {
+               //Enable Checkout function
+               enable("Checkout");
+            }
          }
       });
 
@@ -228,22 +240,22 @@ public class ServiceView
     private javax.swing.JList mScheduledList;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * Gives access to the name label
-     *
-     * @return The name label
-     */
-    public JLabel getNameLbl()
+   /**
+    * Gives access to the name label
+    *
+    * @return The name label
+    */
+   public JLabel getNameLbl()
    {
       return mNameLbl;
    }
 
-    /**
-     * Gives access to the checked out list
-     *
-     * @return The checked out list
-     */
-    public JList getCheckedOutList()
+   /**
+    * Gives access to the checked out list
+    *
+    * @return The checked out list
+    */
+   public JList getCheckedOutList()
    {
       return mCheckedOutList;
    }

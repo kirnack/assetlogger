@@ -342,6 +342,8 @@ public class RequestHandler
 
    /**
     * Can requests be handled? -- STATIC so we can call from WebServer
+    *
+    * @return True if requests can be handled
     */
    public static boolean canHandleRequests()
    {

@@ -55,17 +55,14 @@ public class ObjectLoader
 
       try
       {
-         pClass = "resources.DeleteMe";
          //load into a class object
          Class<?> clazz = Class.forName(pClass);
 
-         Constructor<?> con = Class.forName(pClass).getDeclaredConstructor(pParam.getClass());
+         Constructor<?> con = Class.forName(pClass).getDeclaredConstructor(pParam.
+            getClass());
 
          //Dynamically instantiate the object
          obj = con.newInstance(pParam);
-
-         System.out.println("obj: " + obj);
-
       }
       catch (ClassNotFoundException ex)
       {

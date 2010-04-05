@@ -6,8 +6,12 @@ import assetl.system.AssetLView;
 import assetl.system.DataPacket;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  * An abstract class containing a JMenu
@@ -28,17 +32,48 @@ public abstract class AssetView
     * The data packet that can be sent to the controller
     */
    protected DataPacket mPacket;
-   private javax.swing.JMenuItem mAddAssetMenuItem;
-   private javax.swing.JMenuItem mAddPersonMenuItem;
-   private javax.swing.JMenu mBackBtn;
-   private javax.swing.JMenuItem mCheckinMenuItem;
-   private javax.swing.JMenuItem mHistoryMenuItem;
-   private javax.swing.JMenuItem mLogoutMenuItem;
-   private javax.swing.JMenuBar mMenuBar;
-   private javax.swing.JMenuItem mScreenMenuItem;
-   private javax.swing.JMenuItem mSearchMenuItem;
-   private javax.swing.JMenu mUserMenu;
-   private javax.swing.JMenu mViewMenu;
+   /**
+    * The Menu Bar common to all views extending the class
+    */
+   private JMenuBar mMenuBar;
+   /**
+    * The View menu
+    */
+   private JMenu mViewMenu;
+   /**
+    * A menu item that returns to the main screen
+    */
+   private JMenuItem mScreenMenuItem;
+   /**
+    * A menu item that goes to a view that can check in an asset
+    */
+   private JMenuItem mCheckinMenuItem;
+   /**
+    * A menu item that goes to a view that can add an asset to the model
+    */
+   private JMenuItem mAddAssetMenuItem;
+   /**
+    * A menu item that goes to a view that can add a person to the model
+    */
+   private JMenuItem mAddPersonMenuItem;
+   /**
+    * A menu item that goes to a view that can search for past borrowers
+    * of an asset
+    */
+   private JMenuItem mSearchMenuItem;
+   /**
+    * A menu item that goes to a view that can display a history of
+    * assets borrowed by a person
+    */
+   private JMenuItem mHistoryMenuItem;
+   /**
+    * The User menu
+    */
+   private JMenu mUserMenu;
+   /**
+    * Logs the user out of the application
+    */
+   private JMenuItem mLogoutMenuItem;
 
    /**
     * In place for dynamic class loading. Assumes the controller
@@ -83,33 +118,25 @@ public abstract class AssetView
       enable("ID", "Checkin", mCheckinMenuItem);
       enable("Search", "SearchBorrowers", mSearchMenuItem);
       enable("Search", "SearchAssetHistory", mHistoryMenuItem);
-
-      // TODO: enable and show the back button
-      mBackBtn.setVisible(false);
    }
 
+   /**
+    * Initialized components that will be common for all subclasses
+    */
    private void initComponents()
    {
-      mMenuBar = new javax.swing.JMenuBar();
-      mBackBtn = new javax.swing.JMenu();
-      mViewMenu = new javax.swing.JMenu();
-      mScreenMenuItem = new javax.swing.JMenuItem();
-      mCheckinMenuItem = new javax.swing.JMenuItem();
-      mAddAssetMenuItem = new javax.swing.JMenuItem();
-      mAddPersonMenuItem = new javax.swing.JMenuItem();
-      mSearchMenuItem = new javax.swing.JMenuItem();
-      mHistoryMenuItem = new javax.swing.JMenuItem();
-      mUserMenu = new javax.swing.JMenu();
-      mLogoutMenuItem = new javax.swing.JMenuItem();
+      mMenuBar = new JMenuBar();
+      mViewMenu = new JMenu();
+      mScreenMenuItem = new JMenuItem();
+      mCheckinMenuItem = new JMenuItem();
+      mAddAssetMenuItem = new JMenuItem();
+      mAddPersonMenuItem = new JMenuItem();
+      mSearchMenuItem = new JMenuItem();
+      mHistoryMenuItem = new JMenuItem();
+      mUserMenu = new JMenu();
+      mLogoutMenuItem = new JMenuItem();
 
-      setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-
-
-      //Set up the Back Button
-      mBackBtn.setForeground(new java.awt.Color(0, 0, 204));
-      mBackBtn.setText("Back");
-      mMenuBar.add(mBackBtn);
+      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
       //Set up the View Menu
       mViewMenu.setText("View");
@@ -133,7 +160,20 @@ public abstract class AssetView
       mUserMenu.add(mLogoutMenuItem);
       mMenuBar.add(mUserMenu);
 
+      //Set the JMenuBar in the frame
       setJMenuBar(mMenuBar);
+   }
+
+   /**
+    * Allows control of the visibility of Admin components in the view
+    *
+    * @param pIsAdmin True if the admin components are to be set to visible
+    */
+   public void setAdminComponents(boolean pIsAdmin)
+   {
+      mAddAssetMenuItem.setVisible(pIsAdmin);
+      mAddPersonMenuItem.setVisible(pIsAdmin);
+      mSearchMenuItem.setVisible(pIsAdmin);
    }
 
    /**
@@ -196,18 +236,6 @@ public abstract class AssetView
    public void hideMenuBar()
    {
       mMenuBar.setVisible(false);
-   }
-
-   /**
-    * Allows control of the visibility of Admin components in the view
-    *
-    * @param pIsAdmin True if the admin components are to be set to visible
-    */
-   public void setAdminComponents(boolean pIsAdmin)
-   {
-      mAddAssetMenuItem.setVisible(pIsAdmin);
-      mAddPersonMenuItem.setVisible(pIsAdmin);
-      mSearchMenuItem.setVisible(pIsAdmin);
    }
 
    /**

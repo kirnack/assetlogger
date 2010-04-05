@@ -3,9 +3,6 @@ package assetl.desktop;
 import java.util.Date;
 import java.util.ArrayList;
 import com.toedter.calendar.JCalendar;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import firstthree.desktop.BlockLayout;
 import firstthree.desktop.BlockPanel;
 import javax.swing.WindowConstants;
 import javax.swing.DefaultListModel;
@@ -26,7 +23,9 @@ import assetl.system.Asset;
 import assetl.system.Request;
 
 /**
- * Provides the ability to find and asset using JCalendar to set the dates
+ * Provides the ability to find and an available asset
+ * using JCalendar to set the dates to search between
+ * 
  * @author Devin Doman
  */
 public class FindAssetView
@@ -166,7 +165,7 @@ public class FindAssetView
 
       setSize(640, 480);
       setMinimumSize(new Dimension(640, 480));
-      setDefaultCloseOperation(EXIT_ON_CLOSE);
+      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
       // add action listeners
       mFindBtn.addActionListener(new ActionListener()
       {
@@ -289,10 +288,5 @@ public class FindAssetView
     */
    public void run()
    {
-   }
-
-   public static void main(String[] args)
-   {
-      new FindAssetView().setVisible(true);
    }
 }

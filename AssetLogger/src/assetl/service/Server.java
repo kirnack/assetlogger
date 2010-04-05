@@ -91,11 +91,18 @@ public class Server
          @Override
          public void run()
          {
+            try
+            {
             mStat.close();
             mConn.close();
+            }
+            catch(Exception e)
+            {
+
+            }
          }
 
-      })
+      });
       mFile = new File(System.getProperty(
          "dbfilename", "LaptopChecker") + "."
          + System.getProperty("dbfileext", "aldb"));

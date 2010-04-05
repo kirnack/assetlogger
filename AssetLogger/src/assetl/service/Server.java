@@ -239,7 +239,7 @@ public class Server
     *
     * @param pPerson The person to have information added/changed.
     */
-   public void setPerson(Person pPerson)
+   public synchronized void setPerson(Person pPerson)
    {
       //
       // Retrieves data from database to see if the person needs
@@ -324,7 +324,7 @@ public class Server
     *
     * @param pAsset The asset to set
     */
-   public void setAsset(Asset pAsset)
+   public synchronized void setAsset(Asset pAsset)
    {
       System.err.println("Retreivinng " + pAsset.getID());
       PreparedStatement prep = null;
@@ -497,7 +497,7 @@ public class Server
     * @param pCheckout The checkout to make changes based on.
     * @param pUserID The user who made the change.
     */
-   public void setCheckout(Checkout pCheckout, String pUserID)
+   public synchronized void setCheckout(Checkout pCheckout, String pUserID)
    {
       if (pCheckout != null)
       {
@@ -593,7 +593,7 @@ public class Server
     * @param pRequest The request to make changes to in the database.
     * @param pUserID The user who is making the change
     */
-   public void setRequest(Request pRequest, String pUserID)
+   public synchronized void setRequest(Request pRequest, String pUserID)
    {
       try
       {
@@ -754,7 +754,7 @@ public class Server
     *
     * @param pCheckout The checkout to set
     */
-   public void setCheckout(Checkout pCheckout)
+   public synchronized void setCheckout(Checkout pCheckout)
    {
       /*  Only if we want to allow updates without user info.
        * But we schould not in my opion.  This should not be used.
@@ -871,9 +871,10 @@ public class Server
          ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets left outer join checkouts"
             + " ON Assets.AssetID=Checkouts.AssetID where "
-            + "Assets.inMaintenance=0 and "
+            + "Assets.inMaintenance=0 and ("
             + "Checkouts.RequestedStartDate<=\"" + pEnd
-            + "\" and Checkouts.RequestedEndDate<=\"" + pStart + "\";");
+            + "\" and Checkouts.RequestedEndDate<=\"" + pStart
+            + "\") or Checkouts.Active=0;");
          try
          {
             while (rs.next())

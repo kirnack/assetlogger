@@ -884,7 +884,7 @@ public class Server
    {
       Collection<Asset> assets = new ArrayList<Asset>();
       try
-      {
+      {         
          ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets left outer join checkouts"
             + " ON Assets.AssetID=Checkouts.AssetID where "
@@ -909,10 +909,16 @@ public class Server
          }
 
          rs.close();
+
+         //
+         // Gets assets that do not currently have
+         // an active checkout wrapped around it
+         //
+         
          rs = mConn.createStatement().executeQuery(
             "select * from assets where not exists "
             + "(select assetid from checkouts Where "
-            + "assets.assetid=checkouts.assetid);");
+            + "assets.assetid=checkouts.assetid and Checkouts.Active=1);");
          try
          {
             while (rs.next())

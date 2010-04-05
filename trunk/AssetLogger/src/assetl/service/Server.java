@@ -54,18 +54,22 @@ public class Server
    private RequestHandler[] mHandlerPool;
    private int mPoolSize;
    private int mLastRequestNumber = 0;
+
    /**
     * A File object to represent the database.
     */
    private File mFile;
+
    /**
     * The database connection.
     */
    private Connection mConn;
+
    /**
     * A sql statement.
     */
    private Statement mStat;
+
    /**
     * Variable to hold a singleton of Server
     */
@@ -516,6 +520,7 @@ public class Server
     */
    public synchronized void setCheckout(Checkout pCheckout, String pUserID)
    {
+      boolean isUpdate = false;
       if (pCheckout != null)
       {
          try
@@ -562,34 +567,41 @@ public class Server
 
                   System.err.println("Updating " + pCheckout.getID());
                   prepReq = mConn.prepareStatement(
-                     "update Checkouts set CheckoutID = ?, RequestID = ?,"
-                     + " RecipeantID = ?, AssetID = ?,"
-                     + " RequestedStartDate = ?, RequestedEndDate = ?,"
-                     + " PickupDate = ?, ReturnDate = ?, " + "UserID ='"
-                     + pUserID + "', Active = ? where RequestID ='"
-                     + pCheckout.getID() + "';");
+                     "update Checkouts set RequestID=?,"
+                     + " RecipeantID=?, AssetID=?,"
+                     + " RequestedStartDate=?, RequestedEndDate=?,"
+                     + " PickupDate=?, ReturnDate=?, " + "UserID='"
+                     + pUserID + "', Active=? where CheckoutID=?;");
+                  isUpdate = true;
                }
             }
             if (prepReq != null)
             {
-               prepReq.setString(1, pCheckout.getID());
-               prepReq.setString(2, pCheckout.getRequestID());
-               prepReq.setString(3, pCheckout.getRecipient().getID());
-               prepReq.setString(4, ((pCheckout.getAsset() == null)
+               prepReq.setString(((isUpdate) ? 9:1), pCheckout.getID());
+               prepReq.setString(2 + ((isUpdate) ? -1:0),
+                                 pCheckout.getRequestID());
+               prepReq.setString(3 + ((isUpdate) ? -1:0),
+                                 pCheckout.getRecipient().getID());
+               prepReq.setString(4 + ((isUpdate) ? -1:0),
+                                 ((pCheckout.getAsset() == null)
                   ? null : pCheckout.getAsset().getID()));
-               prepReq.setTimestamp(5, ((pCheckout.getRequestedStartDate() != null)
+               prepReq.setTimestamp(5 + ((isUpdate) ? -1:0),
+                                    ((pCheckout.getRequestedStartDate() != null)
                   ? new Timestamp(pCheckout.getRequestedStartDate().getTime())
                   : null));
-               prepReq.setTimestamp(6, ((pCheckout.getRequestedEndDate() != null)
+               prepReq.setTimestamp(6 + ((isUpdate) ? -1:0),
+                  ((pCheckout.getRequestedEndDate() != null)
                   ? new Timestamp(pCheckout.getRequestedEndDate().getTime())
                   : null));
-               prepReq.setTimestamp(7, ((pCheckout.getPickedupDate() != null)
+               prepReq.setTimestamp(7 + ((isUpdate) ? -1:0),
+                  ((pCheckout.getPickedupDate() != null)
                   ? new Timestamp(pCheckout.getPickedupDate().getTime())
                   : null));
-               prepReq.setTimestamp(8, ((pCheckout.getReturnedDate() != null)
+               prepReq.setTimestamp(8 + ((isUpdate) ? -1:0),
+                  ((pCheckout.getReturnedDate() != null)
                   ? new Timestamp(pCheckout.getReturnedDate().getTime())
                   : null));
-               prepReq.setBoolean(9, pCheckout.isActive());
+               prepReq.setBoolean(9 + ((isUpdate) ? -1:0), pCheckout.isActive());
                prepReq.execute();
             }
          }
@@ -880,14 +892,14 @@ public class Server
    {
       Collection<Asset> assets = new ArrayList<Asset>();
       try
-      {         
+      {
          ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets left outer join checkouts"
             + " ON Assets.AssetID=Checkouts.AssetID where "
             + "Assets.inMaintenance=0 and ("
-            + "Checkouts.RequestedStartDate<=\"" + pEnd
-//            + "\" and Checkotus.RequestedEndDate<=\"" + pEnd
-            + "\" and Checkouts.RequestedEndDate<=\"" + pStart
+            + "Checkouts.RequestedStartDate>=\"" + pEnd
+            //            + "\" and Checkotus.RequestedEndDate<=\"" + pEnd
+            + "\" or Checkouts.RequestedEndDate>=\"" + pStart
             + "\") or Checkouts.Active=0;");
          try
          {

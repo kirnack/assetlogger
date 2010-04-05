@@ -85,6 +85,10 @@ public class CancelFunction
       {
          // if a request was sent set it to inactive
          mCurrRequest.setActive(false);
+         for (Checkout out : mCurrRequest.getCheckouts())
+         {
+            out.setActive(false);
+         }
          mModel.setRequest(mCurrRequest, mControl.getCurrentUser().getID());
       }
       else if (mCurrCheckout != null)

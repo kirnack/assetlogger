@@ -77,6 +77,7 @@ public class Server
    static
    {
       cInstance = new Server();
+      cInstance.start();
    }
 
    /**
@@ -86,6 +87,7 @@ public class Server
     */
    private Server()
    {
+      //Used to close the database when the server exits.
       Runtime.getRuntime().addShutdownHook(new Thread()
       {
          @Override
@@ -93,8 +95,8 @@ public class Server
          {
             try
             {
-            mStat.close();
-            mConn.close();
+               mStat.close();
+               mConn.close();
             }
             catch(Exception e)
             {
@@ -890,6 +892,7 @@ public class Server
             + " ON Assets.AssetID=Checkouts.AssetID where "
             + "Assets.inMaintenance=0 and ("
             + "Checkouts.RequestedStartDate<=\"" + pEnd
+            + "\" and Checkotus.RequestedEndDate<=\"" + pEnd
             + "\" and Checkouts.RequestedEndDate<=\"" + pStart
             + "\") or Checkouts.Active=0;");
          try

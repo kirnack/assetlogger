@@ -163,6 +163,8 @@ public class FindAssetView
       // add action listeners
       mStartCal.addPropertyChangeListener(new CalendarChangeListener());
       mEndCal.addPropertyChangeListener(new CalendarChangeListener());
+
+      pack();
    }
 
    /**

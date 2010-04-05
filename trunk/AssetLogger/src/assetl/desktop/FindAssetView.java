@@ -1,16 +1,23 @@
-/*
- * FindAssetView.java
- *
- * Created on Mar 21, 2010, 6:57:14 PM
- */
 package assetl.desktop;
 
 import java.util.Date;
 import java.util.ArrayList;
+import com.toedter.calendar.JCalendar;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import firstthree.desktop.BlockLayout;
+import firstthree.desktop.BlockPanel;
+import javax.swing.WindowConstants;
+import javax.swing.DefaultListModel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.DefaultListModel;
-import resources.DateConverter;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
 import assetl.system.RequestPacket;
@@ -19,8 +26,7 @@ import assetl.system.Asset;
 import assetl.system.Request;
 
 /**
- * Allows the user to find an asset they'd like to checkout or schedule
- *
+ * Provides the ability to find and asset using JCalendar to set the dates
  * @author Devin Doman
  */
 public class FindAssetView
@@ -31,13 +37,64 @@ public class FindAssetView
     */
    private DefaultListModel mAssetListModel;
    /**
+    * The JCalendar to select start dates with
+    */
+   private JCalendar mStartCal;
+   /**
+    * The JCalendar to select end dates with
+    */
+   private JCalendar mEndCal;
+   /**
     * Indicates whether the start fields are hidden or not
     */
    private boolean mStartShown;
+   /**
+    * A block panel used for layout.
+    */
+   private BlockPanel mPanel;
+   /**
+    * A JPanel to put the start calendar in
+    */
+   private JPanel mStartPanel;
+   /**
+    * A JPanel to put the end calendar in
+    */
+   private JPanel mEndPanel;
+   /**
+    * East panel for layout.
+    */
+   private BlockPanel mEastPanel;
+   /**
+    * West panel for layout.
+    */
+   private BlockPanel mWestPanel;
+   /**
+    * The scroll pane
+    */
+   private JScrollPane mScrollPane;
+   /**
+    * Holds the list of assets
+    */
+   private JList mAssetList;
+   /**
+    * The button to find assets with
+    */
+   private JButton mFindBtn;
+   /**
+    * The button to select assets with
+    */
+   private JButton mSelectBtn;
+   /**
+    * Labels the end calendar
+    */
+   private JLabel mEndLbl;
+   /**
+    * Labels the start calendar
+    */
+   private JLabel mStartLbl;
 
    /**
-    * Default Constructor allowing for dynamic class loading. Expects
-    * controller to add itself.
+    * Default constructor expecting the controller to add itself
     */
    public FindAssetView()
    {
@@ -52,9 +109,64 @@ public class FindAssetView
    public FindAssetView(AssetLControl pControl)
    {
       super(pControl);
-      mAssetListModel = new DefaultListModel();
       initComponents();
+      addCompToPane();
+   }
 
+   /**
+    * Initializes all the swing components for the gui
+    */
+   public void initComponents()
+   {
+      mPanel = new BlockPanel(10, true);
+      mWestPanel = new BlockPanel(10, true);
+      mEastPanel = new BlockPanel(10, true);
+
+      mStartPanel = new JPanel();
+      mEndPanel = new JPanel();
+      mStartLbl = new JLabel();
+      mEndLbl = new JLabel();
+      mStartCal = new JCalendar();
+      mEndCal = new JCalendar();
+      mScrollPane = new JScrollPane();
+      mAssetListModel = new DefaultListModel();
+      mAssetList = new JList();
+      mFindBtn = new JButton();
+      mSelectBtn = new JButton();
+
+      mStartLbl.setText("Start Date");
+      mEndLbl.setText("End Date");
+      mFindBtn.setText("Find");
+      mSelectBtn.setText("Select");
+      mAssetList.setModel(mAssetListModel);
+      mScrollPane.setViewportView(mAssetList);
+   }
+
+   /**
+    * Adds the components created to the content pane
+    */
+   public void addCompToPane()
+   {
+      mStartPanel.setLayout(new BoxLayout(mStartPanel, BoxLayout.PAGE_AXIS));
+      mStartPanel.add(mStartLbl);
+      mStartPanel.add(mStartCal);
+      mEndPanel.setLayout(new BoxLayout(mEndPanel, BoxLayout.PAGE_AXIS));
+      mEndPanel.add(mEndLbl);
+      mEndPanel.add(mEndCal);
+      mWestPanel.add(mStartPanel, "NW:N");
+      mWestPanel.add(mFindBtn, "SE:S");
+      mWestPanel.add(mEndPanel, "SW:S");
+      mScrollPane.setPreferredSize(new Dimension(250, 300));
+      mEastPanel.add(mScrollPane, "NE:N");
+      mEastPanel.add(mSelectBtn, "SE:S");
+      mPanel.add(mWestPanel, "W");
+      mPanel.add(mEastPanel, "E");
+
+      setContentPane(mPanel);
+
+      setSize(640, 480);
+      setMinimumSize(new Dimension(640, 480));
+      setDefaultCloseOperation(EXIT_ON_CLOSE);
       // add action listeners
       mFindBtn.addActionListener(new ActionListener()
       {
@@ -68,158 +180,6 @@ public class FindAssetView
       });
    }
 
-   /** This method is called from within the constructor to
-    * initialize the form.
-    * WARNING: Do NOT modify this code. The content of this method is
-    * always regenerated by the Form Editor.
-    */
-   @SuppressWarnings("unchecked")
-   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-   private void initComponents() {
-
-      mStartMonTxtFld = new javax.swing.JTextField();
-      mEndMonTxtFld = new javax.swing.JTextField();
-      mStartLbl = new javax.swing.JLabel();
-      mEndLbl = new javax.swing.JLabel();
-      mMonthLbl = new javax.swing.JLabel();
-      mStartDayTxtFld = new javax.swing.JTextField();
-      mEndDayTxtFld = new javax.swing.JTextField();
-      mStartYearTxtFld = new javax.swing.JTextField();
-      mEndYearTxtFld = new javax.swing.JTextField();
-      mDayLbl = new javax.swing.JLabel();
-      mYearLbl = new javax.swing.JLabel();
-      mFindBtn = new javax.swing.JButton();
-      jScrollPane1 = new javax.swing.JScrollPane();
-      mAssetList = new javax.swing.JList();
-      mSelectBtn = new javax.swing.JButton();
-
-      setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-      mStartMonTxtFld.setName("mStartMonTxtFld"); // NOI18N
-
-      mEndMonTxtFld.setName("mEndMonTxtFld"); // NOI18N
-
-      mStartLbl.setText("Start Date");
-      mStartLbl.setName("mStartLbl"); // NOI18N
-
-      mEndLbl.setText("End Date");
-      mEndLbl.setName("mEndLbl"); // NOI18N
-
-      mMonthLbl.setText("Month");
-      mMonthLbl.setName("mMonthLbl"); // NOI18N
-
-      mStartDayTxtFld.setName("mStartDayTxtFld"); // NOI18N
-
-      mEndDayTxtFld.setName("mEndDayTxtFld"); // NOI18N
-
-      mStartYearTxtFld.setName("mStartYearTxtFld"); // NOI18N
-
-      mEndYearTxtFld.setName("mEndYearTxtFld"); // NOI18N
-
-      mDayLbl.setText("Day");
-      mDayLbl.setName("mDayLbl"); // NOI18N
-
-      mYearLbl.setText("Year");
-      mYearLbl.setName("mYearLbl"); // NOI18N
-
-      mFindBtn.setText("Find");
-      mFindBtn.setName("mFindBtn"); // NOI18N
-
-      jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-      mAssetList.setModel(mAssetListModel);
-      mAssetList.setName("mAssetList"); // NOI18N
-      jScrollPane1.setViewportView(mAssetList);
-
-      mSelectBtn.setText("Select");
-      mSelectBtn.setName("mSelectBtn"); // NOI18N
-
-      javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-      getContentPane().setLayout(layout);
-      layout.setHorizontalGroup(
-         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-               .addGroup(layout.createSequentialGroup()
-                  .addContainerGap()
-                  .addComponent(mSelectBtn))
-               .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                  .addGap(25, 25, 25)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addComponent(mStartLbl)
-                           .addComponent(mEndLbl))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                           .addComponent(mEndMonTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
-                           .addComponent(mStartMonTxtFld, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                           .addComponent(mMonthLbl, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                           .addComponent(mDayLbl)
-                           .addComponent(mStartDayTxtFld, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                           .addComponent(mEndDayTxtFld))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                           .addComponent(mYearLbl)
-                           .addComponent(mStartYearTxtFld, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                           .addComponent(mEndYearTxtFld)))
-                     .addComponent(mFindBtn))
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                  .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(57, 57, 57))
-      );
-      layout.setVerticalGroup(
-         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(layout.createSequentialGroup()
-            .addGap(40, 40, 40)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mMonthLbl)
-                     .addComponent(mDayLbl)
-                     .addComponent(mYearLbl))
-                  .addGap(18, 18, 18)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mStartMonTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mStartDayTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mStartYearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mStartLbl))
-                  .addGap(49, 49, 49)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mEndMonTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mEndDayTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mEndYearTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mEndLbl))
-                  .addGap(32, 32, 32)
-                  .addComponent(mFindBtn))
-               .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-            .addComponent(mSelectBtn)
-            .addContainerGap())
-      );
-
-      pack();
-   }// </editor-fold>//GEN-END:initComponents
-   // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JScrollPane jScrollPane1;
-   private javax.swing.JList mAssetList;
-   private javax.swing.JLabel mDayLbl;
-   private javax.swing.JTextField mEndDayTxtFld;
-   private javax.swing.JLabel mEndLbl;
-   private javax.swing.JTextField mEndMonTxtFld;
-   private javax.swing.JTextField mEndYearTxtFld;
-   private javax.swing.JButton mFindBtn;
-   private javax.swing.JLabel mMonthLbl;
-   private javax.swing.JButton mSelectBtn;
-   private javax.swing.JTextField mStartDayTxtFld;
-   private javax.swing.JLabel mStartLbl;
-   private javax.swing.JTextField mStartMonTxtFld;
-   private javax.swing.JTextField mStartYearTxtFld;
-   private javax.swing.JLabel mYearLbl;
-   // End of variables declaration//GEN-END:variables
-
    /**
     * Changes what components are shown in the view based on functionality.
     * The components will be shown if the boolean passed in is true.
@@ -229,9 +189,7 @@ public class FindAssetView
    public void setStart(boolean pShow)
    {
       mStartLbl.setVisible(pShow);
-      mStartMonTxtFld.setVisible(pShow);
-      mStartDayTxtFld.setVisible(pShow);
-      mStartYearTxtFld.setVisible(pShow);
+      mStartCal.setVisible(pShow);
       mStartShown = pShow;
    }
 
@@ -269,9 +227,7 @@ public class FindAssetView
       Date start = new Date();
       if (mStartShown)
       {
-         start = DateConverter.stringsToDate(mStartMonTxtFld.getText(),
-            mStartDayTxtFld.getText(),
-            mStartYearTxtFld.getText());
+         start = mStartCal.getDate();
       }
       return start;
    }
@@ -283,9 +239,7 @@ public class FindAssetView
     */
    public Date grabEnd()
    {
-      Date end = DateConverter.stringsToDate(mEndMonTxtFld.getText(),
-         mEndDayTxtFld.getText(),
-         mEndYearTxtFld.getText());
+      Date end = mEndCal.getDate();
       return end;
    }
 
@@ -335,5 +289,10 @@ public class FindAssetView
     */
    public void run()
    {
+   }
+
+   public static void main(String[] args)
+   {
+      new FindAssetView().setVisible(true);
    }
 }

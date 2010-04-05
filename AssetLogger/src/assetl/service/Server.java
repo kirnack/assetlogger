@@ -98,12 +98,10 @@ public class Server
                mStat.close();
                mConn.close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
             }
          }
-
       });
       mFile = new File(System.getProperty(
          "dbfilename", "LaptopChecker") + "."
@@ -130,7 +128,7 @@ public class Server
             BufferedReader in = new BufferedReader(
                new FileReader(updateScript));
             ResultSet rs = mConn.createStatement().executeQuery("Select "
-               +"ChangeString from DatabaseInfo");
+               + "ChangeString from DatabaseInfo");
             String str = rs.getString(1);
             rs.close();
             System.err.println(str);
@@ -539,15 +537,12 @@ public class Server
             }
             else
             {
-               if(
-                  !(temp.getAsset() != null
+               if (!(temp.getAsset() != null
                   ? temp.getAsset().equals(pCheckout.getAsset())
                   : pCheckout.getAsset() == null)
-             
                   || !((temp.getPickedupDate() != null)
                   ? temp.getPickedupDate().equals(pCheckout.getPickedupDate())
                   : pCheckout.getPickedupDate() == null)
-
                   || !((temp.getRecipient() != null)
                   ? temp.getRecipient().equals(pCheckout.getRecipient())
                   : pCheckout.getRecipient() == null)
@@ -555,7 +550,6 @@ public class Server
                   ? temp.getRequestedEndDate().equals(pCheckout.
                   getRequestedEndDate())
                   : pCheckout.getRequestedEndDate() == null)
-
                   || !((temp.getRequestedEndDate() != null)
                   ? temp.getRequestedStartDate().equals(pCheckout.
                   getRequestedStartDate())
@@ -915,13 +909,13 @@ public class Server
 
          //
          // Gets assets that do not currently have
-         // an active checkout wrapped around it
+         // a checkout wrapped around it
          //
-         
+
          rs = mConn.createStatement().executeQuery(
             "select * from assets where not exists "
             + "(select assetid from checkouts Where "
-            + "assets.assetid=checkouts.assetid and Checkouts.Active=1);");
+            + "assets.assetid=checkouts.assetid);");
          try
          {
             while (rs.next())

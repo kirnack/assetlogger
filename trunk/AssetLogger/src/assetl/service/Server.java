@@ -86,6 +86,16 @@ public class Server
     */
    private Server()
    {
+      Runtime.getRuntime().addShutdownHook(new Thread()
+      {
+         @Override
+         public void run()
+         {
+            mStat.close();
+            mConn.close();
+         }
+
+      })
       mFile = new File(System.getProperty(
          "dbfilename", "LaptopChecker") + "."
          + System.getProperty("dbfileext", "aldb"));
@@ -110,8 +120,8 @@ public class Server
                setupSQL.toString().replace("file:", ""));
             BufferedReader in = new BufferedReader(
                new FileReader(updateScript));
-            ResultSet rs = mConn.createStatement().executeQuery("Select ChangeString from "
-               + "DatabaseInfo");
+            ResultSet rs = mConn.createStatement().executeQuery("Select "
+               +"ChangeString from DatabaseInfo");
             String str = rs.getString(1);
             rs.close();
             System.err.println(str);

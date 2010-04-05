@@ -886,7 +886,7 @@ public class Server
             + " ON Assets.AssetID=Checkouts.AssetID where "
             + "Assets.inMaintenance=0 and ("
             + "Checkouts.RequestedStartDate<=\"" + pEnd
-            + "\" and Checkotus.RequestedEndDate<=\"" + pEnd
+//            + "\" and Checkotus.RequestedEndDate<=\"" + pEnd
             + "\" and Checkouts.RequestedEndDate<=\"" + pStart
             + "\") or Checkouts.Active=0;");
          try

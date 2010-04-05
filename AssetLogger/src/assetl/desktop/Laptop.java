@@ -14,7 +14,6 @@ public class Laptop
 {
    /**
     * Default Constructor
-    *
     */
    public Laptop()
    {
@@ -153,7 +152,7 @@ public class Laptop
    /**
     * Sets the laptop number
     *
-    * @param pModel The laptop number
+    * @param pLaptopNum The laptop number
     */
    void setLaptopNumber(String pLaptopNum)
    {

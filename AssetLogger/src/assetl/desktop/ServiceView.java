@@ -10,7 +10,6 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;

@@ -159,7 +159,7 @@ public class FindAssetView
       setSize(640, 480);
       setMinimumSize(new Dimension(640, 480));
       setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-      
+
       // add action listeners
       mStartCal.addPropertyChangeListener(new CalendarChangeListener());
       mEndCal.addPropertyChangeListener(new CalendarChangeListener());
@@ -181,7 +181,30 @@ public class FindAssetView
       {
          if ("calendar".equals(ev.getPropertyName()))
          {
-            System.err.println("Changed: " + ev.getNewValue());
+            Date start = grabStart();
+            Date end = grabEnd();
+            Date today = new Date();
+
+            if (end.before(start))
+            {
+               mEndCal.setDate(start);
+               end = start;
+            }
+
+            if (end.before(today))
+            {
+               mEndCal.setDate(today);
+               end = today;
+            }
+
+            if (start.before(today))
+            {
+               mStartCal.setDate(today);
+               start = today;
+            }
+
+            System.err.println("Start: " + grabStart());
+            System.err.println("End: " + grabEnd());
             updateData();
          }
       }

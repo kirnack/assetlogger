@@ -12,6 +12,8 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -163,6 +165,17 @@ public class FindAssetView
       // add action listeners
       mStartCal.addPropertyChangeListener(new CalendarChangeListener());
       mEndCal.addPropertyChangeListener(new CalendarChangeListener());
+
+      mAssetList.addListSelectionListener(new ListSelectionListener()
+      {
+         /**
+          * When nothing is selected disable the select button
+          */
+         public void valueChanged(ListSelectionEvent ev)
+         {
+            mSelectBtn.setEnabled(!mAssetList.isSelectionEmpty());
+         }
+      });
 
       pack();
    }
@@ -319,5 +332,6 @@ public class FindAssetView
     */
    public void run()
    {
+      mSelectBtn.setEnabled(false);
    }
 }

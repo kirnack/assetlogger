@@ -202,9 +202,7 @@ public class FindAssetView
                mStartCal.setDate(today);
                start = today;
             }
-
-            System.err.println("Start: " + grabStart());
-            System.err.println("End: " + grabEnd());
+            
             updateData();
          }
       }

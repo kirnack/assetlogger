@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
 import assetl.system.RequestPacket;
@@ -76,10 +76,6 @@ public class FindAssetView
     */
    private JList mAssetList;
    /**
-    * The button to find assets with
-    */
-   private JButton mFindBtn;
-   /**
     * The button to select assets with
     */
    private JButton mSelectBtn;
@@ -130,12 +126,10 @@ public class FindAssetView
       mScrollPane = new JScrollPane();
       mAssetListModel = new DefaultListModel();
       mAssetList = new JList();
-      mFindBtn = new JButton();
       mSelectBtn = new JButton();
 
       mStartLbl.setText("Start Date");
       mEndLbl.setText("End Date");
-      mFindBtn.setText("Find");
       mSelectBtn.setText("Select");
       mAssetList.setModel(mAssetListModel);
       mScrollPane.setViewportView(mAssetList);
@@ -153,7 +147,6 @@ public class FindAssetView
       mEndPanel.add(mEndLbl);
       mEndPanel.add(mEndCal);
       mWestPanel.add(mStartPanel, "NW:N");
-      mWestPanel.add(mFindBtn, "SE:S");
       mWestPanel.add(mEndPanel, "SW:S");
       mScrollPane.setPreferredSize(new Dimension(250, 300));
       mEastPanel.add(mScrollPane, "NE:N");
@@ -166,17 +159,32 @@ public class FindAssetView
       setSize(640, 480);
       setMinimumSize(new Dimension(640, 480));
       setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+      
       // add action listeners
-      mFindBtn.addActionListener(new ActionListener()
+      mStartCal.addPropertyChangeListener(new CalendarChangeListener());
+      mEndCal.addPropertyChangeListener(new CalendarChangeListener());
+   }
+
+   /**
+    * Listens for when the user changes the value in the JCalendar
+    */
+   public class CalendarChangeListener
+      implements PropertyChangeListener
+   {
+      /**
+       * When the properties of the calendar change make a call
+       * to updateData on the view.
+       * 
+       * @param ev
+       */
+      public void propertyChange(PropertyChangeEvent ev)
       {
-         /**
-          * Updates the JList with assets
-          */
-         public void actionPerformed(ActionEvent ev)
+         if ("calendar".equals(ev.getPropertyName()))
          {
+            System.err.println("Changed: " + ev.getNewValue());
             updateData();
          }
-      });
+      }
    }
 
    /**

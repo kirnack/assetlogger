@@ -891,9 +891,9 @@ public class Server
             {
                Date qStartDate = rs.getDate("RequestedStartDate");
                Date qEndDate = rs.getDate("RequestedEndDate");
-               if (!((qStartDate.getTime() <= pStart.getTime())
-                      && (qEndDate.getTime()>= pStart.getTime()))
-                    || (qStartDate.getTime() <= pEnd.getTime()))
+               if ((((qStartDate.getTime() <= pStart.getTime())
+                      && (qEndDate.getTime()<= pStart.getTime()))
+                    & (qStartDate.getTime() <= pEnd.getTime())))
                {
                   assets.add(new Asset(rs.getString(10),
                   rs.getString("Make"),

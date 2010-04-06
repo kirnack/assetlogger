@@ -17,7 +17,21 @@
       <xs:element name="serialnum" type="xs:string" minOccurs="0"/>
       <xs:element name="type" type="xs:string" minOccurs="0"/>
       <xs:element name="descrip" type="xs:string" minOccurs="0"/>
-      <xs:element name="mMaintenance" type="xs:boolean"/>
+      <xs:element name="inmaintance" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="checkout">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="asset" type="xs:string" minOccurs="0"/>
+      <xs:element name="mAsset" type="asset" minOccurs="0"/>
+      <xs:element name="receiver" type="person" minOccurs="0"/>
+      <xs:element name="requestedstart" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="requestedend" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="pickedupon" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="returnedon" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="isactive" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -40,21 +54,16 @@
       <xs:element name="reqtype" type="xs:string" minOccurs="0"/>
       <xs:element name="requestor" type="person" minOccurs="0"/>
       <xs:element name="isactive" type="xs:boolean"/>
-      <xs:element ref="checkout" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="checkout" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="checkout">
+  <xs:complexType name="user">
     <xs:sequence>
-      <xs:element name="id" type="xs:string" minOccurs="0"/>
-      <xs:element name="asset" type="xs:string" minOccurs="0"/>
-      <xs:element name="mAsset" type="asset" minOccurs="0"/>
-      <xs:element name="receiver" type="person" minOccurs="0"/>
-      <xs:element name="requestedstart" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="requestedend" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="pickedupon" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="returnedon" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="isactive" type="xs:boolean"/>
+      <xs:element name="admin" type="xs:boolean"/>
+      <xs:element name="ID" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
+

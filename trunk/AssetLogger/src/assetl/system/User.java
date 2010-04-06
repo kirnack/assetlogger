@@ -1,23 +1,31 @@
 package assetl.system;
 
+import javax.xml.bind.annotation.*;
+
 /**
  * Represents the user of the view.
  * 
  * @author Bryon Rogers3
+ * @author Modified by Michael Hale
  */
+@XmlRootElement(name = "asset")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User
 {
    /**
     * The unique identifier of the user
     */
+   @XmlElement(name = "id")
    private String mID;
    /**
     * The user's password
     */
+   @XmlElement(name = "password")
    private String mPassword;
    /**
     * Indicates if the user is an admin
     */
+   @XmlElement(name = "admin")
    private boolean mAdmin;
 
    /**

@@ -20,7 +20,8 @@ import javax.xml.bind.annotation.XmlRegistry;
  * type definitions, element declarations and model 
  * groups.  Factory methods for each of these are 
  * provided in this class.
- * 
+ *
+ * @author Edited by Michael Hale
  */
 @XmlRegistry
 public class ObjectFactory
@@ -71,5 +72,15 @@ public class ObjectFactory
    public Asset createAsset()
    {
       return new Asset();
+   }
+
+   /**
+    * Create an instance of {@link User}
+    *
+    * @return An instance of {@link User}
+    */
+   public User createUser()
+   {
+      return new User();
    }
 }

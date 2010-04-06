@@ -894,13 +894,13 @@ public class Server
       try
       {
          ResultSet rs = mConn.createStatement().executeQuery(
-            "select * from assets left outer join checkouts"
-            + " ON Assets.AssetID=Checkouts.AssetID where "
-            + "Assets.inMaintenance=0 and ("
-            + "Checkouts.RequestedStartDate>=\"" + pEnd
-            //            + "\" and Checkotus.RequestedEndDate<=\"" + pEnd
-            + "\" or Checkouts.RequestedEndDate>=\"" + pStart
-            + "\") or Checkouts.Active=0;");
+            "select * from assets where Assets.inMaintenance=0 " +
+            "and not exists " +
+            "(select assetid from checkouts where"
+            + " Checkouts.RequestedStartDate<=\"" + pEnd
+            + "\" and Checkouts.RequestedStartDate>=\"" + pStart
+            + "\" and Checkouts.RequestedEndDate>=\"" + pStart
+            + "\" and Checkouts.Active=1);");
          try
          {
             while (rs.next())
@@ -915,35 +915,10 @@ public class Server
          }
          catch (Exception e)
          {
+            e.printStackTrace();
          }
 
          rs.close();
-
-         //
-         // Gets assets that do not currently have
-         // a checkout wrapped around it
-         //
-
-         rs = mConn.createStatement().executeQuery(
-            "select * from assets where not exists "
-            + "(select assetid from checkouts Where "
-            + "assets.assetid=checkouts.assetid);");
-         try
-         {
-            while (rs.next())
-            {
-               assets.add(new Asset(rs.getString("AssetID"),
-                  rs.getString("Make"), rs.getString("Model"),
-                  rs.getString("SerialNumber"),
-                  rs.getString("AssetType"),
-                  rs.getString("Description"),
-                  rs.getBoolean("inMaintenance")));
-            }
-         }
-         catch (Exception e)
-         {
-         }
-
       }
       catch (Exception e)
       {

@@ -49,10 +49,25 @@ public class Server
     * Default Pool Size
     */
    public final static int DEFAULT_POOL_SIZE = 20;
+   /**
+    * The ServerSocket
+    */
    private ServerSocket mServerSocket = null;
+   /**
+    * A count of connections
+    */
    private int mConnectionCount = 0;
+   /**
+    * Holds an array of RequestHandlers
+    */
    private RequestHandler[] mHandlerPool;
+   /**
+    * The size of the RequestHandler array
+    */
    private int mPoolSize;
+   /**
+    * The number of the last request
+    */
    private int mLastRequestNumber = 0;
    /**
     * A File object to represent the database.
@@ -1127,6 +1142,9 @@ public class Server
       Server.getInstance().run();
    }
 
+   /**
+    * Entry point for the Server
+    */
    @Override
    public void run()
    {
@@ -1166,6 +1184,9 @@ public class Server
       }
    }
 
+   /**
+    * Initializes the pool
+    */
    private void initPool()
    {
       mHandlerPool = new RequestHandler[mPoolSize];
@@ -1177,6 +1198,12 @@ public class Server
       mLastRequestNumber = 0;
    }
 
+   /**
+    * Runs the pool on the socket given
+    *
+    * @param socket The socket to run the pool with
+    * @throws Exception Throws all exceptions
+    */
    private void runPool(Socket socket)
       throws Exception
    {

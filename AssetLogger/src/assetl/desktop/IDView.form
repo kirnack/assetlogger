@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.4" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -72,30 +72,45 @@
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFldKeyPressed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Text field to enter data&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JRadioButton" name="mScheduleRadio">
       <Properties>
         <Property name="text" type="java.lang.String" value="Schedule"/>
         <Property name="name" type="java.lang.String" value="mScheduleRadio" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Changes to Schedule function&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JRadioButton" name="mCheckInRadio">
       <Properties>
         <Property name="text" type="java.lang.String" value="Check In"/>
         <Property name="name" type="java.lang.String" value="mCheckInRadio" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Changes to Checkin function&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Execute"/>
         <Property name="name" type="java.lang.String" value="mBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to perform current function&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enter"/>
         <Property name="name" type="java.lang.String" value="mLabel" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for text field&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

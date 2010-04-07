@@ -91,14 +91,6 @@ public class FindAssetView
    private JLabel mStartLbl;
 
    /**
-    * Default constructor expecting the controller to add itself
-    */
-   public FindAssetView()
-   {
-      this(null);
-   }
-
-   /**
     * Constructor for the user interface
     *
     * @param pControl The controller for this view

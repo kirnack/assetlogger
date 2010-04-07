@@ -76,16 +76,6 @@ public abstract class AssetView
    private JMenuItem mLogoutMenuItem;
 
    /**
-    * In place for dynamic class loading. Assumes the controller
-    * will immediately be set by the controller that dynamically loaded
-    * the view
-    */
-   public AssetView()
-   {
-      this(null, "Asset Logger");
-   }
-
-   /**
     * Constructor that takes the view's controller as a parameter
     *
     * @param pControl The controller for this view

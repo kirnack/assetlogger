@@ -1,17 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package assetl.service;
 
-/**
- *
- * @author kirnack
- */
 /**
  * Constants for a web server.
  *
  * Maintains a set of constants that aid with HTTP request handling.
+ *
+ * @author Bryon Rogers
  */
 public class WebServerConstants
 {

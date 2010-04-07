@@ -49,6 +49,8 @@ public class IDView
          /**
           * Enable the ability to load a person in
           * the next view
+          *
+          * @param ev The event
           */
          public void actionPerformed(ActionEvent ev)
          {
@@ -60,6 +62,8 @@ public class IDView
       {
          /**
           * Enable the ability to checkin a laptop
+          *
+          * @param ev The event
           */
          public void actionPerformed(ActionEvent ev)
          {
@@ -152,12 +156,30 @@ public class IDView
       }
    }//GEN-LAST:event_textFldKeyPressed
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   /**
+   * Button to perform current function
+   */
    private javax.swing.JButton mBtn;
+   /**
+   * Changes to Checkin function
+   */
    private javax.swing.JRadioButton mCheckInRadio;
+   /**
+   * Label for text field
+   */
    private javax.swing.JLabel mLabel;
+   /**
+   * Changes to Schedule function
+   */
    private javax.swing.JRadioButton mScheduleRadio;
+   /**
+   * Text field to enter data
+   */
    private javax.swing.JTextField mTxtFld;
    // End of variables declaration//GEN-END:variables
+   /**
+    * Groups the radio buttons so only one is selected
+    */
    private ButtonGroup mGroup;
 
    /**

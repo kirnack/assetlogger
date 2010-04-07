@@ -54,7 +54,6 @@ public class AddAssetView
       mSerialNumTxtFld = new javax.swing.JTextField();
       mSerialLbl = new javax.swing.JLabel();
       mMaintainChkBox = new javax.swing.JCheckBox();
-      mLaptopData = new javax.swing.JLabel();
       mModelTxtFld = new javax.swing.JTextField();
       mModelLbl = new javax.swing.JLabel();
       mMakeTxtFld = new javax.swing.JTextField();
@@ -85,8 +84,6 @@ public class AddAssetView
       mMaintainChkBox.setText("In Maintenance");
       mMaintainChkBox.setName("mMaintainChkBox"); // NOI18N
 
-      mLaptopData.setName("mLaptopData"); // NOI18N
-
       mModelTxtFld.setName("mModelTxtFld"); // NOI18N
 
       mModelLbl.setText("Model:");
@@ -114,8 +111,7 @@ public class AddAssetView
                      .addComponent(mModelTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
                      .addComponent(mSerialNumTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                      .addComponent(mMaintainChkBox, javax.swing.GroupLayout.Alignment.LEADING))
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(mLaptopData)))
+                  .addGap(4, 4, 4)))
             .addGap(72, 72, 72)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                .addComponent(mLaptopNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,17 +137,14 @@ public class AddAssetView
                .addComponent(mMakeLbl)
                .addComponent(mMakeTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(20, 20, 20)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(mLaptopData)
-               .addGroup(layout.createSequentialGroup()
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mModelTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mModelLbl))
-                  .addGap(26, 26, 26)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mSerialLbl)
-                     .addComponent(mSerialNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(mAddBtn))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mModelTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mModelLbl))
+            .addGap(26, 26, 26)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mSerialLbl)
+               .addComponent(mSerialNumTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(mAddBtn))
             .addGap(18, 18, 18)
             .addComponent(mMaintainChkBox)
             .addGap(37, 37, 37))
@@ -160,18 +153,53 @@ public class AddAssetView
       pack();
    }// </editor-fold>//GEN-END:initComponents
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   /**
+   * Button to add a laptop with
+   */
    private javax.swing.JButton mAddBtn;
+   /**
+   * The label for the bar code
+   */
    private javax.swing.JLabel mBarCodeLbl;
+   /**
+   * The text field for the bar code
+   */
    private javax.swing.JTextField mBarCodeTxtFld;
-   private javax.swing.JLabel mLaptopData;
+   /**
+   * The label for the laptop number
+   */
    private javax.swing.JLabel mLaptopNumLbl;
+   /**
+   * The text field for the laptop number
+   */
    private javax.swing.JTextField mLaptopNumTxtFld;
+   /**
+   * The check box to indicate if the laptop is in maintenance
+   */
    private javax.swing.JCheckBox mMaintainChkBox;
+   /**
+   * The label for the make
+   */
    private javax.swing.JLabel mMakeLbl;
+   /**
+   * The text field for the make
+   */
    private javax.swing.JTextField mMakeTxtFld;
+   /**
+   * The label for the model
+   */
    private javax.swing.JLabel mModelLbl;
+   /**
+   * The text field for the model
+   */
    private javax.swing.JTextField mModelTxtFld;
+   /**
+   * The label for the serial number
+   */
    private javax.swing.JLabel mSerialLbl;
+   /**
+   * The text field for the serial number
+   */
    private javax.swing.JTextField mSerialNumTxtFld;
    // End of variables declaration//GEN-END:variables
 

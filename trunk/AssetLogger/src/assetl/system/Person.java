@@ -57,8 +57,9 @@ public class Person
    }
 
    /**
+    * Constructor with parameter for the id
     *
-    * @param pID
+    * @param pID The unique identification of the person
     */
    public Person(String pID)
    {
@@ -256,11 +257,14 @@ public class Person
       return hash;
    }
 
+   /**
+    * Converts a Person object to a String representation
+    *
+    * @return The person as a string
+    */
    @Override
    public String toString()
    {
       return mID + ": " + mFirstName.substring(0,1) + ". " + mLastName;
    }
-
-
 }

@@ -2,7 +2,8 @@ package assetl.system;
 
 /**
  * A packet to send a single Person object
- * @author Devo
+ *
+ * @author Devin Doman
  */
 public class PersonPacket
    implements DataPacket

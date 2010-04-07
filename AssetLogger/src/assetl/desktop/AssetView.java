@@ -1,11 +1,11 @@
 package assetl.desktop;
 
-import resources.ObjectLoader;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLView;
 import assetl.system.DataPacket;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
@@ -97,6 +97,14 @@ public abstract class AssetView
       initComponents();
       mControl = pControl;
 
+      try
+      {
+         UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+      }
+      catch (Exception e)
+      {
+
+      }
       //
       // add action listeners to the menu items
       //

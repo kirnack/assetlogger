@@ -264,7 +264,7 @@ public abstract class DatabaseControl
    public void changeView(String pView)
    {
       setViewAmbles();
-      AssetLView view = (AssetLView) ObjectLoader.loadObj(addAmbles(pView));
+      AssetLView view = (AssetLView) ObjectLoader.loadObj(addAmbles(pView), this);
       changeView(view);
    }
 
@@ -275,8 +275,6 @@ public abstract class DatabaseControl
     */
    public void changeView(AssetLView pView)
    {
-      pView.setControl(this);
-
       // If the controller has no view load it
       if (mView == null)
       {
@@ -409,7 +407,7 @@ public abstract class DatabaseControl
             else
             {
                //The active checkouts that have been picked up
-               
+
                checkedout.add(request);
             }
          }

@@ -55,14 +55,19 @@ public class ObjectLoader
 
       try
       {
-         //load into a class object
-         Class<?> clazz = Class.forName(pClass);
-
-         Constructor<?> con = Class.forName(pClass).getDeclaredConstructor(pParam.
-            getClass());
-
-         //Dynamically instantiate the object
-         obj = con.newInstance(pParam);
+         //Get all constructors
+         for (Constructor<?> con : Class.forName(pClass).getDeclaredConstructors())
+         {
+            //Get the parameter types of the constructors
+            Class<?>[] paramTypes = con.getParameterTypes();
+            //If ther is one parameter that is a superclass of the parameter
+            if (paramTypes.length == 1
+               && paramTypes[0].isAssignableFrom(pParam.getClass()))
+            {
+               //dynamically pass the parameter to the constructor
+               obj = con.newInstance(pParam);
+            }
+         }
       }
       catch (ClassNotFoundException ex)
       {

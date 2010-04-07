@@ -18,14 +18,6 @@ public class AddAssetView
    extends AssetView
 {
    /**
-    * Default constructor expecting controller to add itself.
-    */
-   public AddAssetView()
-   {
-      this(null);
-   }
-
-   /**
     * Constructor for the user interface
     *
     * @param pControl The controller for this view

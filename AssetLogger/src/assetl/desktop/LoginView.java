@@ -19,16 +19,6 @@ public class LoginView
    extends AssetView
 {
    /**
-    * Default contructor used for dynamic loading.
-    * Expects the controller who dynamically loaded to set itself
-    * after construction.
-    */
-   public LoginView()
-   {
-      this(null);
-   }
-
-   /**
     * Constructor for the LoginView
     *
     * @param pControl The controller for this view

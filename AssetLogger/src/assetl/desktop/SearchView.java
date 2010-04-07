@@ -41,15 +41,6 @@ public class SearchView
    private boolean mIsBorrowersSearch;
 
    /**
-    * Default Constructor for dynamic loading, assumes controller
-    * will add itself
-    */
-   public SearchView()
-   {
-      this(null);
-   }
-
-   /**
     * Constructor for the user interface
     *
     * @param pControl The controller for this view

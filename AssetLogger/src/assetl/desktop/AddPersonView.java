@@ -19,14 +19,6 @@ public class AddPersonView
    extends AssetView
 {
    /**
-    * Default constructor expecting the controller to add itself
-    */
-   public AddPersonView()
-   {
-      this(null);
-   }
-
-   /**
     * Constructor for the user interface
     *
     * @param pControl The controller for this view

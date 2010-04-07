@@ -22,14 +22,6 @@ public class IDView
    extends AssetView
 {
    /**
-    * Default Constructor
-    */
-   public IDView()
-   {
-      this(null);
-   }
-
-   /**
     * Constructor for IDView
     *
     * @param pControl The controller for this view

@@ -895,7 +895,7 @@ public class Server
    {
       Collection<Asset> assets = new ArrayList<Asset>();
       try
-      {         
+      {
          ResultSet rs = mConn.createStatement().executeQuery(
             "select * from assets left outer join checkouts"
             + " ON Assets.AssetID=Checkouts.AssetID where "
@@ -907,20 +907,19 @@ public class Server
                Date qStartDate = rs.getDate("RequestedStartDate");
                Date qEndDate = rs.getDate("RequestedEndDate");
                if ((((qStartDate.getTime() <= pStart.getTime())
-                      && (qEndDate.getTime()<= pStart.getTime()))
-                    & (qStartDate.getTime() <= pEnd.getTime())))
+                  && (qEndDate.getTime() <= pStart.getTime()))
+                  & (qStartDate.getTime() <= pEnd.getTime())))
                {
                   assets.add(new Asset(rs.getString(10),
-                  rs.getString("Make"),
-                  rs.getString("Model"),
-                  rs.getString("SerialNumber"),
-                  rs.getString("AssetType"),
-                  rs.getString("Description"),
-                  rs.getBoolean("inMaintenance")));
+                     rs.getString("Make"),
+                     rs.getString("Model"),
+                     rs.getString("SerialNumber"),
+                     rs.getString("AssetType"),
+                     rs.getString("Description"),
+                     rs.getBoolean("inMaintenance")));
                }
             }
          }
-
          catch (Exception e)
          {
             e.printStackTrace();
@@ -928,17 +927,17 @@ public class Server
 
          rs.close();
 
-         rs =  mConn.createStatement().executeQuery(
-            "select * from assets where Assets.inMaintenance=0 and" +
-            " not exists (select assetid " +
-            "from checkouts where checkouts.assetid=assets.assetid " +
-            "and active=1);");
+         rs = mConn.createStatement().executeQuery(
+            "select * from assets where Assets.inMaintenance=0 and"
+            + " not exists (select assetid "
+            + "from checkouts where checkouts.assetid=assets.assetid "
+            + "and active=1);");
 
          try
          {
             while (rs.next())
             {
-                  assets.add(new Asset(rs.getString("AssetID"),
+               assets.add(new Asset(rs.getString("AssetID"),
                   rs.getString("Make"),
                   rs.getString("Model"),
                   rs.getString("SerialNumber"),
@@ -947,7 +946,6 @@ public class Server
                   rs.getBoolean("inMaintenance")));
             }
          }
-
          catch (Exception e)
          {
             e.printStackTrace();

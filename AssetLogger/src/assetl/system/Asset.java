@@ -44,7 +44,6 @@ public class Asset
     */
    @XmlElement(name = "descrip")
    protected String mDescription;
-
    /**
     * Tells if the asset is in for matienance
     */
@@ -284,7 +283,7 @@ public class Asset
    }
 
    /**
-    *
+    * Converts an Asset to a String form
     */
    @Override
    public String toString()

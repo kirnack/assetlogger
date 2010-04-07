@@ -290,27 +290,6 @@ public abstract class AssetView
       //remove all previous action listeners
       removeActionListeners(pItem);
 
-      //
-      // Load the listener with pFunction as a
-      // parameter to the dynamic constructor
-      //
-
-      /* Ask brother neff how to get dynamic constructing with parameters
-       * working
-      pListener += "Listener";
-      pListener = "assetl.desktop.AssetView$" + pListener;
-      ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener,
-      pFunction);
-
-      pListener += "Listener";
-      pListener = "assetl.desktop.AssetView$" + pListener;
-      ActionListener listen = (ActionListener) ObjectLoader.loadObj(pListener);
-       */
-
-      // KLUGE: would like to use dynamic class loading as soon as
-      // some unanswered questions on how to do it are resolved
-
-
       ActionListener listen = new SwitchListener(pFunction);
       if ("Function".equals(pListener))
       {

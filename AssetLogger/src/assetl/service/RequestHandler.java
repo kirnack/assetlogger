@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package assetl.service;
 
 import assetl.system.Asset;
@@ -29,12 +25,9 @@ import static resources.Config.*;
 import static assetl.service.WebServerConstants.*;
 
 /**
- *
- * @author kirnack
- */
-/**
  * Handles requests for the WebServer
  *
+ * @author Bryon Rogers
  */
 public class RequestHandler
    extends Thread
@@ -127,9 +120,21 @@ public class RequestHandler
     * Request timeout.
     */
    private int mRequestTimeout;
+   /**
+    * Holds a perons
+    */
    private Person p;
+   /**
+    * Holds an asset
+    */
    private Asset a;
+   /**
+    * Holds a checkout
+    */
    private Checkout c;
+   /**
+    * Holds a request
+    */
    private Request r;
    /**
     * Digit Display Buffer

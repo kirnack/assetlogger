@@ -1,7 +1,8 @@
 package assetl.service;
 
 /**
- *
+ * Enables scheduling when in a view to find an asset with.
+ * 
  * @author Devin Doman
  */
 public class ScheduleAssetFunction

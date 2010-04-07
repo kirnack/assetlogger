@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.4" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -23,15 +23,16 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="mPicLbl" min="-2" pref="124" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="mPicLbl" min="-2" pref="111" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="mPwrdLbl" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                      <EmptySpace pref="24" max="32767" attributes="0"/>
                       <Component id="mUserLbl" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -44,36 +45,33 @@
                       <Component id="mLogInBtn" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
-                      <Component id="mPicLbl" min="-2" pref="102" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="mLoginLbl" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="mUserLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="mUserTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="mPwrdLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="mPwrdTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="mLoginLbl" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="mUserLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mUserTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="mPwrdLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mPwrdTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
               <Component id="mLogInBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="mPicLbl" pref="155" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,29 +82,46 @@
         <Property name="text" type="java.lang.String" value="Log In"/>
         <Property name="name" type="java.lang.String" value="mLoginLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Login Label&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mPicLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="A picture can go here"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/assetl/desktop/resources/about.png"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="mPicLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Provides a location for a picture&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mUserLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="User:"/>
         <Property name="name" type="java.lang.String" value="mUserLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for user name&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mPwrdLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Password:"/>
         <Property name="name" type="java.lang.String" value="mPwrdLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for password&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mUserTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mUserTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Text field for user name&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JPasswordField" name="mPwrdTxtFld">
       <Properties>
@@ -116,6 +131,9 @@
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="mPwrdTxtFldFocusGained"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="mPwrdTxtFldKeyPressed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Password field for password&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mLogInBtn">
       <Properties>

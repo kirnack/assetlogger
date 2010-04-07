@@ -61,7 +61,7 @@ public class LoginView
       mLoginLbl.setText("Log In");
       mLoginLbl.setName("mLoginLbl"); // NOI18N
 
-      mPicLbl.setText("A picture can go here");
+      mPicLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assetl/desktop/resources/about.png"))); // NOI18N
       mPicLbl.setName("mPicLbl"); // NOI18N
 
       mUserLbl.setText("User:");
@@ -92,14 +92,15 @@ public class LoginView
       layout.setHorizontalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(mPicLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(28, 28, 28)
+            .addComponent(mPicLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
                   .addGap(51, 51, 51)
                   .addComponent(mPwrdLbl))
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                   .addComponent(mUserLbl)))
             .addGap(39, 39, 39)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,29 +109,28 @@ public class LoginView
                   .addComponent(mPwrdTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(mUserTxtFld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                   .addComponent(mLogInBtn)))
-            .addGap(98, 98, 98))
+            .addGap(36, 36, 36))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                  .addGap(98, 98, 98)
-                  .addComponent(mPicLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addGroup(layout.createSequentialGroup()
-                  .addGap(43, 43, 43)
-                  .addComponent(mLoginLbl)
-                  .addGap(52, 52, 52)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mUserLbl)
-                     .addComponent(mUserTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                  .addGap(39, 39, 39)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                     .addComponent(mPwrdLbl)
-                     .addComponent(mPwrdTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+            .addGap(43, 43, 43)
+            .addComponent(mLoginLbl)
+            .addGap(52, 52, 52)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mUserLbl)
+               .addComponent(mUserTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(39, 39, 39)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(mPwrdLbl)
+               .addComponent(mPwrdTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
             .addComponent(mLogInBtn)
             .addGap(24, 24, 24))
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGap(56, 56, 56)
+            .addComponent(mPicLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 155, Short.MAX_VALUE)
+            .addGap(53, 53, 53))
       );
 
       pack();
@@ -148,11 +148,29 @@ public class LoginView
     }//GEN-LAST:event_mPwrdTxtFldKeyPressed
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton mLogInBtn;
+   /**
+   * Login Label
+   */
    private javax.swing.JLabel mLoginLbl;
+   /**
+   * Provides a location for a picture
+   */
    private javax.swing.JLabel mPicLbl;
+   /**
+   * Label for password
+   */
    private javax.swing.JLabel mPwrdLbl;
+   /**
+   * Password field for password
+   */
    private javax.swing.JPasswordField mPwrdTxtFld;
+   /**
+   * Label for user name
+   */
    private javax.swing.JLabel mUserLbl;
+   /**
+   * Text field for user name
+   */
    private javax.swing.JTextField mUserTxtFld;
    // End of variables declaration//GEN-END:variables
 

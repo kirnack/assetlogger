@@ -265,6 +265,12 @@ public class Request
       }
    }
 
+   /**
+    * Returns true if the objects are equal
+    *
+    * @param obj The object to compare to
+    * @return True if the objects are equal
+    */
    @Override
    public boolean equals(Object obj)
    {
@@ -285,6 +291,11 @@ public class Request
       return true;
    }
 
+   /**
+    * Returns a unique hash code for this object
+    *
+    * @return The hash code
+    */
    @Override
    public int hashCode()
    {
@@ -293,11 +304,14 @@ public class Request
       return hash;
    }
 
+   /**
+    * Converts a Request object to a String representation
+    *
+    * @return The request as a string
+    */
    @Override
    public String toString()
    {
       return "Request " + mID + " for " + mCheckouts.size() + " assets.";
    }
-
-
 }

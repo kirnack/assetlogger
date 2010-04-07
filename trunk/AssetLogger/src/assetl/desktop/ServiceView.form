@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.4" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -32,7 +32,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="mCancelBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" alignment="0" pref="235" max="32767" attributes="1"/>
+                          <Component id="mScheduleScroll" alignment="0" pref="235" max="32767" attributes="1"/>
                           <Component id="mRequestedLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -43,7 +43,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="10" pref="10" max="10" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="235" max="-2" attributes="1"/>
+                                  <Component id="mCheckedOutScroll" alignment="0" min="-2" pref="235" max="-2" attributes="1"/>
                                   <Component id="mCheckoutLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -67,11 +67,11 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="mCheckoutLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="171" max="-2" attributes="0"/>
+              <Component id="mCheckedOutScroll" min="-2" pref="171" max="-2" attributes="0"/>
               <EmptySpace pref="52" max="32767" attributes="0"/>
               <Component id="mRequestedLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="183" max="-2" attributes="0"/>
+              <Component id="mScheduleScroll" min="-2" pref="183" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="mScheduleBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -95,12 +95,16 @@
         <Property name="text" type="java.lang.String" value="Name"/>
         <Property name="name" type="java.lang.String" value="mNameLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* A place to put the name of the current person&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="mCheckedOutScroll">
       <Properties>
-        <Property name="name" type="java.lang.String" value="jScrollPane1" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="mCheckedOutScroll" noResource="true"/>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* A Scroll Pane for the Checked out JList&#xd;&#xa;*/"/>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
@@ -114,14 +118,18 @@
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="name" type="java.lang.String" value="mCheckedOutList" noResource="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Holds Checked out Requests&#xd;&#xa;*/"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+    <Container class="javax.swing.JScrollPane" name="mScheduleScroll">
       <Properties>
-        <Property name="name" type="java.lang.String" value="jScrollPane2" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="mScheduleScroll" noResource="true"/>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* A Scroll Pane for the Scheduled JList&#xd;&#xa;*/"/>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
@@ -135,6 +143,9 @@
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="name" type="java.lang.String" value="mScheduledList" noResource="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Holds Scheduled Requests&#xd;&#xa;*/"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -143,36 +154,54 @@
         <Property name="text" type="java.lang.String" value="Currently Checked out:"/>
         <Property name="name" type="java.lang.String" value="mCheckoutLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for Checked out JList&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mRequestedLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Currently Scheduled:"/>
         <Property name="name" type="java.lang.String" value="mRequestedLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for scheduled JList&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mExtendBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Extend"/>
         <Property name="name" type="java.lang.String" value="mExtendBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to Extend a Checkout&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mScheduleBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="+"/>
         <Property name="name" type="java.lang.String" value="mScheduleBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to schedule an Asset&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mCheckoutBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Checkout"/>
         <Property name="name" type="java.lang.String" value="mCheckoutBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to Checkout an asset&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mCancelBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="-"/>
         <Property name="name" type="java.lang.String" value="mCancelBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to Cancel a scheduled Request&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

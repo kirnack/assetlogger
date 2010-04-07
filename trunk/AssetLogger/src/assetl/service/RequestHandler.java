@@ -1,33 +1,18 @@
 package assetl.service;
 
-import assetl.system.Asset;
-import assetl.system.Checkout;
-import assetl.system.Person;
-import assetl.system.Request;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+
+import java.io.*;
+
+import java.net.*;
+
+import java.util.*;
 
 import static resources.Config.*;
-import static assetl.service.WebServerConstants.*;
+import static resources.WebServerConstants.*;
 
 /**
- * Handles requests for the WebServer
+ * Handles requests for the Server
  *
- * @author Bryon Rogers
  */
 public class RequestHandler
    extends Thread
@@ -36,22 +21,27 @@ public class RequestHandler
     * The default buffer size.
     */
    private static final int DEFAULT_BUFFER_SIZE = 8196;
+
    /**
     * Keeps track of number of pages served.
     */
    private static int cPagesServed = 0;
+
    /**
     * Keeps track of number of bytes read in.
     */
    private static int cBytesIn = 0;
+
    /**
     * Keeps track of number of bytes written out.
     */
    private static int cBytesOut = 0;
+
    /**
     * Has a disconnect command been received?
     */
    private static boolean cDisconnectReceived;
+
    /**
     * Can we handle requests?
     */
@@ -68,74 +58,72 @@ public class RequestHandler
       cDisconnectReceived = false;
       cCanHandleRequests = true;
    }
+
    /**
     * Incoming Socket
     */
    private Socket mSocket;
+
    /**
     * Socket input stream
     */
    private InputStream mInputStream;
+
    /**
     * Socket output stream
     */
    private OutputStream mOutputStream;
+
    /**
     * Thread ID
     */
    private int mID;
+
    /**
     * In Use flag
     */
    private boolean mInUse;
+
    /**
     * Thread lock
     */
-   private Object mLockObj;
+   private final Object mLockObj;
+
    /**
     * Command Request Line -- the first line of the request
     */
    private String mRequest;
+
    /**
     * Parsed command data
     */
    private String mCommand;
+
    /**
     * Tracks the type of Http command that has been received
     */
    private int mCommandType;
+
    /**
     * General Buffered Reader
     */
    private BufferedReader mBufferedReader;
+
    /**
     * Request properties.
     */
    private Map<String, String> mRequestProps;
+
    /**
     * Request length.
     */
    private int mRequestLength;
+
    /**
     * Request timeout.
     */
    private int mRequestTimeout;
-   /**
-    * Holds a perons
-    */
-   private Person p;
-   /**
-    * Holds an asset
-    */
-   private Asset a;
-   /**
-    * Holds a checkout
-    */
-   private Checkout c;
-   /**
-    * Holds a request
-    */
-   private Request r;
+
    /**
     * Digit Display Buffer
     */
@@ -148,14 +136,6 @@ public class RequestHandler
     */
    public RequestHandler(int id)
    {
-      p = new Person("2", "Bryon", "Todd", "Rogers",
-         "kirnack.bryon@gmail.com", "9184102387");
-      a = new Asset("40", "Mac", "iPod Classic 160 GB", "Who knows?",
-         "iPod", "A black 7th Gen iPod Classic 160 GB");
-      c = new Checkout("42", "", a, p, new Date(), new Date());
-      r = new Request("4242", new Date(), new Date(),
-         a.getType(), p, new ArrayList<Checkout>());
-      r.addCheckout(c);
       mID = id;
       mLockObj = new Object();
       mInUse = false;
@@ -262,8 +242,8 @@ public class RequestHandler
                {
                   handleRequest();
 
-                  if (mCommand.equals("/"
-                     + Integer.toHexString("DISCONNECT".hashCode())))
+                  if (mCommand.equals("/" + Integer.toHexString
+                     ("DISCONNECT".hashCode())))
                   {
                      cDisconnectReceived = true;
                   }
@@ -327,14 +307,17 @@ public class RequestHandler
       {
          mCommandType = GET;
       }
+
       else if (reqParse[0].equals(REQ_PUT))
       {
          mCommandType = PUT;
       }
+
       else if (reqParse[0].equals(REQ_POST))
       {
          mCommandType = POST;
       }
+
       else
       {
          return false;
@@ -393,7 +376,7 @@ public class RequestHandler
 
       File dataFile = new File(cDataSaveDir + File.separator + dataID);
 
-      if (dataFile.exists() && !dataFile.isDirectory())
+      if (dataFile.exists() && ! dataFile.isDirectory())
       {
          if (dataID.endsWith(".jnlp"))
          {
@@ -429,71 +412,6 @@ public class RequestHandler
       {
          cCanHandleRequests = false;
       }
-      else if (mCommand.equals(PERSON_REQUEST))
-      {
-         try
-         {
-            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-            Marshaller marshal = jaxbCon.createMarshaller();
-            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-               new Boolean(true));
-            marshal.marshal(p, mOutputStream);
-         }
-         catch (Exception e)
-         {
-            writeHeader(RESP_STATUS_NOTFOUND);
-            e.printStackTrace(new PrintStream(mOutputStream));
-         }
-      }
-      else if (mCommand.equals(ASSET_REQUEST))
-      {
-         try
-         {
-            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-            Marshaller marshal = jaxbCon.createMarshaller();
-            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-               new Boolean(true));
-            marshal.marshal(a, mOutputStream);
-         }
-         catch (Exception e)
-         {
-            writeHeader(RESP_STATUS_NOTFOUND);
-            e.printStackTrace(new PrintStream(mOutputStream));
-         }
-      }
-      else if (mCommand.equals(CHECKOUT_REQUEST))
-      {
-         try
-         {
-            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-            Marshaller marshal = jaxbCon.createMarshaller();
-            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-               new Boolean(true));
-            marshal.marshal(c, mOutputStream);
-         }
-         catch (Exception e)
-         {
-            writeHeader(RESP_STATUS_NOTFOUND);
-            e.printStackTrace(new PrintStream(mOutputStream));
-         }
-      }
-      else if (mCommand.equals(REQUEST_REQUEST))
-      {
-         try
-         {
-            JAXBContext jaxbCon = JAXBContext.newInstance("assetl.system");
-            Marshaller marshal = jaxbCon.createMarshaller();
-            marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,
-               new Boolean(true));
-            r.addCheckout(c);
-            marshal.marshal(r, mOutputStream);
-         }
-         catch (Exception e)
-         {
-            writeHeader(RESP_STATUS_NOTFOUND);
-            e.printStackTrace(new PrintStream(mOutputStream));
-         }
-      }
       else // unknown page or data
       {
          writeHeader(RESP_STATUS_NOTFOUND);
@@ -528,7 +446,7 @@ public class RequestHandler
 
       mInputStream.reset();
 
-      if (!findStartOfData(mInputStream))
+      if (! findStartOfData(mInputStream))
       {
          throw new IOException("Could not find end of header");
       }
@@ -556,38 +474,55 @@ public class RequestHandler
    {
       String name = mCommand.substring(1);
 
-      if (!mBufferedReader.ready())
+      if (! mBufferedReader.ready())
       {
          writeHeader(RESP_STATUS_NO_CONTENT);
          return;
       }
 
       String line;
-      while (!(line = mBufferedReader.readLine()).equals(""))
+      while (! (line = mBufferedReader.readLine()).equals(""))
       {
          for (String s : line.split("&"))
          {
-            String[] props = s.split("=");
+            String[] props = s.split("=", 2);
             if (props.length > 1)
             {
-               mRequestProps.put(httpURLencode(props[0]),
-                  httpURLencode(props[1]));
+               if (props[0].contains("param"))
+               {
+                  mRequestProps.put((props[0]),(props[1]));
+               }
+               else
+               {
+                  mRequestProps.put(httpURLencode(props[0]),
+                                    httpURLencode(props[1]));
+               }
             }
          }
       }
 
-      if (!mRequestProps.containsKey("Message"))
+      if (mRequestProps.containsKey("Message"))
       {
-         System.out.println(mRequestProps + " contains no message");
-         writeHeader(RESP_STATUS_NO_CONTENT);
+         System.out.println("From client " + getIPHash() + " received:\n" +
+                            name + " with message " +
+                            mRequestProps.get("Message"));
+         writeHeader(RESP_STATUS_OK);
          return;
       }
 
-      System.out.println("From client " + getIPHash() + " received:\n"
-         + name + " with message "
-         + mRequestProps.get("Message"));
+      if (mRequestProps.containsKey("command"))
+      {
+         int numParams = mRequestProps.size();
+         String[] params = new String[numParams - 2];
+         for (int i = 0; i < numParams - 2; i++)
+            params[i] = mRequestProps.get("param" + i);
 
-      writeHeader(RESP_STATUS_OK);
+         writeHeader(RESP_STATUS_OK);
+         HttpRS RS = new HttpRS();
+         String response = RS.getResponse(mRequestProps.get("command"), params);
+         writeData(response);
+
+      }
    }
 
    /**
@@ -611,7 +546,6 @@ public class RequestHandler
       int indexStart = 0;
       int indexEnd;
 
-
       while (indexStart < pSource.length())
       {
          indexEnd = pSource.indexOf("%", indexStart);
@@ -628,7 +562,7 @@ public class RequestHandler
          if (indexStart < pSource.length())
          {
             sb.append((char) Integer.valueOf(
-               pSource.substring(indexEnd + 1, indexStart), 16).intValue());
+                pSource.substring(indexEnd + 1, indexStart), 16).intValue());
          }
       }
 
@@ -648,7 +582,6 @@ public class RequestHandler
       {
          if ((char) read == '\n' && (char) pIn.read() == '\n')
          {
-            System.err.print(read);
             return true;
          }
       }
@@ -676,7 +609,6 @@ public class RequestHandler
    {
       writeHeader(RESP_STATUS_OK, contentType);
       writeData(body);
-
    }
 
    /**
@@ -737,7 +669,7 @@ public class RequestHandler
     * @param len Length to write
     */
    public static void writeData(OutputStream out, byte[] data,
-      int offset, int len)
+                                int offset, int len)
    {
       try
       {
@@ -768,7 +700,6 @@ public class RequestHandler
    {
       writeHeader(mOutputStream, status, RESP_CONTENT_TYPE);
    }
-
    /**
     * Writes out the header
     *
@@ -862,7 +793,7 @@ public class RequestHandler
    {
       for (int i = 0; i < digits; i++)
       {
-         mDigits[31 - i] = (byte) ((val % 10) + 0x30);
+         mDigits[31 - i] = (byte)((val % 10) + 0x30);
          val /= 10;
       }
       writeData(mOutputStream, mDigits, (31 - digits + 1), digits);

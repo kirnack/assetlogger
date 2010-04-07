@@ -1,4 +1,4 @@
-package assetl.service;
+package resources;
 
 /**
  * Constants for a web server.

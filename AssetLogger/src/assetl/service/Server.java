@@ -1,37 +1,18 @@
 package assetl.service;
 
-import assetl.system.AssetLModel;
-import assetl.system.Person;
-import assetl.system.Asset;
-import assetl.system.Checkout;
-import assetl.system.Request;
-import assetl.system.User;
-import static assetl.service.WebServerConstants.*;
+import assetl.system.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
-import java.net.URL;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Statement;
+import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import static resources.Config.*;
-
+import static resources.WebServerConstants.*;
 /**
  * A singleton Server that will take assets, people, and request classes
  * and add or modify the database to reflect the changes to the objects, based
@@ -39,6 +20,7 @@ import static resources.Config.*;
  * to any interested listeners using the Observer pattern.
  *
  * @author Bryon Rogers
+ * @author Michael Hale
  * @see <a href=""> Database design </a>
  */
 public class Server
@@ -49,38 +31,47 @@ public class Server
     * Default Pool Size
     */
    public final static int DEFAULT_POOL_SIZE = 20;
+
    /**
     * The ServerSocket
     */
    private ServerSocket mServerSocket = null;
+
    /**
     * A count of connections
     */
    private int mConnectionCount = 0;
+
    /**
     * Holds an array of RequestHandlers
     */
    private RequestHandler[] mHandlerPool;
+
    /**
     * The size of the RequestHandler array
     */
    private int mPoolSize;
+
    /**
     * The number of the last request
     */
    private int mLastRequestNumber = 0;
+
    /**
     * A File object to represent the database.
     */
    private File mFile;
+
    /**
     * The database connection.
     */
    private Connection mConn;
+
    /**
     * A sql statement.
     */
    private Statement mStat;
+
    /**
     * Variable to hold a singleton of Server
     */

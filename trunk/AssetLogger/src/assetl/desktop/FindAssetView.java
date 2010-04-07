@@ -150,6 +150,9 @@ public class FindAssetView
 
       setContentPane(mPanel);
 
+
+      mStartCal.setPreferredSize(new Dimension(300, 250));
+      mEndCal.setPreferredSize(new Dimension(300, 250));
       setSize(640, 480);
       setMinimumSize(new Dimension(640, 480));
       setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

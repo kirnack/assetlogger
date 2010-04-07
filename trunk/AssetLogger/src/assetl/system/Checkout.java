@@ -296,6 +296,12 @@ public class Checkout
       mRequestID = pRequestID;
    }
 
+   /**
+    * Returns true if the objects are equal
+    *
+    * @param obj The object to compare to
+    * @return True if the objects are equal
+    */
    @Override
    public boolean equals(Object obj)
    {
@@ -316,6 +322,11 @@ public class Checkout
       return true;
    }
 
+   /**
+    * Returns a unique hash code for this object
+    *
+    * @return The hash code
+    */
    @Override
    public int hashCode()
    {

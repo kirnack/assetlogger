@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.4" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -40,8 +40,7 @@
                           <Component id="mSerialNumTxtFld" alignment="0" pref="114" max="32767" attributes="1"/>
                           <Component id="mMaintainChkBox" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mLaptopData" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
@@ -76,20 +75,15 @@
                   <Component id="mMakeTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mLaptopData" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="mModelTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="mModelLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="mSerialLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="mSerialNumTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="mAddBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="mModelTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mModelLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="mSerialLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mSerialNumTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mAddBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="mMaintainChkBox" min="-2" max="-2" attributes="0"/>
@@ -104,72 +98,103 @@
         <Property name="text" type="java.lang.String" value="Add Asset"/>
         <Property name="name" type="java.lang.String" value="mAddBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to add a laptop with&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mBarCodeTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mBarCodeTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the bar code&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mBarCodeLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Barcode:"/>
         <Property name="name" type="java.lang.String" value="mBarCodeLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The label for the bar code&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mLaptopNumTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mLaptopNumTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the laptop number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mLaptopNumLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Laptop Number:"/>
         <Property name="name" type="java.lang.String" value="mLaptopNumLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The label for the laptop number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mMakeLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Make:"/>
         <Property name="name" type="java.lang.String" value="mMakeLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The label for the make&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mSerialNumTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mSerialNumTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the serial number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mSerialLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Serial #:"/>
         <Property name="name" type="java.lang.String" value="mSerialLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The label for the serial number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JCheckBox" name="mMaintainChkBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="In Maintenance"/>
         <Property name="name" type="java.lang.String" value="mMaintainChkBox" noResource="true"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="mLaptopData">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="mLaptopData" noResource="true"/>
-      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The check box to indicate if the laptop is in maintenance&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mModelTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mModelTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the model&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mModelLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Model:"/>
         <Property name="name" type="java.lang.String" value="mModelLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The label for the model&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mMakeTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mMakeTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the make&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

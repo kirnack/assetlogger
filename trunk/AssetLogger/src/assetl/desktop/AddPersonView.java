@@ -166,22 +166,61 @@ public class AddPersonView
 
       pack();
    }// </editor-fold>//GEN-END:initComponents
-
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   /**
+   * Button to add a person with
+   */
    private javax.swing.JButton mAddBtn;
+   /**
+   * The text field for the email
+   */
    private javax.swing.JTextField mEMailTxtFld;
+   /**
+   * Label for email
+   */
    private javax.swing.JLabel mEmailLbl;
+   /**
+   * Label for the first name
+   */
    private javax.swing.JLabel mFirstLbl;
+   /**
+   * The text field for the first name
+   */
    private javax.swing.JTextField mFirstTxtFld;
+   /**
+   * Label for the I-number
+   */
    private javax.swing.JLabel mINumLbl;
+   /**
+   * The text field for the I-number
+   */
    private javax.swing.JTextField mINumTxtFld;
+   /**
+   * Label for the last name
+   */
    private javax.swing.JLabel mLastLbl;
+   /**
+   * The text field for the last name
+   */
    private javax.swing.JTextField mLastTxtFld;
+   /**
+   * Label for the middle initial
+   */
    private javax.swing.JLabel mMiddleLbl;
+   /**
+   * The text field for the middle initial
+   */
    private javax.swing.JTextField mMiddleTxtFld;
+   /**
+   * Label for phone number
+   */
    private javax.swing.JLabel mPhoneLbl;
+   /**
+   * The text field for the phone number
+   */
    private javax.swing.JTextField mPhoneTxtFld;
    // End of variables declaration//GEN-END:variables
+
    /**
     * Updates the views display of the model
     */
@@ -210,7 +249,7 @@ public class AddPersonView
 
       Person myPerson = new Person(id, first, middle, last, email, phone);
       packet = new PersonPacket(myPerson);
-      
+
       return packet;
    }
 

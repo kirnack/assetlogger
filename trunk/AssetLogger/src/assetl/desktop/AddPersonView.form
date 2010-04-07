@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.4" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -114,72 +114,111 @@
         <Property name="text" type="java.lang.String" value="I-number:"/>
         <Property name="name" type="java.lang.String" value="mINumLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for the I-number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mFirstLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="First"/>
         <Property name="name" type="java.lang.String" value="mFirstLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for the first name&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mMiddleLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="MI"/>
         <Property name="name" type="java.lang.String" value="mMiddleLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for the middle initial&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mLastLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Last"/>
         <Property name="name" type="java.lang.String" value="mLastLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for the last name&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mEmailLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="e-mail"/>
         <Property name="name" type="java.lang.String" value="mEmailLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for email&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="mPhoneLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Phone"/>
         <Property name="name" type="java.lang.String" value="mPhoneLbl" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Label for phone number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mINumTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mINumTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the I-number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mFirstTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mFirstTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the first name&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mMiddleTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mMiddleTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the middle initial&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mLastTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mLastTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the last name&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mEMailTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mEMailTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the email&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="mPhoneTxtFld">
       <Properties>
         <Property name="name" type="java.lang.String" value="mPhoneTxtFld" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* The text field for the phone number&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="mAddBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Person"/>
         <Property name="name" type="java.lang.String" value="mAddBtn" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to add a person with&#xd;&#xa;*/"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

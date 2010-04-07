@@ -890,8 +890,8 @@ public class Server
       try
       {
          ResultSet rs = mConn.createStatement().executeQuery(
-            "select AssetID, RequestedStartDate, RequestedEndDate " +
-            "from checkouts;");
+            "Select AssetID, RequestedStartDate, RequestedEndDate " +
+            "from checkouts where active=1;");
 
          try
          {
@@ -905,15 +905,15 @@ public class Server
                       && (qEndDate.getTime()>= pStart.getTime()))
                     || (qStartDate.getTime() <= pEnd.getTime())))
                {
-
-               }
-               else
-               {
                   String id = rs.getString("AssetID");
                   if (!assetIDs.contains(id))
                   {
                      assetIDs.add(id);
                   }
+               }
+               else
+               {
+                  
                }
             }
          }
@@ -932,11 +932,11 @@ public class Server
          }
 
          rs =  mConn.createStatement().executeQuery(
-            "select * from assets where Assets.inMaintenance=0 and (" +
-            " assetid in (" + ids + ")" +
+            "select * from assets where Assets.inMaintenance=0 and" +
+            " assetid not in (" + ids + ");");/* +
             "or not exists (select assetid " +
-            "from checkouts where checkouts.assetid=assets.assetid) " +
-            ");");
+            "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
+            ");");*/
 
          try
          {

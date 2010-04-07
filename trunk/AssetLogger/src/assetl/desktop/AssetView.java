@@ -174,6 +174,7 @@ public abstract class AssetView
       mAddAssetMenuItem.setVisible(pIsAdmin);
       mAddPersonMenuItem.setVisible(pIsAdmin);
       mSearchMenuItem.setVisible(pIsAdmin);
+      mCheckinMenuItem.setVisible(pIsAdmin);
    }
 
    /**

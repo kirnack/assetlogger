@@ -901,9 +901,17 @@ public class Server
 
                Date qStartDate = rs.getDate("RequestedStartDate");
                Date qEndDate = rs.getDate("RequestedEndDate");
-               if ((((qStartDate.getTime() <= pStart.getTime())
+               if ((qStartDate.getTime() <= pStart.getTime())
                       && (qEndDate.getTime()>= pStart.getTime()))
-                    || (qStartDate.getTime() <= pEnd.getTime())))
+               {
+                  String id = rs.getString("AssetID");
+                  if (!assetIDs.contains(id))
+                  {
+                     assetIDs.add(id);
+                  }
+               }
+               else if(qStartDate.getTime() <= pEnd.getTime()
+                  && (qEndDate.getTime()>= pEnd.getTime()))
                {
                   String id = rs.getString("AssetID");
                   if (!assetIDs.contains(id))

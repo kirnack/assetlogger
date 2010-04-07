@@ -86,7 +86,7 @@ public class SearchView
    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
    private void initComponents() {
 
-      jScrollPane1 = new javax.swing.JScrollPane();
+      mSearchScroll = new javax.swing.JScrollPane();
       mItemList = new javax.swing.JList();
       mDataFld = new javax.swing.JTextField();
       mSearchBtn = new javax.swing.JButton();
@@ -96,10 +96,10 @@ public class SearchView
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-      jScrollPane1.setName("jScrollPane1"); // NOI18N
+      mSearchScroll.setName("mSearchScroll"); // NOI18N
 
       mItemList.setName("mItemList"); // NOI18N
-      jScrollPane1.setViewportView(mItemList);
+      mSearchScroll.setViewportView(mItemList);
 
       mDataFld.setName("mDataFld"); // NOI18N
 
@@ -134,7 +134,7 @@ public class SearchView
                   .addGap(69, 69, 69)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                      .addComponent(mItemsLbl)
-                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                     .addComponent(mSearchScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                .addGroup(layout.createSequentialGroup()
                   .addGap(152, 152, 152)
                   .addComponent(mSearchLbl)))
@@ -150,7 +150,7 @@ public class SearchView
                   .addGap(14, 14, 14)
                   .addComponent(mItemsLbl)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                  .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(mSearchScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                .addGroup(layout.createSequentialGroup()
                   .addGap(60, 60, 60)
                   .addComponent(mDataLbl)
@@ -164,13 +164,34 @@ public class SearchView
       pack();
    }// </editor-fold>//GEN-END:initComponents
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JScrollPane jScrollPane1;
+   /**
+   * Text field to enter search terms
+   */
    private javax.swing.JTextField mDataFld;
+   /**
+   * Label for text field
+   */
    private javax.swing.JLabel mDataLbl;
+   /**
+   * Contains the search results
+   */
    private javax.swing.JList mItemList;
+   /**
+   * Label for JList
+   */
    private javax.swing.JLabel mItemsLbl;
+   /**
+   * Button to Search with
+   */
    private javax.swing.JButton mSearchBtn;
+   /**
+   * Search Label
+   */
    private javax.swing.JLabel mSearchLbl;
+   /**
+   * Adds a Scroll pane to the JList
+   */
+   private javax.swing.JScrollPane mSearchScroll;
    // End of variables declaration//GEN-END:variables
 
    /**

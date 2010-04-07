@@ -9,7 +9,13 @@ package assetl.system;
 public class LoginPacket
    implements DataPacket
 {
+   /**
+    * The user name
+    */
    private String mUserName;
+   /**
+    * The password
+    */
    private String mPassword;
 
    /**

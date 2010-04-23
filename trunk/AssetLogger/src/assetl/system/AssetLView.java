@@ -71,7 +71,7 @@ public interface AssetLView
     *
     * @param pIsAdmin
     */
-   public void setAdminComponents(boolean pIsAdmin);
+   public void setAdminComponents(int pIsAdmin);
 
    /**
     * Grabs all pertainent data from the fields and sets them in

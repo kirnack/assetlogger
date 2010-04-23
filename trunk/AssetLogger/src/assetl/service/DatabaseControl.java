@@ -78,7 +78,7 @@ public abstract class DatabaseControl
 
       //default user
       mUser = new User();
-      mUser.setAdmin(false);
+      mUser.setAdmin(User.CLIENT);
 
       //Use a netbeans generated gui
       changeView("Login");

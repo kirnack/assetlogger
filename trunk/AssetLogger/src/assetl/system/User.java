@@ -12,6 +12,16 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User
 {
+
+   public static final int CLIENT = 2;
+
+   public static final int PROVIDER = 1;
+
+   public static final int GATEKEEPER = User.PROVIDER;
+
+   public static final int ADMIN = 0;
+
+   public static final int NONEXISTANT = 246;
    /**
     * The unique identifier of the user
     */
@@ -26,14 +36,14 @@ public class User
     * Indicates if the user is an admin
     */
    @XmlElement(name = "admin")
-   private boolean mAdmin;
+   private int mAdmin;
 
    /**
     * Default Constructor.
     */
    public User()
    {
-      this("", "", false);
+      this("", "", 3);
    }
 
    /**
@@ -43,7 +53,7 @@ public class User
     */
    public User(String pID)
    {
-      this(pID, "", false);
+      this(pID, "", 3);
    }
 
    /**
@@ -53,7 +63,7 @@ public class User
     * @param pPassword The user's password
     * @param pAdmin True if the user is an admin
     */
-   public User(String pID, String pPassword, boolean pAdmin)
+   public User(String pID, String pPassword, int pAdmin)
    {
       mID = pID;
       mPassword = pPassword;
@@ -65,7 +75,7 @@ public class User
     *
     * @return true if the user is an admin
     */
-   public boolean isAdmin()
+   public int isAdmin()
    {
       return mAdmin;
    }
@@ -75,7 +85,7 @@ public class User
     *
     * @param pAdmin The admin status to set
     */
-   public void setAdmin(boolean pAdmin)
+   public void setAdmin(int pAdmin)
    {
       mAdmin = pAdmin;
    }

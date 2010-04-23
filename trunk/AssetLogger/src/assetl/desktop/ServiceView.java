@@ -20,6 +20,8 @@ import assetl.system.DataPacket;
 import assetl.system.PersonPacket;
 import assetl.system.Person;
 import assetl.system.Request;
+import assetl.system.User;
+
 
 /**
  * Allows the user to schedule and checkout assets.
@@ -338,10 +340,10 @@ public class ServiceView
     * @param pIsAdmin True if the admin components are to be set to visible
     */
    @Override
-   public void setAdminComponents(boolean pIsAdmin)
+   public void setAdminComponents(int pIsAdmin)
    {
       super.setAdminComponents(pIsAdmin);
-      mCheckoutBtn.setVisible(pIsAdmin);
+      mCheckoutBtn.setVisible(pIsAdmin <= User.GATEKEEPER);
    }
 
    /**

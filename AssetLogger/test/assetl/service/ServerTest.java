@@ -80,32 +80,33 @@ public class ServerTest
       Server instance = Server.getInstance();
       Collection<User> expResult = new ArrayList<User>();
       expResult.add(new User("Doctor"));
+      expResult.add(new User("helpdesk"));
       expResult.add(new User("user"));
       Collection<User> result = instance.getUsers();
       assertEquals(expResult, result);
    }
 
    /**
-    * Test of isAdmin method, of class Server.
+    * Test of getAccessLevel method, of class Server.
     */
    @Test
-   public void testIsAdmin()
+   public void testgetAccessLevel()
    {
-      System.out.println("isAdmin");
+      System.out.println("getAccessLevel");
       System.out.println("\tUser does not exist");
       Server instance = Server.getInstance();
       String pID = "brogers3";
-      boolean expResult = false;
-      boolean result = instance.isAdmin(pID);
+      int expResult = User.NONEXISTANT;
+      int result = instance.getAccessLevel(pID);
       assertEquals(expResult, result);
       System.out.println("\tUser exist, and is not admin");
       pID = "user";
-      expResult = false;
-      result = instance.isAdmin(pID);
+      expResult = User.CLIENT;
+      result = instance.getAccessLevel(pID);
       System.out.println("\tUser exist, and is admin");
       pID = "Doctor";
-      expResult = true;
-      result = instance.isAdmin(pID);
+      expResult = User.ADMIN;
+      result = instance.getAccessLevel(pID);
    }
 
    /**
@@ -123,7 +124,7 @@ public class ServerTest
       assertEquals(expResult, result);
       System.out.println("\tUser does exist");
       pID = "Doctor";
-      expResult = new User("Doctor", "Buffalo", true);
+      expResult = new User("Doctor", "Buffalo", 0);
       result = instance.getUser(pID);
       assertEquals(expResult, result);
       assertEquals(expResult.getPassword(), result.getPassword());

@@ -316,7 +316,7 @@ public class HttpRQ
     * @param pID
     * @return
     */
-   public boolean isAdmin(String pID)
+   public int getAccessLevel(String pID)
    {
       throw new UnsupportedOperationException("Not supported yet.");
    }

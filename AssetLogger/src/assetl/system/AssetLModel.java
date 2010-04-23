@@ -80,8 +80,8 @@ public interface AssetLModel
     * @param pID The id of the person
     * @return True if the person is an admin
     */
-   boolean isAdmin(String pID);
-
+   public int getAccessLevel(String pID);
+   
    /**
     * Gets a user with the given id.
     *

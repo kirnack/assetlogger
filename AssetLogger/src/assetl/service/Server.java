@@ -798,7 +798,7 @@ public class Server
          {
             users.add(new User(rs.getString("UserID"),
                rs.getString("Password"),
-               rs.getBoolean("isAdmin")));
+               rs.getInt("isAdmin")));
          }
          rs.close();
       }
@@ -815,7 +815,7 @@ public class Server
     * @param pID The ID of the user to check the admin status of.
     * @return True if the user is an admin.
     */
-   public boolean isAdmin(String pID)
+   public int getAccessLevel(String pID)
    {
       try
       {
@@ -823,7 +823,7 @@ public class Server
       }
       catch (NullPointerException e)
       {
-         return false;
+         return User.NONEXISTANT;
       }
    }
 
@@ -844,7 +844,7 @@ public class Server
          if (rs.next())
          {
             user = new User(rs.getString("UserID"), rs.getString("Password"),
-               rs.getBoolean("isAdmin"));
+               rs.getInt("isAdmin"));
          }
          rs.close();
       }

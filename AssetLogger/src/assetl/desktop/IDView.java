@@ -5,6 +5,7 @@
  */
 package assetl.desktop;
 
+import assetl.system.User;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -229,11 +230,11 @@ public class IDView
     * @param pIsAdmin True if the admin components are to be set to visible
     */
    @Override
-   public void setAdminComponents(boolean pIsAdmin)
+   public void setAdminComponents(int pIsAdmin)
    {
       super.setAdminComponents(pIsAdmin);
-      mCheckInRadio.setVisible(pIsAdmin);
-      mScheduleRadio.setVisible(pIsAdmin);
+      mCheckInRadio.setVisible(pIsAdmin <= User.GATEKEEPER);
+      mScheduleRadio.setVisible(pIsAdmin <= User.GATEKEEPER);
    }
 
    /**

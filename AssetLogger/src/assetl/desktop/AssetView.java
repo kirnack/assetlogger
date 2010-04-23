@@ -3,6 +3,7 @@ package assetl.desktop;
 import assetl.system.AssetLControl;
 import assetl.system.AssetLView;
 import assetl.system.DataPacket;
+import assetl.system.User;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
@@ -167,12 +168,13 @@ public abstract class AssetView
     *
     * @param pIsAdmin True if the admin components are to be set to visible
     */
-   public void setAdminComponents(boolean pIsAdmin)
+   public void setAdminComponents(int pIsAdmin)
    {
-      mAddAssetMenuItem.setVisible(pIsAdmin);
-      mAddPersonMenuItem.setVisible(pIsAdmin);
-      mSearchMenuItem.setVisible(pIsAdmin);
-      mCheckinMenuItem.setVisible(pIsAdmin);
+      mAddAssetMenuItem.setVisible(pIsAdmin == User.ADMIN);
+      mAddPersonMenuItem.setVisible(pIsAdmin == User.ADMIN);
+      
+      mSearchMenuItem.setVisible(pIsAdmin <= User.GATEKEEPER);
+      mCheckinMenuItem.setVisible(pIsAdmin <= User.GATEKEEPER);
    }
 
    /**

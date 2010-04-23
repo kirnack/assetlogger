@@ -206,6 +206,6 @@ public class LoginView
       hideMenuBar();
       enable("LogIn");
       // Hide the admin components
-      setAdminComponents(false);
+      setAdminComponents(3);
    }
 }

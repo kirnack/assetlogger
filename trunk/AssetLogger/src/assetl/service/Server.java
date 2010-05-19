@@ -152,6 +152,7 @@ public class Server
       }
       catch (Exception e)
       {
+         //TODO: Fix the Null pointer exception that occurs in the try block above
          System.out.println(e);
          System.exit(-1);
       }

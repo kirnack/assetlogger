@@ -127,6 +127,8 @@ public class Server
 
             //TODO: Fix the problem below
 
+            System.err.println("setupSQL: " + setupSQL);
+
             System.err.println("problem");
             File updateScript = new File(
                setupSQL.toString().replace("file:", ""));

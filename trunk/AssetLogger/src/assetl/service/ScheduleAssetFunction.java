@@ -9,7 +9,7 @@ public class ScheduleAssetFunction
    extends LoadFinderFunction
 {
    /**
-    * Enables scheduling in the when finding an asset
+    * Enables scheduling when finding an asset
     */
    @Override
    public void performFunction()

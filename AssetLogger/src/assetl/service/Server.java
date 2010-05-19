@@ -13,6 +13,7 @@ import java.util.Date;
 
 import static resources.Config.*;
 import static resources.WebServerConstants.*;
+
 /**
  * A singleton Server that will take assets, people, and request classes
  * and add or modify the database to reflect the changes to the objects, based
@@ -31,47 +32,38 @@ public class Server
     * Default Pool Size
     */
    public final static int DEFAULT_POOL_SIZE = 20;
-
    /**
     * The ServerSocket
     */
    private ServerSocket mServerSocket = null;
-
    /**
     * A count of connections
     */
    private int mConnectionCount = 0;
-
    /**
     * Holds an array of RequestHandlers
     */
    private RequestHandler[] mHandlerPool;
-
    /**
     * The size of the RequestHandler array
     */
    private int mPoolSize;
-
    /**
     * The number of the last request
     */
    private int mLastRequestNumber = 0;
-
    /**
     * A File object to represent the database.
     */
    private File mFile;
-
    /**
     * The database connection.
     */
    private Connection mConn;
-
    /**
     * A sql statement.
     */
    private Statement mStat;
-
    /**
     * Variable to hold a singleton of Server
     */
@@ -109,9 +101,10 @@ public class Server
             }
          }
       });
-      mFile = new File(System.getProperty(
-         "dbfilename", "LaptopChecker") + "."
-         + System.getProperty("dbfileext", "aldb"));
+
+      mFile = new File(System.getProperty("dbfilename", "LaptopChecker")
+         + "." + System.getProperty("dbfileext", "aldb"));
+
       try
       {
 
@@ -125,12 +118,22 @@ public class Server
             loadDatabaseDriver("org.sqlite.JDBC");
             mConn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
+
             mStat = mConn.createStatement();
+
             URL setupSQL = ClassLoader.getSystemResource(
                Server.class.getPackage().getName().replace(".", "/")
                + "/Update.sql");
+
+            //TODO: Fix the problem below
+
+            System.err.println("problem");
             File updateScript = new File(
                setupSQL.toString().replace("file:", ""));
+            System.err.println("here");
+
+            //TODO: Fix the problem above
+
             BufferedReader in = new BufferedReader(
                new FileReader(updateScript));
             ResultSet rs = mConn.createStatement().executeQuery("Select "
@@ -891,19 +894,19 @@ public class Server
       try
       {
          ResultSet rs = mConn.createStatement().executeQuery(
-            "Select AssetID, RequestedStartDate, RequestedEndDate " +
-            "from checkouts where active=1;");
+            "Select AssetID, RequestedStartDate, RequestedEndDate "
+            + "from checkouts where active=1;");
 
          try
          {
             while (rs.next())
             {
-               
+
 
                Date qStartDate = rs.getDate("RequestedStartDate");
                Date qEndDate = rs.getDate("RequestedEndDate");
                if ((qStartDate.getTime() <= pStart.getTime())
-                      && (qEndDate.getTime()>= pStart.getTime()))
+                  && (qEndDate.getTime() >= pStart.getTime()))
                {
                   String id = rs.getString("AssetID");
                   if (!assetIDs.contains(id))
@@ -911,8 +914,8 @@ public class Server
                      assetIDs.add(id);
                   }
                }
-               else if(qStartDate.getTime() <= pEnd.getTime()
-                  && (qEndDate.getTime()>= pEnd.getTime()))
+               else if (qStartDate.getTime() <= pEnd.getTime()
+                  && (qEndDate.getTime() >= pEnd.getTime()))
                {
                   String id = rs.getString("AssetID");
                   if (!assetIDs.contains(id))
@@ -922,7 +925,6 @@ public class Server
                }
                else
                {
-                  
                }
             }
          }
@@ -932,20 +934,20 @@ public class Server
          }
 
          rs.close();
-         
+
          String ids = "";
 
          for (String id : assetIDs)
          {
-            ids += (("".equals(ids)) ? "":", ") + "\"" + id + "\"";
+            ids += (("".equals(ids)) ? "" : ", ") + "\"" + id + "\"";
          }
 
-         rs =  mConn.createStatement().executeQuery(
-            "select * from assets where Assets.inMaintenance=0 and" +
-            " assetid not in (" + ids + ");");/* +
-            "or not exists (select assetid " +
-            "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
-            ");");*/
+         rs = mConn.createStatement().executeQuery(
+            "select * from assets where Assets.inMaintenance=0 and"
+            + " assetid not in (" + ids + ");");/* +
+         "or not exists (select assetid " +
+         "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
+         ");");*/
 
          try
          {

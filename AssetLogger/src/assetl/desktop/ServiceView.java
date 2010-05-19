@@ -20,8 +20,8 @@ import assetl.system.DataPacket;
 import assetl.system.PersonPacket;
 import assetl.system.Person;
 import assetl.system.Request;
+import assetl.system.Checkout;
 import assetl.system.User;
-
 
 /**
  * Allows the user to schedule and checkout assets.
@@ -39,6 +39,14 @@ public class ServiceView
     * The list model holding checked out requests
     */
    private DefaultListModel mCheckedOutListModel;
+   /**
+    * The list model holding assets in a scheduled request
+    */
+   private DefaultListModel mScheduledAssetsListModel;
+   /**
+    * The list model holding assets in a checked out request
+    */
+   private DefaultListModel mCheckedOutAssetsListModel;
    /**
     * Maps functionality to the button the causes it
     */
@@ -60,6 +68,8 @@ public class ServiceView
 
       mScheduledListModel = new DefaultListModel();
       mCheckedOutListModel = new DefaultListModel();
+      mScheduledAssetsListModel = new DefaultListModel();
+      mCheckedOutAssetsListModel = new DefaultListModel();
       initComponents();
       generateMap();
       generatePacketMap();
@@ -122,6 +132,12 @@ public class ServiceView
       mScheduleBtn = new javax.swing.JButton();
       mCheckoutBtn = new javax.swing.JButton();
       mCancelBtn = new javax.swing.JButton();
+      mCheckedOutAssetsScrollPane = new javax.swing.JScrollPane();
+      mCheckedOutAssetList = new javax.swing.JList();
+      mScheduledAssetScrollPane = new javax.swing.JScrollPane();
+      mScheduledAssetList = new javax.swing.JList();
+      mRemoveAssetBtn = new javax.swing.JButton();
+      mAddAssetBtn = new javax.swing.JButton();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,6 +176,24 @@ public class ServiceView
       mCancelBtn.setText("-");
       mCancelBtn.setName("mCancelBtn"); // NOI18N
 
+      mCheckedOutAssetsScrollPane.setName("mCheckedOutAssetsScrollPane"); // NOI18N
+
+      mCheckedOutAssetList.setModel(mCheckedOutAssetsListModel);
+      mCheckedOutAssetList.setName("mCheckedOutAssetList"); // NOI18N
+      mCheckedOutAssetsScrollPane.setViewportView(mCheckedOutAssetList);
+
+      mScheduledAssetScrollPane.setName("mScheduledAssetScrollPane"); // NOI18N
+
+      mScheduledAssetList.setModel(mScheduledAssetsListModel);
+      mScheduledAssetList.setName("mScheduledAssetList"); // NOI18N
+      mScheduledAssetScrollPane.setViewportView(mScheduledAssetList);
+
+      mRemoveAssetBtn.setText("-");
+      mRemoveAssetBtn.setName("mRemoveAssetBtn"); // NOI18N
+
+      mAddAssetBtn.setText("+");
+      mAddAssetBtn.setName("mAddAssetBtn"); // NOI18N
+
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
       layout.setHorizontalGroup(
@@ -172,9 +206,11 @@ public class ServiceView
                      .addGroup(layout.createSequentialGroup()
                         .addComponent(mScheduleBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mCancelBtn))
-                     .addComponent(mScheduleScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                     .addComponent(mRequestedLbl)))
+                        .addComponent(mCancelBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addComponent(mCheckoutBtn))
+                     .addComponent(mRequestedLbl)
+                     .addComponent(mScheduleScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)))
                .addGroup(layout.createSequentialGroup()
                   .addGap(21, 21, 21)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,13 +218,20 @@ public class ServiceView
                      .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addComponent(mCheckedOutScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                           .addComponent(mCheckoutLbl))))))
-            .addGap(66, 66, 66)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(mCheckoutBtn)
-               .addComponent(mExtendBtn))
-            .addContainerGap(84, Short.MAX_VALUE))
+                           .addComponent(mCheckoutLbl)
+                           .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                              .addComponent(mExtendBtn)
+                              .addComponent(mCheckedOutScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+            .addGap(32, 32, 32)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(mScheduledAssetScrollPane)
+                  .addComponent(mCheckedOutAssetsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+               .addGroup(layout.createSequentialGroup()
+                  .addComponent(mAddAssetBtn)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addComponent(mRemoveAssetBtn)))
+            .addGap(43, 43, 43))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,31 +241,41 @@ public class ServiceView
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(mCheckoutLbl)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(mCheckedOutScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-            .addComponent(mRequestedLbl)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(mScheduleScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+               .addComponent(mCheckedOutAssetsScrollPane, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+               .addComponent(mCheckedOutScroll, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                  .addComponent(mExtendBtn)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                  .addComponent(mRequestedLbl)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addComponent(mScheduleScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(mScheduledAssetScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(mScheduleBtn)
-               .addComponent(mCancelBtn))
+               .addComponent(mCancelBtn)
+               .addComponent(mCheckoutBtn)
+               .addComponent(mRemoveAssetBtn)
+               .addComponent(mAddAssetBtn))
             .addContainerGap())
-         .addGroup(layout.createSequentialGroup()
-            .addGap(114, 114, 114)
-            .addComponent(mExtendBtn)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
-            .addComponent(mCheckoutBtn)
-            .addGap(117, 117, 117))
       );
 
       pack();
    }// </editor-fold>//GEN-END:initComponents
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   /** Add asset from scheduled request button*/
+   private javax.swing.JButton mAddAssetBtn;
    /**
    * Button to Cancel a scheduled Request
    */
    private javax.swing.JButton mCancelBtn;
+   /** Holds Assets contained in a scheduled request*/
+   private javax.swing.JList mCheckedOutAssetList;
+   /** Scroll Pane for checked out assets list*/
+   private javax.swing.JScrollPane mCheckedOutAssetsScrollPane;
    /**
    * Holds Checked out Requests
    */
@@ -247,6 +300,8 @@ public class ServiceView
    * A place to put the name of the current person
    */
    private javax.swing.JLabel mNameLbl;
+   /** Remove asset from scheduled request button*/
+   private javax.swing.JButton mRemoveAssetBtn;
    /**
    * Label for scheduled JList
    */
@@ -259,6 +314,10 @@ public class ServiceView
    * A Scroll Pane for the Scheduled JList
    */
    private javax.swing.JScrollPane mScheduleScroll;
+   /** Holds Assets contained in a checked out request*/
+   private javax.swing.JList mScheduledAssetList;
+   /** Scroll Pane for scheduled assets list*/
+   private javax.swing.JScrollPane mScheduledAssetScrollPane;
    /**
    * Holds Scheduled Requests
    */
@@ -351,9 +410,11 @@ public class ServiceView
     */
    public void updateData()
    {
-      //Clear both JLists
+      //Clear the JLists
       mScheduledListModel.clear();
       mCheckedOutListModel.clear();
+      mScheduledAssetsListModel.clear();
+      mCheckedOutAssetsListModel.clear();
       ArrayList<Request> requests = null;
 
       //
@@ -377,6 +438,11 @@ public class ServiceView
          for (Request curr : requests)
          {
             mScheduledListModel.addElement(curr);
+
+            for (Checkout out : curr.getCheckouts())
+            {
+               mScheduledAssetsListModel.addElement(out.getAsset());
+            }
          }
       }
 
@@ -387,8 +453,14 @@ public class ServiceView
          for (Request curr : requests)
          {
             mCheckedOutListModel.addElement(curr);
+
+            for (Checkout out : curr.getCheckouts())
+            {
+               mCheckedOutAssetsListModel.addElement(out.getAsset());
+            }
          }
       }
+
    }
 
    /**

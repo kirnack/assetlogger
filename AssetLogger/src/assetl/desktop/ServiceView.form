@@ -31,9 +31,11 @@
                               <Component id="mScheduleBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="mCancelBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="107" max="32767" attributes="0"/>
+                              <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="mScheduleScroll" alignment="0" pref="235" max="32767" attributes="1"/>
                           <Component id="mRequestedLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="mScheduleScroll" alignment="0" pref="235" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -43,48 +45,64 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="10" pref="10" max="10" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="mCheckedOutScroll" alignment="0" min="-2" pref="235" max="-2" attributes="1"/>
                                   <Component id="mCheckoutLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="mExtendBtn" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="mCheckedOutScroll" alignment="1" min="-2" pref="235" max="-2" attributes="1"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
-                  <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="mScheduledAssetScrollPane" max="32767" attributes="1"/>
+                      <Component id="mCheckedOutAssetsScrollPane" alignment="0" pref="155" max="32767" attributes="1"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="mAddAssetBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="mRemoveAssetBtn" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="84" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="mNameLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="mCheckoutLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="mCheckedOutScroll" min="-2" pref="171" max="-2" attributes="0"/>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
-              <Component id="mRequestedLbl" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="mScheduleScroll" min="-2" pref="183" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="mCheckedOutAssetsScrollPane" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                  <Component id="mCheckedOutScroll" alignment="0" pref="171" max="32767" attributes="1"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <Component id="mRequestedLbl" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="mScheduleScroll" min="-2" pref="183" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="mScheduledAssetScrollPane" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="mScheduleBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="mCancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mCheckoutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mRemoveAssetBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mAddAssetBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-              <Component id="mExtendBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="263" max="32767" attributes="0"/>
-              <Component id="mCheckoutBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -201,6 +219,72 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/**&#xd;&#xa;* Button to Cancel a scheduled Request&#xd;&#xa;*/"/>
+      </AuxValues>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="mCheckedOutAssetsScrollPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="mCheckedOutAssetsScrollPane" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/** Scroll Pane for checked out assets list*/"/>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JList" name="mCheckedOutAssetList">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="mCheckedOutAssetsListModel" type="code"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="mCheckedOutAssetList" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/** Holds Assets contained in a scheduled request*/"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="mScheduledAssetScrollPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="mScheduledAssetScrollPane" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/** Scroll Pane for scheduled assets list*/"/>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JList" name="mScheduledAssetList">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="mScheduledAssetsListModel" type="code"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="mScheduledAssetList" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/** Holds Assets contained in a checked out request*/"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="mRemoveAssetBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="name" type="java.lang.String" value="mRemoveAssetBtn" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/** Remove asset from scheduled request button*/"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="mAddAssetBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="name" type="java.lang.String" value="mAddAssetBtn" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPre" type="java.lang.String" value="/** Add asset from scheduled request button*/"/>
       </AuxValues>
     </Component>
   </SubComponents>

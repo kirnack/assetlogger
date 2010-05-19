@@ -23,6 +23,7 @@ import assetl.system.RequestPacket;
 import assetl.system.StringPacket;
 import assetl.system.Asset;
 import assetl.system.Request;
+import assetl.system.Checkout;
 
 /**
  * Provides the ability to find and an available asset
@@ -212,7 +213,7 @@ public class FindAssetView
                mStartCal.setDate(today);
                start = today;
             }
-            
+
             updateData();
          }
       }
@@ -291,10 +292,11 @@ public class FindAssetView
     */
    public DataPacket grabDataPacket(String pFunction)
    {
-      Request req;
+      Request req = null;
+      Checkout check = null;
       ArrayList<Asset> assets = new ArrayList<Asset>();
-      //Get the person id sent from ServiceView
-      StringPacket tempPacket = (StringPacket) mPacket;
+      StringPacket tempStringPack = null;
+      RequestPacket tempReqPack = null;
 
       //Get the selected assets
       Object[] selected = mAssetList.getSelectedValues();
@@ -304,10 +306,33 @@ public class FindAssetView
          assets.add(asset);
       }
 
-      //Generate a new Request
-      req = ModelObjectGenerator.generateRequest(tempPacket.getString(), assets,
-         grabStart(), grabEnd());
 
+      if (mPacket.getClass().isAssignableFrom(StringPacket.class))
+      {
+         //Get the person id sent from ServiceView
+         tempStringPack = (StringPacket) mPacket;
+         
+         //Generate a new Request
+         if (tempStringPack != null)
+         {
+            req = ModelObjectGenerator.generateRequest(
+               tempStringPack.getString(), assets, grabStart(), grabEnd());
+         }
+      }
+      else if (mPacket.getClass().isAssignableFrom(RequestPacket.class))
+      {
+         //Get the existing Request sent from ServiceView
+         tempReqPack = (RequestPacket) mPacket;
+         req = tempReqPack.getRequest();
+
+         //Add the assets to the existing request
+         for (Asset oneAsset : assets)
+         {
+            check = new Checkout("", req.getID(), oneAsset, req.getRequestor(),
+               grabStart(), grabEnd());
+            req.addCheckout(check);
+         }
+      }
       return new RequestPacket(req);
    }
 

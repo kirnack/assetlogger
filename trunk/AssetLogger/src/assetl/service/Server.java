@@ -138,7 +138,9 @@ public class Server
 
             BufferedReader in = new BufferedReader(
                new FileReader(updateScript));
-            ResultSet rs = mConn.createStatement().executeQuery("Select "
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:"
+               + mFile.getName());
+            ResultSet rs = conn.createStatement().executeQuery("Select "
                + "ChangeString from DatabaseInfo");
             String str = rs.getString(1);
             rs.close();
@@ -242,9 +244,13 @@ public class Server
    public Person getPerson(String pID)
    {
       Person person = null;
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select * from requestors where"
+          conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
+            "select * from requestors where"
             + " RequestorID='" + pID + "';");
          if (rs.next())
          {
@@ -258,6 +264,17 @@ public class Server
       catch (Exception e)
       {
          System.err.println(e);
+      }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
       }
       return person;
    }
@@ -275,14 +292,17 @@ public class Server
       // to be added, and also to check to see if there is an actual
       // need to update the data
       //
+      Connection conn = null;
       try
       {
          Person temp = getPerson(pPerson.getID());
          PreparedStatement prep = null;
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
          if (temp == null)
          {
             //System.err.println("Adding " + pPerson.getFirstName());
-            prep = mConn.prepareStatement(
+            prep = conn.prepareStatement(
                "insert into Requestors values (?, ?, ?, ?, ?, ?);");
          }
          else if (!(temp.getFirstName().equals(pPerson.getFirstName()))
@@ -292,7 +312,7 @@ public class Server
             || !(temp.getPhoneNumber().equals(pPerson.getPhoneNumber())))
          {
             //System.err.println("Updating " + pPerson.getFirstName());
-            prep = mConn.prepareStatement(
+            prep = conn.prepareStatement(
                "update Requestors set RequestorID = ?, FirstName= ?, "
                + "MI = ?, LastName =?, Phone = ?, Email = ?"
                + " where RequestorID ='" + pPerson.getID() + "';");
@@ -313,6 +333,17 @@ public class Server
       {
          e.printStackTrace(System.err);
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
    }
 
    /**
@@ -325,9 +356,12 @@ public class Server
    public Asset getAsset(String pID)
    {
       Asset asset = null;
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select * from assets where"
+          conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery("select * from assets where"
             + " AssetID='" + pID + "';");
          if (rs.next())
          {
@@ -344,7 +378,17 @@ public class Server
       {
          System.err.println(e);
       }
-
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return asset;
    }
 
@@ -357,8 +401,11 @@ public class Server
    {
       System.err.println("Retreivinng " + pAsset.getID());
       PreparedStatement prep = null;
+      Connection conn = null;
       try
       {
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
          //Retrieves data from database to see if the person needs to be added,
          //and also to check to see if there is an actual need to update te data.
          Asset temp = getAsset(pAsset.getID());
@@ -366,7 +413,7 @@ public class Server
          if (temp == null)
          {
             System.err.println("Adding " + pAsset.getID());
-            prep = mConn.prepareStatement(
+            prep = conn.prepareStatement(
                "insert into Assets values (?, ?, ?, ?, ?, ?, ?);");
          }
          else if (!(temp.getMake().equals(pAsset.getMake()))
@@ -377,7 +424,7 @@ public class Server
             || (temp.isInMaintenance() != pAsset.isInMaintenance()))
          {
             System.err.println("Updating " + pAsset.getID());
-            prep = mConn.prepareStatement(
+            prep = conn.prepareStatement(
                "update Assets set AssetID = ?, Make = ?, "
                + "Model = ?, SerialNumber =?, AssetType = ?, "
                + "Description = ?, inMaintenance = ? where AssetID ='" + pAsset.
@@ -402,6 +449,17 @@ public class Server
          System.err.println(e.getSQLState());
          e.printStackTrace(System.err);
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
    }
 
    /**
@@ -415,9 +473,12 @@ public class Server
    public Request getRequest(String pID)
    {
       Request request = null;
+      Connection conn = null;
       try
       {
-         ResultSet requestSet = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet requestSet = conn.createStatement().executeQuery(
             "select * from Requests where" + " RequestID='" + pID + "';");
          if (requestSet.next())
          {
@@ -438,6 +499,17 @@ public class Server
       {
          System.err.println(e);
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
 
       return request;
    }
@@ -451,11 +523,13 @@ public class Server
    public Collection<Checkout> getCheckouts(Request pRequest)
    {
       Collection<Checkout> checkouts = new ArrayList<Checkout>();
-
+      Connection conn = null;
       try
       {
 
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select * from Checkouts where" + " RequestID='"
             + pRequest.getID() + "';");
 
@@ -480,6 +554,17 @@ public class Server
          System.err.println(e);
          e.printStackTrace();
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return checkouts;
    }
 
@@ -493,9 +578,13 @@ public class Server
    public Checkout getCheckout(String pID)
    {
       Checkout checkout = null;
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select * from Checkouts where"
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
+            "select * from Checkouts where"
             + " CheckoutID='" + pID + "';");
          if (rs.next())
          {
@@ -515,7 +604,17 @@ public class Server
       {
          System.err.println(e);
       }
-
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return checkout;
    }
 
@@ -530,9 +629,12 @@ public class Server
    {
       if (pCheckout != null)
       {
+         Connection conn = null;
          try
          {
             Checkout temp = null;
+            conn = DriverManager.getConnection("jdbc:sqlite:"
+                   + mFile.getName());
             System.err.println("Retreivinng " + pCheckout.getID());
             //Retrieves data from database to see if the person needs to be added,
             //and also to check to see if there is an actual need to update te data.
@@ -543,7 +645,7 @@ public class Server
             {
                pCheckout.setID(Integer.toString(getNumCheckouts() + 1));
                System.err.println("Adding " + pCheckout.getID());
-               prepReq = mConn.prepareStatement(
+               prepReq = conn.prepareStatement(
                   "insert into Checkouts values (?, ?, ?, ?, ?, ?, ?, ?, '"
                   + pUserID + "', ?);");
             }
@@ -573,7 +675,7 @@ public class Server
                {
 
                   System.err.println("Updating " + pCheckout.getID());
-                  prepReq = mConn.prepareStatement(
+                  prepReq = conn.prepareStatement(
                      "update Checkouts set CheckoutID = ?, RequestID = ?,"
                      + " RecipeantID = ?, AssetID = ?,"
                      + " RequestedStartDate = ?, RequestedEndDate = ?,"
@@ -609,6 +711,17 @@ public class Server
          {
             e.printStackTrace(System.err);
          }
+         finally
+         {
+            try
+            {
+               conn.close();
+            }
+            catch (Exception e)
+            {
+               e.printStackTrace();
+            }
+         }
       }
    }
 
@@ -620,6 +733,7 @@ public class Server
     */
    public synchronized void setRequest(Request pRequest, String pUserID)
    {
+      Connection conn = null;
       try
       {
          //System.err.println("Retreivinng " + pRequest.getID());
@@ -679,6 +793,17 @@ public class Server
       catch (NullPointerException e)
       {
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
    }
 
    /**
@@ -703,10 +828,12 @@ public class Server
    public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset)
    {
       Collection<Checkout> checkouts = new ArrayList<Checkout>();
-
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select * from Checkouts where"
             + " AssetID='" + pAsset.getID()
             + "' and Active=1 and PickupDate is not null;");
@@ -729,7 +856,17 @@ public class Server
          System.err.println(e);
          e.printStackTrace();
       }
-
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return checkouts;
    }
 
@@ -742,10 +879,12 @@ public class Server
    public Collection<Checkout> getActiveCheckouts(Asset pAsset)
    {
       Collection<Checkout> checkouts = new ArrayList<Checkout>();
-
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select * from Checkouts where"
             + " AssetID='" + pAsset.getID()
             + "' and Active=1 order by "
@@ -770,7 +909,17 @@ public class Server
          System.err.println(e);
          e.printStackTrace();
       }
-
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return checkouts;
    }
 
@@ -796,9 +945,12 @@ public class Server
    public Collection<User> getUsers()
    {
       Collection<User> users = new ArrayList<User>();
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select * from users;");
          while (rs.next())
          {
@@ -811,6 +963,17 @@ public class Server
       catch (Exception e)
       {
          System.err.println(e);
+      }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
       }
       return users;
    }
@@ -825,7 +988,7 @@ public class Server
    {
       try
       {
-         return getUser(pID).isAdmin();
+         return getUser(pID).adminRights();
       }
       catch (NullPointerException e)
       {
@@ -843,9 +1006,13 @@ public class Server
    public User getUser(String pID)
    {
       User user = null;
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery("select * from users where"
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
+            "select * from users where"
             + " UserID='" + pID + "';");
          if (rs.next())
          {
@@ -857,6 +1024,17 @@ public class Server
       catch (Exception e)
       {
          System.err.println(e);
+      }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
       }
       return user;
    }
@@ -892,17 +1070,20 @@ public class Server
    {
       Collection<Asset> assets = new ArrayList<Asset>();
       ArrayList<String> assetIDs = new ArrayList<String>();
-
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "Select AssetID, RequestedStartDate, RequestedEndDate "
             + "from checkouts where active=1;");
 
          try
          {
             while (rs.next())
-            {
+            {          
+
 
 
                Date qStartDate = rs.getDate("RequestedStartDate");
@@ -944,12 +1125,12 @@ public class Server
             ids += (("".equals(ids)) ? "" : ", ") + "\"" + id + "\"";
          }
 
-         rs = mConn.createStatement().executeQuery(
-            "select * from assets where Assets.inMaintenance=0 and"
-            + " assetid not in (" + ids + ");");/* +
-         "or not exists (select assetid " +
-         "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
-         ");");*/
+         rs =  conn.createStatement().executeQuery(
+            "select * from assets where Assets.inMaintenance=0 and" +
+            " assetid not in (" + ids + ");");/* +
+            "or not exists (select assetid " +
+            "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
+            ");");*/
 
          try
          {
@@ -975,6 +1156,17 @@ public class Server
       {
          e.printStackTrace();
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return assets;
    }
 
@@ -987,9 +1179,12 @@ public class Server
    public Collection<Person> getBorrowers(Asset pAsset)
    {
       Collection<Person> borrowers = new ArrayList<Person>();
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select * from Requestors where exists (select requestorid Requests"
             + " where exists (select requestid from Checkouts where "
             + "Checkouts.AssetID=" + pAsset.getID() + "));");
@@ -1005,6 +1200,17 @@ public class Server
       {
          e.printStackTrace();
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return borrowers;
    }
 
@@ -1017,9 +1223,12 @@ public class Server
    public Collection<Request> getActiveRequests(Person pPerson)
    {
       Collection<Request> requests = new ArrayList<Request>();
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "Select * from Requests where requestorID=\"" + pPerson.getID()
             + "\" and Exists (select requestID from checkouts where active=1 and "
             + "checkouts.requestID=requests.requestID);");
@@ -1043,6 +1252,17 @@ public class Server
       {
          e.printStackTrace();
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return requests;
    }
 
@@ -1055,9 +1275,13 @@ public class Server
    public Collection<Asset> getAssets(Person pPerson)
    {
       Collection<Asset> assets = new ArrayList<Asset>();
+      Connection conn = null;
+
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select * from assets where exists(select assetid from checkouts"
             + " where exists (select requestid from requests where "
             + "requestorID=\""
@@ -1077,6 +1301,17 @@ public class Server
       {
          e.printStackTrace();
       }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return assets;
    }
 
@@ -1088,15 +1323,29 @@ public class Server
    public int getNumCheckouts()
    {
       int numCheckouts = 0;
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select count(*) from checkouts;");
          numCheckouts = rs.getInt(1);
       }
       catch (SQLException e)
       {
          e.printStackTrace(System.err);
+      }
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
       }
       return numCheckouts;
    }
@@ -1109,10 +1358,12 @@ public class Server
    public int getNumLogs()
    {
       int numLogs = 0;
-
+      Connection conn = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         ResultSet rs = conn.createStatement().executeQuery(
             "select count(*) from CheckoutLog;");
          numLogs = rs.getInt(1);
          rs.close();
@@ -1121,7 +1372,17 @@ public class Server
       {
          e.printStackTrace(System.err);
       }
-
+      finally
+      {
+         try
+         {
+            conn.close();
+         }
+         catch (Exception e)
+         {
+            e.printStackTrace();
+         }
+      }
       return numLogs;
    }
 
@@ -1133,15 +1394,30 @@ public class Server
    public int getNumRequests()
    {
       int numCheckouts = 0;
+      Connection conn = null;
+      ResultSet rs = null;
       try
       {
-         ResultSet rs = mConn.createStatement().executeQuery(
+         conn = DriverManager.getConnection("jdbc:sqlite:"
+            + mFile.getName());
+         rs = conn.createStatement().executeQuery(
             "select count(*) from Requests;");
          numCheckouts = rs.getInt(1);
       }
       catch (SQLException e)
       {
          e.printStackTrace(System.err);
+      }
+      finally
+      {
+         try
+         {
+            conn.close();
+            rs.close();
+         }
+         catch (Exception e)
+         {
+         }
       }
       return numCheckouts;
    }

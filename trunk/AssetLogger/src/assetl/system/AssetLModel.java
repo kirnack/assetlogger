@@ -71,6 +71,7 @@ public interface AssetLModel
     * Sets a Checkout
     *
     * @param pCheckout The checkout to set
+    * @deprecated
     */
    void setCheckout(Checkout pCheckout);
 

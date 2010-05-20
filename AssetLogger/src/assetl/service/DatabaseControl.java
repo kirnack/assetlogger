@@ -293,7 +293,7 @@ public abstract class DatabaseControl
          //reset the functions
          mFunctions.clear();
       }
-      mView.setAdminComponents(mUser.isAdmin());
+      mView.setAdminComponents(mUser.adminRights());
    }
 
    /**
@@ -480,7 +480,7 @@ public abstract class DatabaseControl
    public void setCurrentUser(User pUser)
    {
       mUser = pUser;
-      mView.setAdminComponents(mUser.isAdmin());
+      mView.setAdminComponents(mUser.adminRights());
    }
 
    /**

@@ -128,7 +128,7 @@ public class ServerTest
       result = instance.getUser(pID);
       assertEquals(expResult, result);
       assertEquals(expResult.getPassword(), result.getPassword());
-      assertEquals(expResult.isAdmin(), result.isAdmin());
+      assertEquals(expResult.adminRights(), result.adminRights());
    }
 
    /**

@@ -75,7 +75,7 @@ public class User
     *
     * @return true if the user is an admin
     */
-   public int isAdmin()
+   public int adminRights()
    {
       return mAdmin;
    }

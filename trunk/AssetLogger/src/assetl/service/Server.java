@@ -747,7 +747,7 @@ public class Server
          {
             pRequest.setID(Integer.toString(getNumRequests() + 1));
             System.err.println("Adding " + pRequest.getID());
-            prepReq = mConn.prepareStatement(
+            prepReq = conn.prepareStatement(
                "insert into Requests values (?, ?, ?, ?, ?, '"
                + pUserID + "');");
          }
@@ -760,7 +760,7 @@ public class Server
                || pRequest.getRequstType().equals(temp.getRequstType()))
             {
                System.err.println("Updating " + pRequest.getID());
-               prepReq = mConn.prepareStatement(
+               prepReq = conn.prepareStatement(
                   "update Requests set RequestID = ?, RequestedMadeDate = ?,"
                   + " RequestedPickupDate = ?, RequestedType = ?,"
                   + " RequestorID = ?, UserID ='" + pUserID
@@ -927,6 +927,7 @@ public class Server
     * Sets a Checkout
     *
     * @param pCheckout The checkout to set
+    * @deprecated
     */
    public synchronized void setCheckout(Checkout pCheckout)
    {

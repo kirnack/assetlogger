@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import static resources.Config.*;
-import static resources.WebServerConstants.*;
+import static assetl.system.WebServerConstants.*;
 
 /**
  * A singleton Server that will take assets, people, and request classes
@@ -75,7 +75,7 @@ public class Server
    static
    {
       cInstance = new Server();
-      cInstance.start();
+      new Thread(cInstance).run();
    }
 
    /**
@@ -1446,7 +1446,7 @@ public class Server
 
          initPool();
 
-         int serverPort = getInteger("serverPort", DEFAULT_SERVER_PORT);
+         int serverPort = getInteger("serverPort", WebServerConstants.DEFAULT_SERVER_PORT);
 
          mServerSocket = new ServerSocket(serverPort);
 

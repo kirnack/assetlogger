@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.*;
 
 import static resources.Config.*;
-import static resources.WebServerConstants.*;
+import static assetl.system.WebServerConstants.*;
 
 /**
  * Client to the Server
@@ -205,7 +205,10 @@ public class Client
          {
             throw new Exception("Failed to post to server: " + line);
          }
-
+/*
+ * TODO:  Fix the client and the Request Handler so that they don't
+ *        quit before the request has actually been sent, not the header.
+ */
          for (int i = 0; i < 3; i++)
             System.out.println(reader.readLine());
          line = reader.readLine();

@@ -8,7 +8,7 @@ import java.net.*;
 import java.util.*;
 
 import static resources.Config.*;
-import static resources.WebServerConstants.*;
+import static assetl.system.WebServerConstants.*;
 
 /**
  * Handles requests for the Server
@@ -515,7 +515,7 @@ public class RequestHandler
          int numParams = mRequestProps.size();
          String[] params = new String[numParams - 2];
          for (int i = 0; i < numParams - 2; i++)
-            params[i] = mRequestProps.get("param" + i);
+            params[i] = mRequestProps.get("param" + i +"");
 
          writeHeader(RESP_STATUS_OK);
          HttpRS RS = new HttpRS();

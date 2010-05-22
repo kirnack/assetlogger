@@ -1,4 +1,4 @@
-package resources;
+package assetl.system;
 
 /**
  * Constants for a web server.
@@ -16,7 +16,7 @@ public class WebServerConstants
    /**
     * The default port the web server is listening on.
     */
-   public static final int DEFAULT_SERVER_PORT = 10753;
+   public static final int DEFAULT_SERVER_PORT = 1987;
    /**
     * The default buffer size.
     */

@@ -30,7 +30,7 @@ public class HttpRS
    {
       try
       {
-         JAXBContext jaxbCtx = JAXBContext.newInstance("util");
+         JAXBContext jaxbCtx = JAXBContext.newInstance("assetl.system");
          cMarshaller = jaxbCtx.createMarshaller();
          cUnmarshaller = jaxbCtx.createUnmarshaller();
       }

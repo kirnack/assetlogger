@@ -58,7 +58,7 @@ public class HttpRQ
    {
       try
       {
-         JAXBContext jaxbCtx = JAXBContext.newInstance("util");
+         JAXBContext jaxbCtx = JAXBContext.newInstance("assetl.system");
          cMarshaller = jaxbCtx.createMarshaller();
          cUnmarshaller = jaxbCtx.createUnmarshaller();
       }
@@ -140,7 +140,7 @@ public class HttpRQ
       String XML = "param0=" + getXML(params[0]);
       for (int i = 1; i < params.length; i++)
       {
-         XML += "& param" + i + "=" + getXML(params[i]);
+         XML += "&param" + i + "=" + getXML(params[i]);
       }
 
       String response = cClient.postData(command, XML);      
@@ -382,7 +382,9 @@ public class HttpRQ
     */
    public boolean checkPwd(String pID, String pPwd)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      Object[] params = { pID, pPwd};
+      return Boolean.getBoolean(cClient.postData("checkPwd", "param0="+ pID
+         + "&param1=" + pPwd));
    }
 
    /**

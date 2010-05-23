@@ -140,11 +140,19 @@ public class HttpRQ
       String XML = "param0=" + getXML(params[0]);
       for (int i = 1; i < params.length; i++)
       {
-         XML += "&param" + i + "=" + getXML(params[i]);
+         XML += "&param" + i + "=" + params[i].getClass() + ":";
+         if (params[i].getClass().getPackage().equals(Asset.class.getPackage()))
+         {
+            XML += getXML(params[i]);
+         }
+         {
+            XML+= params[i].toString();
+         }
       }
 
+      System.err.print(XML);
       String response = cClient.postData(command, XML);      
-      return getObject(response);
+      return response;
    }
 
    /**
@@ -275,7 +283,7 @@ public class HttpRQ
     *
     * @return
     */
-   public int getNumCheckouts()
+   public Integer getNumCheckouts()
    {
       throw new UnsupportedOperationException("Not supported yet.");
    }
@@ -285,7 +293,7 @@ public class HttpRQ
     *
     * @return
     */
-   public int getNumLogs()
+   public Integer getNumLogs()
    {
       throw new UnsupportedOperationException("Not supported yet.");
    }
@@ -295,7 +303,7 @@ public class HttpRQ
     *
     * @return
     */
-   public int getNumRequests()
+   public Integer getNumRequests()
    {
       throw new UnsupportedOperationException("Not supported yet.");
    }
@@ -316,7 +324,7 @@ public class HttpRQ
     * @param pID
     * @return
     */
-   public int getAccessLevel(String pID)
+   public Integer getAccessLevel(String pID)
    {
       throw new UnsupportedOperationException("Not supported yet.");
    }
@@ -335,6 +343,7 @@ public class HttpRQ
     * Overloaded AssetLModel method
     *
     * @param pCheckout
+    * @deprecated
     */
    public void setCheckout(Checkout pCheckout)
    {
@@ -380,11 +389,13 @@ public class HttpRQ
     * @param pPwd
     * @return
     */
-   public boolean checkPwd(String pID, String pPwd)
+   public Boolean checkPwd(String pID, String pPwd)
    {
-      Object[] params = { pID, pPwd};
-      return Boolean.getBoolean(cClient.postData("checkPwd", "param0="+ pID
-         + "&param1=" + pPwd));
+       String result = (String)
+          cClient.postData("checkPwd", "param0="+ pID + "&param1=" + pPwd);
+       System.err.print(result);
+
+       return new Boolean(result);
    }
 
    /**

@@ -81,7 +81,7 @@ public interface AssetLModel
     * @param pID The id of the person
     * @return True if the person is an admin
     */
-   public int getAccessLevel(String pID);
+   public Integer getAccessLevel(String pID);
    
    /**
     * Gets a user with the given id.
@@ -98,7 +98,7 @@ public interface AssetLModel
     * @param pPwd The password to be validated
     * @return True if the given password is valid
     */
-   boolean checkPwd(String pID, String pPwd);
+   Boolean checkPwd(String pID, String pPwd);
 
    /**
     * Returns a collection of all available assets in the time frame given.
@@ -138,21 +138,21 @@ public interface AssetLModel
     *
     * @return The number of requests
     */
-   int getNumRequests();
+   Integer getNumRequests();
 
    /**
     * The number of checkouts made in the database
     *
     * @return The number of checkouts made
     */
-   int getNumCheckouts();
+   Integer getNumCheckouts();
 
    /**
     * The number of logs made in the database
     *
     * @return The number of logs made
     */
-   int getNumLogs();
+   Integer getNumLogs();
 
    /**
     * Takes the passed Checkout object and makes corresponding changes to

@@ -75,7 +75,7 @@ public class Server
    static
    {
       cInstance = new Server();
-      new Thread(cInstance).run();
+      //new Thread(cInstance).run();
    }
 
    /**
@@ -163,6 +163,7 @@ public class Server
          System.out.println(e);
          System.exit(-1);
       }
+      HttpRS.setServer(this);
    }
 
    /**
@@ -985,7 +986,7 @@ public class Server
     * @param pID The ID of the user to check the admin status of.
     * @return True if the user is an admin.
     */
-   public int getAccessLevel(String pID)
+   public Integer getAccessLevel(String pID)
    {
       try
       {
@@ -1047,7 +1048,7 @@ public class Server
     * @param pPwd The password to verify.
     * @return Returns true if the passed password is the user's password.
     */
-   public boolean checkPwd(String pID, String pPwd)
+   public Boolean checkPwd(String pID, String pPwd)
    {
       try
       {
@@ -1321,7 +1322,7 @@ public class Server
     * made the appropriate ID can be given.
     * @return The number of checkouts in the database.
     */
-   public int getNumCheckouts()
+   public Integer getNumCheckouts()
    {
       int numCheckouts = 0;
       Connection conn = null;
@@ -1356,7 +1357,7 @@ public class Server
     * used to create the appropriate log ID when a log is created.
     * @return The number of logs in the database.
     */
-   public int getNumLogs()
+   public Integer getNumLogs()
    {
       int numLogs = 0;
       Connection conn = null;
@@ -1392,7 +1393,7 @@ public class Server
     * used to create the appropriate request ID when a log is created.
     * @return The number of request in the database.
     */
-   public int getNumRequests()
+   public Integer getNumRequests()
    {
       int numCheckouts = 0;
       Connection conn = null;
@@ -1444,6 +1445,8 @@ public class Server
       {
          mPoolSize = getInteger("poolSize", DEFAULT_POOL_SIZE);
 
+         Server me = this;
+         
          initPool();
 
          int serverPort = getInteger("serverPort", WebServerConstants.DEFAULT_SERVER_PORT);
@@ -1454,6 +1457,7 @@ public class Server
          while (RequestHandler.isConnected())
          {
             Socket incoming = mServerSocket.accept();
+            System.err.print("Made connection.");
             incoming.setSoTimeout(2000);
             runPool(incoming);
             mConnectionCount++;

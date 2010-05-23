@@ -72,7 +72,7 @@ public class WebServerConstants
    /**
     * Server Response String
     */
-   public static String RESP_SERVER = "Server: Micro/0.0";
+   public static String RESP_SERVER = "Server: AssetLogger/0.1";
    /**
     * HTML Content Type
     */
@@ -114,20 +114,20 @@ public class WebServerConstants
    public static String PATH_PAGE1 = "/page1";
    /**
     * Path to page 1.
-    */
+    /
    public static String PERSON_REQUEST = "/person";
    /**
     * Path to page 1.
-    */
+    /
    public static String ASSET_REQUEST = "/asset";
    /**
     * Path to page 1.
-    */
+    /
    public static String CHECKOUT_REQUEST = "/checkout";
    /**
     * Path to page 1.
-    */
-   public static String REQUEST_REQUEST = "/request";
+    /
+   public static String REQUEST_REQUEST = "/request";*/
    /**
     * Path to page 2.
     */
@@ -143,12 +143,12 @@ public class WebServerConstants
    /**
     * Root Web Page Title.
     */
-   public static String PAGE_ROOT_TITLE = "Micro Web Server";
+   public static String PAGE_ROOT_TITLE = "Assetl Logger Server";
    /**
     * Root page body.
     */
    public static String PAGE_ROOT_BODY =
-      "<CENTER><FONT SIZE=\"+2\">Micro Web Server</FONT><BR><BR><TABLE BORDER><TR><TD>Pages Served</TD><TD> ";
+      "<CENTER><FONT SIZE=\"+2\">Assetl Logger Server</FONT><BR><BR><TABLE BORDER><TR><TD>Pages Served</TD><TD> ";
    /**
     * Root page body 2.
     */

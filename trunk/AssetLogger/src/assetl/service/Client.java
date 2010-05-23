@@ -176,6 +176,7 @@ public class Client
    {
       try
       {
+
          String body = new String();
          if (pDataID.toLowerCase().equals("message") ||
              pDataID.toLowerCase().equals("msg"))
@@ -209,10 +210,14 @@ public class Client
  * TODO:  Fix the client and the Request Handler so that they don't
  *        quit before the request has actually been sent, not the header.
  */
-         for (int i = 0; i < 3; i++)
-            System.out.println(reader.readLine());
-         line = reader.readLine();
+         String str;
+         while ((str = reader.readLine()) != null)
+         {
+            line = str;
+            System.out.println(str);
+         }
 
+         System.err.println(line);
          socket.close();
          return line;
       }

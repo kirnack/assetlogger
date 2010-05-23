@@ -23,6 +23,18 @@ public class HttpRS
     */
    private static Unmarshaller cUnmarshaller;
 
+   private static Server cServer;
+
+   public static void setServer(Server pServer)
+   {
+      cServer = pServer;
+   }
+
+   public static Server getServer()
+   {
+      return cServer;
+   }
+
    /**
     * Default Contructor
     */
@@ -115,6 +127,48 @@ public class HttpRS
       return XML;
    }
 
+   public String getResponse(String command, String[] args)
+   {
+      Class[] classes = new Class[args.length];
+      Object[] params = new Object[args.length];
+      int i = 0;
+      for(String arg : args)
+      {
+         String[] split = arg.split(":");
+         if(split.length == 1)
+         {
+            classes[i] = String.class;
+            params[i] = arg;
+         }
+         else
+         {
+            try
+            {
+               classes[i] = Class.forName(split[0]);
+               System.err.print(Asset.class.getPackage());
+               if (classes[i].getPackage().equals(Asset.class.getPackage()))
+               {
+                  params[i] = (classes[i].cast(getObject(split[0])));
+               }
+               else
+               {
+                  params[i] =
+                     classes[i].getConstructor(String.class)
+                        .newInstance(split[0]);
+               }
+            }
+            catch(Exception e)
+            {
+               e.printStackTrace();
+               return e.toString();
+            }
+         }
+         i++;
+      }
+
+      return getResponse(command, classes, params);
+   }
+
    /**
     * Uses Reflection to determine the method and its parameters from the
     * unmarshalled XML objects, and then call the method.
@@ -123,7 +177,8 @@ public class HttpRS
     * @param params
     * @return
     */
-   public String getResponse(String command, String[] args)
+   public String getResponse(String command, Class[] argClasses,
+                             Object[] args)
    {
       if (command.equals("getAvailAsset"))
          getAvailAsset(args);
@@ -131,24 +186,39 @@ public class HttpRS
       int numArgs = args.length;
       try
       {
-         Class thisClass = Server.getInstance().getClass();
-         Method method = thisClass.getMethod(command);
-//         Class<?>[] argTypes = method.getParameterTypes();
+         Class thisClass = Server.class;
+         Method method = thisClass.getDeclaredMethod(command, argClasses);
          if (numArgs == 0)
-            response = method.invoke(command);
+         {
+            response = method.invoke(cServer);
+         }
          if (numArgs == 1)
-            response = method.invoke(args[0]);
+         {
+            response = method.invoke(cServer , argClasses[0].cast(args[0]));
+         }
          if (numArgs == 2)
-            response = method.invoke(args[0], args[1]);
+         {          
+            response = method.invoke(cServer, argClasses[0].cast(args[0]),
+               argClasses[1].cast(args[1]));
+         }
+
+         System.err.print(response);
 
          if ("Collection".equals(response.getClass().getName()))
             return getXML((Collection<?>)response);
+         else if ((response instanceof Asset) || (response instanceof User)
+            || (response instanceof Checkout) || (response instanceof Person)
+            || (response instanceof Request))
+            return getXML(response);
+         else
+            return response.toString();
       }
       catch (Exception ex)
       {
          ex.printStackTrace();
+         return "error:" + ex.toString();
       }
-      return getXML(response);
+      
    }
 
    /**

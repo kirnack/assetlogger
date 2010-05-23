@@ -517,10 +517,10 @@ public class RequestHandler
          for (int i = 0; i < numParams - 2; i++)
             params[i] = mRequestProps.get("param" + i +"");
 
-         writeHeader(RESP_STATUS_OK);
+         //writeHeader(RESP_STATUS_OK);
          HttpRS RS = new HttpRS();
          String response = RS.getResponse(mRequestProps.get("command"), params);
-         writeData(response);
+         writeResponse(response);
 
       }
    }

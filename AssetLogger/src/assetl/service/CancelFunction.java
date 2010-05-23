@@ -99,7 +99,8 @@ public class CancelFunction
          if (mCurrCheckout.getPickedupDate() != null)
          {
             mCurrCheckout.setActive(false);
-            mModel.setCheckout(mCurrCheckout);
+            mModel.setCheckout(mCurrCheckout,
+                               mControl.getCurrentUser().getID());
          }
       }
       else

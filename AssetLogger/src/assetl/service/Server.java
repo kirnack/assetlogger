@@ -110,7 +110,7 @@ public class Server
 
          if (!mFile.exists() || !mFile.isFile())
          {
-            //System.err.println("Making Database");
+            System.err.println("Making Database");
             createDB();
          }
          else
@@ -120,24 +120,9 @@ public class Server
                + mFile.getName());
 
             mStat = mConn.createStatement();
-
-            URL setupSQL = ClassLoader.getSystemResource(
-               Server.class.getPackage().getName().replace(".", "/")
-               + "/Update.sql");
-
-            //TODO: Fix the problem below
-
-            System.err.println("setupSQL: " + setupSQL);
-
-            System.err.println("problem");
-            File updateScript = new File(
-               setupSQL.toString().replace("file:", ""));
-            System.err.println("here");
-
-            //TODO: Fix the problem above
-
             BufferedReader in = new BufferedReader(
-               new FileReader(updateScript));
+            new InputStreamReader(
+            Server.class.getResourceAsStream("Update.sql")));
             Connection conn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
             ResultSet rs = conn.createStatement().executeQuery("Select "
@@ -179,13 +164,9 @@ public class Server
          mConn = DriverManager.getConnection("jdbc:sqlite:"
             + mFile.getName());
          mStat = mConn.createStatement();
-         URL setupSQL = ClassLoader.getSystemResource(
-            Server.class.getPackage().getName().replace(".", "/")
-            + "/AssetLoggerSetup.sql");
-         //System.err.println(setupSQL);
-         File name = new File(setupSQL.toString().replace("file:", ""));
-         //System.err.println(name);
-         BufferedReader in = new BufferedReader(new FileReader(name));
+         BufferedReader in = new BufferedReader(
+            new InputStreamReader(
+            Server.class.getResourceAsStream("AssetLoggerSetup.sql")));
          String str;
          while ((str = in.readLine()) != null)
          {

@@ -10,6 +10,7 @@ import java.lang.reflect.*;
  * function, and return the marshalled XML for transmission.
  *
  * @author Michael Hale
+ * @author Bryon Rogers
  */
 public class HttpRS
 {

@@ -13,6 +13,7 @@ public class ServerStarter
 {
    public static void main(String[] args)
    {
+      System.setProperty("dbfilename", "TestingGUI");
       new Thread(Server.getInstance()).run();
    }
 

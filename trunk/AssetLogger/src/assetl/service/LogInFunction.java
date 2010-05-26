@@ -50,6 +50,9 @@ public class LogInFunction
       {
          test = "";
          // Change to the next view
+         /*
+          * TODO: Problem with using the Client DatabaseControl here.
+          */
          DatabaseControl tempControl = (DatabaseControl) mControl;
          mControl.changeView("ID");
          mControl.enableFunction("LoadPerson");

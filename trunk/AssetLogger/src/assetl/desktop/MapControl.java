@@ -1,6 +1,7 @@
 package assetl.desktop;
 
 import assetl.service.DatabaseControl;
+import assetl.system.AssetLModel;
 
 /**
  * A desktop level version of the controller that is able to choose
@@ -19,6 +20,13 @@ public class MapControl
       super();
    }
 
+   /**
+    * Default Constructor
+    */
+   public MapControl(AssetLModel pModel)
+   {
+      super(pModel);
+   }
    /**
     * Sets the package for the class name needed to dynamically load the class
     */

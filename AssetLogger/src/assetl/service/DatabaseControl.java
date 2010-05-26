@@ -68,8 +68,13 @@ public abstract class DatabaseControl
     */
    public DatabaseControl()
    {
+      this(Server.getInstance());
+   }
+
+   public DatabaseControl(AssetLModel pModel)
+   {
       //get the model
-      mModel = Server.getInstance();
+      mModel = pModel;
 
       // TODO: delete the following line of test code
       //mModel = new Mimick();

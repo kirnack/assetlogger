@@ -12,6 +12,7 @@ import assetl.system.*;
  * pass the function call and the data to the client for transmission, and
  * unmarshal the response XML.
  * @author Michael Hale
+ * @author Bryon Rogers
  */
 public class HttpRQ
    implements AssetLModel
@@ -197,7 +198,9 @@ public class HttpRQ
     */
    public Person getPerson(String pID)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      Person person = (Person)
+         getObject((String) sendRequest("getPerson", pID));
+      return person;
    }
 
    /**
@@ -285,7 +288,9 @@ public class HttpRQ
     */
    public Integer getNumCheckouts()
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String result = (String) this.sendRequest("getNumCheckouts", null);
+      System.err.println(result);
+      return new Integer (result);
    }
 
    /**
@@ -295,7 +300,9 @@ public class HttpRQ
     */
    public Integer getNumLogs()
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String result = (String) this.sendRequest("getNumLogs", null);
+      System.err.println(result);
+      return new Integer (result);
    }
 
    /**
@@ -305,7 +312,9 @@ public class HttpRQ
     */
    public Integer getNumRequests()
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String result = (String) this.sendRequest("getNumRequests", null);
+      System.err.println(result);
+      return new Integer (result);
    }
 
    /**
@@ -379,6 +388,7 @@ public class HttpRQ
     */
    public void setRequest(Request pRequest, String pUserID)
    {
+
       throw new UnsupportedOperationException("Not supported yet.");
    }
 
@@ -391,7 +401,7 @@ public class HttpRQ
     */
    public Boolean checkPwd(String pID, String pPwd)
    {
-       String result = (String)
+       String result = 
           cClient.postData("checkPwd", "param0="+ pID + "&param1=" + pPwd);
        System.err.print(result);
 

@@ -1,5 +1,7 @@
 package assetl.desktop;
 
+import assetl.service.HttpRQ;
+
 /**
  * The entry point for the application.
  *
@@ -17,7 +19,7 @@ public class AssetLoggerClientMain
     */
    public static void main(String[] args)
    {
-      System.setProperty("dbfilename", "TestingGUI");
-      new Thread(new MapControlClient()).start();
+      
+      new Thread(new MapControl(HttpRQ.getInstance())).start();
    }
 }

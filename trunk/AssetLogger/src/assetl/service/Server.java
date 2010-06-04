@@ -6,6 +6,8 @@ import java.io.*;
 import java.net.*;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -117,14 +119,29 @@ public class Server
          }
          else
          {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+            java.util.Date date = new java.util.Date();
+
+            FileInputStream fin = new FileInputStream(mFile);
+            String backup = mFile.getAbsolutePath()
+               + ".backup_" +dateFormat.format(date);
+            FileOutputStream fout = new FileOutputStream(backup);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = fin.read(buffer)) > 0)
+            {
+               fout.write(buffer, 0, bytesRead);
+            }
+            fin.close();
+            fout.close();
             loadDatabaseDriver("org.sqlite.JDBC");
             mConn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
 
             mStat = mConn.createStatement();
             BufferedReader in = new BufferedReader(
-            new InputStreamReader(
-            Server.class.getResourceAsStream("Update.sql")));
+               new InputStreamReader(
+               Server.class.getResourceAsStream("Update.sql")));
             Connection conn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
             ResultSet rs = conn.createStatement().executeQuery("Select "
@@ -135,9 +152,10 @@ public class Server
             int compare = prevVersion.compareTo(in.readLine());
             System.err.println(compare);
             String str;
-            boolean startUpdate=false;
+            boolean startUpdate = false;
             if (compare < 0)
             {
+
                while ((str = in.readLine()) != null)
                {
                   System.err.println(str);
@@ -151,7 +169,7 @@ public class Server
                      {
                         new convertToPrivlageRights(mFile).update();
                      }
-                     else if(str.equals("ImplementPrivliageRights"))
+                     else if (str.equals("ImplementPrivliageRights"))
                      {
                         new encryptCurrentUsers(mFile).update();
                      }
@@ -253,7 +271,7 @@ public class Server
       Connection conn = null;
       try
       {
-          conn = DriverManager.getConnection("jdbc:sqlite:"
+         conn = DriverManager.getConnection("jdbc:sqlite:"
             + mFile.getName());
          ResultSet rs = conn.createStatement().executeQuery(
             "select * from requestors where"
@@ -365,7 +383,7 @@ public class Server
       Connection conn = null;
       try
       {
-          conn = DriverManager.getConnection("jdbc:sqlite:"
+         conn = DriverManager.getConnection("jdbc:sqlite:"
             + mFile.getName());
          ResultSet rs = conn.createStatement().executeQuery("select * from assets where"
             + " AssetID='" + pID + "';");
@@ -640,7 +658,7 @@ public class Server
          {
             Checkout temp = null;
             conn = DriverManager.getConnection("jdbc:sqlite:"
-                   + mFile.getName());
+               + mFile.getName());
             System.err.println("Retreivinng " + pCheckout.getID());
             //Retrieves data from database to see if the person needs to be added,
             //and also to check to see if there is an actual need to update te data.
@@ -1077,7 +1095,7 @@ public class Server
          try
          {
             while (rs.next())
-            {          
+            {
 
 
 
@@ -1120,12 +1138,12 @@ public class Server
             ids += (("".equals(ids)) ? "" : ", ") + "\"" + id + "\"";
          }
 
-         rs =  conn.createStatement().executeQuery(
-            "select * from assets where Assets.inMaintenance=0 and" +
-            " assetid not in (" + ids + ");");/* +
-            "or not exists (select assetid " +
-            "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
-            ");");*/
+         rs = conn.createStatement().executeQuery(
+            "select * from assets where Assets.inMaintenance=0 and"
+            + " assetid not in (" + ids + ");");/* +
+         "or not exists (select assetid " +
+         "from checkouts where checkouts.assetid=assets.assetid and active=1) " +
+         ");");*/
 
          try
          {
@@ -1439,10 +1457,11 @@ public class Server
          mPoolSize = getInteger("poolSize", DEFAULT_POOL_SIZE);
 
          Server me = this;
-         
+
          initPool();
 
-         int serverPort = getInteger("serverPort", WebServerConstants.DEFAULT_SERVER_PORT);
+         int serverPort = getInteger("serverPort",
+            WebServerConstants.DEFAULT_SERVER_PORT);
 
          mServerSocket = new ServerSocket(serverPort);
 

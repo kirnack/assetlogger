@@ -10,6 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import resources.convertToPrivlageRights;
+import resources.encryptCurrentUsers;
 
 import static resources.Config.*;
 import static assetl.system.WebServerConstants.*;
@@ -127,20 +129,42 @@ public class Server
                + mFile.getName());
             ResultSet rs = conn.createStatement().executeQuery("Select "
                + "ChangeString from DatabaseInfo");
-            String str = rs.getString(1);
+            String prevVersion = rs.getString(1);
             rs.close();
-            System.err.println(str);
-            int compare = str.compareTo(in.readLine());
+            System.err.println(prevVersion);
+            int compare = prevVersion.compareTo(in.readLine());
             System.err.println(compare);
+            String str;
+            boolean startUpdate=false;
             if (compare < 0)
             {
                while ((str = in.readLine()) != null)
                {
                   System.err.println(str);
-                  mConn.prepareStatement(str).execute();
+                  if (str.startsWith("/") && !startUpdate)
+                  {
+                     startUpdate = prevVersion.equals(str.split("/")[1]);
+                  }
+                  else if (startUpdate)
+                  {
+                     if (str.equals("ImplementPrivliageRights"))
+                     {
+                        new convertToPrivlageRights(mFile).update();
+                     }
+                     else if(str.equals("ImplementPrivliageRights"))
+                     {
+                        new encryptCurrentUsers(mFile).update();
+                     }
+                     else
+                     {
+                        mConn.prepareStatement(str).execute();
+                     }
+                  }
                }
+               mConn.commit();
             }
          }
+         mConn.setAutoCommit(false);
       }
       catch (Exception e)
       {
@@ -715,7 +739,6 @@ public class Server
     */
    public synchronized void setRequest(Request pRequest, String pUserID)
    {
-      Connection conn = null;
       try
       {
          //System.err.println("Retreivinng " + pRequest.getID());
@@ -729,7 +752,7 @@ public class Server
          {
             pRequest.setID(Integer.toString(getNumRequests() + 1));
             System.err.println("Adding " + pRequest.getID());
-            prepReq = conn.prepareStatement(
+            prepReq = mConn.prepareStatement(
                "insert into Requests values (?, ?, ?, ?, ?, '"
                + pUserID + "');");
          }
@@ -742,7 +765,7 @@ public class Server
                || pRequest.getRequstType().equals(temp.getRequstType()))
             {
                System.err.println("Updating " + pRequest.getID());
-               prepReq = conn.prepareStatement(
+               prepReq = mConn.prepareStatement(
                   "update Requests set RequestID = ?, RequestedMadeDate = ?,"
                   + " RequestedPickupDate = ?, RequestedType = ?,"
                   + " RequestorID = ?, UserID ='" + pUserID
@@ -761,7 +784,7 @@ public class Server
             prepReq.setString(5, pRequest.getRequestor().getID());
             prepReq.execute();
          }
-
+         mConn.commit();
          prepReq.close();
          for (Checkout checkout : pRequest.getCheckouts())
          {
@@ -774,17 +797,6 @@ public class Server
       }
       catch (NullPointerException e)
       {
-      }
-      finally
-      {
-         try
-         {
-            conn.close();
-         }
-         catch (Exception e)
-         {
-            e.printStackTrace();
-         }
       }
    }
 

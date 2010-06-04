@@ -9,6 +9,7 @@ import assetl.system.AssetLControl;
 import assetl.system.DataPacket;
 import assetl.system.LoginPacket;
 import java.awt.event.KeyEvent;
+import resources.SecurityFunctions;
 
 /**
  * Allows user to login to the application
@@ -174,10 +175,19 @@ public class LoginView
    public DataPacket grabDataPacket(String pFunction)
    {
       // Create and send a new LoginPacket
-
+      String password = new String(mPwrdTxtFld.getPassword());
+      try
+      {
       mPacket = new LoginPacket(mUserTxtFld.getText(),
-         new String(mPwrdTxtFld.getPassword()));
-
+                  SecurityFunctions.byteArrayToHexString(
+             SecurityFunctions.computeHash(password)));
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace();
+         System.err.println("Problem hashing the password.");
+         mPacket = null;
+      }
       return mPacket;
    }
 

@@ -1,17 +1,13 @@
-1.0.0.3
-/1.0.0.0
+vr1.0.0.3
+EncryptPasswords
+vr1.0.0.2
+delete from DatabaseInfo;
+insert into DatabaseInfo values (1, "1.0.0.3");
+vr1.0.0.1
+vr1.0.0.0
 create table temp (AssetID varchar(255) PRIMARY KEY, Make varchar(255), Model varchar(255), SerialNumber varchar(255), AssetType varchar(255), Description varchar(255), inMaintenance boolean);
 insert into temp (AssetID, Make, Model, SerialNumber, AssetType, Description) select * from Assets;
 drop table Assets;
 alter table temp rename to Assets;
-/1.0.0.1
-create table temp (UserID varchar(255) PRIMARY KEY, Password varchar(255), isAdmin INTEGER);
-insert into temp (UserID, Password, isAdmin) select * from Users;
-drop table Users;
-alter table temp rename to Users;
-ImplementPrivliageRights
-insert into Users values ("helpdesk", "911", 1);
-/1.0.0.2
-EncryptPasswords
 delete from DatabaseInfo;
 insert into DatabaseInfo values (1, "1.0.0.3");

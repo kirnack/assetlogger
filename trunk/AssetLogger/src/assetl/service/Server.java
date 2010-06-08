@@ -1,5 +1,6 @@
 package assetl.service;
 
+import assetl.service.alus.ScriptAction;
 import assetl.system.*;
 
 import java.io.*;
@@ -12,9 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import resources.convertToPrivlageRights;
-import resources.encryptCurrentUsers;
 
+import static assetl.service.alus.UpdateScriptKeywords.*;
 import static resources.Config.*;
 import static assetl.system.WebServerConstants.*;
 
@@ -119,21 +119,6 @@ public class Server
          }
          else
          {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-            java.util.Date date = new java.util.Date();
-
-            FileInputStream fin = new FileInputStream(mFile);
-            String backup = mFile.getAbsolutePath()
-               + ".backup_" +dateFormat.format(date);
-            FileOutputStream fout = new FileOutputStream(backup);
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = fin.read(buffer)) > 0)
-            {
-               fout.write(buffer, 0, bytesRead);
-            }
-            fin.close();
-            fout.close();
             loadDatabaseDriver("org.sqlite.JDBC");
             mConn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
@@ -141,7 +126,7 @@ public class Server
             mStat = mConn.createStatement();
             BufferedReader in = new BufferedReader(
                new InputStreamReader(
-               Server.class.getResourceAsStream("Update.sql")));
+               Server.class.getResourceAsStream("Update.alus")));
             Connection conn = DriverManager.getConnection("jdbc:sqlite:"
                + mFile.getName());
             ResultSet rs = conn.createStatement().executeQuery("Select "
@@ -151,38 +136,12 @@ public class Server
             System.err.println(prevVersion);
             int compare = prevVersion.compareTo(in.readLine());
             System.err.println(compare);
-            String str;
-            boolean startUpdate = false;
             if (compare < 0)
             {
-
-               while ((str = in.readLine()) != null)
-               {
-                  System.err.println(str);
-                  if (str.startsWith("/") && !startUpdate)
-                  {
-                     startUpdate = prevVersion.equals(str.split("/")[1]);
-                  }
-                  else if (startUpdate)
-                  {
-                     if (str.equals("ImplementPrivliageRights"))
-                     {
-                        new convertToPrivlageRights(mFile).update();
-                     }
-                     else if (str.equals("ImplementPrivliageRights"))
-                     {
-                        new encryptCurrentUsers(mFile).update();
-                     }
-                     else
-                     {
-                        mConn.prepareStatement(str).execute();
-                     }
-                  }
-               }
-               mConn.commit();
+               update(in, prevVersion);
             }
+            mConn.setAutoCommit(false);
          }
-         mConn.setAutoCommit(false);
       }
       catch (Exception e)
       {
@@ -191,6 +150,88 @@ public class Server
          System.exit(-1);
       }
       HttpRS.setServer(this);
+   }
+
+   private boolean update(BufferedReader pIn, String prevVersion)
+   {
+      try
+      {
+         String str;
+         boolean startUpdate = false;
+         backup();
+         int i = 1;
+         while ((str = pIn.readLine()) != null)
+         {
+            if (str.startsWith("/") && !startUpdate)
+            {
+               startUpdate = prevVersion.equals(str.split("/")[1]);
+               System.err.println(str);
+            }
+            else if (startUpdate && !str.startsWith("/"))
+            {
+               System.err.println(str);
+               if (KEYWORDS.containsKey(str))
+               {
+                  if (!(((ScriptAction) KEYWORDS.get(str).
+                     getConstructor(File.class)
+                     .newInstance(mFile)).update()))
+                  {
+                     System.err.println("Could not run '" + str + "' on line "
+                        + i + ".");
+                     return false;
+                  }
+               }
+               else
+               {
+                  try
+                  {
+                     mConn.prepareStatement(str).execute();
+                  }
+                  catch (Exception e)
+                  {
+                     System.err.println("Error on line " + i +
+                        " with '" + str + "'.");
+                     e.printStackTrace();
+                  }
+               }
+            }
+            i++;
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+         return false;
+      }
+      return true;
+   }
+
+   private
+
+    void backup()
+   {
+      try
+      {
+         DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+         java.util.Date date = new java.util.Date();
+
+         FileInputStream fin = new FileInputStream(mFile);
+         String backup = mFile.getAbsolutePath()
+            + ".backup_" + dateFormat.format(date);
+         FileOutputStream fout = new FileOutputStream(backup);
+         byte[] buffer = new byte[1024];
+         int bytesRead;
+         while ((bytesRead = fin.read(buffer)) > 0)
+         {
+            fout.write(buffer, 0, bytesRead);
+         }
+         fin.close();
+         fout.close();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
    }
 
    /**

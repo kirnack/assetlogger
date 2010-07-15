@@ -5,6 +5,7 @@ import assetl.system.*;
 
 import java.io.*;
 import java.net.*;
+import java.security.KeyStore;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -13,6 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 
 import static assetl.service.alus.UpdateScriptKeywords.*;
 import static resources.Config.*;
@@ -1493,33 +1499,50 @@ public class Server
    @Override
    public void run()
    {
-      try
-      {
-         mPoolSize = getInteger("poolSize", DEFAULT_POOL_SIZE);
+      String ksName = System.getProperty("keystore", "al.jks");
+       char ksPass[] = System.getProperty("keyPassword", "AssetLogger")
+                                 .toCharArray();
+       char ctPass[] = System.getProperty("certificatePassword",
+                              "AssetLogger").toCharArray();
+       try
+       {
+           KeyStore ks = KeyStore.getInstance("JKS");
+           ks.load(Server.class.getResourceAsStream(ksName), ksPass);
+           KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+           kmf.init(ks,ctPass);
 
-         Server me = this;
+          mPoolSize = getInteger("poolSize", DEFAULT_POOL_SIZE);
 
+          SSLContext sc = SSLContext.getInstance("TLS");
+          sc.init(kmf.getKeyManagers(), null, null);
+          sc.init(kmf.getKeyManagers(), null, null);
+         // initialize the request pool
          initPool();
 
-         int serverPort = getInteger("serverPort",
-            WebServerConstants.DEFAULT_SERVER_PORT);
-
-         mServerSocket = new ServerSocket(serverPort);
-
-         //accept connections and process them
+         // setup listener
+         int serverPort = getInteger("serverPort", DEFAULT_SERVER_PORT);
+         SSLServerSocketFactory fact = sc.getServerSocketFactory();
+         mServerSocket = (SSLServerSocket) fact.createServerSocket(serverPort);
          while (RequestHandler.isConnected())
          {
-            Socket incoming = mServerSocket.accept();
-            System.err.print("Made connection.");
-            incoming.setSoTimeout(2000);
-            runPool(incoming);
-            mConnectionCount++;
+            SSLSocket incoming = (SSLSocket) mServerSocket.accept();
+            try
+            {
+                incoming.setSoTimeout(2000);
+                System.err.println("Handing Off connection");
+                runPool((SSLSocket) incoming);
+                mConnectionCount++;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
          }
       }
       catch (Exception e)
       {
-         System.out.println("Error - " + e);
-         //e.printStackTrace();
+         System.err.println("Error - " + e);
+         e.printStackTrace();
       }
       finally
       {

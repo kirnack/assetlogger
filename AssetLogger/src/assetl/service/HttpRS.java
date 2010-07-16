@@ -182,13 +182,14 @@ public class HttpRS
                              Object[] args)
    {
       if (command.equals("getAvailAsset"))
+      {
          getAvailAsset(args);
+      }
       Object response= new Object();
       int numArgs = args.length;
       try
       {
-         Class thisClass = Server.class;
-         Method method = thisClass.getDeclaredMethod(command, argClasses);
+         Method method = Server.class.getDeclaredMethod(command, argClasses);
          if (numArgs == 0)
          {
             response = method.invoke(cServer);
@@ -206,13 +207,19 @@ public class HttpRS
          System.err.print(response);
 
          if ("Collection".equals(response.getClass().getName()))
+         {
             return getXML((Collection<?>)response);
+         }
          else if ((response instanceof Asset) || (response instanceof User)
             || (response instanceof Checkout) || (response instanceof Person)
             || (response instanceof Request))
+         {
             return getXML(response);
+         }
          else
+         {
             return response.toString();
+         }
       }
       catch (Exception ex)
       {

@@ -104,16 +104,44 @@ public class HttpRQ
       String XML = new String();
       try
       {
+         if (obj instanceof String)
+         {
+            XML = (String) obj;
+         }
+         else
+         {
          ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
          cMarshaller.marshal(obj, BAOS);
          XML = BAOS.toString();
          BAOS.flush();
+         }
       }
       catch (Exception ex)
       {
          ex.printStackTrace();
       }
       return XML;
+   }
+
+   private Object sendRequest(String command, String string)
+   {
+      String response;
+      if (!(string.equals("")))
+      {
+         String XML = string;
+         if (!(string.contains("param0=")))
+         {
+            XML = "param0=" + string;
+         }
+         System.err.print(XML);
+         response = cClient.postData(command, XML);
+      }
+      else
+      {
+         response = cClient.postData(command, null);
+      }
+       
+      return response;
    }
 
    /**
@@ -138,14 +166,16 @@ public class HttpRQ
     */
    private Object sendRequest(String command, Object[] params)
    {
-      String XML = "param0=" + getXML(params[0]);
-      for (int i = 1; i < params.length; i++)
+      String XML = new String();
+      for (int i = 0; i < params.length; i++)
       {
-         XML += "&param" + i + "=" + params[i].getClass() + ":";
+         XML += ((i > 0) ? "&":"")+"param" + i + "=" 
+             + params[i].getClass().toString().replace("class ", "" ) + ":";
          if (params[i].getClass().getPackage().equals(Asset.class.getPackage()))
          {
             XML += getXML(params[i]);
          }
+         else
          {
             XML+= params[i].toString();
          }
@@ -211,7 +241,9 @@ public class HttpRQ
     */
    public Request getRequest(String pID)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      Request Request = (Request)
+         getObject((String) sendRequest("getRequest", pID));
+       return Request;
    }
 
    /**
@@ -222,7 +254,9 @@ public class HttpRQ
     */
    public User getUser(String pID)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      User user = (User)
+         getObject((String) sendRequest("getUser", pID));
+       return user;
    }
 
    /**
@@ -288,7 +322,7 @@ public class HttpRQ
     */
    public Integer getNumCheckouts()
    {
-      String result = (String) this.sendRequest("getNumCheckouts", null);
+      String result = (String) this.sendRequest("getNumCheckouts", "");
       System.err.println(result);
       return new Integer (result);
    }
@@ -300,7 +334,7 @@ public class HttpRQ
     */
    public Integer getNumLogs()
    {
-      String result = (String) this.sendRequest("getNumLogs", null);
+      String result = (String) this.sendRequest("getNumLogs", "");
       System.err.println(result);
       return new Integer (result);
    }
@@ -312,7 +346,7 @@ public class HttpRQ
     */
    public Integer getNumRequests()
    {
-      String result = (String) this.sendRequest("getNumRequests", null);
+      String result = (String) this.sendRequest("getNumRequests", "");
       System.err.println(result);
       return new Integer (result);
    }
@@ -335,7 +369,7 @@ public class HttpRQ
     */
    public Integer getAccessLevel(String pID)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      return getUser(pID).adminRights();
    }
 
    /**
@@ -345,7 +379,7 @@ public class HttpRQ
     */
    public void setAsset(Asset pAsset)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      sendRequest("setAsset", pAsset);
    }
 
    /**
@@ -367,7 +401,8 @@ public class HttpRQ
     */
    public void setCheckout(Checkout pCheckout, String pUserID)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      Object[] array = {pCheckout, pUserID};
+      this.sendRequest("setCheckout", array);
    }
 
    /**
@@ -377,7 +412,7 @@ public class HttpRQ
     */
    public void setPerson(Person pPerson)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      sendRequest("setPerson", pPerson);
    }
 
    /**
@@ -388,8 +423,8 @@ public class HttpRQ
     */
    public void setRequest(Request pRequest, String pUserID)
    {
-
-      throw new UnsupportedOperationException("Not supported yet.");
+      Object[] array = {pRequest, pUserID};
+      this.sendRequest("setRequest", array);
    }
 
    /**

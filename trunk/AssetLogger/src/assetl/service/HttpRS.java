@@ -151,6 +151,10 @@ public class HttpRS
                {
                   params[i] = (classes[i].cast(getObject(split[1])));
                }
+               else if (classes[i].isAssignableFrom(Date.class))
+               {
+                  params[i] = new Date(Long.parseLong(split[1]));
+               }
                else
                {
                   params[i] =
@@ -176,15 +180,16 @@ public class HttpRS
     *
     * @param command
     * @param params
-    * @return
+    * @return instanceof Date
+    *
     */
    public String getResponse(String command, Class[] argClasses,
                              Object[] args)
    {
-      if (command.equals("getAvailAsset"))
-      {
-         getAvailAsset(args);
-      }
+      //if (command.equals("getAvailAsset"))
+      //{
+      //   getAvailAsset(args);
+      //}
       Object response= new Object();
       int numArgs = args.length;
       try
@@ -203,7 +208,7 @@ public class HttpRS
             response = method.invoke(cServer, argClasses[0].cast(args[0]),
                argClasses[1].cast(args[1]));
          }
-
+         
          System.err.println(response);
          if (response instanceof Collection)
          {

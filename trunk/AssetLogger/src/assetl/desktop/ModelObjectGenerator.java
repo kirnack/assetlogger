@@ -1,5 +1,6 @@
 package assetl.desktop;
 
+import assetl.service.DefualtAssetLModel;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +30,12 @@ public class ModelObjectGenerator
     */
    static
    {
-      cControl = new MapControl();
+      cControl = new MapControl(new DefualtAssetLModel());
+   }
+
+   public static void setControl(AssetLControl pControl)
+   {
+      cControl = pControl;
    }
 
    /**

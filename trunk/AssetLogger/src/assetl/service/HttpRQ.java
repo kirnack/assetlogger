@@ -176,15 +176,17 @@ public class HttpRQ
          {
             XML += getXML(params[i]);
          }
+         else if (params[i] instanceof Date)
+         {
+            XML += ((Date) params[i]).getTime();
+         }
          else
          {
             XML+= params[i].toString();
          }
       }
 
-      System.err.print(XML);
-      String response = cClient.postData(command, XML);      
-      return response;
+      return sendRequest(command, XML);
    }
 
    /**
@@ -268,7 +270,11 @@ public class HttpRQ
     */
    public Collection<Asset> getAssets(Person pPerson)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String xml = (String) sendRequest("getAssets", pPerson);
+      System.out.println(xml);
+      Collection<Asset> result = (Collection<Asset>)
+         getObject(xml);
+      return result;
    }
 
    /**
@@ -280,7 +286,12 @@ public class HttpRQ
     */
    public Collection<Asset> getAvailAsset(Date pStart, Date pEnd)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      Object[] array = {pStart, pEnd};
+      String xml = (String) sendRequest("getAvailAsset", array);
+      System.out.println(xml);
+      Collection<Asset> result = (Collection<Asset>)
+         getObject(xml);
+      return result;
    }
 
    /**
@@ -291,7 +302,12 @@ public class HttpRQ
     */
    public Collection<Person> getBorrowers(Asset pAsset)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String xml = (String) sendRequest("getBorrowers", pAsset);
+      System.out.println(xml);
+      Collection<Person> result = (Collection<Person>)
+         getObject(xml);
+      return result;
+
    }
 
    /**
@@ -302,7 +318,11 @@ public class HttpRQ
     */
    public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String xml = (String) sendRequest("getCheckouts", pAsset);
+      System.out.println(xml);
+      Collection<Checkout> result = (Collection<Checkout>)
+         getObject(xml);
+      return result;
    }
 
    /**
@@ -313,7 +333,11 @@ public class HttpRQ
     */
    public Collection<Checkout> getCheckouts(Request pRequest)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String xml = (String) sendRequest("getCheckouts", pRequest);
+      System.out.println(xml);
+      Collection<Checkout> result = (Collection<Checkout>)
+         getObject(xml);
+      return result;
    }
 
    /**
@@ -359,7 +383,11 @@ public class HttpRQ
     */
    public Collection<User> getUsers()
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String xml = (String) sendRequest("getUsers", "");
+      System.out.println(xml);
+      Collection<User> result = (Collection<User>)
+         getObject(xml);
+      return result;
    }
 
    /**

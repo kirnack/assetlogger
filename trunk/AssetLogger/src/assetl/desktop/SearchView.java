@@ -242,7 +242,8 @@ public class SearchView
     */
    public void updateBorrowers()
    {
-      Asset asset = ModelObjectGenerator.fetchAsset(mDataFld.getText());
+      Asset asset = new Asset();
+      asset.setID(mDataFld.getText());
       if (asset != null)
       {
          for (Person person : mControl.getPastBorrowers(asset))

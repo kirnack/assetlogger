@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.*;
  * @author Bryon Rogers3
  * @author Modified by Michael Hale
  */
-@XmlRootElement(name = "asset")
+@XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User
 {

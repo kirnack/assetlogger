@@ -149,7 +149,7 @@ public class HttpRS
                System.err.print(Asset.class.getPackage());
                if (classes[i].getPackage().equals(Asset.class.getPackage()))
                {
-                  params[i] = (classes[i].cast(getObject(split[0])));
+                  params[i] = (classes[i].cast(getObject(split[1])));
                }
                else
                {
@@ -204,11 +204,12 @@ public class HttpRS
                argClasses[1].cast(args[1]));
          }
 
-         System.err.print(response);
-
-         if ("Collection".equals(response.getClass().getName()))
+         System.err.println(response);
+         if (response instanceof Collection)
          {
-            return getXML((Collection<?>)response);
+            String xml = getXML(response);
+            System.err.println(xml);
+            return xml;
          }
          else if ((response instanceof Asset) || (response instanceof User)
             || (response instanceof Checkout) || (response instanceof Person)

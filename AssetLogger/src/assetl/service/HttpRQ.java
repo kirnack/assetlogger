@@ -169,8 +169,9 @@ public class HttpRQ
       String XML = new String();
       for (int i = 0; i < params.length; i++)
       {
-         XML += ((i > 0) ? "&":"")+"param" + i + "=" 
-             + params[i].getClass().toString().replace("class ", "" ) + ":";
+         XML += ((i != 0) ? "&":"") + "param" + i + "="
+           + params[i].getClass().toString().replace("class ", "")
+           + ":";
          if (params[i].getClass().getPackage().equals(Asset.class.getPackage()))
          {
             XML += getXML(params[i]);
@@ -205,7 +206,7 @@ public class HttpRQ
     */
    public Checkout getCheckout(Asset pAsset)
    {
-      return (Checkout)sendRequest("getCheckout", pAsset);
+      return (Checkout)getObject((String) sendRequest("getCheckout", pAsset));
    }
 
    /**
@@ -451,6 +452,10 @@ public class HttpRQ
     */
    public Collection<Request> getActiveRequests(Person pPerson)
    {
-      throw new UnsupportedOperationException("Not supported yet.");
+      String xml = (String) sendRequest("getActiveRequests", pPerson);
+      System.out.println(xml);
+      Collection<Request> result = (Collection<Request>)
+         getObject(xml);
+      return result;
    }
 }

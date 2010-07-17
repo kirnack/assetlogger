@@ -361,7 +361,7 @@ public class RequestHandler
          throw new RuntimeException("Invalid command: " + mCommand);
       }
 
-      mSocket.shutdownOutput();
+      mSocket.close();
    }
 
    /**
@@ -521,7 +521,6 @@ public class RequestHandler
          HttpRS RS = new HttpRS();
          String response = RS.getResponse(mRequestProps.get("command"), params);
          writeResponse(response);
-
       }
    }
 

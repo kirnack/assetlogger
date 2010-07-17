@@ -83,4 +83,25 @@ public class ObjectFactory
    {
       return new User();
    }
+
+   public ALArrayList<User> createUserCollection()
+   {
+      return new ALArrayList<User>();
+   }
+
+   public ALArrayList<Request> createRequestCollection()
+   {
+      return new ALArrayList<Request>();
+   }
+
+   public ALArrayList<Asset> createAssetCollection()
+   {
+      return new ALArrayList<Asset>();
+   }
+
+   public ALArrayList<Checkout> createCheckoutCollection()
+   {
+      return new ALArrayList<Checkout>();
+   }
+
 }

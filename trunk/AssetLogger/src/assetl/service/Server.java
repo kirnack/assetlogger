@@ -593,7 +593,7 @@ public class Server
     */
    public Collection<Checkout> getCheckouts(Request pRequest)
    {
-      Collection<Checkout> checkouts = new ArrayList<Checkout>();
+      Collection<Checkout> checkouts = new ALArrayList<Checkout>();
       Connection conn = null;
       try
       {
@@ -886,7 +886,7 @@ public class Server
     */
    public Collection<Checkout> getCheckedOutCheckouts(Asset pAsset)
    {
-      Collection<Checkout> checkouts = new ArrayList<Checkout>();
+      Collection<Checkout> checkouts = new ALArrayList<Checkout>();
       Connection conn = null;
       try
       {
@@ -937,7 +937,7 @@ public class Server
     */
    public Collection<Checkout> getActiveCheckouts(Asset pAsset)
    {
-      Collection<Checkout> checkouts = new ArrayList<Checkout>();
+      Collection<Checkout> checkouts = new ALArrayList<Checkout>();
       Connection conn = null;
       try
       {
@@ -1004,7 +1004,7 @@ public class Server
     */
    public Collection<User> getUsers()
    {
-      Collection<User> users = new ArrayList<User>();
+      Collection<User> users = new ALArrayList<User>();
       Connection conn = null;
       try
       {
@@ -1128,7 +1128,7 @@ public class Server
     */
    public Collection<Asset> getAvailAsset(Date pStart, Date pEnd)
    {
-      Collection<Asset> assets = new ArrayList<Asset>();
+      Collection<Asset> assets = new ALArrayList<Asset>();
       ArrayList<String> assetIDs = new ArrayList<String>();
       Connection conn = null;
       try
@@ -1238,7 +1238,7 @@ public class Server
     */
    public Collection<Person> getBorrowers(Asset pAsset)
    {
-      Collection<Person> borrowers = new ArrayList<Person>();
+      Collection<Person> borrowers = new ALArrayList<Person>();
       Connection conn = null;
       try
       {
@@ -1282,7 +1282,7 @@ public class Server
     */
    public Collection<Request> getActiveRequests(Person pPerson)
    {
-      Collection<Request> requests = new ArrayList<Request>();
+      Collection<Request> requests = new ALArrayList<Request>();
       Connection conn = null;
       try
       {
@@ -1334,7 +1334,7 @@ public class Server
     */
    public Collection<Asset> getAssets(Person pPerson)
    {
-      Collection<Asset> assets = new ArrayList<Asset>();
+      Collection<Asset> assets = new ALArrayList<Asset>();
       Connection conn = null;
 
       try

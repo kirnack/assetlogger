@@ -22,4 +22,4 @@ There are two Models used in the current implementation.
 Here is a little video we created to explian MVC.
 ----
 <wiki:video url="http://www.youtube.com/watch?v=2XGec-MTdKo"/>
----
+----

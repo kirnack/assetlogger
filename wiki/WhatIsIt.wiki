@@ -6,6 +6,7 @@ Asset Logger is a program designed to manage fixed assets, such as
 laptops and computers.  It was originally developed for the Brigham 
 Young University - Idaho Helpdesk.  
 
+----
 = Design =
 The major design pattern of Asset Logger is MVC.  
 
@@ -16,7 +17,7 @@ There are two Models used in the current implementation.
 === Asset Logger Server ===
   * Uses JDBC to communicate with a SQLite 3 database 
 
-
+----
 = MVC =
 
 Here is a little video we created to explian MVC.

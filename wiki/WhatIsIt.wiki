@@ -7,7 +7,7 @@ laptops and computers.  It was originally developed for the Brigham
 Young University - Idaho Helpdesk.  
 
 = Design =
-The major design pattern of Asset Logger is <wiki:video url="http://www.youtube.com/watch?v=2XGec-MTdKo">MVC</wiki:video>.  
+The major design pattern of Asset Logger is MVC.  
 
 == Model ==
 
@@ -16,9 +16,8 @@ There are two Models used in the current implementation.
 === Asset Logger Server ===
   * Uses JDBC to communicate with a SQLite 3 database 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= MVC =
+
+Here is a little video we created to explian MVC.
+<wiki:video url="http://www.youtube.com/watch?v=2XGec-MTdKo"/>

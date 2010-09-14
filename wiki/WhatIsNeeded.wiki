@@ -1,0 +1,25 @@
+#heading List of Things Needed
+
+= Server Side =
+
+* Sanitization of strings for SQL statements.
+*  
+
+----
+= Design =
+The major design pattern of Asset Logger is MVC.  
+
+== Model ==
+
+There are two Models used in the current implementation.
+
+=== Asset Logger Server ===
+  * Uses JDBC to communicate with a SQLite 3 database 
+
+----
+= MVC =
+
+Here is a little video we created to explian MVC.
+
+<wiki:video url="http://www.youtube.com/watch?v=2XGec-MTdKo"/>
+----

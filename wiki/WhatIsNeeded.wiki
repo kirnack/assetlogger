@@ -1,5 +1,5 @@
 #summary List of Things Needed
-#labels Phase-Requirements,Phase-Implementation,Phase-Design,Featured
+#labels Phase-Requirements,Phase-Implementation,Phase-Design
 
 = Server Side =
 

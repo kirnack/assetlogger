@@ -4,7 +4,18 @@
 
 Asset Logger is a program designed to manage fixed assets, such as
 laptops and computers.  It was originally developed for the Brigham 
-Young University - Idaho Helpdesk.  
+Young University - Idaho Helpdesk.
+
+---
+
+= Mascot: Al =
+
+Al was the most responsible lumberjack in the only lumber camp in the
+Gersy Mountains. If you needed a tool he would know where that tool
+was and who had ever used that tool. One day he decided to leave the
+lumber camp. He eventually made his way to a college's IT department
+and helped keep track of the laptops. Now he wants to help everyone
+keep track of all types of assets.
 
 ----
 = Design =
@@ -20,7 +31,7 @@ There are two Models used in the current implementation.
 ----
 = MVC =
 
-Here is a little video we created to explian MVC.
+Here is a little video we created to explain MVC.
 
 <wiki:video url="http://www.youtube.com/watch?v=2XGec-MTdKo"/>
 ----

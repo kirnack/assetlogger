@@ -17,6 +17,8 @@ lumber camp. He eventually made his way to a college's IT department
 and helped keep track of the laptops. Now he wants to help everyone
 keep track of all types of assets.
 
+Curent redision of Al by Joshua Mueller.
+
 ----
 = Design =
 The major design pattern of Asset Logger is MVC.  

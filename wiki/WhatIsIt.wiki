@@ -6,7 +6,7 @@ Asset Logger is a program designed to manage fixed assets, such as
 laptops and computers.  It was originally developed for the Brigham 
 Young University - Idaho Helpdesk.
 
----
+----
 
 = Mascot: Al =
 

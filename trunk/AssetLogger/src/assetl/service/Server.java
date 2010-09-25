@@ -804,6 +804,7 @@ public class Server
     */
    public synchronized void setRequest(Request pRequest, String pUserID)
    {
+       Connection conn = null;
       try
       {
          //System.err.println("Retreivinng " + pRequest.getID());
@@ -811,13 +812,14 @@ public class Server
          //and also to check to see if there is an actual need to update te data.
          Request temp = null;
          PreparedStatement prepReq = null;
-
+         conn =  DriverManager.getConnection("jdbc:sqlite:"
+               + mFile.getName());
          if (("".equals(pRequest.getID()))
             || ((temp = getRequest(pRequest.getID())) == null))
          {
             pRequest.setID(Integer.toString(getNumRequests() + 1));
             System.err.println("Adding " + pRequest.getID());
-            prepReq = mConn.prepareStatement(
+            prepReq = conn.prepareStatement(
                "insert into Requests values (?, ?, ?, ?, ?, '"
                + pUserID + "');");
          }
@@ -830,7 +832,7 @@ public class Server
                || pRequest.getRequstType().equals(temp.getRequstType()))
             {
                System.err.println("Updating " + pRequest.getID());
-               prepReq = mConn.prepareStatement(
+               prepReq = conn.prepareStatement(
                   "update Requests set RequestID = ?, RequestedMadeDate = ?,"
                   + " RequestedPickupDate = ?, RequestedType = ?,"
                   + " RequestorID = ?, UserID ='" + pUserID
@@ -849,7 +851,7 @@ public class Server
             prepReq.setString(5, pRequest.getRequestor().getID());
             prepReq.execute();
          }
-         mConn.commit();
+         //conn.commit();
          prepReq.close();
          for (Checkout checkout : pRequest.getCheckouts())
          {
@@ -859,6 +861,13 @@ public class Server
       catch (SQLException e)
       {
          e.printStackTrace(System.err);
+         try
+         {
+            conn.close();
+         }
+         catch (Exception ex)
+         {
+         }
       }
       catch (NullPointerException e)
       {

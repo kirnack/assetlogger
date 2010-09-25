@@ -135,7 +135,7 @@ public class HttpRS
       int i = 0;
       for(String arg : args)
       {
-         String[] split = arg.split(":");
+         String[] split = arg.split(":", 2);
          if(split.length == 1)
          {
             classes[i] = String.class;

@@ -1,0 +1,22 @@
+#labels Phase-Requirements
+Problem Definition:
+	Program needed to schedule and checkout laptops to faculty and staff members.
+
+Design Overview:
+Needed components:
+-GUI interface
+-Needs to be able to scan and accept barcodes, which are used to label the checkout laptops
+-Needs to be able to schedule the use of the laptop for a variable amount of time
+-Laptops must not be scheduled if there is a schedule conflict
+-Needs to be able to assign the use of the laptop to a certain faculty/staff member.
+-Needs to be able to keep a current database of faculty and staff members
+-Faculty and staff members should be searchable by identification information such as their name or I- number.
+-Laptops should be easily searchable by their barcode or computer number.
+-A laptop needs to keep a record of its past borrowers, which should be easily searchable.
+-Faculty and staff members need a record of past laptops they’ve borrowed, easily searchable.
+-Laptops need to be able to be checked out to the faculty member for their scheduled time
+-The scheduled time needs to be changeable (as long as there are no conflicts.)
+-When there are conflicts it should be possible to schedule a new laptop for faculty/staff member in conflict (rather than just the current borrower.)
+-Email notification for when a laptop is late for both the Help Desk as well as the late borrower
+-Program access needs to be password protected.
+-Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)

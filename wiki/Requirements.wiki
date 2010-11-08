@@ -1,5 +1,5 @@
 #labels Phase-Requirements
-Problem Definition:
+<p><pre>Problem Definition:
 	Program needed to schedule and checkout laptops to faculty and staff members.
 
 Design Overview:
@@ -20,3 +20,4 @@ Needed components:
 -Email notification for when a laptop is late for both the Help Desk as well as the late borrower
 -Program access needs to be password protected.
 -Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
+</pre></p>

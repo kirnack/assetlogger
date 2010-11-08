@@ -20,4 +20,5 @@ Needed components:
 -Email notification for when a laptop is late for both the Help Desk as well as the late borrower
 -Program access needs to be password protected.
 -Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
+-enforce 2 weeks, available should be based on whether items been returned as well as scheduled
 </pre></p>

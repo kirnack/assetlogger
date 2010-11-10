@@ -1,7 +1,7 @@
 #summary definition
 #labels Phase-Design
 
-= DataPacket =
+= DataPackets =
 
 An abstract class that has children that holds different kinds of data. These DataPackets are send between views so that the views can know who the current user and requestor is. It also uses it to send checkout information.
 

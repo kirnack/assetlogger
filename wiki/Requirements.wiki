@@ -31,7 +31,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
 
 =Faculty Checkout=
 ===Functional Requirements===
-  * The system shall schedule an asset for use by a faculty members
+  * The system shall schedule one or more assets for use by a faculty members
   * The system shall only schedule assets that are designated as checkout assets
   * The system shall check out an asset to a faculty member for a scheduled time
   * The system shall permit a scheduled asset to be checked out to a faculty member for the time it was scheduled for

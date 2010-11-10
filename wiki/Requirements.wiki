@@ -54,6 +54,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall only rent assets that are designated as a rental asset
   * The system shall permit students to rent assets for multiple semesters
   * The system shall require the student's I-number when the student returns the rental
+  * The system shall require the student to be present when checking out a rental
   * The system shall require the student to be present when returning a rental
   Rational: Students need to go through an inspection process. They are harder to track down than faculty members if something is wrong with the asset. 
 

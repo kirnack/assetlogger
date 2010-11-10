@@ -1,11 +1,11 @@
 #summary Software Requirements Specification
 #labels Phase-Requirements
 <p>
-=Purpose=
+==Purpose==
 Program needed to schedule and checkout laptops to faculty and staff members and rent laptops to students.
 
 
-==Overall System==
+=Overall System=
 ===Functional Requirements===
   * The system shall use barcodes to uniquely identify assets
   Rationale: Both faculty laptops and student rentals are labeled with barcodes. The Help Desk has several scanners.
@@ -27,7 +27,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall permit the admin to modify information about a faculty or student: phone, email
   * The system may print a document for the faculty or student indicating when it is due
 
-==Faculty Checkout==
+=Faculty Checkout=
 ===Functional Requirements===
   * The system shall schedule an asset for use by a faculty member
   * The system shall check out an asset to a faculty member for a scheduled time
@@ -45,7 +45,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system may keep track of students who pick up an asset for someone else
   * The system may display information about a teacher by their name: I-number, phone, email
   * The system may display assets borrowed by a teacher by their name
-==Student Rental==
+=Student Rental=
 ===Functional Requirements===
   * The system shall be able to rent assets for use by students
   * The system shall permit students to rent assets for multiple semesters

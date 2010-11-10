@@ -31,9 +31,10 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall notify the faculty or student by email that a borrowed asset has past its due date the day after it is due
   * The system shall permit faculty and students to reserve an asset remotely
   * The system shall permit the admin to modify information about a faculty or student: phone, email
-  * The system may print a document for the faculty or student indicating when it is due
   * The system shall make assets that are in maintenance unavailable for use
   * The system shall permit help desk employees to change the maintenance status of an asset
+  * The system may print a document for the faculty or student indicating when it is due
+
 
 =Faculty Checkout=
 ===Functional Requirements===

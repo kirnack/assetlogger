@@ -23,3 +23,14 @@ Needed components:
   * Program access needs to be password protected.
   * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
   * enforce 2 weeks, available should be based on whether items been returned as well as scheduled
+
+===Absolute Requirements===
+  * Graphic User interface
+  * Working Database to handle people and assets
+  * Schedule function
+  * Checkout function
+  * Checkin function
+  * Laptops must not be scheduled if there is a schedule conflict
+  * a record of laptops and their borrowers must be kept and easily searchable by either the laptop ID or the borrower ID.
+  * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
+ 

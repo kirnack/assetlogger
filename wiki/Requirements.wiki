@@ -9,67 +9,48 @@ Program needed to schedule and checkout laptops to faculty and staff members.
 ===Functional Requirements===
   * The system shall use barcodes to uniquely identify assets
   Rationale: Both faculty laptops and student rentals are labeled with barcodes. The Help Desk has several scanners.
+  * The system shall permit faculty and students to return assets before the scheduled due date
+  * The system shall permit the return of an asset with the barcode as the only known information about the asset
+  Rationale: We should not require knowing who had the asset in order to return it, just that we have it back
+  * The system shall only schedule assets if they are available for use (not scheduled for another faculty or student during the time needed or in maintenance)
+  * The system shall display information about a faculty or student through their I-number: Name, email, phone number
+  * The system shall display information about an asset through its barcode: make, model, number
+  * The system shall display past borrowers of an asset by the barcode
+  * The system shall encrypt data sent across a network
+  * The system shall protect the ability to check out an asset with a password
+  * The system shall permit both the help desk and call center to schedule assets
+  Rational: This takes offsets the work load from help desk employees onto call center employees
 ===Future Requirements===
+  * The system shall notify the faculty or student by email that a borrowed asset is near its due date the day before it is due
+  * The system shall notify the faculty or student by email that a borrowed asset has past its due date the day after it is due
+  * The system shall permit faculty and students to reserve an asset remotely
+  * The system may print a document for the faculty or student indicating when it is due
+  * The system shall permit the admin to modify information about a faculty or student: phone, email
+
 ==Faculty Checkout==
 ===Functional Requirements===
-
-
-  * The system shall be able to schedule an asset for use by faculty members
-  * The system shall be able to check out an asset to a faculty member for a scheduled time
+  * The system shall schedule an asset for use by a faculty member
+  * The system shall check out an asset to a faculty member for a scheduled time
+  * The system shall permit a scheduled asset to be checked out to a faculty member for the time it was scheduled for
+  * The system shall permit a scheduled asset to change its scheduled time
   * The system shall schedule an asset to a faculty member for no more than two weeks at a time
   * The system shall permit a faculty member to extend a checked out asset for up to two more weeks
-  * The system shall be able to rent assets for use by students
-  * The system shall permit students to rent assets for multiple semesters
-  * The system may set the due date for student rentals to the last weekday before the last day of the last semester they are renting it for
-  * The system shall permit faculty and students to return assets before the scheduled due date
-  * The system may indicate the total cost for students to rent based on the scheduled time period
-  * The system shall not schedule Laptops must not be scheduled if there is a schedule conflict
-  * Needs to be able to assign the use of the laptop to a certain faculty/staff member.
-  * Needs to be able to keep a current database of faculty and staff members
-  * Faculty and staff members should be searchable by identification information such as their name or I- number.
-  * Laptops should be easily searchable by their barcode or computer number.
-  * A laptop needs to keep a record of its past borrowers, which should be easily searchable.
-  * Faculty and staff members need a record of past laptops they’ve borrowed, easily searchable.
-  * Laptops need to be able to be checked out to the faculty member for their scheduled time
-  * The scheduled time needs to be changeable (as long as there are no conflicts.)
-  * When there are conflicts it should be possible to schedule a new laptop for faculty/staff member in conflict (rather than just the current borrower.)
-  * Email notification for when a laptop is late for both the Help Desk as well as the late borrower
-  * Program access needs to be password protected.
-  * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
-  * enforce 2 weeks, available should be based on whether items been returned as well as scheduled
-  * Student laptops also rented
-===Future Requirements===
+  * The system shall schedule assets with work days as the basic unit
 
+  * The system may display past assets a faculty member has borrowed
+
+===Conditional Requirements===
+  * The system shall resolve conflicts when extending a checked out asset by attempting to allowing the faculty member requesting to extension to retain the asset and locate another asset for the other faculty member if such an asset exists; otherwise a new asset will be scheduled for the faculty member requesting to extend
+===Future Requirements===
+  * The system may keep track of students who pick up an asset for someone else
+  * The system shall attempt to optimize scheduling such that the largest possible number of assets will be available at any given time
+  * The system may display information about a teacher by their name: I-number, phone, email
+  * The system may display assets borrowed by a teacher by their name
 ==Student Rental==
 ===Functional Requirements===
+  * The system shall be able to rent assets for use by students
+  * The system shall permit students to rent assets for multiple semesters
 
 ===Future Requirements===
-
-===Absolute Requirements===
-  * Graphic User interface
-  * Working Database to handle people and assets
-  * Schedule function
-  * Checkout function
-  * Checkin function
-  * Laptops must not be scheduled if there is a schedule conflict
-  * a record of laptops and their borrowers must be kept and easily searchable by either the laptop ID or the borrower ID.
-  * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
-
-===User Requests===
-  * keep track of students who pick up for someone else
-  * click on a calander
-  * day to day according to close, not by hour
-  * easy to get to available computers
-  * farthest date away, smart schedule
-  * mac or pc
-  * override for a specific computer
-  * that was easy button
-  * print option for when it's due
-  * email before its due
-  * easy to use interface
-  * nothing but teachers name/dummy proof
-  * be able to edit teacher data
-  * no having to change return dates
-  * don't like having to have password, do we need it?
- 
- 
+  * The system may set the due date for student rentals to the last weekday before the last day of the last semester they are renting it for
+  * The system may indicate the total cost for students to rent based on the scheduled time period 

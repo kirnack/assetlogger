@@ -9,6 +9,8 @@
   * Still needs to be able to handle adding and removing individual laptops from a request
   * Implement student rental ability
   * Review of the design: make improvements
+  Use an object that any view can access so that it can know who the current user is and who the current requestor is. This will avoid having to send DataPackets everywhere.
+  * We should have views send information to some object for storing data that the Function objects can access so that we can get rid of DataPacket sending alltogether
 
 = View =
   * The GUI needs rework so that it matches the needs of our user

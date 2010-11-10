@@ -6,4 +6,4 @@
   * Make it easy to get to available computers
   * Some faculty prefer the macs over the pc, make it easy to see what is available
 
-http://code.google.com/p/assetlogger/source/browse/trunk/AssetLogger/design/Controller.jpg
+[http://code.google.com/p/assetlogger/source/browse/trunk/AssetLogger/design/Controller.jpg]

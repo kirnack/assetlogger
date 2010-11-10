@@ -2,7 +2,7 @@
 #labels Phase-Requirements
 <p>
 =Purpose=
-Program needed to schedule and checkout laptops to faculty and staff members.
+Program needed to schedule and checkout laptops to faculty and staff members and rent laptops to students.
 
 
 ==Overall System==

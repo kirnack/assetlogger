@@ -11,7 +11,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   Rationale: Both faculty laptops and student rentals are labeled with barcodes. The Help Desk has several scanners.
   * The system shall permit faculty and students to return assets before the scheduled due date
   * The system shall permit the return of an asset with the barcode
-  Rationale: This is the core piece of information needed to know an asset is returned. If a specific part of the system needs more information the requirements will specify.
+  Rationale: This is the core piece of information needed to know an asset is returned.
   * The system shall only schedule assets if they are available for use (not scheduled for another faculty or student during the time needed or in maintenance)
   * The system shall display information about a faculty or student through their I-number: Name, email, phone number
   * The system shall display information about an asset through its barcode: make, model, number, label
@@ -53,6 +53,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall rent assets for use by students
   * The system shall only rent assets that are designated as a rental asset
   * The system shall permit students to rent assets for multiple semesters
+  * The system shall require the student's I-number when the student checks out a rental
   * The system shall require the student's I-number when the student returns the rental
   * The system shall require the student to be present when checking out a rental
   * The system shall require the student to be present when returning a rental

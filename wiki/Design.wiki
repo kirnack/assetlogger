@@ -1,0 +1,9 @@
+#summary Elements of the design for this project
+#labels Phase-Design
+
+===User Requests===
+  * Be able to click on a calendar
+  * Make it easy to get to available computers
+  * Some faculty prefer the macs over the pc, make it easy to see what is available
+
+

@@ -3,6 +3,6 @@
 
 = Server Side =
 
-* Sanitization of strings for SQL statements.
-* Still needs to be able to handle adding and removing individual laptops from a request
-* The GUI needs rework so that it matches the needs of our user
+  * Sanitization of strings for SQL statements.
+  * Still needs to be able to handle adding and removing individual laptops from a request
+  * The GUI needs rework so that it matches the needs of our user

@@ -21,6 +21,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall permit only those who have I-numbers to obtain assets
   * The system shall permit both the help desk and call center to schedule assets
   Rational: This takes offsets the work load from help desk employees onto call center employees
+  * The system will display information about a faculty or student by their name: I-number, email, phone
 
 ===Future Requirements===
   * The system shall notify the faculty or student by email that a borrowed asset is near its due date the day before it is due

@@ -34,4 +34,22 @@ Needed components:
   * Laptops must not be scheduled if there is a schedule conflict
   * a record of laptops and their borrowers must be kept and easily searchable by either the laptop ID or the borrower ID.
   * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
+
+===User Requests===
+  * keep track of students who pick up for someone else
+  * click on a calander
+  * day to day according to close, not by hour
+  * easy to get to available computers
+  * farthest date away, smart schedule
+  * mac or pc
+  * override for a specific computer
+  * that was easy button
+  * print option for when it's due
+  * email before its due
+  * easy to use interface
+  * nothing but teachers name/dummy proof
+  * be able to edit teacher data
+  * no having to change return dates
+  * don't like having to have password, do we need it?
+ 
  

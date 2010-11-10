@@ -7,6 +7,7 @@ Program needed to schedule and checkout laptops to faculty and staff members.
 ===Design Overview:===
 Needed components:
   * GUI interface
+    Rationale: cuz
   * Needs to be able to scan and accept barcodes, which are used to label the checkout laptops
   * Needs to be able to schedule the use of the laptop for a variable amount of time
   * Laptops must not be scheduled if there is a schedule conflict

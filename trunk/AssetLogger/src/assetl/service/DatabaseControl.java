@@ -403,17 +403,20 @@ public abstract class DatabaseControl
          checkouts = (ArrayList<Checkout>) request.getCheckouts();
          if (!checkouts.isEmpty())
          {
-            if (checkouts.get(0).getPickedupDate() == null)
+            for (Checkout out : checkouts)
             {
-               //The active checkouts that have not been picked up
+               if (out.getPickedupDate() == null)
+               {
+                  //The active checkouts that have not been picked up
 
-               scheduled.add(request);
-            }
-            else
-            {
-               //The active checkouts that have been picked up
+                  scheduled.add(request);
+               }
+               else
+               {
+                  //The active checkouts that have been picked up
 
-               checkedout.add(request);
+                  checkedout.add(request);
+               }
             }
          }
       }

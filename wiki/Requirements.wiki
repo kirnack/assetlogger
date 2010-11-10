@@ -23,6 +23,7 @@ Needed components:
   * Program access needs to be password protected.
   * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
   * enforce 2 weeks, available should be based on whether items been returned as well as scheduled
+  * Student laptops also rented
 
 ===Absolute Requirements===
   * Graphic User interface

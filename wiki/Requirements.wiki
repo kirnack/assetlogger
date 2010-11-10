@@ -14,12 +14,14 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   Rationale: We should not require knowing who had the asset in order to return it, just that we have it back
   * The system shall only schedule assets if they are available for use (not scheduled for another faculty or student during the time needed or in maintenance)
   * The system shall display information about a faculty or student through their I-number: Name, email, phone number
-  * The system shall display information about an asset through its barcode: make, model, number
+  * The system shall display information about an asset through its barcode: make, model, number, label
   * The system shall display past borrowers of an asset by the barcode
   * The system shall encrypt data sent across a network
-  * The system shall protect the ability to check out an asset with a password
+  * The system shall protect the ability to check out an asset so that only Help Desk employees can perform the operation
+  * The system shall permit only those who have I-numbers to obtain assets
   * The system shall permit both the help desk and call center to schedule assets
   Rational: This takes offsets the work load from help desk employees onto call center employees
+
 ===Future Requirements===
   * The system shall notify the faculty or student by email that a borrowed asset is near its due date the day before it is due
   * The system shall notify the faculty or student by email that a borrowed asset has past its due date the day after it is due
@@ -29,7 +31,8 @@ Program needed to schedule and checkout laptops to faculty and staff members and
 
 =Faculty Checkout=
 ===Functional Requirements===
-  * The system shall schedule an asset for use by a faculty member
+  * The system shall schedule an asset for use by a faculty members
+  * The system shall only schedule assets that are designated as checkout assets
   * The system shall check out an asset to a faculty member for a scheduled time
   * The system shall permit a scheduled asset to be checked out to a faculty member for the time it was scheduled for
   * The system shall permit a scheduled asset to change its scheduled time
@@ -47,9 +50,14 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system may display assets borrowed by a teacher by their name
 =Student Rental=
 ===Functional Requirements===
-  * The system shall be able to rent assets for use by students
+  * The system shall rent assets for use by students
+  * The system shall only rent assets that are designated as a rental asset
   * The system shall permit students to rent assets for multiple semesters
+  * The system shall require the student's I-number when the student returns the rental
+  * The system shall require the student to be present when returning a rental
 
 ===Future Requirements===
+  * The system shall require an inspection of a rental when checked out
+  * The system shall require an inspection of a rental when returned
   * The system may set the due date for student rentals to the last weekday before the last day of the last semester they are renting it for
   * The system may indicate the total cost for students to rent based on the scheduled time period 

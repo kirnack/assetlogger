@@ -4,5 +4,9 @@
 = Server Side =
 
   * Sanitization of strings for SQL statements.
+
+= Controller =
   * Still needs to be able to handle adding and removing individual laptops from a request
+
+= View =
   * The GUI needs rework so that it matches the needs of our user

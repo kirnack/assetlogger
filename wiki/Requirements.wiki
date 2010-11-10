@@ -1,20 +1,29 @@
 #summary Software Requirements Specification
 #labels Phase-Requirements
 <p>
-===Purpose:===
+=Purpose=
 Program needed to schedule and checkout laptops to faculty and staff members.
 
-===Functional Requirements:===
+
+==Overall System==
+===Functional Requirements===
   * The system shall use barcodes to uniquely identify assets
   Rationale: Both faculty laptops and student rentals are labeled with barcodes. The Help Desk has several scanners.
+===Future Requirements===
+==Faculty Checkout==
+===Functional Requirements===
+
+
   * The system shall be able to schedule an asset for use by faculty members
   * The system shall be able to check out an asset to a faculty member for a scheduled time
   * The system shall schedule an asset to a faculty member for no more than two weeks at a time
   * The system shall permit a faculty member to extend a checked out asset for up to two more weeks
   * The system shall be able to rent assets for use by students
-  * The system shall rent assets to students by semester-long time periods
-  * The system shall set the due date for student rentals to the last weekday before the last day of the semester
-  * Laptops must not be scheduled if there is a schedule conflict
+  * The system shall permit students to rent assets for multiple semesters
+  * The system may set the due date for student rentals to the last weekday before the last day of the last semester they are renting it for
+  * The system shall permit faculty and students to return assets before the scheduled due date
+  * The system may indicate the total cost for students to rent based on the scheduled time period
+  * The system shall not schedule Laptops must not be scheduled if there is a schedule conflict
   * Needs to be able to assign the use of the laptop to a certain faculty/staff member.
   * Needs to be able to keep a current database of faculty and staff members
   * Faculty and staff members should be searchable by identification information such as their name or I- number.
@@ -29,6 +38,12 @@ Program needed to schedule and checkout laptops to faculty and staff members.
   * Needs to be networked and synchronized with other program instances running on other machines (in particular the call center and front desk computers need to be in sync.)
   * enforce 2 weeks, available should be based on whether items been returned as well as scheduled
   * Student laptops also rented
+===Future Requirements===
+
+==Student Rental==
+===Functional Requirements===
+
+===Future Requirements===
 
 ===Absolute Requirements===
   * Graphic User interface

@@ -1,14 +1,12 @@
 #summary Software Requirements Specification
 #labels Phase-Requirements
 <p>
-===Problem Definition:===
+===Purpose:===
 Program needed to schedule and checkout laptops to faculty and staff members.
 
-===Design Overview:===
-Needed components:
-  * GUI interface
-    Rationale: cuz
-  * Needs to be able to scan and accept barcodes, which are used to label the checkout laptops
+===Functional Requirements:===
+  * They system shall use barcodes to uniquely identify assets
+  Rationale: Both faculty laptops and student rentals are labeled with barcodes. The Help Desk has several scanners.
   * Needs to be able to schedule the use of the laptop for a variable amount of time
   * Laptops must not be scheduled if there is a schedule conflict
   * Needs to be able to assign the use of the laptop to a certain faculty/staff member.

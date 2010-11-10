@@ -4,6 +4,7 @@
 = Server Side =
 
   * Sanitization of strings for SQL statements.
+  * We might add an extra field for the label of an asset to distinguish it apart from the rentals vs checkouts
 
 = Controller =
   * Still needs to be able to handle adding and removing individual laptops from a request

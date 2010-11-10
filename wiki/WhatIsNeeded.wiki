@@ -7,6 +7,9 @@
 
 = Controller =
   * Still needs to be able to handle adding and removing individual laptops from a request
+  * Implement student rental ability
+  * Review of the design: make improvements
 
 = View =
   * The GUI needs rework so that it matches the needs of our user
+  * Review of the design: make improvements

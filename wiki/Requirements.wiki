@@ -36,7 +36,6 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall schedule an asset to a faculty member for no more than two weeks at a time
   * The system shall permit a faculty member to extend a checked out asset for up to two more weeks
   * The system shall schedule assets with work days as the basic unit
-
   * The system may display past assets a faculty member has borrowed
 
 ===Conditional Requirements===

@@ -20,6 +20,8 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall display past borrowers of an asset by the barcode
   * The system shall encrypt data sent across a network
   * The system shall protect the ability to check out an asset so that only Help Desk employees can perform the operation
+  * The system shall distinguish searching for different asset types
+  Rational: Laptops for faculty and those for students are different. Also the Help Desk may be handling more than just laptops in the future.
   * The system shall permit only those who have I-numbers to obtain assets
   * The system shall permit both the help desk and call center to schedule assets
   Rational: This takes offsets the work load from help desk employees onto call center employees

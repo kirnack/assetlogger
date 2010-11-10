@@ -5,9 +5,15 @@
 Program needed to schedule and checkout laptops to faculty and staff members.
 
 ===Functional Requirements:===
-  * They system shall use barcodes to uniquely identify assets
+  * The system shall use barcodes to uniquely identify assets
   Rationale: Both faculty laptops and student rentals are labeled with barcodes. The Help Desk has several scanners.
-  * Needs to be able to schedule the use of the laptop for a variable amount of time
+  * The system shall be able to schedule an asset for use by faculty members
+  * The system shall be able to check out an asset to a faculty member for a scheduled time
+  * The system shall schedule an asset to a faculty member for no more than two weeks at a time
+  * The system shall permit a faculty member to extend a checked out asset for up to two more weeks
+  * The system shall be able to rent assets for use by students
+  * The system shall rent assets to students by semester-long time periods
+  * The system shall set the due date for student rentals to the last weekday before the last day of the semester
   * Laptops must not be scheduled if there is a schedule conflict
   * Needs to be able to assign the use of the laptop to a certain faculty/staff member.
   * Needs to be able to keep a current database of faculty and staff members

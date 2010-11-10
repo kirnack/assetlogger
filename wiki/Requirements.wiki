@@ -4,6 +4,8 @@
 ==Purpose==
 Program needed to schedule and checkout laptops to faculty and staff members and rent laptops to students.
 
+===Definitions===
+  * Available: Not scheduled for another faculty or student during the time needed or in maintenance
 
 =Overall System=
 ===Functional Requirements===
@@ -12,7 +14,7 @@ Program needed to schedule and checkout laptops to faculty and staff members and
   * The system shall permit faculty and students to return assets before the scheduled due date
   * The system shall permit the return of an asset with the barcode
   Rationale: This is the core piece of information needed to know an asset is returned.
-  * The system shall only schedule assets if they are available for use (not scheduled for another faculty or student during the time needed or in maintenance)
+  * The system shall only schedule assets if they are available for use
   * The system shall display information about a faculty or student through their I-number: Name, email, phone number
   * The system shall display information about an asset through its barcode: make, model, number, label
   * The system shall display past borrowers of an asset by the barcode

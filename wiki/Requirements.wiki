@@ -1,10 +1,10 @@
 #summary Software Requirements Specification
 #labels Phase-Requirements
 <p>
-=Problem Definition:=
+===Problem Definition:===
 Program needed to schedule and checkout laptops to faculty and staff members.
 
-=Design Overview:=
+===Design Overview:===
 Needed components:
   *GUI interface
   *Needs to be able to scan and accept barcodes, which are used to label the checkout laptops

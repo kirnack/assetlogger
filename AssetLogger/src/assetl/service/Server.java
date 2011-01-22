@@ -1456,6 +1456,25 @@ public class Server
    }
 
    /**
+    * Used to give the information of where this server is located at.
+    * For use with a method of find avalable Asset Logger Server.
+    */
+   public String areYouThere()
+   {
+      String response = "Hi there Bob";
+      try
+      {
+         response = InetAddress.getLocalHost().toString();
+      }
+      catch(Exception e)
+      {
+         
+      }
+
+      return response;
+   }
+
+   /**
     * Returns the number of requests that are in the database.  This can be
     * used to create the appropriate request ID when a log is created.
     * @return The number of request in the database.

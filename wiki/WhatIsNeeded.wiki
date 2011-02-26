@@ -27,4 +27,5 @@
   * Get it networked
   * Work out bugs
   * Get a fully documented design
+  * Hook up our database with the schools (which we will only have read access for) 
   * Optional: get the ability to rent student laptops 

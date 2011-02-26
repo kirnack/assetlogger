@@ -22,7 +22,7 @@
 
   * We have a conflict in the requirements. We need to decide when to make an asset available for use. We of course want to make it so that requests can be made far in advance. We also don't want for a teacher to bring it back late and cause another teacher to not get one. There has been some discussion about charging a fine, which would alleviate the issue.
 
-In a nutshell this is what is needed for Winter 2011:
+===In a nutshell this is what is needed for Winter 2011:===
   * Implement the ability to swap out individual assets
   * Get it networked
   * Work out bugs

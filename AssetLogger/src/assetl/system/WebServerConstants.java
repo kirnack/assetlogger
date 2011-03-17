@@ -82,6 +82,30 @@ public class WebServerConstants
     */
    public static String RESP_CONTENT_TYPE_TEXT = "Content-type: text/plain";
    /**
+    * Plain Text Content Type
+    */
+   public static String RESP_CONTENT_TYPE_XML = "Content-type: text/xml";
+   /**
+    * Plain Text Content Type
+    */
+   public static String RESP_CONTENT_TYPE_REQUEST = "Content-type: assetl/req";
+   /**
+    * Plain Text Content Type
+    */
+   public static String RESP_CONTENT_TYPE_ASSET = "Content-type: assetl/asset";
+   /**
+    * Plain Text Content Type
+    */
+   public static String RESP_CONTENT_TYPE_PERSON = "Content-type: assetl/person";
+    /**
+    * Plain Text Content Type
+    */
+   public static String RESP_CONTENT_TYPE_CHECKOUT = "Content-type: assetl/checkout";
+    /**
+    * Plain Text Content Type
+    */
+   public static String RESP_CONTENT_TYPE_LOG = "Content-type: assetl/log";    
+   /**
     * JPG Content Type
     */
    public static String RESP_CONTENT_TYPE_JPG = "Content-type: image/jpg";
